@@ -165,6 +165,12 @@ MonoBehaviour:
   moveSpeed: 3
   leftHand: {fileID: 1407846860}
   rightHand: {fileID: 542915218}
+  body: {fileID: 2600406147098658013}
+  materials:
+  - {fileID: 2100000, guid: 206b723746b74b748b052507dc4c5c24, type: 2}
+  - {fileID: 2100000, guid: 65f14620674697541ba2055194b5e474, type: 2}
+  - {fileID: 2100000, guid: 05e208820043b5048a1844fa6e9f1c06, type: 2}
+  - {fileID: 2100000, guid: dbf9754260da33743a34fc61e8890a65, type: 2}
 --- !u!114 &2352652747308371321
 MonoBehaviour:
   m_ObjectHideFlags: 0

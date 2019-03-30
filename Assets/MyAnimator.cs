@@ -8,9 +8,18 @@ public class MyAnimator : NetworkBehaviour {
 	public float moveSpeed = 3;
 	public Collider leftHand;
 	public Collider rightHand;
+	public SkinnedMeshRenderer body;
+	public Material[] materials;
+	static int materialIndex = 0;
 
 	void Start() {
 		if (isLocalPlayer) {
+			if (materialIndex >= materials.Length) {
+				materialIndex = 0;
+			}
+			body.material = materials[materialIndex];
+			materialIndex++;
+
 			animator = GetComponent<Animator>();
 			leftHand.enabled = false;
 			rightHand.enabled = false;
