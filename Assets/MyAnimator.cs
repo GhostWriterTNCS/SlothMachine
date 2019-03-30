@@ -81,9 +81,7 @@ public class MyAnimator : NetworkBehaviour {
 		}
 	}
 
-	//Called everytime "health" is changed
 	public void UpdateHealthValue(float newHealth) {
-		//this.hpText.text = newHealth.ToString();
 		health = newHealth;
 		healthSlider.value = health / maxHealth;
 	}
