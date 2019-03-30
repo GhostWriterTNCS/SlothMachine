@@ -31,14 +31,13 @@ public class MyAnimator : NetworkBehaviour {
 
 	void Update() {
 		if (isLocalPlayer) {
-			transform.position = new Vector3(transform.position.x + Input.GetAxis("Horizontal") * Time.deltaTime * moveSpeed, transform.position.y, transform.position.z + Input.GetAxis("Vertical") * Time.deltaTime * moveSpeed);
+			// Move player
+			transform.position += transform.forward * Input.GetAxis("Vertical") * Time.deltaTime * moveSpeed;
+			transform.position += Quaternion.AngleAxis(-90, transform.forward) * Vector3.up * Input.GetAxis("Horizontal") * Time.deltaTime * moveSpeed;
 			animator.SetFloat("WalkH", Input.GetAxis("Horizontal"));
 			animator.SetFloat("WalkV", Input.GetAxis("Vertical"));
 
-			AnimationClip animationClip = new AnimationClip();
-			if (animator.GetCurrentAnimatorClipInfo(0).Length > 0) {
-				animationClip = animator.GetCurrentAnimatorClipInfo(0)[0].clip;
-			}
+			// Actions
 			if (Input.GetButtonDown("X")) {
 				animator.SetTrigger("Punch");
 			} else if (Input.GetButtonDown("Y")) {
