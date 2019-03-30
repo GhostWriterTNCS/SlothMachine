@@ -62,9 +62,22 @@ public class MyAnimator : NetworkBehaviour {
 			// Actions
 			if (Input.GetButtonDown("X")) {
 				networkAnimator.SetTrigger("Punch");
+				if (isServer) {
+					networkAnimator.animator.ResetTrigger("Punch");
+				}
 			} else if (Input.GetButtonDown("Y")) {
 				networkAnimator.SetTrigger("Boxing");
+				if (isServer) {
+					networkAnimator.animator.ResetTrigger("Boxing");
+				}
 			}
+		}
+	}
+
+	protected void SetTrigger(string trigger) {
+		networkAnimator.SetTrigger(trigger);
+		if (isServer) {
+			networkAnimator.animator.ResetTrigger(trigger);
 		}
 	}
 
