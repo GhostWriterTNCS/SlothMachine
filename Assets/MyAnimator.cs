@@ -1,16 +1,27 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Animator))]
 public class MyAnimator : NetworkBehaviour {
 	public Camera playerCamera;
 	public float moveSpeed = 3;
 	public float turnSpeed = 3;
+	[SerializeField]
 	public Collider leftHand;
+	[SerializeField]
 	public Collider rightHand;
 	public SkinnedMeshRenderer body;
 	public Material[] materials;
-	static int materialIndex = 0;
+	public Slider healthSlider;
+
+	//From server to client: keeps the maximum health of every tank in game
+	[SyncVar]
+	public int maxHealth = 100;
+
+	//From server to client: keeps the current health of every tank. If the value is updated, "UpdateHealth" is executed on clients
+	[SyncVar]
+	float health;
 
 	Vector3 cameraOffset;
 	Quaternion cameraRotation;
@@ -19,23 +30,24 @@ public class MyAnimator : NetworkBehaviour {
 
 	void Start() {
 		if (isLocalPlayer) {
-			if (materialIndex >= materials.Length) {
+			/*if (materialIndex >= materials.Length) {
 				materialIndex = 0;
 			}
 			body.material = materials[materialIndex];
-			materialIndex++;
+			materialIndex++;*/
 
 			cameraOffset = new Vector3(playerCamera.transform.localPosition.x, playerCamera.transform.localPosition.y, playerCamera.transform.localPosition.z);
 			cameraRotation = playerCamera.transform.localRotation;
-			Debug.Log(cameraRotation);
 			animator = GetComponent<Animator>();
 			networkAnimator = GetComponent<NetworkAnimator>();
-			leftHand.enabled = false;
-			rightHand.enabled = false;
+
+			UpdateHealthValue(maxHealth);
 		} else {
 			playerCamera.enabled = false;
 			playerCamera.GetComponent<AudioListener>().enabled = false;
 		}
+		leftHand.enabled = false;
+		rightHand.enabled = false;
 	}
 
 	void Update() {
@@ -54,5 +66,15 @@ public class MyAnimator : NetworkBehaviour {
 				networkAnimator.SetTrigger("Boxing");
 			}
 		}
+	}
+
+	//Called everytime "health" is changed
+	public void UpdateHealthValue(float newHealth) {
+		//this.hpText.text = newHealth.ToString();
+		health = newHealth;
+		healthSlider.value = health / maxHealth;
+	}
+	public void UpdateHealth(float variation) {
+		UpdateHealthValue(health + variation);
 	}
 }
