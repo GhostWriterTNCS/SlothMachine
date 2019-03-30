@@ -3,7 +3,6 @@ using UnityEngine.Networking;
 
 [RequireComponent(typeof(Animator))]
 public class MyAnimator : NetworkBehaviour {
-	Animator animator;
 	public Camera camera;
 	public float moveSpeed = 3;
 	public Collider leftHand;
@@ -11,6 +10,9 @@ public class MyAnimator : NetworkBehaviour {
 	public SkinnedMeshRenderer body;
 	public Material[] materials;
 	static int materialIndex = 0;
+
+	Animator animator;
+	NetworkAnimator networkAnimator;
 
 	void Start() {
 		if (isLocalPlayer) {
@@ -21,6 +23,7 @@ public class MyAnimator : NetworkBehaviour {
 			materialIndex++;
 
 			animator = GetComponent<Animator>();
+			networkAnimator = GetComponent<NetworkAnimator>();
 			leftHand.enabled = false;
 			rightHand.enabled = false;
 		} else {
@@ -39,9 +42,9 @@ public class MyAnimator : NetworkBehaviour {
 
 			// Actions
 			if (Input.GetButtonDown("X")) {
-				animator.SetTrigger("Punch");
+				networkAnimator.SetTrigger("Punch");
 			} else if (Input.GetButtonDown("Y")) {
-				animator.SetTrigger("Boxing");
+				networkAnimator.SetTrigger("Boxing");
 			}
 		}
 	}
