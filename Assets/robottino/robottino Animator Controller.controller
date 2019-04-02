@@ -9,19 +9,13 @@ AnimatorController:
   m_Name: robottino Animator Controller
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: Punch
+  - m_Name: X
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: Double punch
-    m_Type: 9
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 0}
-  - m_Name: Boxing
+  - m_Name: Y
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -134,7 +128,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: Boxing
+    m_ConditionEvent: Y
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102129579534157804}
@@ -158,7 +152,7 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 3
+  - m_ConditionMode: 4
     m_ConditionEvent: WalkV
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
@@ -184,7 +178,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: Punch
+    m_ConditionEvent: X
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102828043368006434}
@@ -277,7 +271,7 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 3
+  - m_ConditionMode: 4
     m_ConditionEvent: WalkV
     m_EventTreshold: 0.01
   m_DstStateMachine: {fileID: 0}
@@ -302,7 +296,7 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 3
+  - m_ConditionMode: 4
     m_ConditionEvent: WalkV
     m_EventTreshold: 0
   - m_ConditionMode: 4
@@ -358,7 +352,7 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 3
+  - m_ConditionMode: 4
     m_ConditionEvent: WalkV
     m_EventTreshold: 0
   - m_ConditionMode: 3
@@ -387,7 +381,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: Punch
+    m_ConditionEvent: X
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102648308152970880}
@@ -904,7 +898,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 830ef49a820a2ff429017f72ac0a715a, type: 3}
+  m_Motion: {fileID: 7400000, guid: 34cfbb18cd77e094fad183b0aa978f80, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -934,7 +928,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 70c43428137957f4c93da0f8ec917718, type: 3}
+  m_Motion: {fileID: 7400000, guid: 34cfbb18cd77e094fad183b0aa978f80, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -947,7 +941,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Boxing
+  m_Name: Kicking
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -962,7 +956,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: c96e3dc68609d5e48bb0003ac70e7fe4, type: 3}
+  m_Motion: {fileID: 7400000, guid: 82422c6343de9ff438868ff32a9b09cf, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -990,7 +984,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 1d36613bed1974b4fa221d815d72bb20, type: 3}
+  m_Motion: {fileID: 7400000, guid: cf8eadd82a5903b46b330a0bb4b4aff6, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -1020,7 +1014,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 5658ec5845dcf8440b7a19f2e2e3429a, type: 3}
+  m_Motion: {fileID: 7400000, guid: 57c00211b8a8d9546944e9b805275a7b, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -1077,7 +1071,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 6207c4fcd65cd00459de8fee6bd43f63, type: 3}
+  m_Motion: {fileID: 7400000, guid: 724ee022664769c44b555345fd71f366, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -1107,7 +1101,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 62da1e51c174bac4eb00a975dacdc756, type: 3}
+  m_Motion: {fileID: 7400000, guid: ba7f68310ef0b3e4db4de70c4fc13452, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -1146,8 +1140,8 @@ AnimatorStateMachine:
   m_EntryTransitions: []
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
-  m_AnyStatePosition: {x: 50, y: 20, z: 0}
-  m_EntryPosition: {x: 50, y: 120, z: 0}
+  m_AnyStatePosition: {x: 132, y: 12, z: 0}
+  m_EntryPosition: {x: 132, y: 132, z: 0}
   m_ExitPosition: {x: 792, y: 132, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: 1102026310627546060}

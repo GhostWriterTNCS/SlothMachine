@@ -40,12 +40,11 @@ public class MyAnimator : NetworkBehaviour {
 			cameraRotation = playerCamera.transform.localRotation;
 			animator = GetComponent<Animator>();
 			networkAnimator = GetComponent<NetworkAnimator>();
-
-			UpdateHealthValue(maxHealth);
 		} else {
 			playerCamera.enabled = false;
 			playerCamera.GetComponent<AudioListener>().enabled = false;
 		}
+		UpdateHealthValue(maxHealth);
 		leftHand.enabled = false;
 		rightHand.enabled = false;
 	}
@@ -82,6 +81,7 @@ public class MyAnimator : NetworkBehaviour {
 	}
 
 	public void UpdateHealthValue(float newHealth) {
+		Debug.Log(health +" -> " + newHealth);
 		health = newHealth;
 		healthSlider.value = health / maxHealth;
 	}

@@ -2193,6 +2193,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9095947365502749557}
+  - component: {fileID: 5113352249364739169}
+  - component: {fileID: 3849375872468758586}
   m_Layer: 0
   m_Name: mixamorig:Spine2
   m_TagString: Untagged
@@ -2217,6 +2219,33 @@ Transform:
   m_Father: {fileID: 9114246582658636662}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &5113352249364739169
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4214337663998411470}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 1.56
+  m_Height: 3.09
+  m_Direction: 1
+  m_Center: {x: 0, y: -0.46, z: 0}
+--- !u!114 &3849375872468758586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4214337663998411470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dac069dcd38102645aa34772586fe000, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 5147000838884391280}
 --- !u!1 &4313543607743629055
 GameObject:
   m_ObjectHideFlags: 0
@@ -4590,6 +4619,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6203749650209319956}
+  - component: {fileID: 4907692755380301341}
+  - component: {fileID: 1883967679727982396}
   m_Layer: 0
   m_Name: mixamorig:Head
   m_TagString: Untagged
@@ -4612,6 +4643,33 @@ Transform:
   m_Father: {fileID: 8324620250840265588}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &4907692755380301341
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8906805957878265792}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 1.63
+  m_Height: 3.8
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.01, z: 0}
+--- !u!114 &1883967679727982396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8906805957878265792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dac069dcd38102645aa34772586fe000, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 5147000838884391280}
 --- !u!1 &8936393413108158407
 GameObject:
   m_ObjectHideFlags: 0
