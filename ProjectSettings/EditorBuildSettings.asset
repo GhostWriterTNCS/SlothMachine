@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Lobby.unity
     guid: 30290d7ae34772a428c8aa244c0714ef
   - enabled: 1
-    path: Assets/Main scene.unity
+    path: Assets/Arena.unity
     guid: 9441a00e514fb7d4093e65eb66d55c74
   m_configObjects: {}
