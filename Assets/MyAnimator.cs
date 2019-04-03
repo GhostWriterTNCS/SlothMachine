@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
@@ -7,6 +9,7 @@ public class MyAnimator : NetworkBehaviour {
 	public Camera playerCamera;
 	public float moveSpeed = 3;
 	public float turnSpeed = 3;
+	public float comboDelay = 1;
 	[SerializeField]
 	public Collider leftHand;
 	[SerializeField]
@@ -60,15 +63,9 @@ public class MyAnimator : NetworkBehaviour {
 
 			// Actions
 			if (Input.GetButtonDown("X")) {
-				networkAnimator.SetTrigger("X");
-				if (isServer) {
-					networkAnimator.animator.ResetTrigger("X");
-				}
+				SetTrigger("X");
 			} else if (Input.GetButtonDown("Y")) {
-				networkAnimator.SetTrigger("Y");
-				if (isServer) {
-					networkAnimator.animator.ResetTrigger("Y");
-				}
+				SetTrigger("Y");
 			}
 
 			// Adjust health sliders orientation
@@ -83,6 +80,13 @@ public class MyAnimator : NetworkBehaviour {
 		if (isServer) {
 			networkAnimator.animator.ResetTrigger(trigger);
 		}
+		string triggerID = trigger;
+		StartCoroutine(DelayCall(() => networkAnimator.animator.ResetTrigger(triggerID), comboDelay));
+	}
+
+	IEnumerator DelayCall(Action action, float delayTime) {
+		yield return new WaitForSeconds(delayTime);
+		action();
 	}
 
 	public void UpdateHealthValue(float newHealth) {
