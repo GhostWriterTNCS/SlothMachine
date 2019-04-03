@@ -70,6 +70,11 @@ public class MyAnimator : NetworkBehaviour {
 					networkAnimator.animator.ResetTrigger("Y");
 				}
 			}
+
+			// Adjust health sliders orientation
+			foreach (MyAnimator a in FindObjectsOfType<MyAnimator>()) {
+				a.GetComponentInChildren<Canvas>().transform.LookAt(playerCamera.transform);
+			}
 		}
 	}
 
@@ -81,7 +86,7 @@ public class MyAnimator : NetworkBehaviour {
 	}
 
 	public void UpdateHealthValue(float newHealth) {
-		Debug.Log(health +" -> " + newHealth);
+		Debug.Log(health + " -> " + newHealth);
 		health = newHealth;
 		healthSlider.value = health / maxHealth;
 	}
