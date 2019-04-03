@@ -32,21 +32,15 @@ public class MyAnimator : NetworkBehaviour {
 	NetworkAnimator networkAnimator;
 
 	void Start() {
-		if (isLocalPlayer) {
-			/*if (materialIndex >= materials.Length) {
-				materialIndex = 0;
-			}
-			body.material = materials[materialIndex];
-			materialIndex++;*/
-
-			cameraOffset = new Vector3(playerCamera.transform.localPosition.x, playerCamera.transform.localPosition.y, playerCamera.transform.localPosition.z);
-			cameraRotation = playerCamera.transform.localRotation;
-			animator = GetComponent<Animator>();
-			networkAnimator = GetComponent<NetworkAnimator>();
-		} else {
+		if (!isLocalPlayer) {
 			playerCamera.enabled = false;
 			playerCamera.GetComponent<AudioListener>().enabled = false;
 		}
+		cameraOffset = new Vector3(playerCamera.transform.localPosition.x, playerCamera.transform.localPosition.y, playerCamera.transform.localPosition.z);
+		cameraRotation = playerCamera.transform.localRotation;
+		animator = GetComponent<Animator>();
+		networkAnimator = GetComponent<NetworkAnimator>();
+
 		UpdateHealthValue(maxHealth);
 		leftHand.enabled = false;
 		rightHand.enabled = false;
@@ -66,6 +60,11 @@ public class MyAnimator : NetworkBehaviour {
 				SetTrigger("X");
 			} else if (Input.GetButtonDown("Y")) {
 				SetTrigger("Y");
+			}
+			if (Input.GetButtonDown("LB")) {
+				animator.SetBool("LB", true);
+			} else if (Input.GetButtonUp("LB")) {
+				animator.SetBool("LB", false);
 			}
 
 			// Adjust health sliders orientation
@@ -94,7 +93,9 @@ public class MyAnimator : NetworkBehaviour {
 		health = newHealth;
 		healthSlider.value = health / maxHealth;
 	}
-	public void UpdateHealth(float variation) {
-		UpdateHealthValue(health + variation);
+	public void UpdateHealth(float variation, bool isHeavy = false) {
+		if (!animator.GetBool("LB") || isHeavy) {
+			UpdateHealthValue(health + variation);
+		}
 	}
 }
