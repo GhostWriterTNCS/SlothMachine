@@ -4,14 +4,16 @@ public class MyAnimation : StateMachineBehaviour {
 	public bool enableLeftHand = false;
 	public bool enableRightHand = false;
 
+	Player player;
+
 	// OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
 	override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-		MyAnimator myAnimator = animator.GetComponent<MyAnimator>();
+		player = animator.GetComponent<Player>();
 		if (enableLeftHand) {
-			myAnimator.leftHand.enabled = true;
+			player.leftHand.enabled = true;
 		}
 		if (enableRightHand) {
-			myAnimator.rightHand.enabled = true;
+			player.rightHand.enabled = true;
 		}
 	}
 
@@ -23,12 +25,11 @@ public class MyAnimation : StateMachineBehaviour {
 
 	// OnStateExit is called when a transition ends and the state machine finishes evaluating this state
 	override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-		MyAnimator myAnimator = animator.GetComponent<MyAnimator>();
 		if (enableLeftHand) {
-			myAnimator.leftHand.enabled = false;
+			player.leftHand.enabled = false;
 		}
 		if (enableRightHand) {
-			myAnimator.rightHand.enabled = false;
+			player.rightHand.enabled = false;
 		}
 	}
 

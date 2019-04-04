@@ -3,12 +3,12 @@ using UnityEngine;
 
 public class Hitted : MonoBehaviour {
 	public Animator animator;
-	MyAnimator myAnimator;
+	Player player;
 	List<Collider> siblings = new List<Collider>();
 
 	// Start is called before the first frame update
 	void Start() {
-		myAnimator = animator.GetComponent<MyAnimator>();
+		player = GetPlayer(transform);
 
 		Transform t = transform.parent;
 		while (t.parent) {
@@ -17,18 +17,17 @@ public class Hitted : MonoBehaviour {
 		siblings.AddRange(t.GetComponentsInChildren<Collider>());
 	}
 
-	// Update is called once per frame
-	void Update() {
-
-	}
-
 	private void OnTriggerEnter(Collider other) {
 		if (animator && !siblings.Contains(other) && other.isTrigger && !other.GetComponent<Hitted>()) {
-			Debug.Log(name + " collided by " + other.name);
 			other.enabled = false;
-			animator.SetTrigger("Reaction");
-
-			myAnimator.UpdateHealth(-5);
+			player.GetHitted(GetPlayer(other.transform));
 		}
+	}
+
+	Player GetPlayer(Transform t) {
+		while (transform != null && transform.GetComponentInParent<Player>() == null) {
+			t = transform.parent;
+		}
+		return transform.GetComponentInParent<Player>();
 	}
 }
