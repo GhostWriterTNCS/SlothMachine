@@ -116,6 +116,9 @@ public class Player : NetworkBehaviour {
 		Debug.Log(health + " -> " + newHealth);
 		health = newHealth;
 		healthSlider.value = health / maxHealth;
+		if (health <= 0) {
+			CmdRespawn();
+		}
 	}
 	public void UpdateHealth(float variation, bool isHeavy = false) {
 		if (!animator.GetBool("LB") || isHeavy) {
@@ -131,5 +134,13 @@ public class Player : NetworkBehaviour {
 			pushedBack = pushBackDuration;
 			pushDirection = hitter.transform.forward;
 		}
+	}
+
+	[Command]
+	void CmdRespawn() {
+		UpdateHealthValue(maxHealth);
+		var spawn = NetworkManager.singleton.GetStartPosition();
+		transform.position = spawn.position;
+		transform.rotation = spawn.rotation;
 	}
 }
