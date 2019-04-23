@@ -30,6 +30,7 @@ public class Player : NetworkBehaviour {
 	[SyncVar]
 	float health;
 
+	Rigidbody rigidbody;
 	Vector3 cameraOffset;
 	Quaternion cameraRotation;
 	Animator animator;
@@ -40,6 +41,7 @@ public class Player : NetworkBehaviour {
 			playerCamera.enabled = false;
 			playerCamera.GetComponent<AudioListener>().enabled = false;
 		}
+		rigidbody = GetComponent<Rigidbody>();
 		cameraOffset = new Vector3(playerCamera.transform.localPosition.x, playerCamera.transform.localPosition.y, playerCamera.transform.localPosition.z);
 		cameraRotation = playerCamera.transform.localRotation;
 		animator = GetComponent<Animator>();
@@ -58,14 +60,13 @@ public class Player : NetworkBehaviour {
 	Vector3 pushDirection;
 	void Update() {
 		if (pushedBack > 0) {
-			transform.position -= pushDirection * pushBackPower * Time.deltaTime;
+			rigidbody.MovePosition(rigidbody.position - pushDirection * pushBackPower * Time.deltaTime);
 			pushedBack -= Time.deltaTime;
 		} else {
 			if (isLocalPlayer) {
 				// Move player and rotate camera
-				transform.position += transform.forward * Input.GetAxis("Vertical") * Time.deltaTime * moveSpeed;
-				transform.position += Quaternion.AngleAxis(-90, transform.forward) * Vector3.up * Input.GetAxis("Horizontal") * Time.deltaTime * moveSpeed;
-				transform.localRotation *= Quaternion.Euler(Vector3.up * Input.GetAxis("Camera Horizontal") * turnSpeed);
+				rigidbody.MovePosition(rigidbody.position + (transform.forward * Input.GetAxis("Vertical") + transform.right * Input.GetAxis("Horizontal")) * Time.deltaTime * moveSpeed);
+				rigidbody.MoveRotation(rigidbody.rotation * Quaternion.Euler(Vector3.up * Input.GetAxis("Camera Horizontal") * turnSpeed));
 				animator.SetFloat("WalkH", Input.GetAxis("Horizontal"));
 				animator.SetFloat("WalkV", Input.GetAxis("Vertical"));
 			}
@@ -73,7 +74,13 @@ public class Player : NetworkBehaviour {
 
 		// Actions
 		holdButton += Time.deltaTime;
-		if (Input.GetButtonDown("X")) {
+		if (Input.GetButtonDown("A")) {
+			holdButton = 0;
+		} else if (Input.GetButtonUp("A")) {
+			holdDuration = holdButton;
+			Debug.Log(holdDuration + " " + (holdDuration >= holdMinDuration));
+			SetTrigger("A");
+		} else if (Input.GetButtonDown("X")) {
 			holdButton = 0;
 		} else if (Input.GetButtonUp("X")) {
 			holdDuration = holdButton;

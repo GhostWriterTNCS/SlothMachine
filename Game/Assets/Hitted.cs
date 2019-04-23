@@ -19,7 +19,7 @@ public class Hitted : MonoBehaviour {
 
 	private void OnTriggerEnter(Collider other) {
 		if (animator && !siblings.Contains(other) && other.isTrigger && !other.GetComponent<Hitted>()) {
-			other.enabled = false;
+			//other.enabled = false;
 			player.GetHitted(GetPlayer(other.transform));
 		}
 	}

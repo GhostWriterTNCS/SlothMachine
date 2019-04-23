@@ -173,7 +173,7 @@ GameObject:
   - component: {fileID: 3839373506520032606}
   - component: {fileID: 1511056818983966627}
   m_Layer: 0
-  m_Name: robottino
+  m_Name: Kiddo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -206,7 +206,7 @@ Animator:
   m_GameObject: {fileID: 398361175911409946}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: e4841ef8fac14764db877eeac24ebea9, type: 3}
-  m_Controller: {fileID: 9100000, guid: d4b493c9c6758f448ab8fbbc287de833, type: 2}
+  m_Controller: {fileID: 9100000, guid: f9888cd867cd6c448b8007a8f61f7c1b, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
