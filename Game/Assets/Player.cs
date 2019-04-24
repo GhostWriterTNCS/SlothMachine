@@ -15,12 +15,15 @@ public class Player : NetworkBehaviour {
 	float pushBackDuration = 0.7f;
 
 	[SerializeField]
-	public Collider leftHand;
+	public SphereCollider leftHand;
 	[SerializeField]
-	public Collider rightHand;
+	public SphereCollider rightHand;
 	public SkinnedMeshRenderer body;
 	public Material[] materials;
 	public Slider healthSlider;
+
+	[SerializeField]
+	public GameObject handsParticle;
 
 	//From server to client: keeps the maximum health of every tank in game
 	[SyncVar]
@@ -149,5 +152,27 @@ public class Player : NetworkBehaviour {
 		var spawn = NetworkManager.singleton.GetStartPosition();
 		transform.position = spawn.position;
 		transform.rotation = spawn.rotation;
+	}
+
+	public void SetHandsParticle(GameObject particle) {
+		Debug.Log("Set hands particle: " + particle.name);
+		if (particle != handsParticle) {
+			handsParticle = particle;
+			for (int i = 0; i < leftHand.transform.childCount; i++) {
+				Destroy(leftHand.transform.GetChild(i).gameObject);
+			}
+			GameObject leftParticle = Instantiate(particle);
+			leftParticle.transform.SetParent(leftHand.transform);
+			leftParticle.transform.localPosition = leftHand.center;
+			leftParticle.transform.localScale = Vector3.one;
+
+			for (int i = 0; i < rightHand.transform.childCount; i++) {
+				Destroy(rightHand.transform.GetChild(i).gameObject);
+			}
+			GameObject rightParticle = Instantiate(particle);
+			rightParticle.transform.SetParent(rightHand.transform);
+			rightParticle.transform.localPosition = rightHand.center;
+			rightParticle.transform.localScale = Vector3.one;
+		}
 	}
 }
