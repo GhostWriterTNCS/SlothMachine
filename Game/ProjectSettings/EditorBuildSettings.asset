@@ -6,9 +6,33 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Lobby.unity
-    guid: 30290d7ae34772a428c8aa244c0714ef
+    path: Assets/Scenes/Start screen.unity
+    guid: 428dbea81ef096e44b17f27bf5cb5b4b
   - enabled: 1
-    path: Assets/Arena.unity
+    path: Assets/Scenes/Arena.unity
     guid: 9441a00e514fb7d4093e65eb66d55c74
+  - enabled: 1
+    path: Assets/Scenes/Auction.unity
+    guid: 5b26b194a1229a64489fa6f0f5df2e38
+  - enabled: 1
+    path: Assets/Scenes/Avatar screen.unity
+    guid: c601c83efa05a6742a47bbf7f0962dfa
+  - enabled: 1
+    path: Assets/Scenes/Customize.unity
+    guid: 5b0a827fbd30b9a478f9aba2d89f2e9d
+  - enabled: 1
+    path: Assets/Scenes/Leaderboards.unity
+    guid: 0dad9e017b33319498097f834e74f0a0
+  - enabled: 1
+    path: Assets/Scenes/Match rankings.unity
+    guid: 39cd1f664bede3d469ae68cf311afc6f
+  - enabled: 1
+    path: Assets/Scenes/Match result.unity
+    guid: 86472ca5139c4d44086f5f77a5f026b7
+  - enabled: 1
+    path: Assets/Scenes/Match type.unity
+    guid: 1b6af1be7e9be004f8cfbb65158da495
+  - enabled: 1
+    path: Assets/Scenes/Shop.unity
+    guid: d36a23239cee5044ea200441ed3303d7
   m_configObjects: {}
