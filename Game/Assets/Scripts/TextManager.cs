@@ -31,6 +31,12 @@ public class TextManager : MonoBehaviour {
 				t.color = fontColor;
 			}
 			t.font = (Font)Resources.Load(fontName);
+#if UNITY_EDITOR
+			// Stop execution here when not playing.
+			if (!Application.isPlaying) return;
+#endif
+			t.text = t.text.Replace("<h1>", "<size=" + fontSizeH + ">");
+			t.text = t.text.Replace("</h1>", "</size>");
 		}
 	}
 }

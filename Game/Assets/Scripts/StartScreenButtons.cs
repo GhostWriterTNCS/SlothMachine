@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class StartScreenMenu : MonoBehaviour {
+public class StartScreenButtons : MonoBehaviour {
 	public void Play() {
 		SceneManager.LoadScene(GameScenes.MatchType);
 	}
