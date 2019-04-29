@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class Hitted : MonoBehaviour {
+[RequireComponent(typeof(Collider))]
+public class BodyPartTarget : MonoBehaviour {
 	public Animator animator;
 	Robot player;
 	List<Collider> siblings = new List<Collider>();
@@ -18,8 +19,8 @@ public class Hitted : MonoBehaviour {
 	}
 
 	private void OnTriggerEnter(Collider other) {
-		if (other.GetComponent<Hand>() != null || other.GetComponent<Foot>() != null) {
-			if (animator && !siblings.Contains(other) && other.isTrigger && !other.GetComponent<Hitted>()) {
+		if (other.GetComponent<BodyPartHitter>() != null) {
+			if (animator && !siblings.Contains(other) && other.isTrigger && !other.GetComponent<BodyPartTarget>()) {
 				other.enabled = false;
 				player.GetHitted(GetPlayer(other.transform));
 			}
