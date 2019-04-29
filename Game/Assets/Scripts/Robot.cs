@@ -5,10 +5,7 @@ using UnityEngine.Networking;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Animator))]
-public class Player : NetworkBehaviour {
-	public Camera playerCamera;
-	public float moveSpeed = 3;
-	public float turnSpeed = 3;
+public class Robot : NetworkBehaviour {
 	public float comboDelay = 1;
 	float holdMinDuration = 0.76f;
 	float pushBackPower = 3.6f;
@@ -25,30 +22,21 @@ public class Player : NetworkBehaviour {
 	[SerializeField]
 	public GameObject handsParticle;
 
-	//From server to client: keeps the maximum health of every tank in game
 	[SyncVar]
 	public int maxHealth = 100;
-
-	//From server to client: keeps the current health of every tank. If the value is updated, "UpdateHealth" is executed on clients
 	[SyncVar]
 	float health;
 
 	Rigidbody rigidbody;
-	Vector3 cameraOffset;
-	Quaternion cameraRotation;
 	Animator animator;
 	NetworkAnimator networkAnimator;
+	PlayerMove playerMove;
 
 	void Start() {
-		if (!isLocalPlayer) {
-			playerCamera.enabled = false;
-			playerCamera.GetComponent<AudioListener>().enabled = false;
-		}
 		rigidbody = GetComponent<Rigidbody>();
-		cameraOffset = new Vector3(playerCamera.transform.localPosition.x, playerCamera.transform.localPosition.y, playerCamera.transform.localPosition.z);
-		cameraRotation = playerCamera.transform.localRotation;
 		animator = GetComponent<Animator>();
 		networkAnimator = GetComponent<NetworkAnimator>();
+		playerMove = GetComponent<PlayerMove>();
 
 		UpdateHealthValue(maxHealth);
 		leftHand.enabled = false;
@@ -65,14 +53,9 @@ public class Player : NetworkBehaviour {
 		if (pushedBack > 0) {
 			rigidbody.MovePosition(rigidbody.position - pushDirection * pushBackPower * Time.deltaTime);
 			pushedBack -= Time.deltaTime;
+			playerMove.canMove = false;
 		} else {
-			if (isLocalPlayer) {
-				// Move player and rotate camera
-				rigidbody.MovePosition(rigidbody.position + (transform.forward * Input.GetAxis("Vertical") + transform.right * Input.GetAxis("Horizontal")) * Time.deltaTime * moveSpeed);
-				rigidbody.MoveRotation(rigidbody.rotation * Quaternion.Euler(Vector3.up * Input.GetAxis("Camera Horizontal") * turnSpeed));
-				animator.SetFloat("WalkH", Input.GetAxis("Horizontal"));
-				animator.SetFloat("WalkV", Input.GetAxis("Vertical"));
-			}
+			playerMove.canMove = true;
 		}
 
 		// Actions
@@ -98,13 +81,6 @@ public class Player : NetworkBehaviour {
 			animator.SetBool("LB", true);
 		} else if (Input.GetButtonUp("LB")) {
 			animator.SetBool("LB", false);
-		}
-
-		if (isLocalPlayer) {
-			// Adjust health sliders orientation
-			foreach (Player a in FindObjectsOfType<Player>()) {
-				a.GetComponentInChildren<Canvas>().transform.LookAt(playerCamera.transform);
-			}
 		}
 	}
 
@@ -136,7 +112,7 @@ public class Player : NetworkBehaviour {
 		}
 	}
 
-	public void GetHitted(Player hitter) {
+	public void GetHitted(Robot hitter) {
 		Debug.Log(name + " collided by " + hitter.name + " | " + hitter.holdDuration);
 		animator.SetTrigger("Reaction");
 		UpdateHealth(-5);

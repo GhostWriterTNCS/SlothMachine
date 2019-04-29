@@ -2,7 +2,7 @@
 
 public class KillOnTouch : MonoBehaviour {
 	private void OnTriggerEnter(Collider other) {
-		Player p = other.GetComponent<Player>();
+		Robot p = other.GetComponent<Robot>();
 		if (p) {
 			p.UpdateHealthValue(0);
 		}

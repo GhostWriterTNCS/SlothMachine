@@ -167,6 +167,8 @@ GameObject:
   - component: {fileID: 5440669819455017412}
   - component: {fileID: 5147000838884391280}
   - component: {fileID: 2522637874245046520}
+  - component: {fileID: 4271838824739198125}
+  - component: {fileID: 7707172715718868168}
   - component: {fileID: 3795118744872106157}
   - component: {fileID: 8518678523766497928}
   - component: {fileID: 4918469730901719125}
@@ -227,16 +229,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99e1368a5a65e1047a1ec3503dee2629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCamera: {fileID: 2467045719809375315}
-  moveSpeed: 3
-  turnSpeed: 3
   comboDelay: 1
   leftHand: {fileID: 7962314848606598603}
   rightHand: {fileID: 4672666432391831968}
   body: {fileID: 0}
   materials: []
   healthSlider: {fileID: 7362678987741950062}
+  handsParticle: {fileID: 0}
   maxHealth: 100
+--- !u!114 &4271838824739198125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 398361175911409946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 054b0b69d570fe04caa30009694c7c01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 3
+  turnSpeed: 3
+  canMove: 1
+--- !u!114 &7707172715718868168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 398361175911409946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8392dd5cd66cdf7469ca4d4e311beb67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCamera: {fileID: 2467045719809375315}
 --- !u!54 &3795118744872106157
 Rigidbody:
   m_ObjectHideFlags: 0

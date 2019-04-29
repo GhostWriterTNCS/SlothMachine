@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Hitted : MonoBehaviour {
 	public Animator animator;
-	Player player;
+	Robot player;
 	List<Collider> siblings = new List<Collider>();
 
 	// Start is called before the first frame update
@@ -24,10 +24,10 @@ public class Hitted : MonoBehaviour {
 		}
 	}
 
-	Player GetPlayer(Transform t) {
-		while (transform != null && transform.GetComponentInParent<Player>() == null) {
+	Robot GetPlayer(Transform t) {
+		while (transform != null && transform.GetComponentInParent<Robot>() == null) {
 			t = transform.parent;
 		}
-		return transform.GetComponentInParent<Player>();
+		return transform.GetComponentInParent<Robot>();
 	}
 }
