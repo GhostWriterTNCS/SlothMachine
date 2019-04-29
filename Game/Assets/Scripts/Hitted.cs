@@ -18,9 +18,11 @@ public class Hitted : MonoBehaviour {
 	}
 
 	private void OnTriggerEnter(Collider other) {
-		if (animator && !siblings.Contains(other) && other.isTrigger && !other.GetComponent<Hitted>()) {
-			//other.enabled = false;
-			player.GetHitted(GetPlayer(other.transform));
+		if (other.GetComponent<Hand>() != null || other.GetComponent<Foot>() != null) {
+			if (animator && !siblings.Contains(other) && other.isTrigger && !other.GetComponent<Hitted>()) {
+				other.enabled = false;
+				player.GetHitted(GetPlayer(other.transform));
+			}
 		}
 	}
 
