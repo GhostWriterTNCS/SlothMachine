@@ -6,12 +6,12 @@ public class InputDetector : MonoBehaviour {
 		if (Input.GetJoystickNames().Length > 0) {
 			if (Input.GetJoystickNames()[0].ToLower().Contains("xbox 360") && controller != "Xbox 360") {
 				controller = "Xbox 360";
-				foreach (ButtonTip bt in FindObjectsOfType<ButtonTip>()) {
+				foreach (ButtonTip bt in Resources.FindObjectsOfTypeAll<ButtonTip>()) {
 					bt.Refresh();
 				}
 			} else if (Input.GetJoystickNames()[0].ToLower().Contains("ps4") && controller != "PS4") {
 				controller = "PS4";
-				foreach (ButtonTip bt in FindObjectsOfType<ButtonTip>()) {
+				foreach (ButtonTip bt in Resources.FindObjectsOfTypeAll<ButtonTip>()) {
 					bt.Refresh();
 				}
 			}

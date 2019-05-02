@@ -11,7 +11,7 @@ public class TextManager : MonoBehaviour {
 	void Awake() {
 		fontSize = Screen.height / 31;
 		fontSizeH = Screen.height / 16;
-		foreach (Text t in FindObjectsOfType<Text>()) {
+		foreach (Text t in Resources.FindObjectsOfTypeAll<Text>()) {
 			TextProperties tp = t.GetComponent<TextProperties>();
 			if (tp) {
 				if (tp.type == TextProperties.TextType.Header) {
