@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 [RequireComponent(typeof(Animator))]
 public class Robot : NetworkBehaviour {
+	[SerializeField]
+	public GameObject model;
+
 	public float comboDelay = 1;
 	float holdMinDuration = 0.76f;
 	public float pushBackPower = 360;
@@ -14,8 +17,10 @@ public class Robot : NetworkBehaviour {
 	public SphereCollider leftHand;
 	[SerializeField]
 	public SphereCollider rightHand;
-	public SkinnedMeshRenderer body;
-	public Material[] materials;
+	[SerializeField]
+	public SphereCollider leftFoot;
+	[SerializeField]
+	public SphereCollider rightFoot;
 	public Slider healthSlider;
 
 	[SerializeField]
@@ -26,14 +31,22 @@ public class Robot : NetworkBehaviour {
 	[SyncVar]
 	float health;
 
-	Rigidbody rigidbody;
+	RobotModel robotModel;
+	//Rigidbody rigidbody;
 	Animator animator;
 	NetworkAnimator networkAnimator;
 	PlayerMove playerMove;
 
 	void Start() {
-		rigidbody = GetComponent<Rigidbody>();
+		GameObject go = Instantiate(model, transform);
+		robotModel = go.GetComponent<RobotModel>();
+		leftHand = robotModel.leftHand;
+		rightHand = robotModel.rightHand;
+
+		//rigidbody = GetComponent<Rigidbody>();
 		animator = GetComponent<Animator>();
+		animator.runtimeAnimatorController = robotModel.animatorController;
+		animator.avatar = robotModel.avatar;
 		networkAnimator = GetComponent<NetworkAnimator>();
 		playerMove = GetComponent<PlayerMove>();
 

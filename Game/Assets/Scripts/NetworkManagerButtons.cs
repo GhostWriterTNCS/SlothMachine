@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class CustomNetworkManagerHUD : MonoBehaviour {
+public class NetworkManagerButtons : MonoBehaviour {
 	public void StartHost() {
 		NetworkManager.singleton.StartHost();
 	}

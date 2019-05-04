@@ -3,7 +3,6 @@ using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
 public class BodyPartTarget : MonoBehaviour {
-	public Animator animator;
 	Robot player;
 	List<Collider> siblings = new List<Collider>();
 
@@ -20,7 +19,7 @@ public class BodyPartTarget : MonoBehaviour {
 
 	private void OnTriggerEnter(Collider other) {
 		if (other.GetComponent<BodyPartHitter>() != null) {
-			if (animator && !siblings.Contains(other) && other.isTrigger && !other.GetComponent<BodyPartTarget>()) {
+			if (!siblings.Contains(other) && other.isTrigger && !other.GetComponent<BodyPartTarget>()) {
 				other.enabled = false;
 				player.GetHitted(GetPlayer(other.transform));
 			}
