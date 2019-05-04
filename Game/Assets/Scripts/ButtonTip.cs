@@ -25,7 +25,7 @@ public class ButtonTip : MonoBehaviour {
 		if (!image) {
 			image = GetComponent<Image>();
 		}
-		image.sprite = Resources.Load<Sprite>("Controls\\" + InputDetector.controller + "\\" + button);
+		image.sprite = Resources.Load<Sprite>("Controls\\" + ControllerDetector.controller + "\\" + button);
 		image.preserveAspect = true;
 	}
 }

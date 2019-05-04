@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class InputDetector : MonoBehaviour {
+public class ControllerDetector : MonoBehaviour {
 	public static string controller = "Xbox One";
 	void Update() {
 		if (Input.GetJoystickNames().Length > 0) {
