@@ -238,7 +238,7 @@ RectTransform:
   m_Children:
   - {fileID: 875018851}
   m_Father: {fileID: 1477371915}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.025, y: 0.04}
   m_AnchorMax: {x: 0.975, y: 0.115}
@@ -708,61 +708,6 @@ MonoBehaviour:
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 1
   m_ChildControlHeight: 1
---- !u!1001 &741006849
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1477371915}
-    m_Modifications:
-    - target: {fileID: 520737503518525040, guid: e40bd4495b5bb964d9b3bd2a571426de,
-        type: 3}
-      propertyPath: m_Name
-      value: Player profile
-      objectReference: {fileID: 0}
-    - target: {fileID: 520737503518525040, guid: e40bd4495b5bb964d9b3bd2a571426de,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 520737503518525041, guid: e40bd4495b5bb964d9b3bd2a571426de,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 520737503518525041, guid: e40bd4495b5bb964d9b3bd2a571426de,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 520737503518525041, guid: e40bd4495b5bb964d9b3bd2a571426de,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 520737503518525041, guid: e40bd4495b5bb964d9b3bd2a571426de,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 520737503518525041, guid: e40bd4495b5bb964d9b3bd2a571426de,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 520737503518525041, guid: e40bd4495b5bb964d9b3bd2a571426de,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: e40bd4495b5bb964d9b3bd2a571426de, type: 3}
---- !u!224 &741006850 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 520737503518525041, guid: e40bd4495b5bb964d9b3bd2a571426de,
-    type: 3}
-  m_PrefabInstance: {fileID: 741006849}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &809482207
 GameObject:
   m_ObjectHideFlags: 0
@@ -1783,7 +1728,6 @@ RectTransform:
   m_Children:
   - {fileID: 1619274741}
   - {fileID: 1545038064}
-  - {fileID: 741006850}
   - {fileID: 150103111}
   m_Father: {fileID: 0}
   m_RootOrder: 2
