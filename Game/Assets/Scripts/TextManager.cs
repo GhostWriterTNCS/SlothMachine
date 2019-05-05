@@ -35,8 +35,19 @@ public class TextManager : MonoBehaviour {
 			// Stop execution here when not playing.
 			if (!Application.isPlaying) return;
 #endif
-			t.text = t.text.Replace("<h1>", "<size=" + fontSizeH + ">");
-			t.text = t.text.Replace("</h1>", "</size>");
+			t.text = FormatText(t.text);
 		}
+
+		foreach (Button b in Resources.FindObjectsOfTypeAll<Button>()) {
+			ColorBlock cb = b.colors;
+			cb.highlightedColor = new Color(1, 0.9555849f, 0.6367924f);
+			b.colors = cb;
+		}
+	}
+
+	public static string FormatText(string s) {
+		s = s.Replace("<h1>", "<size=" + fontSizeH + ">");
+		s = s.Replace("</h1>", "</size>");
+		return s;
 	}
 }

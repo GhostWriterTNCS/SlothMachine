@@ -6,8 +6,9 @@ using UnityEngine.UI;
 
 [RequireComponent(typeof(Animator))]
 public class Robot : NetworkBehaviour {
-	[SerializeField]
-	public GameObject model;
+	/*[SerializeField]
+	public GameObject model;*/
+	Player player;
 
 	public float comboDelay = 1;
 	float holdMinDuration = 0.76f;
@@ -38,8 +39,18 @@ public class Robot : NetworkBehaviour {
 	PlayerMove playerMove;
 
 	void Start() {
-		GameObject go = Instantiate(model, transform);
-		robotModel = go.GetComponent<RobotModel>();
+		player = FindObjectOfType<Player>();
+		if (!player) {
+			Destroy(gameObject);
+			return;
+		}
+		GameObject model = Instantiate(Resources.Load<GameObject>("Robots/" + player.robotModel + "/" + player.robotModel), transform);
+		//model.transform.SetParent(transform);
+		robotModel = model.GetComponent<RobotModel>();
+		if (!robotModel) {
+			Debug.LogError("No robot model");
+			return;
+		}
 		leftHand = robotModel.leftHand;
 		rightHand = robotModel.rightHand;
 

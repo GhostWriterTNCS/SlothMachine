@@ -72,14 +72,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99e1368a5a65e1047a1ec3503dee2629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  model: {fileID: 7763002971276663307, guid: a317cb6a13124e649aa4f3087f293018, type: 3}
+  model: {fileID: 0}
   comboDelay: 1
   pushBackPower: 360
   leftHand: {fileID: 0}
   rightHand: {fileID: 0}
+  leftFoot: {fileID: 0}
+  rightFoot: {fileID: 0}
   healthSlider: {fileID: 7362678987741950062}
-  handsParticle: {fileID: 9138153940207548372, guid: 81ee345aa73f7e8498396d0f562ef0c4,
-    type: 3}
+  handsParticle: {fileID: 0}
   maxHealth: 100
 --- !u!114 &4381043123533344500
 MonoBehaviour:

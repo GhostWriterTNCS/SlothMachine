@@ -3,8 +3,12 @@ using UnityEngine.Networking;
 
 public class EscToStop : MonoBehaviour {
 	void Update() {
-		if (Input.GetKeyDown(KeyCode.Escape) && (NetworkServer.active || NetworkClient.active)) {
-			NetworkManager.singleton.StopHost();
+		if (Input.GetKeyDown(KeyCode.Escape)) {
+			if (NetworkServer.active) {
+				NetworkManager.singleton.StopHost();
+			} else if (NetworkClient.active) {
+				NetworkManager.singleton.StopClient();
+			}
 		}
 	}
 }
