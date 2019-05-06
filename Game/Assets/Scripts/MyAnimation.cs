@@ -3,6 +3,8 @@
 public class MyAnimation : StateMachineBehaviour {
 	public bool enableLeftHand = false;
 	public bool enableRightHand = false;
+	public bool enableLeftFoot = false;
+	public bool enableRightFoot = false;
 
 	Robot player;
 
@@ -14,6 +16,12 @@ public class MyAnimation : StateMachineBehaviour {
 		}
 		if (enableRightHand) {
 			player.rightHand.enabled = true;
+		}
+		if (enableLeftFoot) {
+			player.leftFoot.enabled = true;
+		}
+		if (enableRightFoot) {
+			player.rightFoot.enabled = true;
 		}
 	}
 

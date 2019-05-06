@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Animator))]
 public class Robot : NetworkBehaviour {
-	/*[SerializeField]
-	public GameObject model;*/
 	Player player;
 
 	public float comboDelay = 1;
@@ -33,7 +32,6 @@ public class Robot : NetworkBehaviour {
 	float health;
 
 	RobotModel robotModel;
-	//Rigidbody rigidbody;
 	Animator animator;
 	NetworkAnimator networkAnimator;
 	PlayerMove playerMove;
@@ -45,7 +43,6 @@ public class Robot : NetworkBehaviour {
 			return;
 		}
 		GameObject model = Instantiate(Resources.Load<GameObject>("Robots/" + player.robotModel + "/" + player.robotModel), transform);
-		//model.transform.SetParent(transform);
 		robotModel = model.GetComponent<RobotModel>();
 		if (!robotModel) {
 			Debug.LogError("No robot model");
@@ -53,8 +50,9 @@ public class Robot : NetworkBehaviour {
 		}
 		leftHand = robotModel.leftHand;
 		rightHand = robotModel.rightHand;
+		leftFoot = robotModel.leftFoot;
+		rightFoot = robotModel.rightFoot;
 
-		//rigidbody = GetComponent<Rigidbody>();
 		animator = GetComponent<Animator>();
 		animator.runtimeAnimatorController = robotModel.animatorController;
 		animator.avatar = robotModel.avatar;
@@ -130,9 +128,6 @@ public class Robot : NetworkBehaviour {
 		Debug.Log(name + " hitted by " + hitter.name + " | " + hitter.holdDuration);
 		animator.SetTrigger("Reaction");
 		UpdateHealth(-5);
-		/*if (hitter.holdDuration >= hitter.holdMinDuration) {
-			rigidbody.AddForce(hitter.transform.forward * 1000, ForceMode.Impulse);
-		}*/
 	}
 
 	[Command]
@@ -143,24 +138,33 @@ public class Robot : NetworkBehaviour {
 		transform.rotation = spawn.rotation;
 	}
 
-	public void SetHandsParticle(GameObject particle) {
+	List<GameObject> particles = new List<GameObject>();
+	public void SetHandsParticle(GameObject particle, bool hands = true) {
 		Debug.Log("Set hands particle: " + particle.name);
 		if (particle != handsParticle) {
 			handsParticle = particle;
-			for (int i = 0; i < leftHand.transform.childCount; i++) {
-				Destroy(leftHand.transform.GetChild(i).gameObject);
+			// Remove existing particles.
+			for (int i = 0; i < particles.Count; i++) {
+				Destroy(particles[i]);
 			}
+			particles.Clear();
+
 			GameObject leftParticle = Instantiate(particle);
-			leftParticle.transform.SetParent(leftHand.transform);
+			GameObject rightParticle = Instantiate(particle);
+			particles.Add(leftParticle);
+			particles.Add(rightParticle);
+
+			if (hands) {
+				leftParticle.transform.SetParent(leftHand.transform);
+				rightParticle.transform.SetParent(rightHand.transform);
+			} else {
+				leftParticle.transform.SetParent(leftFoot.transform);
+				rightParticle.transform.SetParent(rightFoot.transform);
+			}
+
 			leftParticle.transform.localPosition = leftHand.center;
 			leftParticle.transform.localScale = Vector3.one;
-
-			for (int i = 0; i < rightHand.transform.childCount; i++) {
-				Destroy(rightHand.transform.GetChild(i).gameObject);
-			}
-			GameObject rightParticle = Instantiate(particle);
-			rightParticle.transform.SetParent(rightHand.transform);
-			rightParticle.transform.localPosition = rightHand.center;
+			rightParticle.transform.localPosition = rightFoot.center;
 			rightParticle.transform.localScale = Vector3.one;
 		}
 	}

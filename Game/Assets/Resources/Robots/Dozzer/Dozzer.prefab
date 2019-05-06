@@ -103,6 +103,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7763002971276232231}
+  - component: {fileID: 8170172314559070820}
   m_Layer: 0
   m_Name: mixamorig:LeftFoot
   m_TagString: Untagged
@@ -125,6 +126,19 @@ Transform:
   m_Father: {fileID: 7763002971276232253}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &8170172314559070820
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7763002971276663303}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.6
+  m_Center: {x: 0, y: 0.3, z: 0}
 --- !u!1 &7763002971276663307
 GameObject:
   m_ObjectHideFlags: 0
@@ -136,7 +150,7 @@ GameObject:
   - component: {fileID: 7763002971276232235}
   - component: {fileID: 6305615966919094630}
   m_Layer: 0
-  m_Name: Dozzer model
+  m_Name: Dozzer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -151,7 +165,7 @@ Transform:
   m_GameObject: {fileID: 7763002971276663307}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.55, y: 0.55, z: 0.55}
   m_Children:
   - {fileID: 7763002971276232227}
   - {fileID: 7763002971276232209}
@@ -174,6 +188,8 @@ MonoBehaviour:
   avatar: {fileID: 9000000, guid: 198a8080fbff94642acbf2d1649babc6, type: 3}
   leftHand: {fileID: 2111745153713362958}
   rightHand: {fileID: 5363953242213341464}
+  leftFoot: {fileID: 8170172314559070820}
+  rightFoot: {fileID: 8188363851083581621}
 --- !u!1 &7763002971276663311
 GameObject:
   m_ObjectHideFlags: 0
@@ -233,7 +249,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dac069dcd38102645aa34772586fe000, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 0}
 --- !u!1 &7763002971276663313
 GameObject:
   m_ObjectHideFlags: 0
@@ -671,6 +686,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7763002971276232203}
+  - component: {fileID: 8188363851083581621}
   m_Layer: 0
   m_Name: mixamorig:RightFoot
   m_TagString: Untagged
@@ -693,6 +709,19 @@ Transform:
   m_Father: {fileID: 7763002971276232193}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &8188363851083581621
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7763002971276663403}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.6
+  m_Center: {x: 0, y: 0.3, z: 0}
 --- !u!1 &7763002971276663405
 GameObject:
   m_ObjectHideFlags: 0
@@ -1038,4 +1067,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dac069dcd38102645aa34772586fe000, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 0}
