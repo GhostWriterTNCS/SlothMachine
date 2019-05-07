@@ -6,35 +6,26 @@ public class SpawnRobots : NetworkBehaviour {
 
 	void Start() {
 		if (isServer) {
-			Debug.Log("Wait for Spawn");
+			Debug.Log("Wait for Spawn " + NetworkServer.connections.Count + " players.");
+			//CmdSpawn();
 			StartCoroutine(WaitForSpawn());
 		}
 	}
 
 	IEnumerator WaitForSpawn() {
-		while (true) {
-			if (isServer) {
-				if (connectionToServer != null && !connectionToServer.isReady) {
-					yield return new WaitForSeconds(0.25f);
-				} else {
-					break;
-				}
-			} else {
-				if (connectionToClient != null && !connectionToClient.isReady) {
-					yield return new WaitForSeconds(0.25f);
-				} else {
-					break;
-				}
-			}
+		while (NetworkServer.connections.Count > 1 && !connectionToClient.isReady) {
+			yield return new WaitForSeconds(0.25f);
 		}
 		CmdSpawn();
 	}
 
 	[Command]
 	void CmdSpawn() {
+		Debug.Log("Spawn robots");
 		foreach (Player p in FindObjectsOfType<Player>()) {
 			if (p.robot == null) {
-				GameObject robot = Instantiate(NetworkManager.singleton.spawnPrefabs[1], NetworkManager.singleton.GetStartPosition().position, NetworkManager.singleton.GetStartPosition().rotation);
+				Transform t = NetworkManager.singleton.GetStartPosition();
+				GameObject robot = Instantiate(NetworkManager.singleton.spawnPrefabs[1], t.position, t.rotation);
 				NetworkServer.SpawnWithClientAuthority(robot, p.gameObject);
 				robot.name = "Avatar " + p.playerControllerId;
 				robot.GetComponent<Robot>().player = p.gameObject;
