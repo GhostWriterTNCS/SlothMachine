@@ -7,7 +7,8 @@ using UnityEngine.UI;
 
 [RequireComponent(typeof(Animator))]
 public class Robot : NetworkBehaviour {
-	Player player;
+	[SyncVar]
+	public GameObject player;
 
 	public float comboDelay = 1;
 	float holdMinDuration = 0.76f;
@@ -37,12 +38,13 @@ public class Robot : NetworkBehaviour {
 	PlayerMove playerMove;
 
 	void Start() {
-		player = FindObjectOfType<Player>();
+		//player = FindObjectOfType<Player>();
 		if (!player) {
+			Debug.Log("No player");
 			Destroy(gameObject);
 			return;
 		}
-		GameObject model = Instantiate(Resources.Load<GameObject>("Robots/" + player.robotModel + "/" + player.robotModel), transform);
+		GameObject model = Instantiate(Resources.Load<GameObject>("Robots/" + player.GetComponent<Player>().robotModel + "/" + player.GetComponent<Player>().robotModel), transform);
 		robotModel = model.GetComponent<RobotModel>();
 		if (!robotModel) {
 			Debug.LogError("No robot model");
