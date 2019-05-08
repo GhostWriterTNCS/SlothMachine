@@ -13,8 +13,10 @@ public class SpawnRobots : NetworkBehaviour {
 	}
 
 	IEnumerator WaitForSpawn() {
-		while (NetworkServer.connections.Count > 1 && !connectionToClient.isReady) {
-			yield return new WaitForSeconds(0.25f);
+		if (NetworkServer.connections.Count > 1) {
+			while (connectionToClient == null || !connectionToClient.isReady) {
+				yield return new WaitForSeconds(0.25f);
+			}
 		}
 		CmdSpawn();
 	}

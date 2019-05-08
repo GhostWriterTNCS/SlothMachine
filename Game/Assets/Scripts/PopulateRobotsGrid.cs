@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
-public class PopulateRobotsGrid : MonoBehaviour {
+public class PopulateRobotsGrid : NetworkBehaviour {
 	public Image robotImage;
-	public Text robotText;
+	public Text[] playerTexts;
 
 	//public static string[] robots = { "Kiddo", "Nourinha", "Dozzer", "Breach" };
 	Player player;
@@ -19,6 +20,12 @@ public class PopulateRobotsGrid : MonoBehaviour {
 		StartCoroutine(LoadDefault());
 	}
 
+	int clientCount = 0;
+	public override void OnStartClient() {
+		Debug.LogError("Client started " + clientCount);
+		clientCount++;
+	}
+
 	IEnumerator LoadDefault() {
 		while (!FindObjectOfType<Player>()) {
 			yield return new WaitForSeconds(0.01f);
@@ -27,22 +34,23 @@ public class PopulateRobotsGrid : MonoBehaviour {
 	}
 
 	public void LoadKiddo() {
+		Debug.Log(connectionToClient.connectionId + " - " + NetworkServer.connections.Count);
 		FindObjectOfType<Player>().robotModel = "Kiddo";
-		robotText.text = TextManager.FormatText("<h1>Kiddo</h1>");
+		playerTexts[0].text = TextManager.FormatText("<h1>Kiddo</h1>");
 	}
 
 	public void LoadNourinha() {
 		FindObjectOfType<Player>().robotModel = "Nourinha";
-		robotText.text = TextManager.FormatText("<h1>Nourinha</h1>");
+		playerTexts[0].text = TextManager.FormatText("<h1>Nourinha</h1>");
 	}
 
 	public void LoadBreach() {
 		FindObjectOfType<Player>().robotModel = "Breach";
-		robotText.text = TextManager.FormatText("<h1>Breach</h1>");
+		playerTexts[0].text = TextManager.FormatText("<h1>Breach</h1>");
 	}
 
 	public void LoadDozzer() {
 		FindObjectOfType<Player>().robotModel = "Dozzer";
-		robotText.text = TextManager.FormatText("<h1>Dozzer</h1>");
+		playerTexts[0].text = TextManager.FormatText("<h1>Dozzer</h1>");
 	}
 }

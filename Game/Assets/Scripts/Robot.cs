@@ -9,6 +9,8 @@ using UnityEngine.UI;
 public class Robot : NetworkBehaviour {
 	[SyncVar]
 	public GameObject player;
+	[SyncVar]
+	public string robotName = "Dozzer";
 
 	public float comboDelay = 1;
 	float holdMinDuration = 0.76f;
@@ -39,12 +41,12 @@ public class Robot : NetworkBehaviour {
 
 	void Start() {
 		//player = FindObjectOfType<Player>();
-		if (!player) {
-			Debug.Log("No player");
+		/*if (!player) {
+			Debug.Log("Player not set.");
 			Destroy(gameObject);
 			return;
-		}
-		GameObject model = Instantiate(Resources.Load<GameObject>("Robots/" + player.GetComponent<Player>().robotModel + "/" + player.GetComponent<Player>().robotModel), transform);
+		}*/
+		GameObject model = Instantiate(Resources.Load<GameObject>("Robots/" + robotName + "/" + robotName), transform);
 		robotModel = model.GetComponent<RobotModel>();
 		if (!robotModel) {
 			Debug.LogError("No robot model");
