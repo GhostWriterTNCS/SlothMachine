@@ -7,8 +7,8 @@ using UnityEngine.UI;
 
 [RequireComponent(typeof(Animator))]
 public class Robot : NetworkBehaviour {
-	[SyncVar]
-	public GameObject player;
+	/*[SyncVar]
+	public GameObject player;*/
 	[SyncVar]
 	public string robotName = "Dozzer";
 

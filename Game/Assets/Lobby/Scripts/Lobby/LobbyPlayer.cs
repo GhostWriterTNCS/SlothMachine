@@ -29,7 +29,7 @@ namespace Prototype.NetworkLobby {
 		public Color OddRowColor = new Color(250.0f / 255.0f, 250.0f / 255.0f, 250.0f / 255.0f, 1.0f);
 		public Color EvenRowColor = new Color(180.0f / 255.0f, 180.0f / 255.0f, 180.0f / 255.0f, 1.0f);
 
-		static Color JoinColor = new Color(255.0f / 255.0f, 0.0f, 101.0f / 255.0f, 1.0f);
+		static Color JoinColor = Color.white; // new Color(255.0f / 255.0f, 0.0f, 101.0f / 255.0f, 1.0f);
 		static Color NotReadyColor = new Color(34.0f / 255.0f, 44 / 255.0f, 55.0f / 255.0f, 1.0f);
 		static Color ReadyColor = new Color(0.0f, 204.0f / 255.0f, 204.0f / 255.0f, 1.0f);
 		static Color TransparentColor = new Color(0, 0, 0, 0);
@@ -79,7 +79,8 @@ namespace Prototype.NetworkLobby {
 
 		void SetupOtherPlayer() {
 			nameInput.interactable = false;
-			removePlayerButton.interactable = NetworkServer.active;
+			if (removePlayerButton)
+				removePlayerButton.interactable = NetworkServer.active;
 
 			ChangeReadyButtonColor(NotReadyColor);
 
@@ -141,7 +142,8 @@ namespace Prototype.NetworkLobby {
 			foreach (PlayerController p in ClientScene.localPlayers)
 				localPlayerCount += (p == null || p.playerControllerId == -1) ? 0 : 1;
 
-			removePlayerButton.interactable = localPlayerCount > 1;
+			if (removePlayerButton)
+				removePlayerButton.interactable = localPlayerCount > 1;
 		}
 
 		public override void OnClientReady(bool readyState) {
