@@ -7,6 +7,8 @@ public class PopulateRobotsGrid : NetworkBehaviour {
 	public Image robotImage;
 	public Text[] playerTexts;
 
+	public Prototype.NetworkLobby.LobbyPlayer lobbyPlayer;
+
 	//public static string[] robots = { "Kiddo", "Nourinha", "Dozzer", "Breach" };
 	Player player;
 
@@ -17,7 +19,7 @@ public class PopulateRobotsGrid : NetworkBehaviour {
 		for (int i = 0; i < robots.Length / 2; i++) {
 
 		}*/
-		StartCoroutine(LoadDefault());
+		//StartCoroutine(LoadDefault());
 	}
 
 	int clientCount = 0;
@@ -26,31 +28,35 @@ public class PopulateRobotsGrid : NetworkBehaviour {
 		clientCount++;
 	}
 
-	IEnumerator LoadDefault() {
-		while (!FindObjectOfType<Player>()) {
+	public IEnumerator LoadDefault() {
+		while (lobbyPlayer == null) {
 			yield return new WaitForSeconds(0.01f);
 		}
 		LoadKiddo();
 	}
 
 	public void LoadKiddo() {
-		Debug.Log(connectionToClient.connectionId + " - " + NetworkServer.connections.Count);
-		FindObjectOfType<Player>().robotModel = "Kiddo";
-		playerTexts[0].text = TextManager.FormatText("<h1>Kiddo</h1>");
+		//Debug.Log(connectionToClient.connectionId + " - " + NetworkServer.connections.Count);
+		lobbyPlayer.CmdNameChanged("Kiddo");
+		/*FindObjectOfType<Player>().robotModel = "Kiddo";
+		playerTexts[0].text = TextManager.FormatText("<h1>Kiddo</h1>");*/
 	}
 
 	public void LoadNourinha() {
-		FindObjectOfType<Player>().robotModel = "Nourinha";
-		playerTexts[0].text = TextManager.FormatText("<h1>Nourinha</h1>");
+		lobbyPlayer.CmdNameChanged("Nourinha");
+		/*FindObjectOfType<Player>().robotModel = "Nourinha";
+		playerTexts[0].text = TextManager.FormatText("<h1>Nourinha</h1>");*/
 	}
 
 	public void LoadBreach() {
-		FindObjectOfType<Player>().robotModel = "Breach";
-		playerTexts[0].text = TextManager.FormatText("<h1>Breach</h1>");
+		lobbyPlayer.CmdNameChanged("Breach");
+		/*FindObjectOfType<Player>().robotModel = "Breach";
+		playerTexts[0].text = TextManager.FormatText("<h1>Breach</h1>");*/
 	}
 
 	public void LoadDozzer() {
-		FindObjectOfType<Player>().robotModel = "Dozzer";
-		playerTexts[0].text = TextManager.FormatText("<h1>Dozzer</h1>");
+		lobbyPlayer.CmdNameChanged("Dozzer");
+		/*FindObjectOfType<Player>().robotModel = "Dozzer";
+		playerTexts[0].text = TextManager.FormatText("<h1>Dozzer</h1>");*/
 	}
 }

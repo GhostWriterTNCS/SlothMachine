@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class StartScreenButtons : MonoBehaviour {
 	public void Play() {
-		SceneManager.LoadScene(GameScenes.MatchType);
+		SceneManager.LoadScene(GameScenes.Lobby);
 	}
 
 	public void Leaderboards() {
