@@ -20,8 +20,6 @@ namespace Prototype.NetworkLobby {
 
 		[Space]
 		[Header("UI Reference")]
-		public LobbyTopPanel topPanel;
-
 		public RectTransform mainMenuPanel;
 		public RectTransform lobbyPanel;
 
@@ -32,6 +30,7 @@ namespace Prototype.NetworkLobby {
 		protected RectTransform currentPanel;
 
 		public Button backButton;
+		public Button backToStartButton;
 
 		public Text statusInfo;
 		public Text hostInfo;
@@ -69,39 +68,11 @@ namespace Prototype.NetworkLobby {
 
 		public override void OnLobbyClientSceneChanged(NetworkConnection conn) {
 			if (SceneManager.GetSceneAt(0).name == lobbyScene) {
-				if (topPanel && topPanel.isInGame) {
-					ChangeTo(lobbyPanel);
-					if (_isMatchmaking) {
-						if (conn.playerControllers[0].unetView.isServer) {
-							backDelegate = StopHostClbk;
-						} else {
-							backDelegate = StopClientClbk;
-						}
-					} else {
-						if (conn.playerControllers[0].unetView.isClient) {
-							backDelegate = StopHostClbk;
-						} else {
-							backDelegate = StopClientClbk;
-						}
-					}
-				} else {
-					ChangeTo(mainMenuPanel);
-				}
-
-				if (topPanel) {
-					topPanel.ToggleVisibility(true);
-					topPanel.isInGame = false;
-				}
+				ChangeTo(mainMenuPanel);
 			} else {
 				ChangeTo(null);
 
 				Destroy(GameObject.Find("MainMenuUI(Clone)"));
-
-				//backDelegate = StopGameClbk;
-				if (topPanel) {
-					topPanel.isInGame = true;
-					topPanel.ToggleVisibility(false);
-				}
 			}
 		}
 
@@ -118,8 +89,10 @@ namespace Prototype.NetworkLobby {
 
 			if (currentPanel != mainMenuPanel) {
 				backButton.gameObject.SetActive(true);
+				backToStartButton.gameObject.SetActive(false);
 			} else {
 				backButton.gameObject.SetActive(false);
+				backToStartButton.gameObject.SetActive(true);
 				SetServerInfo("Offline", "None");
 				_isMatchmaking = false;
 			}
@@ -145,8 +118,6 @@ namespace Prototype.NetworkLobby {
 		public BackButtonDelegate backDelegate;
 		public void GoBackButton() {
 			backDelegate();
-			if (topPanel)
-				topPanel.isInGame = false;
 		}
 
 		// ----------------- Server management

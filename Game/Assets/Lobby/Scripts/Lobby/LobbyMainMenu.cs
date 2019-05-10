@@ -13,9 +13,6 @@ namespace Prototype.NetworkLobby {
 		public InputField matchNameInput;
 
 		public void OnEnable() {
-			if (lobbyManager.topPanel)
-				lobbyManager.topPanel.ToggleVisibility(true);
-
 			if (ipInput) {
 				ipInput.onEndEdit.RemoveAllListeners();
 				ipInput.onEndEdit.AddListener(onEndEditIP);
