@@ -25,6 +25,8 @@ namespace Prototype.NetworkLobby {
 		public string playerName = "";
 		[SyncVar(hook = "OnMyColor")]
 		public Color playerColor = Color.white;
+		[SyncVar]
+		public string playerID = "";
 
 		public Color OddRowColor = new Color(250.0f / 255.0f, 250.0f / 255.0f, 250.0f / 255.0f, 1.0f);
 		public Color EvenRowColor = new Color(180.0f / 255.0f, 180.0f / 255.0f, 180.0f / 255.0f, 1.0f);
@@ -110,8 +112,8 @@ namespace Prototype.NetworkLobby {
 			readyButton.interactable = true;
 
 			//have to use child count of player prefab already setup as "this.slot" is not set yet
-			if (playerName == "")
-				CmdNameChanged("Player" + (LobbyPlayerList._instance.playerListContentTransform.childCount - 1));
+			if (playerID == "")
+				CmdIdChanged("Player" + (LobbyPlayerList._instance.playerListContentTransform.childCount - 1));
 
 			//we switch from simple name display to name input
 			nameInput.interactable = true;
@@ -264,6 +266,10 @@ namespace Prototype.NetworkLobby {
 		[Command]
 		public void CmdNameChanged(string name) {
 			playerName = name;
+		}
+		[Command]
+		public void CmdIdChanged(string name) {
+			playerID = name;
 		}
 
 		//Cleanup thing when get destroy (which happen when client kick or disconnect)

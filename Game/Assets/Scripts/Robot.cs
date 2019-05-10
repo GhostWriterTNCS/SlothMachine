@@ -9,8 +9,8 @@ using UnityEngine.UI;
 public class Robot : NetworkBehaviour {
 	/*[SyncVar]
 	public GameObject player;*/
-	[SyncVar]
-	public string robotName = "Dozzer";
+	//[SyncVar]
+	//public string robotName = "Dozzer";
 
 	public float comboDelay = 1;
 	float holdMinDuration = 0.76f;
@@ -46,6 +46,7 @@ public class Robot : NetworkBehaviour {
 			Destroy(gameObject);
 			return;
 		}*/
+		string robotName = GetComponentInParent<Player>().robotName;
 		GameObject model = Instantiate(Resources.Load<GameObject>("Robots/" + robotName + "/" + robotName), transform);
 		robotModel = model.GetComponent<RobotModel>();
 		if (!robotModel) {
