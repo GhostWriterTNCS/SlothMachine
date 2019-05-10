@@ -4,7 +4,11 @@ using UnityEngine.SceneManagement;
 
 public class Player : NetworkBehaviour {
 	[SyncVar]
+	public string playerID = "";
+	[SyncVar]
 	public string robotName = "Dozzer";
+	[SyncVar]
+	public int score = 0;
 
 	public GameObject avatarPrefab;
 
@@ -15,6 +19,7 @@ public class Player : NetworkBehaviour {
 
 	void Start() {
 		Debug.Log("Player start.");
+		name = playerID;
 		CmdRespawn(gameObject);
 	}
 

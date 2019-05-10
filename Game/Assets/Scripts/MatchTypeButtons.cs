@@ -19,11 +19,7 @@ public class MatchTypeButtons : MonoBehaviour {
 	}
 
 	public void Back() {
-		//if (NetworkServer.active) {
 		NetworkLobbyManager.singleton.StopHost();
-		/*} else if (NetworkClient.active) {
-			NetworkManager.singleton.StopClient();
-		}*/
 		Destroy(FindObjectOfType<NetworkLobbyManager>().gameObject);
 		SceneManager.LoadScene(GameScenes.StartScreen);
 	}
