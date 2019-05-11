@@ -13,7 +13,12 @@ public class PlayerBox : NetworkBehaviour {
 	public Text scoreText;
 	public Slider scoreSlider;
 
-	public GameObject scrapsBlock;
+	//public GameObject scrapsBlock;
+
+	[SyncVar]
+	public bool bidRegistered = false;
+	[SyncVar]
+	public int bid;
 
 	void Start() {
 		StartCoroutine(LoadPlayer());
@@ -23,7 +28,7 @@ public class PlayerBox : NetworkBehaviour {
 		while (!playerGO) {
 			yield return new WaitForSeconds(0.01f);
 		}
-		transform.SetParent(FindObjectOfType<PlayersList>().transform);
+		transform.SetParent(FindObjectOfType<AuctionManager>().playersList.transform);
 		Debug.Log("Load player " + playerGO.name);
 		player = playerGO.GetComponent<Player>();
 		if (player) {
@@ -38,8 +43,15 @@ public class PlayerBox : NetworkBehaviour {
 			}
 			scoreSlider.value = player.score / maxScore;
 			if (isLocalPlayer) {
-				FindObjectOfType<ScrapsInput>().SetPlayer(player);
+				FindObjectOfType<ScrapsInput>().SetPlayerBox(this);
 			}
 		}
+	}
+
+	[Command]
+	public void CmdSetBid(int value) {
+		Debug.Log("Set bid: " + value);
+		bid = value;
+		bidRegistered = true;
 	}
 }

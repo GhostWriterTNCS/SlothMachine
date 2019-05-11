@@ -40,12 +40,6 @@ public class Robot : NetworkBehaviour {
 	PlayerMove playerMove;
 
 	void Start() {
-		//player = FindObjectOfType<Player>();
-		/*if (!player) {
-			Debug.Log("Player not set.");
-			Destroy(gameObject);
-			return;
-		}*/
 		player = GetComponentInParent<Player>();
 		GameObject model = Instantiate(Resources.Load<GameObject>("Prefabs/Robots/" + player.robotName + "/" + player.robotName), transform);
 		robotModel = model.GetComponent<RobotModel>();

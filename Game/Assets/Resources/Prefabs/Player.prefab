@@ -83,5 +83,7 @@ MonoBehaviour:
   scraps: 100
   auctionPrefab: {fileID: 1268324097812021732, guid: 67c77e7f20bba264f9bcf0f5ba20364d,
     type: 3}
+  auctionPlayerScraps: {fileID: 8895915483734406524, guid: 6625d04d3acd0bc48bacde975d802eb1,
+    type: 3}
   arenaPrefab: {fileID: 398361175911409946, guid: 1ba252de51f3be54fb409fe3d37b6971,
     type: 3}

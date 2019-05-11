@@ -1,10 +1,11 @@
 ﻿using System;
-using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
-public class ScrapsInput : MonoBehaviour {
+public class ScrapsInput : NetworkBehaviour {
 	public Text input;
 	public Player player;
+	public PlayerBox playerBox;
 
 	int value;
 
@@ -13,12 +14,12 @@ public class ScrapsInput : MonoBehaviour {
 	}
 
 	void UpdateText() {
-		player.name = value.ToString();
 		input.text = value + "/" + player.scraps;
 	}
 
-	public void SetPlayer(Player player) {
-		this.player = player;
+	public void SetPlayerBox(PlayerBox playerBox) {
+		this.playerBox = playerBox;
+		player = playerBox.player;
 		UpdateText();
 	}
 
@@ -33,5 +34,10 @@ public class ScrapsInput : MonoBehaviour {
 			value--;
 			UpdateText();
 		}
+	}
+
+	public void SendBidValue() {
+		playerBox.CmdSetBid(value);
+		//FindObjectOfType<AuctionManager>().SendBidValue(playerBox.gameObject, value);
 	}
 }

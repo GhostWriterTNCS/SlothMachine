@@ -13,6 +13,7 @@ public class Player : NetworkBehaviour {
 	public int scraps;
 
 	public GameObject auctionPrefab;
+	public GameObject auctionPlayerScraps;
 	public GameObject arenaPrefab;
 
 	private void Awake() {
@@ -43,6 +44,17 @@ public class Player : NetworkBehaviour {
 			PlayerBox pb = newPlayer.GetComponent<PlayerBox>();
 			pb.playerGO = gameObject;
 			NetworkServer.ReplacePlayerForConnection(conn, newPlayer, 0);
+
+			GameObject playerScraps = Instantiate(auctionPlayerScraps);
+			NetworkServer.Spawn(playerScraps);
+			PlayerScraps ps = playerScraps.GetComponent<PlayerScraps>();
+			ps.playerBoxGO = pb.gameObject;
+
+			//NetworkServer.ReplacePlayerForConnection(conn, FindObjectOfType<ScrapsInput>().gameObject, 0);
+
+			/*GameObject NAM = Instantiate(new GameObject());
+			NAM.AddComponent<NetworkAuctionManager>();
+			NetworkServer.Spawn(NAM);*/
 		}
 	}
 	[ClientRpc]
