@@ -77,6 +77,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 172e2e2df8e179f4083d7d0075fa40a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerID: 0
   robotName: Dozzer
-  avatarPrefab: {fileID: 398361175911409946, guid: 1ba252de51f3be54fb409fe3d37b6971,
+  score: 100
+  scraps: 100
+  auctionPrefab: {fileID: 1268324097812021732, guid: 67c77e7f20bba264f9bcf0f5ba20364d,
+    type: 3}
+  arenaPrefab: {fileID: 398361175911409946, guid: 1ba252de51f3be54fb409fe3d37b6971,
     type: 3}
