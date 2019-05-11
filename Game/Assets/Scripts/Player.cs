@@ -16,14 +16,12 @@ public class Player : NetworkBehaviour {
 	public GameObject arenaPrefab;
 
 	private void Awake() {
-		Debug.Log("Player awake.");
 		DontDestroyOnLoad(gameObject);
 	}
 
 	void Start() {
 		name = "Player " + playerID;
 		CmdRespawn(gameObject);
-		Debug.Log(name + " start.");
 	}
 
 	[Command]
@@ -43,19 +41,12 @@ public class Player : NetworkBehaviour {
 			PlayerBox pb = newPlayer.GetComponent<PlayerBox>();
 			pb.playerGO = gameObject;
 			NetworkServer.ReplacePlayerForConnection(conn, newPlayer, 0);
-			pb.LoadPlayer();
-			RpcPlayerBoxLoadPlayer(newPlayer);
 		}
 	}
 	[ClientRpc]
 	public void RpcSetParent(GameObject go, GameObject parent) {
 		Debug.Log("Set parent: " + go.name + " - " + parent.name);
 		go.transform.SetParent(parent.transform);
-	}
-	[ClientRpc]
-	public void RpcPlayerBoxLoadPlayer(GameObject pb) {
-		Debug.Log("Load player for " + pb.name);
-		pb.GetComponent<PlayerBox>().LoadPlayer();
 	}
 
 	private void OnDisconnectedFromServer(NetworkIdentity info) {
