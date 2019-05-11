@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
@@ -14,9 +15,13 @@ public class PlayerBox : NetworkBehaviour {
 
 	public GameObject scrapsBlock;
 
-	void Update() {
-		if (!playerGO || player) {
-			return;
+	void Start() {
+		StartCoroutine(LoadPlayer());
+	}
+
+	IEnumerator LoadPlayer() {
+		while (!playerGO) {
+			yield return new WaitForSeconds(0.01f);
 		}
 		transform.SetParent(FindObjectOfType<PlayersList>().transform);
 		Debug.Log("Load player " + playerGO.name);

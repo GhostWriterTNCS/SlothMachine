@@ -6,11 +6,11 @@ public class Player : NetworkBehaviour {
 	[SyncVar, HideInInspector]
 	public int playerID;
 	[SyncVar, HideInInspector]
-	public string robotName = "Dozzer";
+	public string robotName;
 	[SyncVar, HideInInspector]
-	public int score = 0;
+	public int score;
 	[SyncVar, HideInInspector]
-	public int scraps = 100;
+	public int scraps;
 
 	public GameObject auctionPrefab;
 	public GameObject arenaPrefab;
@@ -22,6 +22,8 @@ public class Player : NetworkBehaviour {
 	void Start() {
 		name = "Player " + playerID;
 		CmdRespawn(gameObject);
+		score = 0;
+		scraps = 100;
 	}
 
 	[Command]
