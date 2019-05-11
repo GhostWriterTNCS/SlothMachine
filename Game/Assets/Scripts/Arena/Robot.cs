@@ -47,7 +47,7 @@ public class Robot : NetworkBehaviour {
 			return;
 		}*/
 		player = GetComponentInParent<Player>();
-		GameObject model = Instantiate(Resources.Load<GameObject>("Robots/" + player.robotName + "/" + player.robotName), transform);
+		GameObject model = Instantiate(Resources.Load<GameObject>("Prefabs/Robots/" + player.robotName + "/" + player.robotName), transform);
 		robotModel = model.GetComponent<RobotModel>();
 		if (!robotModel) {
 			Debug.LogError("No robot model");
