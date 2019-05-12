@@ -9,5 +9,6 @@ public class NetworkLobbyHook : LobbyHook {
 		Player p = gamePlayer.GetComponent<Player>();
 		p.playerID = lobby.playerID;
 		p.robotName = lobby.playerName;
+		p.isAgent = lobby.isAgent;
 	}
 }

@@ -3,14 +3,16 @@ using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
 public class Player : NetworkBehaviour {
-	[SyncVar, HideInInspector]
+	[SyncVar]
 	public int playerID;
-	[SyncVar, HideInInspector]
+	[SyncVar]
 	public string robotName;
-	[SyncVar, HideInInspector]
+	[SyncVar]
 	public int score;
-	[SyncVar, HideInInspector]
+	[SyncVar]
 	public int scraps;
+	[SyncVar]
+	public bool isAgent;
 
 	public GameObject auctionPrefab;
 	public GameObject auctionPlayerScraps;
@@ -21,7 +23,11 @@ public class Player : NetworkBehaviour {
 	}
 
 	void Start() {
-		name = "Player " + playerID;
+		if (isAgent) {
+			name = "Bot " + playerID;
+		} else {
+			name = "Player " + playerID;
+		}
 		CmdRespawn(gameObject);
 		score = 0;
 		scraps = 100;
@@ -30,31 +36,28 @@ public class Player : NetworkBehaviour {
 	[Command]
 	public void CmdRespawn(GameObject go) {
 		NetworkConnection conn = go.GetComponent<NetworkIdentity>().connectionToClient;
-		NetworkServer.ReplacePlayerForConnection(conn, gameObject, 0);
+		if (!isAgent)
+			NetworkServer.ReplacePlayerForConnection(conn, gameObject, 0);
 		if (SceneManager.GetActiveScene().name == GameScenes.Arena) {
 			Debug.Log("Spawn in arena.");
 			GameObject newPlayer = Instantiate(arenaPrefab, transform);
 			NetworkServer.Spawn(newPlayer);
 			RpcSetParent(newPlayer, gameObject);
-			NetworkServer.ReplacePlayerForConnection(conn, newPlayer, 0);
+			if (!isAgent)
+				NetworkServer.ReplacePlayerForConnection(conn, newPlayer, 0);
 		} else if (SceneManager.GetActiveScene().name == GameScenes.Auction) {
 			Debug.Log("Spawn in auction.");
 			GameObject newPlayer = Instantiate(auctionPrefab);
 			NetworkServer.Spawn(newPlayer);
 			PlayerBox pb = newPlayer.GetComponent<PlayerBox>();
 			pb.playerGO = gameObject;
-			NetworkServer.ReplacePlayerForConnection(conn, newPlayer, 0);
+			if (!isAgent)
+				NetworkServer.ReplacePlayerForConnection(conn, newPlayer, 0);
 
 			GameObject playerScraps = Instantiate(auctionPlayerScraps);
 			NetworkServer.Spawn(playerScraps);
 			PlayerScraps ps = playerScraps.GetComponent<PlayerScraps>();
 			ps.playerBoxGO = pb.gameObject;
-
-			//NetworkServer.ReplacePlayerForConnection(conn, FindObjectOfType<ScrapsInput>().gameObject, 0);
-
-			/*GameObject NAM = Instantiate(new GameObject());
-			NAM.AddComponent<NetworkAuctionManager>();
-			NetworkServer.Spawn(NAM);*/
 		}
 	}
 	[ClientRpc]

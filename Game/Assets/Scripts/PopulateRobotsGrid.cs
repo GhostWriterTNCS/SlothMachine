@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.Networking;
 
 public class PopulateRobotsGrid : NetworkBehaviour {
+	public static string[] robots = { "Kiddo", "Nourinha", "Breach", "Dozzer" };
+
 	public Prototype.NetworkLobby.LobbyPlayer lobbyPlayer;
 
 	public IEnumerator LoadDefault() {

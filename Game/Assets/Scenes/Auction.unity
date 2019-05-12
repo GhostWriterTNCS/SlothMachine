@@ -1587,7 +1587,7 @@ MonoBehaviour:
   playersList: {fileID: 717067987}
   scrapsList: {fileID: 2084456444}
   upgradesList: {fileID: 200529480}
-  networkAuctionManager: {fileID: 0}
+  highestBid: {fileID: 0}
 --- !u!4 &1675912795
 Transform:
   m_ObjectHideFlags: 0

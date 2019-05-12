@@ -38,6 +38,5 @@ public class ScrapsInput : NetworkBehaviour {
 
 	public void SendBidValue() {
 		playerBox.CmdSetBid(value);
-		//FindObjectOfType<AuctionManager>().SendBidValue(playerBox.gameObject, value);
 	}
 }

@@ -27,6 +27,8 @@ namespace Prototype.NetworkLobby {
 		public Color playerColor = Color.white;
 		[SyncVar]
 		public int playerID = 0;
+		[SyncVar]
+		public bool isAgent = false;
 
 		public Color OddRowColor = new Color(250.0f / 255.0f, 250.0f / 255.0f, 250.0f / 255.0f, 1.0f);
 		public Color EvenRowColor = new Color(180.0f / 255.0f, 180.0f / 255.0f, 180.0f / 255.0f, 1.0f);
@@ -53,7 +55,6 @@ namespace Prototype.NetworkLobby {
 			} else {
 				SetupOtherPlayer();
 			}
-			StartCoroutine(FindObjectOfType<PopulateRobotsGrid>().LoadDefault());
 
 			//setup the player data on UI. The value are SyncVar so the player
 			//will be created with the right value currently on server
@@ -93,7 +94,17 @@ namespace Prototype.NetworkLobby {
 		}
 
 		void SetupLocalPlayer() {
-			FindObjectOfType<PopulateRobotsGrid>().lobbyPlayer = this;
+			PopulateRobotsGrid prg = FindObjectOfType<PopulateRobotsGrid>();
+			if (prg.lobbyPlayer != null) {
+				CmdNameChanged(PopulateRobotsGrid.robots[Random.Range(0, PopulateRobotsGrid.robots.Length)]);
+				/*ChangeReadyButtonColor(NotReadyColor);
+				OnClientReady(true);
+				SendReadyToBeginMessage();
+				return;*/
+			} else {
+				prg.lobbyPlayer = this;
+				StartCoroutine(prg.LoadDefault());
+			}
 
 			nameInput.interactable = true;
 			if (remoteIcone)

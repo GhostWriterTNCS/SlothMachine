@@ -124,6 +124,11 @@ namespace Prototype.NetworkLobby {
 
 		public void AddLocalPlayer() {
 			TryToAddPlayer();
+			LobbyPlayer p = lobbySlots[numPlayers - 1] as LobbyPlayer;
+			if (p) {
+				p.isAgent = true;
+			}
+			Debug.Log("Added local player " + numPlayers);
 		}
 
 		public void RemovePlayer(LobbyPlayer player) {
@@ -205,7 +210,8 @@ namespace Prototype.NetworkLobby {
 			foreach (PlayerController p in ClientScene.localPlayers)
 				localPlayerCount += (p == null || p.playerControllerId == -1) ? 0 : 1;
 
-			addPlayerButton.SetActive(localPlayerCount < maxPlayersPerConnection && _playerNumber < maxPlayers);
+			// show button only on server
+			addPlayerButton.SetActive(NetworkServer.active && localPlayerCount < maxPlayersPerConnection && _playerNumber < maxPlayers);
 		}
 
 		// ----------------- Server callbacks ------------------
@@ -273,8 +279,25 @@ namespace Prototype.NetworkLobby {
 					allready &= lobbySlots[i].readyToBegin;
 			}
 
-			if (allready)
+			if (allready) {
+				for (int j = LobbyPlayerList._instance.playerListContentTransform.childCount - 1; j < maxPlayers; j++) {
+					GameObject obj = Instantiate(lobbyPlayerPrefab.gameObject);
+
+					LobbyPlayer newPlayer = obj.GetComponent<LobbyPlayer>();
+					newPlayer.ToggleJoinButton(numPlayers + 1 >= minPlayers);
+					newPlayer.isAgent = true;
+
+					for (int i = 0; i < lobbySlots.Length; ++i) {
+						LobbyPlayer p = lobbySlots[i] as LobbyPlayer;
+
+						if (p != null) {
+							p.RpcUpdateRemoveButton();
+							p.ToggleJoinButton(numPlayers + 1 >= minPlayers);
+						}
+					}
+				}
 				StartCoroutine(ServerCountdownCoroutine());
+			}
 		}
 
 		public IEnumerator ServerCountdownCoroutine() {
