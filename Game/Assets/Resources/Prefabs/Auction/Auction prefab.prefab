@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 1268324097812021734}
   - component: {fileID: 1268324097812021729}
   m_Layer: 5
-  m_Name: Player box
+  m_Name: Auction prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -147,7 +147,13 @@ MonoBehaviour:
   nameText: {fileID: 1268324098977537025}
   scoreText: {fileID: 7903868228705397305}
   scoreSlider: {fileID: 2871081290091726682}
-  scrapsBlock: {fileID: 0}
+  bidRegistered: 0
+  bid: 0
+  upgradeBoxPrefab: {fileID: 4656, guid: b07bafa09e6c78c4b94026a8ddbf078f, type: 3}
+  countdownDuration: 10
+  countdownText: 'Make your bid! Time ends in #...'
+  pauseDuration: 5
+  pauseText: 'The winner is #!'
 --- !u!114 &339911233931294749
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -32,7 +32,7 @@ public class PlayerScraps : NetworkBehaviour {
 		if (playerBox.player.isAgent) {
 			CmdCalculateAgentsBids();
 		}
-		StartCoroutine(UpdateResultDelay());
+		StartCoroutine(UpdateResultCoroutine());
 	}
 
 	[Command]
@@ -41,7 +41,7 @@ public class PlayerScraps : NetworkBehaviour {
 		playerBox.bidRegistered = true;
 	}
 
-	IEnumerator UpdateResultDelay() {
+	IEnumerator UpdateResultCoroutine() {
 		float maxValue = 0;
 		foreach (PlayerBox pb in FindObjectsOfType<PlayerBox>()) {
 			while (!pb.bidRegistered) {

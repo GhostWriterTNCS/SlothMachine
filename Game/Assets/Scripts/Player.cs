@@ -84,4 +84,9 @@ public class Player : NetworkBehaviour {
 		}
 		CmdRespawn(gameObject);
 	}
+
+
+	// -- NetworkAuctionManager --
+
+
 }

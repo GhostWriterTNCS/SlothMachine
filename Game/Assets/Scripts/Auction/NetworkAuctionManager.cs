@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
-public struct Pair {
+/*public struct Pair {
 	public int value1;
 	public int value2;
 
@@ -21,69 +21,11 @@ public struct Pair {
 		Pair p = (Pair)obj;
 		return (value1 == p.value1) && (value2 == p.value2);
 	}
-}
+}*/
 
-public class PlayerBox : NetworkBehaviour {
-	[SyncVar]
-	public GameObject playerGO;
-	public Player player;
-
-	public Image robotImage;
-	public Text nameText;
-	public Text scoreText;
-	public Slider scoreSlider;
-
-	//public GameObject scrapsBlock;
-
-	[SyncVar]
-	public bool bidRegistered = false;
-	[SyncVar]
-	public int bid;
-
-	void Start() {
-		StartCoroutine(LoadPlayer());
-	}
-
-	IEnumerator LoadPlayer() {
-		while (!playerGO) {
-			yield return new WaitForSeconds(0.01f);
-		}
-		transform.SetParent(FindObjectOfType<AuctionManager>().playersList.transform);
-		Debug.Log("Load player " + playerGO.name);
-		player = playerGO.GetComponent<Player>();
-		if (player) {
-			robotImage.sprite = Resources.Load<Sprite>("UI/Robots/" + player.robotName);
-			nameText.text = player.name;
-			scoreText.text = player.score.ToString();
-			float maxScore = 0;
-			foreach (Player p in FindObjectsOfType<Player>()) {
-				if (p.score > maxScore) {
-					maxScore = p.score;
-				}
-			}
-			scoreSlider.value = player.score / maxScore;
-			if (isLocalPlayer) {
-				FindObjectOfType<ScrapsInput>().SetPlayerBox(this);
-			}
-		}
-
-		//StartCoroutine(LoadCoroutine());
-		if (!isServer)
-			CmdLoadCoroutine();
-	}
-
-	[Command]
-	public void CmdSetBid(int value) {
-		Debug.Log("Set bid: " + value);
-		bid = value;
-		bidRegistered = true;
-	}
-
-
-	// -- NetworkAuctionManager --
-
+public class NetworkAuctionManager : NetworkBehaviour {
 	public GameObject upgradeBoxPrefab;
-	Text header;
+	public Text header;
 
 	[Space]
 	public int countdownDuration = 10;
@@ -97,12 +39,14 @@ public class PlayerBox : NetworkBehaviour {
 
 	List<Pair> usedUpgrades = new List<Pair>();
 
-	[Command]
-	public void CmdLoadCoroutine() {
-		//yield return new WaitForSeconds(0.5f);
+	void Start() {
+		StartCoroutine(LoadCoroutine());
+	}
+
+	IEnumerator LoadCoroutine() {
+		yield return new WaitForSeconds(0.5f);
 
 		Debug.Log(FindObjectsOfType<Player>().Length);
-		header = FindObjectOfType<AuctionManager>().header;
 
 		for (int i = 0; i < 4; i++) {
 			GameObject newPlayer = Instantiate(upgradeBoxPrefab);
@@ -149,8 +93,7 @@ public class PlayerBox : NetworkBehaviour {
 		FindObjectOfType<SwitchGameObjects>().Switch();
 	}
 
-	[Server]
-	public IEnumerator AuctionCoroutine() {
+	IEnumerator AuctionCoroutine() {
 		while (currentCountdown > 0) {
 			currentCountdown -= Time.deltaTime;
 			header.text = countdownText.Replace("#", ((int)currentCountdown).ToString());
