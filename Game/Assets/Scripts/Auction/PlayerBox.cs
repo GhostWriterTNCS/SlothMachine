@@ -48,7 +48,6 @@ public class PlayerBox : NetworkBehaviour {
 
 	[Command]
 	public void CmdSetBid(int value) {
-		Debug.Log("Set bid: " + value);
 		bid = value;
 		bidRegistered = true;
 	}

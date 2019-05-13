@@ -16,8 +16,11 @@ public class UpgradeBox : NetworkBehaviour {
 	public int level;
 	[SyncVar]
 	public bool selected;
+	[SyncVar]
+	public bool isUpdated;
 
 	void Start() {
+		isUpdated = true;
 		StartCoroutine(LoadUpgradeCoroutine());
 	}
 
@@ -31,6 +34,13 @@ public class UpgradeBox : NetworkBehaviour {
 	}
 
 	public void RefreshSelected() {
+		StartCoroutine(RefreshSelectedCoroutine());
+	}
+
+	IEnumerator RefreshSelectedCoroutine() {
+		while (!isUpdated) {
+			yield return new WaitForSeconds(0.05f);
+		}
 		if (backgroundImage) {
 			backgroundImage.enabled = selected;
 		}
@@ -40,6 +50,7 @@ public class UpgradeBox : NetworkBehaviour {
 			current.level = level;
 			current.Refresh();
 		}
+		isUpdated = false;
 	}
 
 	IEnumerator LoadUpgradeCoroutine() {

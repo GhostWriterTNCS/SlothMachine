@@ -24,10 +24,6 @@ public struct Pair {
 
 public class NetworkAuctionManager : NetworkBehaviour {
 	public GameObject upgradeBoxPrefab;
-	[SyncVar]
-	public GameObject auctionWinner;
-	[SyncVar]
-	public int maxBid;
 
 	[Space]
 	public int countdownDuration = 10;
@@ -40,6 +36,12 @@ public class NetworkAuctionManager : NetworkBehaviour {
 	public string pauseText;
 	[SyncVar]
 	float currentPause;
+
+	[Space]
+	[SyncVar]
+	public GameObject auctionWinner;
+	[SyncVar]
+	public int maxBid;
 
 	int currentUpgrade = 0;
 	List<UpgradeBox> upgrades = new List<UpgradeBox>();
@@ -77,8 +79,12 @@ public class NetworkAuctionManager : NetworkBehaviour {
 	IEnumerator AuctionWinnerCoroutine() {
 		foreach (PlayerBox pb in FindObjectsOfType<PlayerBox>()) {
 			while (!pb.bidRegistered) {
-				yield return new WaitForSeconds(0.05f);
+				yield return new WaitForSeconds(0.01f);
 			}
+			if (pb.bid > pb.player.scraps) {
+				pb.bid = pb.player.scraps;
+			}
+			pb.player.scraps -= pb.bid;
 			if (pb.bid > maxBid) {
 				maxBid = pb.bid;
 				auctionWinner = pb.gameObject;
@@ -111,9 +117,9 @@ public class NetworkAuctionManager : NetworkBehaviour {
 	[ClientRpc]
 	public void RpcPauseFinished() {
 		FindObjectOfType<SwitchGameObjects>().Switch();
-		for (int i = 0; i < upgrades.Count; i++) {
-			upgrades[i].selected = (i == currentUpgrade);
-			upgrades[i].RefreshSelected();
+		FindObjectOfType<ScrapsInput>().ResetValue();
+		foreach (UpgradeBox ub in FindObjectsOfType<UpgradeBox>()) {
+			ub.RefreshSelected();
 		}
 	}
 
@@ -127,7 +133,7 @@ public class NetworkAuctionManager : NetworkBehaviour {
 		StartCoroutine(AuctionWinnerCoroutine());
 		RpcUpdateResults();
 		while (auctionWinner == null) {
-			yield return new WaitForSeconds(0.05f);
+			yield return new WaitForSeconds(0.01f);
 		}
 		RpcSetHeader(pauseText.Replace("#", auctionWinner.GetComponent<PlayerBox>().player.name));
 		while (currentPause > 0) {
@@ -137,8 +143,13 @@ public class NetworkAuctionManager : NetworkBehaviour {
 		foreach (PlayerBox pb in FindObjectsOfType<PlayerBox>()) {
 			pb.bidRegistered = false;
 		}
-		auctionWinner = null;
 		currentUpgrade++;
+		maxBid = 0;
+		auctionWinner = null;
+		for (int i = 0; i < upgrades.Count; i++) {
+			upgrades[i].selected = (i == currentUpgrade);
+			upgrades[i].isUpdated = true;
+		}
 		RpcPauseFinished();
 		currentCountdown = countdownDuration;
 		currentPause = pauseDuration;

@@ -29,9 +29,6 @@ public class PlayerScraps : NetworkBehaviour {
 	}
 
 	public void UpdateResult() {
-		/*if (playerBox.player.isAgent) {
-			CmdCalculateAgentsBids();
-		}*/
 		StartCoroutine(UpdateResultCoroutine());
 	}
 

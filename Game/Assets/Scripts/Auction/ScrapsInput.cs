@@ -36,6 +36,11 @@ public class ScrapsInput : NetworkBehaviour {
 		}
 	}
 
+	public void ResetValue() {
+		value = 0;
+		UpdateText();
+	}
+
 	public void SendBidValue() {
 		playerBox.CmdSetBid(value);
 	}
