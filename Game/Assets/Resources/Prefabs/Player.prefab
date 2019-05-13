@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5214476385118057603}
   - component: {fileID: 5214476385118057605}
-  - component: {fileID: 5214476385118057604}
+  - component: {fileID: 4643356926412524769}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -65,7 +65,7 @@ MonoBehaviour:
     i15: 0
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
---- !u!114 &5214476385118057604
+--- !u!114 &4643356926412524769
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -74,8 +74,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 5214476385118057602}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c57d9e72dc9f2da4d93ef3ee7c9fb941, type: 3}
+  m_Script: {fileID: 11500000, guid: 172e2e2df8e179f4083d7d0075fa40a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  robotModel: Dozzer
-  robot: {fileID: 0}
+  playerID: 0
+  robotName: Dozzer
+  score: 100
+  scraps: 100
+  auctionPrefab: {fileID: 1268324097812021732, guid: 67c77e7f20bba264f9bcf0f5ba20364d,
+    type: 3}
+  auctionPlayerScraps: {fileID: 8895915483734406524, guid: 6625d04d3acd0bc48bacde975d802eb1,
+    type: 3}
+  arenaPrefab: {fileID: 398361175911409946, guid: 1ba252de51f3be54fb409fe3d37b6971,
+    type: 3}

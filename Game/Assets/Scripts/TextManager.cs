@@ -6,11 +6,13 @@ public class TextManager : MonoBehaviour {
 	public static string fontName = "NovaMono";
 	public static int fontSize;
 	public static int fontSizeH;
+	public static int fontSizeSmall;
 	public static Color fontColor = new Color(0.8654326f, 0.9438342f, 0.9811321f);
 
 	void Awake() {
 		fontSize = Screen.height / 31;
 		fontSizeH = Screen.height / 16;
+		fontSizeSmall = Screen.height / 38;
 		foreach (Text t in Resources.FindObjectsOfTypeAll<Text>()) {
 			TextProperties tp = t.GetComponent<TextProperties>();
 			if (tp) {
@@ -19,6 +21,9 @@ public class TextManager : MonoBehaviour {
 					t.resizeTextForBestFit = false;
 				} else if (tp.type == TextProperties.TextType.Normal) {
 					t.fontSize = fontSize;
+					t.resizeTextForBestFit = false;
+				} else if (tp.type == TextProperties.TextType.Small) {
+					t.fontSize = fontSizeSmall;
 					t.resizeTextForBestFit = false;
 				} else if (tp.type == TextProperties.TextType.Expand) {
 					t.resizeTextForBestFit = true;

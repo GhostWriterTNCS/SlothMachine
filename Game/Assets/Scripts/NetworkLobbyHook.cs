@@ -6,8 +6,9 @@ public class NetworkLobbyHook : LobbyHook {
 	public override void OnLobbyServerSceneLoadedForPlayer(NetworkManager manager, GameObject lobbyPlayer, GameObject gamePlayer) {
 		//base.OnLobbyServerSceneLoadedForPlayer(manager, lobbyPlayer, gamePlayer);
 		LobbyPlayer lobby = lobbyPlayer.GetComponent<LobbyPlayer>();
-		Robot r = gamePlayer.GetComponent<Robot>();
-
-		r.robotName = lobby.playerName;
+		Player p = gamePlayer.GetComponent<Player>();
+		p.playerID = lobby.playerID;
+		p.robotName = lobby.playerName;
+		p.isAgent = lobby.isAgent;
 	}
 }

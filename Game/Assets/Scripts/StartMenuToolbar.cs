@@ -9,7 +9,6 @@ public class StartMenuToolbar : MonoBehaviour {
 
 	void Start() {
 		showPanel();
-		GameObject model = Instantiate(Resources.Load<GameObject>("Robots/Avatar"));// + Player.robotModel + "/" + Player.robotModel));
 	}
 
 	public void showPanel() {

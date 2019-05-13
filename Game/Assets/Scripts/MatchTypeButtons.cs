@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
 public class MatchTypeButtons : MonoBehaviour {
@@ -18,6 +19,8 @@ public class MatchTypeButtons : MonoBehaviour {
 	}
 
 	public void Back() {
+		NetworkLobbyManager.singleton.StopHost();
+		Destroy(FindObjectOfType<NetworkLobbyManager>().gameObject);
 		SceneManager.LoadScene(GameScenes.StartScreen);
 	}
 }

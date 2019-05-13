@@ -13,9 +13,29 @@ public class ButtonTip : MonoBehaviour {
 		b = GetComponentInParent<Button>();
 	}
 
+	float freq = 1;
+	float temp = 0;
 	void Update() {
 		if (b) {
-			if (Input.GetButton(button)) {
+			if (button == "Dpad_Left") {
+				if (Input.GetAxis("Horizontal") < -0.1) {
+					if (temp == 0 || temp > freq) {
+						b.onClick.Invoke();
+					}
+					temp += Time.deltaTime;
+				} else {
+					temp = 0;
+				}
+			} else if (button == "Dpad_Right") {
+				if (Input.GetAxis("Horizontal") > 0.1) {
+					if (temp == 0 || temp > freq) {
+						b.onClick.Invoke();
+					}
+					temp += Time.deltaTime;
+				} else {
+					temp = 0;
+				}
+			} else if (Input.GetButton(button)) {
 				b.onClick.Invoke();
 			}
 		}
