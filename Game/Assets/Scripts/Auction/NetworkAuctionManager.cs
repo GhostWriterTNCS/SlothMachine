@@ -24,7 +24,10 @@ public struct Pair {
 
 public class NetworkAuctionManager : NetworkBehaviour {
 	public GameObject upgradeBoxPrefab;
-	//Text header;
+	[SyncVar]
+	public GameObject auctionWinner;
+	[SyncVar]
+	public int maxBid;
 
 	[Space]
 	public int countdownDuration = 10;
@@ -71,6 +74,18 @@ public class NetworkAuctionManager : NetworkBehaviour {
 		StartCoroutine(AuctionCoroutine());
 	}
 
+	IEnumerator AuctionWinnerCoroutine() {
+		foreach (PlayerBox pb in FindObjectsOfType<PlayerBox>()) {
+			while (!pb.bidRegistered) {
+				yield return new WaitForSeconds(0.05f);
+			}
+			if (pb.bid > maxBid) {
+				maxBid = pb.bid;
+				auctionWinner = pb.gameObject;
+			}
+		}
+	}
+
 	[ClientRpc]
 	public void RpcSetHeader(string s) {
 		FindObjectOfType<AuctionManager>().header.text = s;
@@ -81,12 +96,16 @@ public class NetworkAuctionManager : NetworkBehaviour {
 		go.transform.SetParent(FindObjectOfType<AuctionManager>().upgradesList.transform);
 	}
 
-	GameObject auctionWinner;
 	[ClientRpc]
 	public void RpcCountdownFinished() {
 		FindObjectOfType<ScrapsInput>().SendBidValue();
 		FindObjectOfType<SwitchGameObjects>().Switch();
-		FindObjectOfType<AuctionManager>().EvaluateBids();
+		FindObjectOfType<AuctionManager>().CalculateAgentsBids();
+	}
+
+	[ClientRpc]
+	public void RpcUpdateResults() {
+		FindObjectOfType<AuctionManager>().UpdateResults();
 	}
 
 	[ClientRpc]
@@ -105,14 +124,20 @@ public class NetworkAuctionManager : NetworkBehaviour {
 			yield return new WaitForEndOfFrame();
 		}
 		RpcCountdownFinished();
+		StartCoroutine(AuctionWinnerCoroutine());
+		RpcUpdateResults();
+		while (auctionWinner == null) {
+			yield return new WaitForSeconds(0.05f);
+		}
+		RpcSetHeader(pauseText.Replace("#", auctionWinner.GetComponent<PlayerBox>().player.name));
 		while (currentPause > 0) {
 			currentPause -= Time.deltaTime;
-			RpcSetHeader(pauseText.Replace("#", ""));
 			yield return new WaitForEndOfFrame();
 		}
 		foreach (PlayerBox pb in FindObjectsOfType<PlayerBox>()) {
 			pb.bidRegistered = false;
 		}
+		auctionWinner = null;
 		currentUpgrade++;
 		RpcPauseFinished();
 		currentCountdown = countdownDuration;

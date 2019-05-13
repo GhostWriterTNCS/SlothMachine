@@ -21,7 +21,7 @@ public class PlayerScraps : NetworkBehaviour {
 
 	IEnumerator LoadPlayer() {
 		while (!playerBoxGO) {
-			yield return new WaitForSeconds(0.01f);
+			yield return new WaitForSeconds(0.05f);
 		}
 		transform.SetParent(FindObjectOfType<AuctionManager>().scrapsList.transform);
 		playerBox = playerBoxGO.GetComponent<PlayerBox>();
@@ -29,9 +29,9 @@ public class PlayerScraps : NetworkBehaviour {
 	}
 
 	public void UpdateResult() {
-		if (playerBox.player.isAgent) {
+		/*if (playerBox.player.isAgent) {
 			CmdCalculateAgentsBids();
-		}
+		}*/
 		StartCoroutine(UpdateResultCoroutine());
 	}
 
@@ -42,20 +42,12 @@ public class PlayerScraps : NetworkBehaviour {
 	}
 
 	IEnumerator UpdateResultCoroutine() {
-		float maxValue = 0;
-		foreach (PlayerBox pb in FindObjectsOfType<PlayerBox>()) {
-			while (!pb.bidRegistered) {
-				yield return new WaitForSeconds(0.01f);
-			}
-			if (pb.bid > maxValue) {
-				maxValue = pb.bid;
-				highestBid = pb.gameObject;
-			}
+		NetworkAuctionManager NAM = FindObjectOfType<NetworkAuctionManager>();
+		while (NAM.auctionWinner == null) {
+			yield return new WaitForSeconds(0.05f);
 		}
-
 		foreach (PlayerScraps ps in FindObjectsOfType<PlayerScraps>()) {
-			if (ps.playerBoxGO == highestBid) {
-				maxValue = ps.playerBox.bid;
+			if (ps.playerBoxGO == NAM.auctionWinner) {
 				ps.playerName.fontStyle = FontStyle.Bold;
 				ps.scrapsValue.fontStyle = FontStyle.Bold;
 			} else {
@@ -63,7 +55,7 @@ public class PlayerScraps : NetworkBehaviour {
 				ps.scrapsValue.fontStyle = FontStyle.Normal;
 			}
 		}
-		scrapsSlider.value = playerBox.bid / maxValue;
+		scrapsSlider.value = playerBox.bid / (float)NAM.maxBid;
 		scrapsValue.text = playerBox.bid.ToString();
 	}
 }

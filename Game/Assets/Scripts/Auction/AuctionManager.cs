@@ -12,7 +12,15 @@ public class AuctionManager : MonoBehaviour {
 	//[SyncVar]
 	//public GameObject highestBid;
 
-	public void EvaluateBids() {
+	public void CalculateAgentsBids() {
+		foreach (PlayerScraps ps in FindObjectsOfType<PlayerScraps>()) {
+			if (ps.playerBox.player.isAgent) {
+				ps.CmdCalculateAgentsBids();
+			}
+		}
+	}
+
+	public void UpdateResults() {
 		foreach (PlayerScraps ps in FindObjectsOfType<PlayerScraps>()) {
 			ps.UpdateResult();
 		}

@@ -60,9 +60,7 @@ public class Player : NetworkBehaviour {
 			PlayerScraps ps = playerScraps.GetComponent<PlayerScraps>();
 			ps.playerBoxGO = pb.gameObject;
 
-			Debug.Log("Prima");
 			if (FindObjectOfType<NetworkAuctionManager>() == null) {
-				Debug.Log("Dopo");
 				GameObject NAM = Instantiate(networkAuctionManager);
 				NetworkServer.Spawn(NAM);
 				NAM.GetComponent<NetworkAuctionManager>().CmdLoad();

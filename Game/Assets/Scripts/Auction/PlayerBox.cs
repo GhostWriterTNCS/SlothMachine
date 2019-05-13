@@ -24,7 +24,7 @@ public class PlayerBox : NetworkBehaviour {
 
 	IEnumerator LoadPlayer() {
 		while (!playerGO) {
-			yield return new WaitForSeconds(0.01f);
+			yield return new WaitForSeconds(0.05f);
 		}
 		transform.SetParent(FindObjectOfType<AuctionManager>().playersList.transform);
 		Debug.Log("Load player " + playerGO.name);

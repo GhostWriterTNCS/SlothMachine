@@ -16,17 +16,17 @@ public class TextManager : MonoBehaviour {
 		foreach (Text t in Resources.FindObjectsOfTypeAll<Text>()) {
 			TextProperties tp = t.GetComponent<TextProperties>();
 			if (tp) {
+				t.resizeTextForBestFit = true;
 				if (tp.type == TextProperties.TextType.Header) {
 					t.fontSize = fontSizeH;
-					t.resizeTextForBestFit = false;
+					t.resizeTextMaxSize = fontSizeH;
 				} else if (tp.type == TextProperties.TextType.Normal) {
 					t.fontSize = fontSize;
-					t.resizeTextForBestFit = false;
+					t.resizeTextMaxSize = fontSize;
 				} else if (tp.type == TextProperties.TextType.Small) {
 					t.fontSize = fontSizeSmall;
-					t.resizeTextForBestFit = false;
+					t.resizeTextMaxSize = fontSizeSmall;
 				} else if (tp.type == TextProperties.TextType.Expand) {
-					t.resizeTextForBestFit = true;
 					t.resizeTextMaxSize = 300;
 				}
 			} else {

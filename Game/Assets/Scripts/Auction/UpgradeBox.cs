@@ -44,9 +44,8 @@ public class UpgradeBox : NetworkBehaviour {
 
 	IEnumerator LoadUpgradeCoroutine() {
 		while (ID == 0) {
-			yield return new WaitForSeconds(0.01f);
+			yield return new WaitForSeconds(0.05f);
 		}
-		Debug.Log("UpgradeBox loading");
 		if (transform.parent == null) {
 			transform.SetParent(FindObjectOfType<AuctionManager>().upgradesList.transform);
 		}
