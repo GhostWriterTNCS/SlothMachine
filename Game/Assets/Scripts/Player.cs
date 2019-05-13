@@ -16,6 +16,7 @@ public class Player : NetworkBehaviour {
 
 	public GameObject auctionPrefab;
 	public GameObject auctionPlayerScraps;
+	public GameObject networkAuctionManager;
 	public GameObject arenaPrefab;
 
 	private void Awake() {
@@ -58,6 +59,14 @@ public class Player : NetworkBehaviour {
 			NetworkServer.Spawn(playerScraps);
 			PlayerScraps ps = playerScraps.GetComponent<PlayerScraps>();
 			ps.playerBoxGO = pb.gameObject;
+
+			Debug.Log("Prima");
+			if (FindObjectOfType<NetworkAuctionManager>() == null) {
+				Debug.Log("Dopo");
+				GameObject NAM = Instantiate(networkAuctionManager);
+				NetworkServer.Spawn(NAM);
+				NAM.GetComponent<NetworkAuctionManager>().CmdLoad();
+			}
 		}
 	}
 	[ClientRpc]

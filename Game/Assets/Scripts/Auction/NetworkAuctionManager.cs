@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
-using UnityEngine.UI;
 
-/*public struct Pair {
+public struct Pair {
 	public int value1;
 	public int value2;
 
@@ -21,33 +20,30 @@ using UnityEngine.UI;
 		Pair p = (Pair)obj;
 		return (value1 == p.value1) && (value2 == p.value2);
 	}
-}*/
+}
 
 public class NetworkAuctionManager : NetworkBehaviour {
 	public GameObject upgradeBoxPrefab;
-	public Text header;
+	//Text header;
 
 	[Space]
 	public int countdownDuration = 10;
 	public string countdownText;
+	[SyncVar]
 	float currentCountdown;
 
 	[Space]
 	public int pauseDuration = 5;
 	public string pauseText;
+	[SyncVar]
 	float currentPause;
 
+	int currentUpgrade = 0;
+	List<UpgradeBox> upgrades = new List<UpgradeBox>();
 	List<Pair> usedUpgrades = new List<Pair>();
 
-	void Start() {
-		StartCoroutine(LoadCoroutine());
-	}
-
-	IEnumerator LoadCoroutine() {
-		yield return new WaitForSeconds(0.5f);
-
-		Debug.Log(FindObjectsOfType<Player>().Length);
-
+	[Command]
+	public void CmdLoad() {
 		for (int i = 0; i < 4; i++) {
 			GameObject newPlayer = Instantiate(upgradeBoxPrefab);
 			NetworkServer.Spawn(newPlayer);
@@ -64,26 +60,31 @@ public class NetworkAuctionManager : NetworkBehaviour {
 			usedUpgrades.Add(new Pair(level, upgrade));
 			ub.ID = upgrade;
 			ub.level = level;
-			ub.LoadUpgrade();
-			if (i == 0) {
-				ub.backgroundImage.enabled = true;
-			} else {
-				ub.backgroundImage.enabled = false;
-			}
+			ub.selected = (i == 0);
+			upgrades.Add(ub);
 		}
 
 		currentCountdown = countdownDuration;
-		header.text = countdownText.Replace("#", ((int)currentCountdown).ToString());
+		RpcSetHeader(countdownText.Replace("#", ((int)currentCountdown).ToString()));
 
 		currentPause = pauseDuration;
 		StartCoroutine(AuctionCoroutine());
+	}
+
+	[ClientRpc]
+	public void RpcSetHeader(string s) {
+		FindObjectOfType<AuctionManager>().header.text = s;
+	}
+
+	[ClientRpc]
+	public void RpcUpgradeBoxSetParent(GameObject go) {
+		go.transform.SetParent(FindObjectOfType<AuctionManager>().upgradesList.transform);
 	}
 
 	GameObject auctionWinner;
 	[ClientRpc]
 	public void RpcCountdownFinished() {
 		FindObjectOfType<ScrapsInput>().SendBidValue();
-		//auctionWinner = FindObjectOfType<PlayerScraps>().gameObject;
 		FindObjectOfType<SwitchGameObjects>().Switch();
 		FindObjectOfType<AuctionManager>().EvaluateBids();
 	}
@@ -91,23 +92,35 @@ public class NetworkAuctionManager : NetworkBehaviour {
 	[ClientRpc]
 	public void RpcPauseFinished() {
 		FindObjectOfType<SwitchGameObjects>().Switch();
+		for (int i = 0; i < upgrades.Count; i++) {
+			upgrades[i].selected = (i == currentUpgrade);
+			upgrades[i].RefreshSelected();
+		}
 	}
 
 	IEnumerator AuctionCoroutine() {
 		while (currentCountdown > 0) {
 			currentCountdown -= Time.deltaTime;
-			header.text = countdownText.Replace("#", ((int)currentCountdown).ToString());
+			RpcSetHeader(countdownText.Replace("#", ((int)currentCountdown).ToString()));
 			yield return new WaitForEndOfFrame();
 		}
 		RpcCountdownFinished();
 		while (currentPause > 0) {
 			currentPause -= Time.deltaTime;
-			header.text = pauseText.Replace("#", "");
+			RpcSetHeader(pauseText.Replace("#", ""));
 			yield return new WaitForEndOfFrame();
 		}
+		foreach (PlayerBox pb in FindObjectsOfType<PlayerBox>()) {
+			pb.bidRegistered = false;
+		}
+		currentUpgrade++;
 		RpcPauseFinished();
 		currentCountdown = countdownDuration;
 		currentPause = pauseDuration;
-		StartCoroutine(AuctionCoroutine());
+		if (currentUpgrade < 3) {
+			StartCoroutine(AuctionCoroutine());
+		} else {
+			NetworkManager.singleton.ServerChangeScene(GameScenes.Arena);
+		}
 	}
 }

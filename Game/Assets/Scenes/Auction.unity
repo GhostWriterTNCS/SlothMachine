@@ -283,89 +283,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 200529480}
   m_CullTransparentMesh: 0
---- !u!1 &214696187
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 214696190}
-  - component: {fileID: 214696189}
-  - component: {fileID: 214696188}
-  m_Layer: 0
-  m_Name: Network Auction Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &214696188
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 214696187}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b965238b5085f1a4e857dd07ec94e946, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  upgradeBoxPrefab: {fileID: 4656, guid: b07bafa09e6c78c4b94026a8ddbf078f, type: 3}
-  header: {fileID: 1669400943}
-  countdownDuration: 10
-  countdownText: 'Make your bid! Time ends in #...'
-  pauseDuration: 5
-  pauseText: 'The winner is #!'
---- !u!114 &214696189
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 214696187}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 0
-    i1: 0
-    i2: 0
-    i3: 0
-    i4: 0
-    i5: 0
-    i6: 0
-    i7: 0
-    i8: 0
-    i9: 0
-    i10: 0
-    i11: 0
-    i12: 0
-    i13: 0
-    i14: 0
-    i15: 0
-  m_ServerOnly: 1
-  m_LocalPlayerAuthority: 0
---- !u!4 &214696190
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 214696187}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 945.89343, y: 570.5117, z: 25.348215}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &263305090
 GameObject:
   m_ObjectHideFlags: 0
@@ -485,7 +402,7 @@ RectTransform:
   - {fileID: 2073045786}
   - {fileID: 1442333926}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -772,11 +689,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 1786588394}
   upgradeName: {fileID: 1181094960}
-  levelText: {fileID: 0}
+  levelText: {fileID: 2058201227}
   description: {fileID: 529744556}
   backgroundImage: {fileID: 0}
   ID: 0
   level: 0
+  selected: 0
 --- !u!222 &608763537
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1229,7 +1147,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1308541486
 GameObject:
@@ -1645,7 +1563,7 @@ MonoBehaviour:
   scrapsList: {fileID: 2084456444}
   upgradesList: {fileID: 200529480}
   currentUpgrade: {fileID: 608763535}
-  networkAuctionManager: {fileID: 214696188}
+  networkAuctionManager: {fileID: 0}
 --- !u!4 &1675912795
 Transform:
   m_ObjectHideFlags: 0
