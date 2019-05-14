@@ -269,6 +269,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: rock 1
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 7e6a68167e72a7247983d2893ea1cca2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400012, guid: 7e6a68167e72a7247983d2893ea1cca2, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.6171684

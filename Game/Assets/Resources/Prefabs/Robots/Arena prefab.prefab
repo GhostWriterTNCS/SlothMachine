@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 3839373506520032606}
   - component: {fileID: 1511056818983966627}
   m_Layer: 0
-  m_Name: Avatar
+  m_Name: Arena prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36,7 +36,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 6452836868492190186}
+  - {fileID: 2024489595787727536}
   - {fileID: 3321679964773760274}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -72,9 +72,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99e1368a5a65e1047a1ec3503dee2629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  model: {fileID: 0}
+  player: {fileID: 0}
   comboDelay: 1
+  holdMinDuration: 0.76
   pushBackPower: 360
+  evadeDuration: 0.1
+  evadeDistance: 0.3
   leftHand: {fileID: 0}
   rightHand: {fileID: 0}
   leftFoot: {fileID: 0}
@@ -109,7 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8392dd5cd66cdf7469ca4d4e311beb67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCamera: {fileID: 2467045719809375315}
+  playerCamera: {fileID: 2024489595787727570}
 --- !u!54 &3795118744872106157
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -654,13 +657,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a0eadc7bd7c5a6428b3baf1a96a10bf, type: 3}
---- !u!4 &6452836868492190186 stripped
+--- !u!4 &2024489595787727536 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5014048445294678351, guid: 2a0eadc7bd7c5a6428b3baf1a96a10bf,
     type: 3}
   m_PrefabInstance: {fileID: 2024489595787735205}
   m_PrefabAsset: {fileID: 0}
---- !u!20 &2467045719809375315 stripped
+--- !u!20 &2024489595787727570 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 4477945330121592054, guid: 2a0eadc7bd7c5a6428b3baf1a96a10bf,
     type: 3}

@@ -13,8 +13,10 @@ public class Robot : NetworkBehaviour {
 	//public string robotName = "Dozzer";
 
 	public float comboDelay = 1;
-	float holdMinDuration = 0.76f;
+	public float holdMinDuration = 0.76f;
 	public float pushBackPower = 360;
+	public float evadeDuration = 0.1f;
+	public float evadeDistance = 0.3f;
 
 	[SerializeField]
 	public SphereCollider leftHand;
@@ -38,6 +40,7 @@ public class Robot : NetworkBehaviour {
 	Animator animator;
 	NetworkAnimator networkAnimator;
 	PlayerMove playerMove;
+	Rigidbody rigidbody;
 
 	void Start() {
 		player = GetComponentInParent<Player>();
@@ -57,6 +60,7 @@ public class Robot : NetworkBehaviour {
 		animator.avatar = robotModel.avatar;
 		networkAnimator = GetComponent<NetworkAnimator>();
 		playerMove = GetComponent<PlayerMove>();
+		rigidbody = GetComponent<Rigidbody>();
 
 		UpdateHealthValue(maxHealth);
 		leftHand.enabled = false;
@@ -64,33 +68,57 @@ public class Robot : NetworkBehaviour {
 	}
 
 	float holdButton = 0;
-	[SyncVar]
+	//[SyncVar]
 	float holdDuration = 0;
+
+	Vector3 evadeDirection;
+	float evadeTime = 0;
 	void Update() {
-		// Actions
-		if (isLocalPlayer) {
-			holdButton += Time.deltaTime;
-			if (Input.GetButtonDown("A")) {
-				holdButton = 0;
-			} else if (Input.GetButtonUp("A")) {
-				holdDuration = holdButton;
-				Debug.Log(holdDuration + " " + (holdDuration >= holdMinDuration));
-				SetTrigger("A");
-			} else if (Input.GetButtonDown("X")) {
-				holdButton = 0;
-			} else if (Input.GetButtonUp("X")) {
-				holdDuration = holdButton;
-				Debug.Log(holdDuration + " " + (holdDuration >= holdMinDuration));
-				SetTrigger("X");
-			} else if (Input.GetButtonDown("Y")) {
-				holdButton = 0;
-			} else if (Input.GetButtonUp("Y")) {
-				SetTrigger("Y");
-			}
-			if (Input.GetButtonDown("LB")) {
-				animator.SetBool("LB", true);
-			} else if (Input.GetButtonUp("LB")) {
-				animator.SetBool("LB", false);
+		if (evadeTime > 0) {
+			playerMove.canMove = false;
+			rigidbody.MovePosition(rigidbody.position + (evadeDirection * evadeDistance));
+			evadeTime -= Time.deltaTime;
+		} else {
+			playerMove.canMove = true;
+			// Actions
+			if (isLocalPlayer) {
+				holdButton += Time.deltaTime;
+				if (Input.GetButtonDown("A")) {
+					holdButton = 0;
+				} else if (Input.GetButtonUp("A")) {
+					SetTrigger("A");
+				} else if (Input.GetButtonDown("B")) {
+					holdButton = 0;
+				} else if (Input.GetButtonUp("B")) {
+					if (Input.GetAxis("Horizontal") > 0.1) {
+						evadeDirection = transform.right;
+					} else if (Input.GetAxis("Horizontal") < -0.1) {
+						evadeDirection = transform.right * -1;
+					} else if (Input.GetAxis("Vertical") > 0.1) {
+						evadeDirection = transform.forward;
+					} else {
+						evadeDirection = transform.forward * -1;
+					}
+					evadeTime = evadeDuration;
+					SetTrigger("B");
+				} else if (Input.GetButtonDown("X")) {
+					holdButton = 0;
+				} else if (Input.GetButtonUp("X")) {
+					holdDuration = holdButton;
+					//Debug.Log(holdDuration + " " + (holdDuration >= holdMinDuration));
+					SetTrigger("X");
+				} else if (Input.GetButtonDown("Y")) {
+					holdButton = 0;
+				} else if (Input.GetButtonUp("Y")) {
+					holdDuration = holdButton;
+					//Debug.Log(holdDuration + " " + (holdDuration >= holdMinDuration));
+					SetTrigger("Y");
+				}
+				if (Input.GetButtonDown("LB")) {
+					animator.SetBool("LB", true);
+				} else if (Input.GetButtonUp("LB")) {
+					animator.SetBool("LB", false);
+				}
 			}
 		}
 	}
@@ -135,6 +163,7 @@ public class Robot : NetworkBehaviour {
 		var spawn = NetworkManager.singleton.GetStartPosition();
 		transform.position = spawn.position;
 		transform.rotation = spawn.rotation;
+		rigidbody.velocity = Vector3.zero;
 	}
 
 	List<GameObject> particles = new List<GameObject>();
