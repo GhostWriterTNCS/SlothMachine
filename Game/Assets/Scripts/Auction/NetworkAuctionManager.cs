@@ -46,6 +46,14 @@ public class NetworkAuctionManager : NetworkBehaviour {
 	int currentUpgrade = 0;
 	List<UpgradeBox> upgrades = new List<UpgradeBox>();
 	List<Pair> usedUpgrades = new List<Pair>();
+	AuctionManager auctionManager;
+
+	void Start() {
+		auctionManager = FindObjectOfType<AuctionManager>();
+		auctionManager.scrapsInput.SetActive(true);
+		auctionManager.scrapsWait.SetActive(false);
+		auctionManager.scrapsList.SetActive(false);
+	}
 
 	[Command]
 	public void CmdLoad() {
@@ -77,7 +85,7 @@ public class NetworkAuctionManager : NetworkBehaviour {
 	}
 
 	IEnumerator AuctionWinnerCoroutine() {
-		foreach (PlayerBox pb in FindObjectsOfType<PlayerBox>()) {
+		foreach (AuctionPlayer pb in FindObjectsOfType<AuctionPlayer>()) {
 			while (!pb.bidRegistered) {
 				yield return new WaitForSeconds(0.01f);
 			}
@@ -89,36 +97,50 @@ public class NetworkAuctionManager : NetworkBehaviour {
 				auctionWinner = pb.gameObject;
 			}
 		}
-		PlayerBox playerBox = auctionWinner.GetComponent<PlayerBox>();
+		AuctionPlayer playerBox = auctionWinner.GetComponent<AuctionPlayer>();
 		playerBox.player.scraps -= playerBox.bid;
 	}
 
 	[ClientRpc]
 	public void RpcSetHeader(string s) {
-		FindObjectOfType<AuctionManager>().header.text = s;
+		auctionManager.header.text = s;
 	}
 
 	[ClientRpc]
 	public void RpcUpgradeBoxSetParent(GameObject go) {
-		go.transform.SetParent(FindObjectOfType<AuctionManager>().upgradesList.transform);
+		go.transform.SetParent(auctionManager.upgradesList.transform);
 	}
 
 	[ClientRpc]
 	public void RpcCountdownFinished() {
 		FindObjectOfType<ScrapsInput>().SendBidValue();
-		FindObjectOfType<SwitchGameObjects>().Switch();
-		FindObjectOfType<AuctionManager>().CalculateAgentsBids();
+		auctionManager.scrapsInput.SetActive(false);
+		auctionManager.scrapsWait.SetActive(false);
+		auctionManager.scrapsList.SetActive(true);
+		auctionManager.CalculateAgentsBids();
 	}
 
 	[ClientRpc]
 	public void RpcUpdateResults() {
-		FindObjectOfType<AuctionManager>().UpdateResults();
+		auctionManager.UpdateResults();
 	}
 
 	[ClientRpc]
 	public void RpcPauseFinished() {
-		FindObjectOfType<SwitchGameObjects>().Switch();
-		FindObjectOfType<ScrapsInput>().ResetValue();
+		Player player = null;
+		foreach (AuctionPlayer ap in FindObjectsOfType<AuctionPlayer>()) {
+			if (ap.GetComponent<NetworkIdentity>().isLocalPlayer) {
+				player = ap.player;
+				break;
+			}
+		}
+		auctionManager.scrapsInput.SetActive(!player.upgradeAssigned);
+		auctionManager.scrapsWait.SetActive(player.upgradeAssigned);
+		auctionManager.scrapsList.SetActive(false);
+		ScrapsInput si = FindObjectOfType<ScrapsInput>();
+		if (si) {
+			si.ResetValue();
+		}
 		foreach (UpgradeBox ub in FindObjectsOfType<UpgradeBox>()) {
 			ub.RefreshSelected();
 		}
@@ -136,13 +158,14 @@ public class NetworkAuctionManager : NetworkBehaviour {
 		while (auctionWinner == null) {
 			yield return new WaitForSeconds(0.01f);
 		}
-		auctionWinner.GetComponent<PlayerBox>().player.CmdAddUpgrade(usedUpgrades[currentUpgrade].value1, usedUpgrades[currentUpgrade].value2);
-		RpcSetHeader(pauseText.Replace("#", auctionWinner.GetComponent<PlayerBox>().player.name));
+		auctionWinner.GetComponent<AuctionPlayer>().player.CmdAddUpgrade(usedUpgrades[currentUpgrade].value1, usedUpgrades[currentUpgrade].value2);
+		RpcSetHeader(pauseText.Replace("#", auctionWinner.GetComponent<AuctionPlayer>().player.name));
 		while (currentPause > 0) {
 			currentPause -= Time.deltaTime;
 			yield return new WaitForEndOfFrame();
 		}
-		foreach (PlayerBox pb in FindObjectsOfType<PlayerBox>()) {
+		foreach (AuctionPlayer pb in FindObjectsOfType<AuctionPlayer>()) {
+			pb.bid = 0;
 			pb.bidRegistered = false;
 		}
 		currentUpgrade++;
@@ -158,6 +181,12 @@ public class NetworkAuctionManager : NetworkBehaviour {
 		if (currentUpgrade < 3) {
 			StartCoroutine(AuctionCoroutine());
 		} else {
+			foreach (Player p in FindObjectsOfType<Player>()) {
+				if (!p.upgradeAssigned) {
+					p.CmdAddUpgrade(upgrades[3].level, upgrades[3].ID);
+					break;
+				}
+			}
 			NetworkManager.singleton.ServerChangeScene(GameScenes.Arena);
 		}
 	}

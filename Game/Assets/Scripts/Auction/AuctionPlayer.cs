@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
-public class PlayerBox : NetworkBehaviour {
+public class AuctionPlayer : NetworkBehaviour {
 	[SyncVar]
 	public GameObject playerGO;
 	public Player player;
@@ -42,6 +42,9 @@ public class PlayerBox : NetworkBehaviour {
 			}
 			scoreSlider.value = player.score / maxScore;
 			if (isLocalPlayer) {
+				while (!FindObjectOfType<ScrapsInput>()) {
+					yield return new WaitForSeconds(0.05f);
+				}
 				FindObjectOfType<ScrapsInput>().SetPlayerBox(this);
 			}
 		}
@@ -60,7 +63,7 @@ public class PlayerBox : NetworkBehaviour {
 		StartCoroutine(ShowUpgradeCoroutine(index));
 	}
 	IEnumerator ShowUpgradeCoroutine(int index) {
-		while (player.upgrades.Count < index) {
+		while (player.upgrades.Count <= index) {
 			yield return new WaitForSeconds(0.05f);
 		}
 		upgrades[index].sprite = Resources.Load<Sprite>("UI/Upgrades/" + player.upgrades[index].value1 + "_" + player.upgrades[index].value2);

@@ -21,6 +21,8 @@ public class Player : NetworkBehaviour {
 	public GameObject arenaPrefab;
 
 	public List<Pair> upgrades = new List<Pair>();
+	[SyncVar]
+	public bool upgradeAssigned;
 
 	private void Awake() {
 		DontDestroyOnLoad(gameObject);
@@ -51,9 +53,10 @@ public class Player : NetworkBehaviour {
 				NetworkServer.ReplacePlayerForConnection(conn, newPlayer, 0);
 		} else if (SceneManager.GetActiveScene().name == GameScenes.Auction) {
 			Debug.Log("Spawn in auction.");
+			upgradeAssigned = false;
 			GameObject newPlayer = Instantiate(auctionPrefab);
 			NetworkServer.Spawn(newPlayer);
-			PlayerBox pb = newPlayer.GetComponent<PlayerBox>();
+			AuctionPlayer pb = newPlayer.GetComponent<AuctionPlayer>();
 			pb.playerGO = gameObject;
 			if (!isAgent)
 				NetworkServer.ReplacePlayerForConnection(conn, newPlayer, 0);
@@ -78,17 +81,14 @@ public class Player : NetworkBehaviour {
 
 	[Command]
 	public void CmdAddUpgrade(int level, int ID) {
-		upgrades.Add(new Pair(level, ID));
-		/*foreach (PlayerBox pb in FindObjectsOfType<PlayerBox>()) {
-			pb.ShowUpgrade(upgrades.Count - 1);
-		}*/
-		Debug.Log("ADDED");
-		RpcAddUpgrade(upgrades.Count - 1);
+		upgradeAssigned = true;
+		RpcAddUpgrade(level, ID);
 	}
 	[ClientRpc]
-	public void RpcAddUpgrade(int index) {
-		foreach (PlayerBox pb in FindObjectsOfType<PlayerBox>()) {
-			pb.ShowUpgrade(index);
+	public void RpcAddUpgrade(int level, int ID) {
+		upgrades.Add(new Pair(level, ID));
+		foreach (AuctionPlayer pb in FindObjectsOfType<AuctionPlayer>()) {
+			pb.ShowUpgrade(upgrades.Count - 1);
 		}
 	}
 

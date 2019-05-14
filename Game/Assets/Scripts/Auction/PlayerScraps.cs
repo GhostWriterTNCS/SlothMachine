@@ -10,7 +10,7 @@ public class PlayerScraps : NetworkBehaviour {
 
 	[SyncVar]
 	public GameObject playerBoxGO;
-	public PlayerBox playerBox;
+	public AuctionPlayer playerBox;
 
 	/*[SyncVar]
 	public GameObject highestBid;*/
@@ -24,7 +24,7 @@ public class PlayerScraps : NetworkBehaviour {
 			yield return new WaitForSeconds(0.05f);
 		}
 		transform.SetParent(FindObjectOfType<AuctionManager>().scrapsList.transform);
-		playerBox = playerBoxGO.GetComponent<PlayerBox>();
+		playerBox = playerBoxGO.GetComponent<AuctionPlayer>();
 		playerName.text = playerBox.player.name;
 	}
 

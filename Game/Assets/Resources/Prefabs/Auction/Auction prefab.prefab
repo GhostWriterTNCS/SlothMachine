@@ -89,7 +89,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1268324097812021735}
   - component: {fileID: 1268324097812021731}
-  - component: {fileID: 1900590249275183417}
+  - component: {fileID: 3698800641891773937}
   - component: {fileID: 339911233931294749}
   - component: {fileID: 1268324097812021734}
   - component: {fileID: 1268324097812021729}
@@ -129,7 +129,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1268324097812021732}
   m_CullTransparentMesh: 0
---- !u!114 &1900590249275183417
+--- !u!114 &3698800641891773937
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

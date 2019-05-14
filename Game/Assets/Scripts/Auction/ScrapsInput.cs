@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class ScrapsInput : NetworkBehaviour {
 	public Text input;
 	public Player player;
-	public PlayerBox playerBox;
+	public AuctionPlayer playerBox;
 
 	[SyncVar]
 	public bool upgradeAssigned;
@@ -19,7 +19,7 @@ public class ScrapsInput : NetworkBehaviour {
 		input.text = value + "/" + player.scraps;
 	}
 
-	public void SetPlayerBox(PlayerBox playerBox) {
+	public void SetPlayerBox(AuctionPlayer playerBox) {
 		this.playerBox = playerBox;
 		player = playerBox.player;
 		UpdateText();
