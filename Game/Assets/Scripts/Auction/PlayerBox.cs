@@ -12,6 +12,7 @@ public class PlayerBox : NetworkBehaviour {
 	public Text nameText;
 	public Text scoreText;
 	public Slider scoreSlider;
+	public Image[] upgrades;
 
 	[SyncVar]
 	public bool bidRegistered = false;
@@ -44,11 +45,25 @@ public class PlayerBox : NetworkBehaviour {
 				FindObjectOfType<ScrapsInput>().SetPlayerBox(this);
 			}
 		}
+		foreach (Image i in upgrades) {
+			i.enabled = false;
+		}
 	}
 
 	[Command]
 	public void CmdSetBid(int value) {
 		bid = value;
 		bidRegistered = true;
+	}
+
+	public void ShowUpgrade(int index) {
+		StartCoroutine(ShowUpgradeCoroutine(index));
+	}
+	IEnumerator ShowUpgradeCoroutine(int index) {
+		while (player.upgrades.Count < index) {
+			yield return new WaitForSeconds(0.05f);
+		}
+		upgrades[index].sprite = Resources.Load<Sprite>("UI/Upgrades/" + player.upgrades[index].value1 + "_" + player.upgrades[index].value2);
+		upgrades[index].enabled = true;
 	}
 }

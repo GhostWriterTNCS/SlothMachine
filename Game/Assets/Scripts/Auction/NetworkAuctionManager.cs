@@ -84,12 +84,13 @@ public class NetworkAuctionManager : NetworkBehaviour {
 			if (pb.bid > pb.player.scraps) {
 				pb.bid = pb.player.scraps;
 			}
-			pb.player.scraps -= pb.bid;
 			if (pb.bid > maxBid) {
 				maxBid = pb.bid;
 				auctionWinner = pb.gameObject;
 			}
 		}
+		PlayerBox playerBox = auctionWinner.GetComponent<PlayerBox>();
+		playerBox.player.scraps -= playerBox.bid;
 	}
 
 	[ClientRpc]
@@ -135,6 +136,7 @@ public class NetworkAuctionManager : NetworkBehaviour {
 		while (auctionWinner == null) {
 			yield return new WaitForSeconds(0.01f);
 		}
+		auctionWinner.GetComponent<PlayerBox>().player.CmdAddUpgrade(usedUpgrades[currentUpgrade].value1, usedUpgrades[currentUpgrade].value2);
 		RpcSetHeader(pauseText.Replace("#", auctionWinner.GetComponent<PlayerBox>().player.name));
 		while (currentPause > 0) {
 			currentPause -= Time.deltaTime;

@@ -12,8 +12,8 @@ public class PlayerScraps : NetworkBehaviour {
 	public GameObject playerBoxGO;
 	public PlayerBox playerBox;
 
-	[SyncVar]
-	public GameObject highestBid;
+	/*[SyncVar]
+	public GameObject highestBid;*/
 
 	void Start() {
 		StartCoroutine(LoadPlayer());

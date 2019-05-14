@@ -78,10 +78,20 @@ public class Player : NetworkBehaviour {
 
 	[Command]
 	public void CmdAddUpgrade(int level, int ID) {
-		if (upgrades.Contains(new Pair(level, ID))) {
-			upgrades.Add(new Pair(level, ID));
+		upgrades.Add(new Pair(level, ID));
+		/*foreach (PlayerBox pb in FindObjectsOfType<PlayerBox>()) {
+			pb.ShowUpgrade(upgrades.Count - 1);
+		}*/
+		Debug.Log("ADDED");
+		RpcAddUpgrade(upgrades.Count - 1);
+	}
+	[ClientRpc]
+	public void RpcAddUpgrade(int index) {
+		foreach (PlayerBox pb in FindObjectsOfType<PlayerBox>()) {
+			pb.ShowUpgrade(index);
 		}
 	}
+
 	[Command]
 	public void CmdRemoveUpgrade(int level, int ID) {
 		if (upgrades.Contains(new Pair(level, ID))) {

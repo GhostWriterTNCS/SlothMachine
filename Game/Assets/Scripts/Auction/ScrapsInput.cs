@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine.Networking;
+﻿using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class ScrapsInput : NetworkBehaviour {
@@ -7,10 +6,13 @@ public class ScrapsInput : NetworkBehaviour {
 	public Player player;
 	public PlayerBox playerBox;
 
+	[SyncVar]
+	public bool upgradeAssigned;
+
 	int value;
 
 	void Start() {
-		value = Convert.ToInt32(input.text);
+		upgradeAssigned = false;
 	}
 
 	void UpdateText() {

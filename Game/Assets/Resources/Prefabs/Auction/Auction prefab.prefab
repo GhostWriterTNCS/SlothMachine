@@ -147,13 +147,12 @@ MonoBehaviour:
   nameText: {fileID: 1268324098977537025}
   scoreText: {fileID: 7903868228705397305}
   scoreSlider: {fileID: 2871081290091726682}
+  upgrades:
+  - {fileID: 1268324099407216519}
+  - {fileID: 1268324099358200729}
+  - {fileID: 1268324098979608214}
   bidRegistered: 0
   bid: 0
-  upgradeBoxPrefab: {fileID: 4656, guid: b07bafa09e6c78c4b94026a8ddbf078f, type: 3}
-  countdownDuration: 10
-  countdownText: 'Make your bid! Time ends in #...'
-  pauseDuration: 5
-  pauseText: 'The winner is #!'
 --- !u!114 &339911233931294749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -619,6 +618,7 @@ GameObject:
   - component: {fileID: 1268324098979608215}
   - component: {fileID: 1268324098979608209}
   - component: {fileID: 1268324098979608214}
+  - component: {fileID: 5624545280130309059}
   m_Layer: 5
   m_Name: U3
   m_TagString: Untagged
@@ -673,7 +673,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 34684e739c88f7e498e043b54a579b11, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -682,6 +682,26 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
+--- !u!114 &5624545280130309059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1268324098979608212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1679637790, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: 1000
+  m_PreferredHeight: -1
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!1 &1268324099030744203
 GameObject:
   m_ObjectHideFlags: 0
@@ -785,6 +805,7 @@ GameObject:
   - component: {fileID: 1268324099358200734}
   - component: {fileID: 1268324099358200728}
   - component: {fileID: 1268324099358200729}
+  - component: {fileID: 3910009024410502689}
   m_Layer: 5
   m_Name: U2
   m_TagString: Untagged
@@ -839,7 +860,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 08ef07c6a70e83e43b8bcb30469322c3, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -848,6 +869,26 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
+--- !u!114 &3910009024410502689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1268324099358200735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1679637790, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: 1000
+  m_PreferredHeight: -1
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!1 &1268324099407216517
 GameObject:
   m_ObjectHideFlags: 0
@@ -859,6 +900,7 @@ GameObject:
   - component: {fileID: 1268324099407216516}
   - component: {fileID: 1268324099407216518}
   - component: {fileID: 1268324099407216519}
+  - component: {fileID: 2915235602094591973}
   m_Layer: 5
   m_Name: U1
   m_TagString: Untagged
@@ -913,7 +955,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 5ec788707bbbcfa43a63c4938b0fb588, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -922,6 +964,26 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
+--- !u!114 &2915235602094591973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1268324099407216517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1679637790, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: 1000
+  m_PreferredHeight: -1
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!1 &4181514213286184117
 GameObject:
   m_ObjectHideFlags: 0

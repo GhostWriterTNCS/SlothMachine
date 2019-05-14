@@ -29,7 +29,6 @@ public class UpgradeBox : NetworkBehaviour {
 		image.sprite = Resources.Load<Sprite>("UI/Upgrades/" + level + "_" + ID);
 		upgradeName.text = Upgrades.list[level][ID].name;
 		levelText.text = "Level " + level;
-		Debug.Log("UI/Upgrades/Types/" + ((int)Upgrades.list[level][ID].type + 1));
 		typeImage.sprite = Resources.Load<Sprite>("UI/Upgrades/Types/" + ((int)Upgrades.list[level][ID].type + 1));
 		if (description) {
 			description.text = Upgrades.list[level][ID].description;
