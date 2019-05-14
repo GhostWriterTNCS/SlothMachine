@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
@@ -18,6 +19,8 @@ public class Player : NetworkBehaviour {
 	public GameObject auctionPlayerScraps;
 	public GameObject networkAuctionManager;
 	public GameObject arenaPrefab;
+
+	public List<Pair> upgrades = new List<Pair>();
 
 	private void Awake() {
 		DontDestroyOnLoad(gameObject);
@@ -71,6 +74,19 @@ public class Player : NetworkBehaviour {
 	public void RpcSetParent(GameObject go, GameObject parent) {
 		Debug.Log("Set parent: " + go.name + " - " + parent.name);
 		go.transform.SetParent(parent.transform);
+	}
+
+	[Command]
+	public void CmdAddUpgrade(int level, int ID) {
+		if (upgrades.Contains(new Pair(level, ID))) {
+			upgrades.Add(new Pair(level, ID));
+		}
+	}
+	[Command]
+	public void CmdRemoveUpgrade(int level, int ID) {
+		if (upgrades.Contains(new Pair(level, ID))) {
+			upgrades.Remove(new Pair(level, ID));
+		}
 	}
 
 	private void OnDisconnectedFromServer(NetworkIdentity info) {
