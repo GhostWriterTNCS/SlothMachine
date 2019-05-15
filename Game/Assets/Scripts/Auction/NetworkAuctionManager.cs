@@ -97,8 +97,10 @@ public class NetworkAuctionManager : NetworkBehaviour {
 				auctionWinner = pb.gameObject;
 			}
 		}
-		AuctionPlayer playerBox = auctionWinner.GetComponent<AuctionPlayer>();
-		playerBox.player.scraps -= playerBox.bid;
+		if (auctionWinner) {
+			AuctionPlayer playerBox = auctionWinner.GetComponent<AuctionPlayer>();
+			playerBox.player.scraps -= playerBox.bid;
+		}
 	}
 
 	[ClientRpc]

@@ -9,7 +9,7 @@ public class ScrapsInput : NetworkBehaviour {
 	[SyncVar]
 	public bool upgradeAssigned;
 
-	int value;
+	int value = 0;
 
 	void Start() {
 		upgradeAssigned = false;
