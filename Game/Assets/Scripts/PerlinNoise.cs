@@ -25,6 +25,8 @@ public class PerlinNoise : MonoBehaviour
     public int dept = 90;
     public int width = 513;
     public int height = 513;
+    public float scaleMin = 1.6f;
+    public float scaleMax = 3.2f;
 
     public Count cactusCount = new Count(160, 350);
     public Count rockCount = new Count(50, 130);
@@ -37,7 +39,7 @@ public class PerlinNoise : MonoBehaviour
 
     public void Start()
     {
-        scale = Random.Range(2f, 4f);
+        scale = Random.Range(scaleMin, scaleMax);
         
         Terrain terrain = GetComponent<Terrain>();
         terrain.terrainData = GenerateTerrain(terrain.terrainData);
