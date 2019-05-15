@@ -28,8 +28,8 @@ public class PerlinNoise : MonoBehaviour
 
     public Count cactusCount = new Count(160, 350);
     public Count rockCount = new Count(50, 130);
-    public GameObject[] cactusTiles;
-    public GameObject[] rockTiles;
+    public GameObject[] cactusTiles = new GameObject[3];
+    public GameObject[] rockTiles = new GameObject[2];
     public float scale ;
     private List<Vector3> gridPositions = new List<Vector3>(); //for position in the map
     private Transform boardHolder;
@@ -37,13 +37,19 @@ public class PerlinNoise : MonoBehaviour
 
     public void Start()
     {
-        scale = Random.Range(2.6f, 4.8f);
+        scale = Random.Range(2f, 4f);
         
         Terrain terrain = GetComponent<Terrain>();
         terrain.terrainData = GenerateTerrain(terrain.terrainData);
-
-        SpawnObject(terrain.terrainData);
+        cactusTiles[0] = Resources.Load("Prefabs/Arena/Cactus01") as GameObject;
+        cactusTiles[1] = Resources.Load("Prefabs/Arena/Cactus02") as GameObject;
+        cactusTiles[2] = Resources.Load("Prefabs/Arena/Plant01") as GameObject;
+        rockTiles[0] = Resources.Load("Prefabs/Arena/Rock01") as GameObject;
+        rockTiles[1] = Resources.Load("Prefabs/Arena/Bone") as GameObject;
         ArenaSphere = Resources.Load("Prefabs/ArenaSphere") as GameObject;
+        SpawnObject(terrain.terrainData);
+       
+        
         spawnArenaSphere();
 
     }
