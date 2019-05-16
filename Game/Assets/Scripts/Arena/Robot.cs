@@ -7,9 +7,7 @@ using UnityEngine.UI;
 
 [RequireComponent(typeof(Animator))]
 public class Robot : NetworkBehaviour {
-	//[SyncVar]
-	//public string robotName = "Dozzer";
-
+	[Header("Generic settings")]
 	public GameObject hitEffect;
 	public Material ionPlus;
 	public Material ionMinus;
@@ -21,7 +19,7 @@ public class Robot : NetworkBehaviour {
 	public float evadeDuration = 0.1f;
 	public float evadeDistance = 0.3f;
 
-	//[SyncVar]
+	[Header("Generated settings")]
 	public Player player;
 	[SerializeField]
 	public SphereCollider leftHand;
@@ -39,7 +37,7 @@ public class Robot : NetworkBehaviour {
 	[SyncVar]
 	public int maxHealth = 100;
 	[SyncVar(hook = "UpdateHealthSlider")]
-	float health;
+	public float health;
 
 	RobotModel robotModel;
 	Animator animator;
@@ -69,7 +67,8 @@ public class Robot : NetworkBehaviour {
 		playerMove = GetComponent<PlayerMove>();
 		rigidbody = GetComponent<Rigidbody>();
 
-		UpdateHealthValue(maxHealth);
+		maxHealth = (int)(100 * (1 + (robotModel.health - 3) / 10f));
+		CmdUpdateHealthValue(maxHealth);
 		leftHand.enabled = false;
 		rightHand.enabled = false;
 	}
@@ -124,18 +123,17 @@ public class Robot : NetworkBehaviour {
 				}
 				if (Input.GetButtonDown("LB")) {
 					animator.SetBool("LB", true);
+					playerMove.moveSpeedMultiplier = 0.5f;
 				} else if (Input.GetButtonUp("LB")) {
 					animator.SetBool("LB", false);
+					playerMove.moveSpeedMultiplier = 1;
 				}
 				if (Input.GetButtonDown("RS")) {
 					if (lockCamera) {
 						lockCamera = null;
 					} else {
 						RaycastHit hit;
-						// Does the ray intersect any objects excluding the player layer
 						if (Physics.BoxCast(transform.position, new Vector3(3, 3, 3), transform.TransformDirection(Vector3.forward), out hit, Quaternion.identity, 30, 9)) {
-							Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
-							Debug.Log("Did Hit " + hit.transform.name);
 							if (hit.transform.gameObject.GetComponent<Robot>()) {
 								lockCamera = hit.transform;
 							}
@@ -146,18 +144,10 @@ public class Robot : NetworkBehaviour {
 					transform.LookAt(lockCamera);
 				}
 				if (Input.GetButton("RB") && !Input.GetButton("RT")) {
-					//ionParticle.gameObject.SetActive(true);
 					ionParticle.GetComponent<Renderer>().material = ionPlus;
-					/*if (ionParticle.isStopped)
-						ionParticle.Play();*/
 				} else if (Input.GetButton("RT") && !Input.GetButton("RB")) {
-					//ionParticle.gameObject.SetActive(true);
 					ionParticle.GetComponent<Renderer>().material = ionMinus;
-					/*if (ionParticle.isStopped)
-						ionParticle.Play();*/
 				} else {
-					//ionParticle.gameObject.SetActive(false);
-					//ionParticle.Stop();
 					ionParticle.GetComponent<Renderer>().material = ionNull;
 				}
 			}
@@ -181,8 +171,8 @@ public class Robot : NetworkBehaviour {
 	void UpdateHealthSlider(float value) {
 		healthSlider.value = health / maxHealth;
 	}
-	public void UpdateHealthValue(float newHealth) {
-		//Debug.Log(health + " -> " + newHealth);
+	[Command]
+	public void CmdUpdateHealthValue(float newHealth) {
 		health = newHealth;
 		if (health <= 0) {
 			CmdRespawn();
@@ -190,19 +180,19 @@ public class Robot : NetworkBehaviour {
 	}
 	public void UpdateHealth(float variation, bool isHeavy = false) {
 		if (!animator.GetBool("LB") || isHeavy) {
-			UpdateHealthValue(health + variation);
+			CmdUpdateHealthValue(health + variation);
 		}
 	}
 
 	public void GetHitted(Robot hitter) {
 		Debug.Log(name + " hitted by " + hitter.name + " | " + hitter.holdDuration);
 		animator.SetTrigger("Reaction");
-		UpdateHealth(-5);
+		UpdateHealth(-5 * hitter.robotModel.attack / (float)robotModel.defense);
 	}
 
 	[Command]
 	void CmdRespawn() {
-		UpdateHealthValue(maxHealth);
+		CmdUpdateHealthValue(maxHealth);
 		var spawn = NetworkManager.singleton.GetStartPosition();
 		transform.position = spawn.position;
 		transform.rotation = spawn.rotation;

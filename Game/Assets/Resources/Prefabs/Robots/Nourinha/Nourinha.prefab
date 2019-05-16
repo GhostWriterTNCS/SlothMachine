@@ -655,6 +655,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef38bd6f6c8a064a87db62b8804e0b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 2
+  attack: 3
+  defense: 2
+  speed: 5
   animatorController: {fileID: 9100000, guid: 39507aad9cee9a0439780e0d0d7807c7, type: 2}
   avatar: {fileID: 9000000, guid: b8eb27173fea214439eaf5ffea147773, type: 3}
   leftHand: {fileID: 1653022972453618521}

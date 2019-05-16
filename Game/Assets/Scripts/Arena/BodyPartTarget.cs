@@ -6,7 +6,6 @@ public class BodyPartTarget : MonoBehaviour {
 	Robot player;
 	List<Collider> siblings = new List<Collider>();
 
-	// Start is called before the first frame update
 	void Start() {
 		player = GetPlayer(transform);
 

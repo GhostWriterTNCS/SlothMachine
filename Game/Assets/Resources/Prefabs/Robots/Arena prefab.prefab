@@ -82,7 +82,7 @@ MonoBehaviour:
   holdMinDuration: 0.76
   pushBackPower: 360
   evadeDuration: 0.1
-  evadeDistance: 0.3
+  evadeDistance: 0.54
   player: {fileID: 0}
   leftHand: {fileID: 0}
   rightHand: {fileID: 0}
@@ -91,6 +91,7 @@ MonoBehaviour:
   healthSlider: {fileID: 7362678987741950062}
   handsParticle: {fileID: 0}
   maxHealth: 100
+  health: 0
 --- !u!114 &4381043123533344500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -103,7 +104,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 054b0b69d570fe04caa30009694c7c01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
+  moveSpeed: 11.45
+  moveSpeedMultiplier: 1
   turnSpeed: 3
   canMove: 1
 --- !u!114 &5134306811947782759
