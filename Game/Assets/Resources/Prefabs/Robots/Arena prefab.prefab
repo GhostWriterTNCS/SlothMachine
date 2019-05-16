@@ -72,12 +72,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99e1368a5a65e1047a1ec3503dee2629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  hitEffect: {fileID: 1743301284569550, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
   comboDelay: 1
   holdMinDuration: 0.76
   pushBackPower: 360
   evadeDuration: 0.1
   evadeDistance: 0.3
+  player: {fileID: 0}
   leftHand: {fileID: 0}
   rightHand: {fileID: 0}
   leftFoot: {fileID: 0}

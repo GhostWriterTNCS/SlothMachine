@@ -38,20 +38,19 @@ public class PerlinNoise : MonoBehaviour {
 
 		Terrain terrain = GetComponent<Terrain>();
 		terrain.terrainData = GenerateTerrain(terrain.terrainData);
-		cactusTiles[0] = Resources.Load("Prefabs/Arena/Cactus01") as GameObject;
+		/*cactusTiles[0] = Resources.Load("Prefabs/Arena/Cactus01") as GameObject;
 		cactusTiles[1] = Resources.Load("Prefabs/Arena/Cactus02") as GameObject;
 		cactusTiles[2] = Resources.Load("Prefabs/Arena/Plant01") as GameObject;
 		rockTiles[0] = Resources.Load("Prefabs/Arena/Rock01") as GameObject;
 		rockTiles[1] = Resources.Load("Prefabs/Arena/Bone") as GameObject;
-		ArenaSphere = Resources.Load("Prefabs/ArenaSphere") as GameObject;
+		ArenaSphere = Resources.Load("Prefabs/ArenaSphere") as GameObject;*/
 		SpawnObject(terrain.terrainData);
-
 
 		spawnArenaSphere();
 
 		foreach (NetworkStartPosition pos in FindObjectsOfType<NetworkStartPosition>()) {
 			Vector3 v3 = pos.transform.position;
-			pos.transform.position = new Vector3(v3.x, GetComponent<Terrain>().terrainData.GetHeight((int)v3.x, (int)v3.z) + 5, v3.z);
+			pos.transform.position = new Vector3(v3.x, terrain.terrainData.GetHeight((int)v3.x, (int)v3.z) + 2, v3.z);
 		}
 	}
 
@@ -100,7 +99,7 @@ public class PerlinNoise : MonoBehaviour {
 		for (int i = 0; i < objectCount; i++) {
 			Vector3 randomPosition = RandomPosition();
 			GameObject tileChoice = tileArray[Random.Range(0, tileArray.Length)];
-			Instantiate(tileChoice, randomPosition, Quaternion.identity);
+			Instantiate(tileChoice, randomPosition, Quaternion.identity, transform);
 
 		}
 	}

@@ -8,16 +8,17 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Animator))]
 public class Robot : NetworkBehaviour {
 	//[SyncVar]
-	public Player player;
-	//[SyncVar]
 	//public string robotName = "Dozzer";
 
+	public GameObject hitEffect;
 	public float comboDelay = 1;
 	public float holdMinDuration = 0.76f;
 	public float pushBackPower = 360;
 	public float evadeDuration = 0.1f;
 	public float evadeDistance = 0.3f;
 
+	//[SyncVar]
+	public Player player;
 	[SerializeField]
 	public SphereCollider leftHand;
 	[SerializeField]
@@ -162,7 +163,7 @@ public class Robot : NetworkBehaviour {
 		healthSlider.value = health / maxHealth;
 	}
 	public void UpdateHealthValue(float newHealth) {
-		Debug.Log(health + " -> " + newHealth);
+		//Debug.Log(health + " -> " + newHealth);
 		health = newHealth;
 		if (health <= 0) {
 			CmdRespawn();
