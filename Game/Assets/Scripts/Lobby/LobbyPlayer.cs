@@ -66,7 +66,7 @@ namespace Prototype.NetworkLobby {
 			base.OnStartAuthority();
 
 			//if we return from a game, color of text can still be the one for "Ready"
-			readyButton.transform.GetChild(0).GetComponent<Text>().color = Color.white;
+			readyButton.transform.GetComponentInChildren<Text>().color = Color.white;
 
 			SetupLocalPlayer();
 		}
@@ -87,7 +87,7 @@ namespace Prototype.NetworkLobby {
 
 			ChangeReadyButtonColor(NotReadyColor);
 
-			readyButton.transform.GetChild(0).GetComponent<Text>().text = "...";
+			readyButton.transform.GetComponentInChildren<Text>().text = "...";
 			readyButton.interactable = false;
 
 			OnClientReady(false);
@@ -119,7 +119,7 @@ namespace Prototype.NetworkLobby {
 
 			ChangeReadyButtonColor(JoinColor);
 
-			readyButton.transform.GetChild(0).GetComponent<Text>().text = "JOIN";
+			readyButton.transform.GetComponentInChildren<Text>().text = "JOIN";
 			readyButton.interactable = true;
 
 			//have to use child count of player prefab already setup as "this.slot" is not set yet
@@ -163,7 +163,7 @@ namespace Prototype.NetworkLobby {
 			if (readyState) {
 				ChangeReadyButtonColor(TransparentColor);
 
-				Text textComponent = readyButton.transform.GetChild(0).GetComponent<Text>();
+				Text textComponent = readyButton.transform.GetComponentInChildren<Text>();
 				textComponent.text = "READY";
 				textComponent.color = ReadyColor;
 				readyButton.interactable = false;
@@ -173,7 +173,7 @@ namespace Prototype.NetworkLobby {
 			} else {
 				ChangeReadyButtonColor(isLocalPlayer ? JoinColor : NotReadyColor);
 
-				Text textComponent = readyButton.transform.GetChild(0).GetComponent<Text>();
+				Text textComponent = readyButton.transform.GetComponentInChildren<Text>();
 				textComponent.text = isLocalPlayer ? "JOIN" : "...";
 				textComponent.color = Color.white;
 				readyButton.interactable = isLocalPlayer;

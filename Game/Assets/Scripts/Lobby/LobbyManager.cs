@@ -35,7 +35,6 @@ namespace Prototype.NetworkLobby {
 		public Text statusInfo;
 		public Text hostInfo;
 
-		public GameObject backgroundImage;
 		public GameObject buttonTips;
 
 		//Client numPlayers from NetworkManager is always 0, so we count (throught connect/destroy in LobbyPlayer) the number
@@ -97,7 +96,6 @@ namespace Prototype.NetworkLobby {
 				_isMatchmaking = false;
 			}
 
-			backgroundImage.SetActive(newPanel != null);
 			buttonTips.SetActive(newPanel != null);
 		}
 
@@ -145,6 +143,7 @@ namespace Prototype.NetworkLobby {
 				_disconnectServer = true;
 			} else {
 				StopHost();
+				Debug.Log("Host stopped.");
 			}
 
 

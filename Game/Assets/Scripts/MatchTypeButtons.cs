@@ -19,8 +19,9 @@ public class MatchTypeButtons : MonoBehaviour {
 	}
 
 	public void Back() {
+		Debug.Log("Back");
 		NetworkLobbyManager.singleton.StopHost();
-		Destroy(FindObjectOfType<NetworkLobbyManager>().gameObject);
+		Destroy(FindObjectOfType<Prototype.NetworkLobby.LobbyManager>().gameObject);
 		SceneManager.LoadScene(GameScenes.StartScreen);
 	}
 }

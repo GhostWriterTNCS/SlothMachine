@@ -33,12 +33,13 @@ public class Robot : NetworkBehaviour {
 
 	[SyncVar]
 	public int maxHealth = 100;
-	[SyncVar]
+	[SyncVar(hook = "UpdateHealthSlider")]
 	float health;
 
 	RobotModel robotModel;
 	Animator animator;
 	NetworkAnimator networkAnimator;
+	PlayerCamera playerCamera;
 	PlayerMove playerMove;
 	Rigidbody rigidbody;
 
@@ -59,6 +60,7 @@ public class Robot : NetworkBehaviour {
 		animator.runtimeAnimatorController = robotModel.animatorController;
 		animator.avatar = robotModel.avatar;
 		networkAnimator = GetComponent<NetworkAnimator>();
+		playerCamera = GetComponent<PlayerCamera>();
 		playerMove = GetComponent<PlayerMove>();
 		rigidbody = GetComponent<Rigidbody>();
 
@@ -73,6 +75,7 @@ public class Robot : NetworkBehaviour {
 
 	Vector3 evadeDirection;
 	float evadeTime = 0;
+	Transform lockCamera;
 	void Update() {
 		if (evadeTime > 0) {
 			playerMove.canMove = false;
@@ -119,6 +122,24 @@ public class Robot : NetworkBehaviour {
 				} else if (Input.GetButtonUp("LB")) {
 					animator.SetBool("LB", false);
 				}
+				if (Input.GetButtonDown("RS")) {
+					if (lockCamera) {
+						lockCamera = null;
+					} else {
+						RaycastHit hit;
+						// Does the ray intersect any objects excluding the player layer
+						if (Physics.BoxCast(transform.position, new Vector3(3, 3, 3), transform.TransformDirection(Vector3.forward), out hit, Quaternion.identity, 30, 9)) {
+							Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
+							Debug.Log("Did Hit " + hit.transform.name);
+							if (hit.transform.gameObject.GetComponent<Robot>()) {
+								lockCamera = hit.transform;
+							}
+						}
+					}
+				}
+				if (lockCamera) {
+					transform.LookAt(lockCamera);
+				}
 			}
 		}
 	}
@@ -137,10 +158,12 @@ public class Robot : NetworkBehaviour {
 		action();
 	}
 
+	void UpdateHealthSlider(float value) {
+		healthSlider.value = health / maxHealth;
+	}
 	public void UpdateHealthValue(float newHealth) {
 		Debug.Log(health + " -> " + newHealth);
 		health = newHealth;
-		healthSlider.value = health / maxHealth;
 		if (health <= 0) {
 			CmdRespawn();
 		}
