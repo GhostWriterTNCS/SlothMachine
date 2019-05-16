@@ -3216,6 +3216,7 @@ MonoBehaviour:
   rightHand: {fileID: 3742335020302256779}
   leftFoot: {fileID: 5453161716071962802}
   rightFoot: {fileID: 1714782006129259126}
+  ionParticle: {fileID: 0}
 --- !u!1 &6980171121164515178
 GameObject:
   m_ObjectHideFlags: 0

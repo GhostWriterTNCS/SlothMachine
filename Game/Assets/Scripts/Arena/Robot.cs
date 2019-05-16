@@ -11,6 +11,10 @@ public class Robot : NetworkBehaviour {
 	//public string robotName = "Dozzer";
 
 	public GameObject hitEffect;
+	public Material ionPlus;
+	public Material ionMinus;
+	public Material ionNull;
+	public ParticleSystem ionParticle;
 	public float comboDelay = 1;
 	public float holdMinDuration = 0.76f;
 	public float pushBackPower = 360;
@@ -140,6 +144,21 @@ public class Robot : NetworkBehaviour {
 				}
 				if (lockCamera) {
 					transform.LookAt(lockCamera);
+				}
+				if (Input.GetButton("RB") && !Input.GetButton("RT")) {
+					//ionParticle.gameObject.SetActive(true);
+					ionParticle.GetComponent<Renderer>().material = ionPlus;
+					/*if (ionParticle.isStopped)
+						ionParticle.Play();*/
+				} else if (Input.GetButton("RT") && !Input.GetButton("RB")) {
+					//ionParticle.gameObject.SetActive(true);
+					ionParticle.GetComponent<Renderer>().material = ionMinus;
+					/*if (ionParticle.isStopped)
+						ionParticle.Play();*/
+				} else {
+					//ionParticle.gameObject.SetActive(false);
+					//ionParticle.Stop();
+					ionParticle.GetComponent<Renderer>().material = ionNull;
 				}
 			}
 		}

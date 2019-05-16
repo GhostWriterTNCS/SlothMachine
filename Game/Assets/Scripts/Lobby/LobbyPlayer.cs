@@ -66,7 +66,7 @@ namespace Prototype.NetworkLobby {
 			base.OnStartAuthority();
 
 			//if we return from a game, color of text can still be the one for "Ready"
-			readyButton.transform.GetComponentInChildren<Text>().color = Color.white;
+			readyButton.GetComponentInChildren<Text>().color = Color.white;
 
 			SetupLocalPlayer();
 		}
@@ -87,7 +87,7 @@ namespace Prototype.NetworkLobby {
 
 			ChangeReadyButtonColor(NotReadyColor);
 
-			readyButton.transform.GetComponentInChildren<Text>().text = "...";
+			readyButton.GetComponentInChildren<Text>().text = "...";
 			readyButton.interactable = false;
 
 			OnClientReady(false);
@@ -119,7 +119,7 @@ namespace Prototype.NetworkLobby {
 
 			ChangeReadyButtonColor(JoinColor);
 
-			readyButton.transform.GetComponentInChildren<Text>().text = "JOIN";
+			readyButton.GetComponentInChildren<Text>().text = "JOIN";
 			readyButton.interactable = true;
 
 			//have to use child count of player prefab already setup as "this.slot" is not set yet
@@ -163,9 +163,12 @@ namespace Prototype.NetworkLobby {
 			if (readyState) {
 				ChangeReadyButtonColor(TransparentColor);
 
-				Text textComponent = readyButton.transform.GetComponentInChildren<Text>();
+				Text textComponent = readyButton.GetComponentInChildren<Text>();
 				textComponent.text = "READY";
 				textComponent.color = ReadyColor;
+				Image image = readyButton.transform.GetChild(0).GetComponentInChildren<Image>();
+				Debug.Log(image.name);
+				image.enabled = false;
 				readyButton.interactable = false;
 				if (colorButton)
 					colorButton.interactable = false;
@@ -173,9 +176,11 @@ namespace Prototype.NetworkLobby {
 			} else {
 				ChangeReadyButtonColor(isLocalPlayer ? JoinColor : NotReadyColor);
 
-				Text textComponent = readyButton.transform.GetComponentInChildren<Text>();
+				Text textComponent = readyButton.GetComponentInChildren<Text>();
 				textComponent.text = isLocalPlayer ? "JOIN" : "...";
 				textComponent.color = Color.white;
+				Image image = readyButton.transform.GetChild(0).GetComponentInChildren<Image>();
+				image.enabled = true;
 				readyButton.interactable = isLocalPlayer;
 				if (colorButton)
 					colorButton.interactable = isLocalPlayer;
