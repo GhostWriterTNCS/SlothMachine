@@ -154,13 +154,25 @@ public class Robot : NetworkBehaviour {
 		}
 	}
 
+	Dictionary<string, int> triggers = new Dictionary<string, int>();
 	protected void SetTrigger(string trigger) {
 		networkAnimator.SetTrigger(trigger);
 		if (isServer) {
 			networkAnimator.animator.ResetTrigger(trigger);
 		}
 		string triggerID = trigger;
-		StartCoroutine(DelayCall(() => networkAnimator.animator.ResetTrigger(triggerID), comboDelay));
+		if (!triggers.ContainsKey(trigger)) {
+			triggers.Add(trigger, 1);
+		} else {
+			triggers[trigger] += 1;
+		}
+		StartCoroutine(DelayCall(() => ResetTrigger(triggerID), comboDelay));
+	}
+	void ResetTrigger(string trigger) {
+		triggers[trigger] -= 1;
+		if (triggers[trigger] == 0) {
+			networkAnimator.animator.ResetTrigger(trigger);
+		}
 	}
 
 	IEnumerator DelayCall(Action action, float delayTime) {
