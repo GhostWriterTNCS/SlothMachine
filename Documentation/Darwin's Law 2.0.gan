@@ -1,12 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Darwin's Project 2.0" company="Sloth Machine" webLink="http://" view-date="2019-03-01" view-index="0" gantt-divider-location="300" resource-divider-location="300" version="2.8.10" locale="it">
+<?xml version="1.0" encoding="UTF-8"?><project name="Darwin's Project 2.0" company="Sloth Machine" webLink="http://" view-date="2018-08-01" view-index="0" gantt-divider-location="300" resource-divider-location="300" version="2.8.10" locale="it">
     <description/>
-    <view zooming-state="default:8" id="gantt-chart">
-        <field id="tpd3" name="Nome" width="163" order="0"/>
-        <field id="tpd4" name="Data d'inizio" width="67" order="1"/>
-        <field id="tpd5" name="Data di fine" width="66" order="2"/>
-        <option id="color.recent">
-            <![CDATA[#ff0033 #ff6666 #ff3366 #cc00ff #ffd82d #000000 #54c737 #ff3c3c #ff3333 #ff9999]]>
-        </option>
+    <view zooming-state="default:11" id="gantt-chart">
+        <field id="tpd3" name="Nome" width="154" order="0"/>
+        <field id="tpd4" name="Data d'inizio" width="64" order="1"/>
+        <field id="tpd5" name="Data di fine" width="63" order="2"/>
+        <option id="color.recent"><![CDATA[#ff6666 #f4f4f4 #54c737 #ff0033 #ff3366 #cc00ff #ffd82d #000000 #ff3c3c #ff3333]]></option>
     </view>
     <view id="resource-table">
         <field id="0" name="Nome" width="210" order="0"/>
@@ -22,81 +20,31 @@
             <overriden-day-types/>
             <days/>
         </day-types>
-        <date year="" month="1" date="1" type="HOLIDAY">
-            <![CDATA[New Years Day]]>
-        </date>
-        <date year="" month="1" date="6" type="HOLIDAY">
-            <![CDATA[Epiphany]]>
-        </date>
-        <date year="" month="4" date="25" type="HOLIDAY">
-            <![CDATA[Liberation Day]]>
-        </date>
-        <date year="" month="5" date="1" type="HOLIDAY">
-            <![CDATA[Labor Day]]>
-        </date>
-        <date year="" month="6" date="2" type="HOLIDAY">
-            <![CDATA[Republic Day]]>
-        </date>
-        <date year="" month="8" date="15" type="HOLIDAY">
-            <![CDATA[Assumption Day]]>
-        </date>
-        <date year="" month="11" date="1" type="HOLIDAY">
-            <![CDATA[All Saints Day]]>
-        </date>
-        <date year="" month="12" date="8" type="HOLIDAY">
-            <![CDATA[Immaculate Conception Day]]>
-        </date>
-        <date year="" month="12" date="25" type="HOLIDAY">
-            <![CDATA[Christmas Day]]>
-        </date>
-        <date year="" month="12" date="26" type="HOLIDAY">
-            <![CDATA[St. Stephen's Day]]>
-        </date>
-        <date year="2005" month="3" date="28" type="HOLIDAY">
-            <![CDATA[Easter Monday]]>
-        </date>
-        <date year="2006" month="4" date="17" type="HOLIDAY">
-            <![CDATA[Easter Monday]]>
-        </date>
-        <date year="2007" month="4" date="9" type="HOLIDAY">
-            <![CDATA[Easter Monday]]>
-        </date>
-        <date year="2008" month="3" date="24" type="HOLIDAY">
-            <![CDATA[Easter Monday]]>
-        </date>
-        <date year="2009" month="4" date="13" type="HOLIDAY">
-            <![CDATA[Easter Monday]]>
-        </date>
-        <date year="2010" month="4" date="5" type="HOLIDAY">
-            <![CDATA[Easter Monday]]>
-        </date>
-        <date year="2011" month="4" date="25" type="HOLIDAY">
-            <![CDATA[Easter Monday]]>
-        </date>
-        <date year="2012" month="4" date="9" type="HOLIDAY">
-            <![CDATA[Easter Monday]]>
-        </date>
-        <date year="2013" month="4" date="1" type="HOLIDAY">
-            <![CDATA[Easter Monday]]>
-        </date>
-        <date year="2014" month="4" date="21" type="HOLIDAY">
-            <![CDATA[Easter Monday]]>
-        </date>
-        <date year="2015" month="4" date="6" type="HOLIDAY">
-            <![CDATA[Easter Monday]]>
-        </date>
-        <date year="2016" month="3" date="28" type="HOLIDAY">
-            <![CDATA[Easter Monday]]>
-        </date>
-        <date year="2017" month="4" date="17" type="HOLIDAY">
-            <![CDATA[Easter Monday]]>
-        </date>
-        <date year="2018" month="4" date="2" type="HOLIDAY">
-            <![CDATA[Easter Monday]]>
-        </date>
-        <date year="2019" month="4" date="22" type="HOLIDAY">
-            <![CDATA[Easter Monday]]>
-        </date>
+        <date year="" month="1" date="1" type="HOLIDAY"><![CDATA[New Years Day]]></date>
+        <date year="" month="1" date="6" type="HOLIDAY"><![CDATA[Epiphany]]></date>
+        <date year="" month="4" date="25" type="HOLIDAY"><![CDATA[Liberation Day]]></date>
+        <date year="" month="5" date="1" type="HOLIDAY"><![CDATA[Labor Day]]></date>
+        <date year="" month="6" date="2" type="HOLIDAY"><![CDATA[Republic Day]]></date>
+        <date year="" month="8" date="15" type="HOLIDAY"><![CDATA[Assumption Day]]></date>
+        <date year="" month="11" date="1" type="HOLIDAY"><![CDATA[All Saints Day]]></date>
+        <date year="" month="12" date="8" type="HOLIDAY"><![CDATA[Immaculate Conception Day]]></date>
+        <date year="" month="12" date="25" type="HOLIDAY"><![CDATA[Christmas Day]]></date>
+        <date year="" month="12" date="26" type="HOLIDAY"><![CDATA[St. Stephen's Day]]></date>
+        <date year="2005" month="3" date="28" type="HOLIDAY"><![CDATA[Easter Monday]]></date>
+        <date year="2006" month="4" date="17" type="HOLIDAY"><![CDATA[Easter Monday]]></date>
+        <date year="2007" month="4" date="9" type="HOLIDAY"><![CDATA[Easter Monday]]></date>
+        <date year="2008" month="3" date="24" type="HOLIDAY"><![CDATA[Easter Monday]]></date>
+        <date year="2009" month="4" date="13" type="HOLIDAY"><![CDATA[Easter Monday]]></date>
+        <date year="2010" month="4" date="5" type="HOLIDAY"><![CDATA[Easter Monday]]></date>
+        <date year="2011" month="4" date="25" type="HOLIDAY"><![CDATA[Easter Monday]]></date>
+        <date year="2012" month="4" date="9" type="HOLIDAY"><![CDATA[Easter Monday]]></date>
+        <date year="2013" month="4" date="1" type="HOLIDAY"><![CDATA[Easter Monday]]></date>
+        <date year="2014" month="4" date="21" type="HOLIDAY"><![CDATA[Easter Monday]]></date>
+        <date year="2015" month="4" date="6" type="HOLIDAY"><![CDATA[Easter Monday]]></date>
+        <date year="2016" month="3" date="28" type="HOLIDAY"><![CDATA[Easter Monday]]></date>
+        <date year="2017" month="4" date="17" type="HOLIDAY"><![CDATA[Easter Monday]]></date>
+        <date year="2018" month="4" date="2" type="HOLIDAY"><![CDATA[Easter Monday]]></date>
+        <date year="2019" month="4" date="22" type="HOLIDAY"><![CDATA[Easter Monday]]></date>
     </calendars>
     <tasks empty-milestones="true">
         <taskproperties>
@@ -116,146 +64,199 @@
             <task id="15" name="Design" color="#ff0033" meeting="false" start="2019-03-21" duration="3" complete="0" thirdDate="2019-03-15" thirdDate-constraint="0" expand="true"/>
         </task>
         <task id="75" name="Prototype" color="#000000" meeting="false" start="2019-03-26" duration="25" complete="0" thirdDate="2019-04-09" thirdDate-constraint="0" expand="true">
-            <depend id="131" type="2" difference="0" hardness="Strong"/>
             <depend id="368" type="2" difference="0" hardness="Strong"/>
+            <depend id="378" type="2" difference="0" hardness="Strong"/>
             <depend id="382" type="2" difference="0" hardness="Strong"/>
             <depend id="383" type="2" difference="0" hardness="Strong"/>
-            <depend id="410" type="2" difference="0" hardness="Strong"/>
+            <depend id="569" type="2" difference="0" hardness="Strong"/>
             <task id="107" name="Analysis" color="#8cb6ce" meeting="false" start="2019-03-26" duration="2" complete="0" thirdDate="2019-04-08" thirdDate-constraint="0" expand="true">
                 <depend id="120" type="2" difference="0" hardness="Strong"/>
                 <depend id="203" type="2" difference="0" hardness="Strong"/>
             </task>
             <task id="120" name="Design review" color="#ff0033" meeting="false" start="2019-03-28" duration="23" complete="0" thirdDate="2019-04-18" thirdDate-constraint="0" expand="true"/>
-            <task id="203" name="Marketing analysis" color="#ffd82d" meeting="false" start="2019-03-28" duration="23" complete="0" thirdDate="2019-03-15" thirdDate-constraint="0" expand="true">
-                <depend id="135" type="2" difference="0" hardness="Strong"/>
-            </task>
+            <task id="203" name="Marketing analysis" color="#ffd82d" meeting="false" start="2019-03-28" duration="23" complete="0" thirdDate="2019-03-15" thirdDate-constraint="0" expand="true"/>
         </task>
-        <task id="309" name="Code" color="#000000" meeting="false" start="2019-05-03" duration="171" complete="0" thirdDate="2019-05-09" thirdDate-constraint="0" expand="true">
-            <task id="383" name="Test and Bugfix" meeting="false" start="2019-05-03" duration="171" complete="0" expand="true"/>
-            <task id="382" name="Core features" meeting="false" start="2019-05-03" duration="20" complete="0" expand="true">
-                <task id="368" name="Start screen" color="#8cb6ce" meeting="false" start="2019-05-03" duration="2" complete="0" thirdDate="2018-10-01" thirdDate-constraint="0" expand="true">
+        <task id="309" name="Code" color="#000000" meeting="false" start="2019-05-03" duration="417" complete="0" thirdDate="2019-05-09" thirdDate-constraint="0" expand="true">
+            <task id="382" name="Core features" meeting="false" start="2019-05-03" duration="100" complete="0" expand="true">
+                <depend id="386" type="2" difference="0" hardness="Strong"/>
+                <task id="368" name="Start screen" color="#8cb6ce" meeting="false" start="2019-05-03" duration="17" complete="0" thirdDate="2018-10-01" thirdDate-constraint="0" expand="true">
                     <depend id="313" type="2" difference="0" hardness="Strong"/>
+                    <depend id="383" type="2" difference="0" hardness="Strong"/>
                 </task>
-                <task id="313" name="Arena" color="#8cb6ce" meeting="false" start="2019-05-07" duration="10" complete="0" thirdDate="2018-10-01" thirdDate-constraint="0" expand="true">
+                <task id="313" name="Arena" color="#8cb6ce" meeting="false" start="2019-05-28" duration="39" complete="0" thirdDate="2018-10-01" thirdDate-constraint="0" expand="true">
                     <depend id="315" type="2" difference="0" hardness="Strong"/>
                 </task>
-                <task id="315" name="Auction" color="#8cb6ce" meeting="false" start="2019-05-21" duration="8" complete="0" thirdDate="2018-10-01" thirdDate-constraint="0" expand="true">
-                    <depend id="386" type="2" difference="0" hardness="Strong"/>
-                </task>
+                <task id="315" name="Auction" color="#8cb6ce" meeting="false" start="2019-07-22" duration="44" complete="0" thirdDate="2018-10-01" thirdDate-constraint="0" expand="true"/>
             </task>
-            <task id="386" name="Important features" meeting="false" start="2019-05-31" duration="7" complete="0" expand="true">
+            <task id="386" name="Important features" color="#000000" meeting="false" start="2019-09-23" duration="80" complete="0" thirdDate="2019-05-31" thirdDate-constraint="0" expand="true">
                 <depend id="387" type="2" difference="0" hardness="Strong"/>
-                <task id="390" name="Match result" meeting="false" start="2019-05-31" duration="6" complete="0" expand="true">
+                <depend id="556" type="2" difference="0" hardness="Strong"/>
+                <task id="390" name="Match result" meeting="false" start="2019-09-23" duration="33" complete="0" expand="true">
                     <depend id="436" type="2" difference="0" hardness="Strong"/>
                 </task>
-                <task id="436" name="More upgrades" meeting="false" start="2019-06-10" duration="1" complete="0" expand="true"/>
+                <task id="436" name="Upgrades" color="#8cb6ce" meeting="false" start="2019-11-08" duration="47" complete="0" thirdDate="2019-06-10" thirdDate-constraint="0" expand="true"/>
             </task>
-            <task id="387" name="Extra features" meeting="false" start="2019-06-11" duration="10" complete="0" expand="true">
-                <task id="395" name="Aesthetic features" meeting="false" start="2019-06-11" duration="10" complete="0" expand="true"/>
-                <task id="438" name="Performance improvements" meeting="false" start="2019-06-11" duration="10" complete="0" expand="true"/>
+            <task id="387" name="Extra features" meeting="false" start="2020-01-20" duration="150" complete="0" expand="true">
+                <task id="395" name="Aesthetic features" meeting="false" start="2020-01-20" duration="75" complete="0" expand="true">
+                    <depend id="438" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="438" name="Performance improvements" meeting="false" start="2020-05-05" duration="75" complete="0" expand="true"/>
             </task>
+            <task id="383" name="Test and Bugfix" color="#8cb6ce" meeting="false" start="2019-05-28" duration="400" complete="0" thirdDate="2019-05-03" thirdDate-constraint="0" expand="true"/>
+            <task id="556" name="Balancing" color="#8cb6ce" meeting="false" start="2020-01-20" duration="237" complete="0" thirdDate="2019-07-08" thirdDate-constraint="0" expand="true"/>
         </task>
-        <task id="378" name="3D Objects" meeting="false" start="2019-05-03" duration="63" complete="0" expand="true">
-            <task id="410" name="Characters" color="#000000" meeting="false" start="2019-05-03" duration="63" complete="0" thirdDate="2019-03-01" thirdDate-constraint="0" expand="false">
-                <task id="411" name="Kiddo" meeting="false" start="2019-05-03" duration="28" complete="0" expand="true">
-                    <task id="412" name="Create model" color="#ff6666" meeting="false" start="2019-05-03" duration="7" complete="0" thirdDate="2019-03-01" thirdDate-constraint="0" expand="true">
-                        <depend id="413" type="2" difference="0" hardness="Strong"/>
+        <task id="378" name="3D Objects" meeting="false" start="2019-05-03" duration="234" complete="0" expand="true">
+            <task id="410" name="Characters" color="#000000" meeting="false" start="2019-05-03" duration="227" complete="0" thirdDate="2019-03-01" thirdDate-constraint="0" expand="true">
+                <task id="411" name="Kiddo" meeting="false" start="2019-05-03" duration="34" complete="0" expand="true">
+                    <task id="412" name="Create model" color="#ff6666" meeting="false" start="2019-05-03" duration="20" complete="0" thirdDate="2019-03-01" thirdDate-constraint="0" expand="true">
                         <depend id="414" type="2" difference="0" hardness="Strong"/>
                         <depend id="416" type="2" difference="0" hardness="Strong"/>
                     </task>
-                    <task id="413" name="Refine model" color="#ff6666" meeting="false" start="2019-06-03" duration="7" complete="0" thirdDate="2019-03-01" thirdDate-constraint="0" expand="true">
-                        <depend id="417" type="2" difference="0" hardness="Strong"/>
-                    </task>
-                    <task id="414" name="Animate" color="#8cb6ce" meeting="false" start="2019-05-14" duration="14" complete="0" thirdDate="2019-03-01" thirdDate-constraint="0" expand="true">
+                    <task id="414" name="Animate" color="#8cb6ce" meeting="false" start="2019-05-31" duration="14" complete="0" thirdDate="2019-03-01" thirdDate-constraint="0" expand="true">
                         <depend id="418" type="2" difference="0" hardness="Strong"/>
                     </task>
                 </task>
-                <task id="415" name="Nourinha" meeting="false" start="2019-05-14" duration="28" complete="0" expand="true">
-                    <task id="416" name="Create model" color="#ff6666" meeting="false" start="2019-05-14" duration="7" complete="0" thirdDate="2019-03-01" thirdDate-constraint="0" expand="true">
-                        <depend id="413" type="2" difference="0" hardness="Strong"/>
-                        <depend id="417" type="2" difference="0" hardness="Strong"/>
+                <task id="415" name="Nourinha" meeting="false" start="2019-05-31" duration="32" complete="0" expand="true">
+                    <task id="416" name="Create model" color="#ff6666" meeting="false" start="2019-05-31" duration="18" complete="0" thirdDate="2019-03-01" thirdDate-constraint="0" expand="true">
                         <depend id="418" type="2" difference="0" hardness="Strong"/>
                         <depend id="420" type="2" difference="0" hardness="Strong"/>
                     </task>
-                    <task id="417" name="Refine model" color="#ff6666" meeting="false" start="2019-06-12" duration="7" complete="0" thirdDate="2019-03-01" thirdDate-constraint="0" expand="true">
-                        <depend id="421" type="2" difference="0" hardness="Strong"/>
-                    </task>
-                    <task id="418" name="Animate" color="#8cb6ce" meeting="false" start="2019-06-03" duration="14" complete="0" thirdDate="2019-03-01" thirdDate-constraint="0" expand="true">
+                    <task id="418" name="Animate" color="#8cb6ce" meeting="false" start="2019-06-26" duration="14" complete="0" thirdDate="2019-03-01" thirdDate-constraint="0" expand="true">
                         <depend id="422" type="2" difference="0" hardness="Strong"/>
                     </task>
                 </task>
-                <task id="419" name="Breach" color="#000000" meeting="false" start="2019-05-23" duration="35" complete="0" thirdDate="2019-03-01" thirdDate-constraint="0" expand="true">
-                    <task id="420" name="Create model" color="#ff6666" meeting="false" start="2019-05-23" duration="7" complete="0" thirdDate="2019-03-01" thirdDate-constraint="0" expand="true">
-                        <depend id="413" type="2" difference="0" hardness="Strong"/>
-                        <depend id="417" type="2" difference="0" hardness="Strong"/>
-                        <depend id="421" type="2" difference="0" hardness="Strong"/>
+                <task id="419" name="Breach" color="#000000" meeting="false" start="2019-06-26" duration="32" complete="0" thirdDate="2019-03-01" thirdDate-constraint="0" expand="true">
+                    <task id="420" name="Create model" color="#ff6666" meeting="false" start="2019-06-26" duration="18" complete="0" thirdDate="2019-03-01" thirdDate-constraint="0" expand="true">
                         <depend id="422" type="2" difference="0" hardness="Strong"/>
+                        <depend id="424" type="2" difference="0" hardness="Strong"/>
                     </task>
-                    <task id="421" name="Refine model" color="#ff6666" meeting="false" start="2019-06-21" duration="7" complete="0" thirdDate="2019-03-01" thirdDate-constraint="0" expand="true">
-                        <depend id="379" type="2" difference="0" hardness="Strong"/>
-                    </task>
-                    <task id="422" name="Animate" color="#8cb6ce" meeting="false" start="2019-06-21" duration="14" complete="0" thirdDate="2019-03-01" thirdDate-constraint="0" expand="true">
+                    <task id="422" name="Animate" color="#8cb6ce" meeting="false" start="2019-07-22" duration="14" complete="0" thirdDate="2019-03-01" thirdDate-constraint="0" expand="true">
                         <depend id="426" type="2" difference="0" hardness="Strong"/>
+                        <depend id="452" type="2" difference="0" hardness="Strong"/>
+                        <depend id="462" type="2" difference="0" hardness="Strong"/>
                     </task>
                 </task>
-                <task id="423" name="Dozzer" meeting="false" start="2019-05-03" duration="63" complete="0" expand="true">
-                    <task id="424" name="Create model" color="#ff6666" meeting="false" start="2019-05-03" duration="7" complete="0" thirdDate="2019-03-01" thirdDate-constraint="0" expand="true">
-                        <depend id="425" type="2" difference="0" hardness="Strong"/>
+                <task id="423" name="Dozzer" meeting="false" start="2019-07-22" duration="29" complete="0" expand="true">
+                    <task id="424" name="Create model" color="#ff6666" meeting="false" start="2019-07-22" duration="15" complete="0" thirdDate="2019-03-01" thirdDate-constraint="0" expand="true">
                         <depend id="426" type="2" difference="0" hardness="Strong"/>
+                        <depend id="448" type="2" difference="0" hardness="Strong"/>
                     </task>
-                    <task id="425" name="Refine model" color="#ff6666" meeting="false" start="2019-05-14" duration="7" complete="0" thirdDate="2019-03-01" thirdDate-constraint="0" expand="true"/>
-                    <task id="426" name="Animate" color="#8cb6ce" meeting="false" start="2019-07-11" duration="14" complete="0" thirdDate="2019-03-01" thirdDate-constraint="0" expand="true"/>
+                    <task id="426" name="Animate" color="#8cb6ce" meeting="false" start="2019-08-12" duration="14" complete="0" thirdDate="2019-03-01" thirdDate-constraint="0" expand="true"/>
                 </task>
+                <task id="446" name="Fourtress" meeting="false" start="2019-08-12" duration="25" complete="0" expand="true">
+                    <task id="448" name="Create model" color="#ff6666" meeting="false" start="2019-08-12" duration="11" complete="0" thirdDate="2019-03-01" thirdDate-constraint="0" expand="true">
+                        <depend id="452" type="2" difference="0" hardness="Strong"/>
+                        <depend id="458" type="2" difference="0" hardness="Strong"/>
+                    </task>
+                    <task id="452" name="Animate" color="#8cb6ce" meeting="false" start="2019-08-28" duration="14" complete="0" thirdDate="2019-03-01" thirdDate-constraint="0" expand="true"/>
+                </task>
+                <task id="456" name="Bruja" meeting="false" start="2019-08-28" duration="27" complete="0" expand="true">
+                    <task id="458" name="Create model" color="#ff6666" meeting="false" start="2019-08-28" duration="13" complete="0" thirdDate="2019-03-01" thirdDate-constraint="0" expand="true">
+                        <depend id="462" type="2" difference="0" hardness="Strong"/>
+                        <depend id="468" type="2" difference="0" hardness="Strong"/>
+                    </task>
+                    <task id="462" name="Animate" color="#8cb6ce" meeting="false" start="2019-09-16" duration="14" complete="0" thirdDate="2019-03-01" thirdDate-constraint="0" expand="true">
+                        <depend id="472" type="2" difference="0" hardness="Strong"/>
+                    </task>
+                </task>
+                <task id="466" name="The Twins" meeting="false" start="2019-09-16" duration="29" complete="0" expand="true">
+                    <task id="468" name="Create model" color="#ff6666" meeting="false" start="2019-09-16" duration="15" complete="0" thirdDate="2019-03-01" thirdDate-constraint="0" expand="true">
+                        <depend id="472" type="2" difference="0" hardness="Strong"/>
+                        <depend id="478" type="2" difference="0" hardness="Strong"/>
+                    </task>
+                    <task id="472" name="Animate" color="#8cb6ce" meeting="false" start="2019-10-07" duration="14" complete="0" thirdDate="2019-03-01" thirdDate-constraint="0" expand="true">
+                        <depend id="482" type="2" difference="0" hardness="Strong"/>
+                    </task>
+                </task>
+                <task id="476" name="Fisher" meeting="false" start="2019-10-07" duration="28" complete="0" expand="true">
+                    <task id="478" name="Create model" color="#ff6666" meeting="false" start="2019-10-07" duration="14" complete="0" thirdDate="2019-03-01" thirdDate-constraint="0" expand="true">
+                        <depend id="482" type="2" difference="0" hardness="Strong"/>
+                        <depend id="488" type="2" difference="0" hardness="Strong"/>
+                    </task>
+                    <task id="482" name="Animate" color="#8cb6ce" meeting="false" start="2019-10-25" duration="14" complete="0" thirdDate="2019-03-01" thirdDate-constraint="0" expand="true">
+                        <depend id="492" type="2" difference="0" hardness="Strong"/>
+                    </task>
+                </task>
+                <task id="486" name="Ikaros" meeting="false" start="2019-10-25" duration="28" complete="0" expand="true">
+                    <task id="488" name="Create model" color="#ff6666" meeting="false" start="2019-10-25" duration="14" complete="0" thirdDate="2019-03-01" thirdDate-constraint="0" expand="true">
+                        <depend id="492" type="2" difference="0" hardness="Strong"/>
+                        <depend id="498" type="2" difference="0" hardness="Strong"/>
+                    </task>
+                    <task id="492" name="Animate" color="#8cb6ce" meeting="false" start="2019-11-15" duration="14" complete="0" thirdDate="2019-03-01" thirdDate-constraint="0" expand="true">
+                        <depend id="502" type="2" difference="0" hardness="Strong"/>
+                    </task>
+                </task>
+                <task id="496" name="Mud Pit" meeting="false" start="2019-11-15" duration="28" complete="0" expand="true">
+                    <task id="498" name="Create model" color="#ff6666" meeting="false" start="2019-11-15" duration="14" complete="0" thirdDate="2019-03-01" thirdDate-constraint="0" expand="true">
+                        <depend id="502" type="2" difference="0" hardness="Strong"/>
+                        <depend id="508" type="2" difference="0" hardness="Strong"/>
+                    </task>
+                    <task id="502" name="Animate" color="#8cb6ce" meeting="false" start="2019-12-05" duration="14" complete="0" thirdDate="2019-03-01" thirdDate-constraint="0" expand="true">
+                        <depend id="512" type="2" difference="0" hardness="Strong"/>
+                    </task>
+                </task>
+                <task id="506" name="DJ" meeting="false" start="2019-12-05" duration="28" complete="0" expand="true">
+                    <task id="508" name="Create model" color="#ff6666" meeting="false" start="2019-12-05" duration="12" complete="0" thirdDate="2019-03-01" thirdDate-constraint="0" expand="true">
+                        <depend id="512" type="2" difference="0" hardness="Strong"/>
+                        <depend id="518" type="2" difference="0" hardness="Strong"/>
+                    </task>
+                    <task id="512" name="Animate" color="#8cb6ce" meeting="false" start="2019-12-27" duration="14" complete="0" thirdDate="2019-03-01" thirdDate-constraint="0" expand="true">
+                        <depend id="522" type="2" difference="0" hardness="Strong"/>
+                    </task>
+                </task>
+                <task id="516" name="First Aid" meeting="false" start="2019-12-23" duration="30" complete="0" expand="true">
+                    <task id="518" name="Create model" color="#ff6666" meeting="false" start="2019-12-23" duration="11" complete="0" thirdDate="2019-03-01" thirdDate-constraint="0" expand="true">
+                        <depend id="435" type="2" difference="0" hardness="Strong"/>
+                        <depend id="522" type="2" difference="0" hardness="Strong"/>
+                        <depend id="691" type="2" difference="0" hardness="Strong"/>
+                    </task>
+                    <task id="522" name="Animate" color="#8cb6ce" meeting="false" start="2020-01-20" duration="14" complete="0" thirdDate="2019-03-01" thirdDate-constraint="0" expand="true">
+                        <depend id="552" type="2" difference="0" hardness="Strong"/>
+                        <depend id="691" type="2" difference="0" hardness="Strong"/>
+                    </task>
+                </task>
+                <task id="691" name="Models polishing" color="#8cb6ce" meeting="false" start="2020-02-07" duration="33" complete="0" thirdDate="2019-11-28" thirdDate-constraint="0" expand="true"/>
+                <task id="552" name="Animation polishing" color="#8cb6ce" meeting="false" start="2020-02-07" duration="33" complete="0" thirdDate="2019-11-28" thirdDate-constraint="0" expand="true"/>
             </task>
-            <task id="435" name="Environment" meeting="false" start="2019-07-02" duration="2" complete="0" expand="false">
-                <task id="379" name="Rocks" color="#ff6666" meeting="false" start="2019-07-02" duration="1" complete="0" thirdDate="2019-07-02" thirdDate-constraint="0" expand="true">
+            <task id="435" name="Environment" color="#000000" meeting="false" start="2020-01-13" duration="59" complete="0" thirdDate="2019-07-02" thirdDate-constraint="0" expand="true">
+                <task id="379" name="Volcano" color="#ff6666" meeting="false" start="2020-01-13" duration="8" complete="0" thirdDate="2019-07-02" thirdDate-constraint="0" expand="true">
                     <depend id="381" type="2" difference="0" hardness="Strong"/>
                 </task>
-                <task id="381" name="Cactus" color="#ff6666" meeting="false" start="2019-07-03" duration="1" complete="0" thirdDate="2019-01-02" thirdDate-constraint="0" expand="true"/>
+                <task id="381" name="Iceberg" color="#ff6666" meeting="false" start="2020-01-23" duration="4" complete="0" thirdDate="2019-01-02" thirdDate-constraint="0" expand="true">
+                    <depend id="587" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="587" name="Power plant" color="#ff6666" meeting="false" start="2020-01-29" duration="9" complete="0" thirdDate="2019-01-02" thirdDate-constraint="0" expand="true">
+                    <depend id="589" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="589" name="Swamp" color="#ff6666" meeting="false" start="2020-02-11" duration="9" complete="0" thirdDate="2019-10-29" thirdDate-constraint="0" expand="true">
+                    <depend id="591" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="591" name="Mountain" color="#ff6666" meeting="false" start="2020-02-24" duration="7" complete="0" thirdDate="2019-10-29" thirdDate-constraint="0" expand="true">
+                    <depend id="593" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="593" name="Forest" color="#ff6666" meeting="false" start="2020-03-04" duration="7" complete="0" thirdDate="2019-10-29" thirdDate-constraint="0" expand="true">
+                    <depend id="595" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="595" name="Desert" color="#ff6666" meeting="false" start="2020-03-13" duration="3" complete="0" thirdDate="2019-10-29" thirdDate-constraint="0" expand="true">
+                    <depend id="597" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="597" name="Maze" color="#ff6666" meeting="false" start="2020-03-18" duration="6" complete="0" thirdDate="2019-10-29" thirdDate-constraint="0" expand="true">
+                    <depend id="599" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="599" name="Boss arena" color="#ff6666" meeting="false" start="2020-03-26" duration="6" complete="0" thirdDate="2019-10-29" thirdDate-constraint="0" expand="true"/>
             </task>
         </task>
-        <task id="129" name="Closed Alpha" color="#000000" meeting="false" start="2019-05-03" duration="94" complete="0" thirdDate="2019-04-09" thirdDate-constraint="0" expand="false">
-            <depend id="6" type="2" difference="0" hardness="Strong"/>
-            <task id="131" name="Analysis" color="#8cb6ce" meeting="false" start="2019-05-03" duration="2" complete="0" thirdDate="2019-04-08" thirdDate-constraint="0" expand="true">
-                <depend id="133" type="2" difference="0" hardness="Strong"/>
+        <task id="569" name="Audio" meeting="false" start="2019-05-03" duration="41" complete="0" expand="true">
+            <task id="570" name="Sound effects" color="#8cb6ce" meeting="false" start="2019-05-03" duration="12" complete="0" thirdDate="2018-12-03" thirdDate-constraint="0" expand="true">
+                <depend id="571" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="133" name="Design review" color="#ff3c3c" meeting="false" start="2019-05-07" duration="92" complete="0" thirdDate="2019-04-18" thirdDate-constraint="0" expand="true"/>
-            <task id="135" name="Implementation and testing" color="#54c737" meeting="false" start="2019-05-03" duration="94" complete="0" thirdDate="2019-03-15" thirdDate-constraint="0" expand="true">
-                <depend id="66" type="2" difference="0" hardness="Strong"/>
+            <task id="571" name="Background music" color="#8cb6ce" meeting="false" start="2019-05-21" duration="20" complete="0" thirdDate="2018-12-03" thirdDate-constraint="0" expand="true">
+                <depend id="577" type="2" difference="0" hardness="Strong"/>
             </task>
+            <task id="577" name="Dialogs" color="#8cb6ce" meeting="false" start="2019-06-18" duration="9" complete="0" thirdDate="2019-05-03" thirdDate-constraint="0" expand="true"/>
         </task>
-        <task id="3" name="Closed Beta" color="#000000" meeting="false" start="2019-09-13" duration="39" complete="0" thirdDate="2019-04-08" thirdDate-constraint="0" expand="false">
-            <depend id="88" type="2" difference="0" hardness="Strong"/>
-            <task id="6" name="Analysis" color="#8cb6ce" meeting="false" start="2019-09-13" duration="2" complete="0" thirdDate="2019-04-08" thirdDate-constraint="0" expand="true">
-                <depend id="59" type="2" difference="0" hardness="Strong"/>
-            </task>
-            <task id="59" name="Design review" color="#ff3c3c" meeting="false" start="2019-09-17" duration="34" complete="0" thirdDate="2019-04-18" thirdDate-constraint="0" expand="true"/>
-            <task id="66" name="Implementation and testing" color="#54c737" meeting="false" start="2019-09-13" duration="36" complete="0" thirdDate="2019-03-21" thirdDate-constraint="0" expand="true">
-                <depend id="105" type="2" difference="0" hardness="Strong"/>
-                <depend id="231" type="2" difference="0" hardness="Strong"/>
-            </task>
-            <task id="231" name="Game playable" color="#cc00ff" meeting="false" start="2019-11-05" duration="3" complete="0" thirdDate="2019-03-21" thirdDate-constraint="0" expand="true"/>
-        </task>
-        <task id="219" name="Advertising" color="#ffd82d" meeting="false" start="2019-11-06" duration="64" complete="0" thirdDate="2019-03-21" thirdDate-constraint="0" expand="true"/>
-        <task id="73" name="Open Beta" meeting="false" start="2019-11-05" duration="24" complete="0" expand="false">
-            <depend id="7" type="2" difference="0" hardness="Strong"/>
-            <task id="88" name="Analysis" color="#8cb6ce" meeting="false" start="2019-11-08" duration="2" complete="0" thirdDate="2019-04-01" thirdDate-constraint="0" expand="true">
-                <depend id="127" type="2" difference="0" hardness="Strong"/>
-            </task>
-            <task id="127" name="Design review" color="#ff3c3c" meeting="false" start="2019-11-12" duration="16" complete="0" thirdDate="2019-04-18" thirdDate-constraint="0" expand="true"/>
-            <task id="105" name="Implementation and testing" color="#54c737" meeting="false" start="2019-11-05" duration="21" complete="0" thirdDate="2019-03-21" thirdDate-constraint="0" expand="true">
-                <depend id="122" type="2" difference="0" hardness="Strong"/>
-                <depend id="243" type="2" difference="0" hardness="Strong"/>
-            </task>
-            <task id="243" name="Game playable" color="#cc00ff" meeting="false" start="2019-12-04" duration="3" complete="0" thirdDate="2019-03-21" thirdDate-constraint="0" expand="true"/>
-        </task>
-        <task id="5" name="Final Release" meeting="false" start="2019-12-04" duration="21" complete="0" expand="false">
-            <task id="7" name="Analysis" color="#8cb6ce" meeting="false" start="2019-12-09" duration="2" complete="0" thirdDate="2019-04-08" thirdDate-constraint="0" expand="true"/>
-            <task id="122" name="Implementation and testing" color="#54c737" meeting="false" start="2019-12-04" duration="20" complete="0" thirdDate="2019-03-21" thirdDate-constraint="0" expand="true">
-                <depend id="247" type="2" difference="0" hardness="Strong"/>
-            </task>
-            <task id="247" name="Game released" color="#cc00ff" meeting="false" start="2020-01-07" duration="1" complete="0" thirdDate="2019-03-21" thirdDate-constraint="0" expand="true"/>
-        </task>
+        <task id="219" name="Advertising" color="#ffd82d" meeting="false" start="2020-11-16" duration="64" complete="0" thirdDate="2019-03-21" thirdDate-constraint="0" expand="true"/>
+        <task id="560" name="Release" color="#54c737" meeting="false" start="2020-12-02" duration="1" complete="0" thirdDate="2020-07-01" thirdDate-constraint="0" expand="true"/>
     </tasks>
     <resources/>
     <allocations/>
