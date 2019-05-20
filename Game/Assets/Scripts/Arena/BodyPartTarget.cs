@@ -20,9 +20,7 @@ public class BodyPartTarget : MonoBehaviour {
 		if (other.GetComponent<BodyPartHitter>() != null) {
 			if (!siblings.Contains(other) && other.isTrigger && !other.GetComponent<BodyPartTarget>()) {
 				other.enabled = false;
-				GameObject effect = Instantiate(GetPlayer(other.transform).hitEffect, other.transform);
-				effect.transform.localPosition = Vector3.zero;
-				player.GetHitted(GetPlayer(other.transform));
+				player.CmdGetHitted(GetPlayer(other.transform), other.transform.position);
 			}
 		}
 	}

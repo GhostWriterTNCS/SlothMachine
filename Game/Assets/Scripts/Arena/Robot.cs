@@ -196,8 +196,13 @@ public class Robot : NetworkBehaviour {
 		}
 	}
 
-	public void GetHitted(Robot hitter) {
+	[Command]
+	public void CmdGetHitted(Robot hitter, Vector3 position) {
 		Debug.Log(name + " hitted by " + hitter.name + " | " + hitter.holdDuration);
+		GameObject effect = Instantiate(hitter.hitEffect);
+		effect.transform.position = position;
+		effect.transform.localScale = Vector3.one;
+		NetworkServer.Spawn(effect);
 		animator.SetTrigger("Reaction");
 		UpdateHealth(-5 * hitter.robotModel.attack / (float)robotModel.defense);
 	}
