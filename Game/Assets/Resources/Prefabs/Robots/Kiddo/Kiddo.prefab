@@ -2877,9 +2877,9 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 1.56
-  m_Height: 3.09
+  m_Height: 4.98
   m_Direction: 1
-  m_Center: {x: 0, y: -0.46, z: 0}
+  m_Center: {x: 0, y: -0.21, z: 0}
 --- !u!114 &5070048727397309201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3210,13 +3210,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef38bd6f6c8a064a87db62b8804e0b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 3
+  attack: 3
+  defense: 3
+  speed: 3
   animatorController: {fileID: 9100000, guid: 710104246f829474eba781e3189b1ce4, type: 2}
   avatar: {fileID: 9000000, guid: e4841ef8fac14764db877eeac24ebea9, type: 3}
   leftHand: {fileID: 2109944850773581536}
   rightHand: {fileID: 3742335020302256779}
   leftFoot: {fileID: 5453161716071962802}
   rightFoot: {fileID: 1714782006129259126}
-  ionParticle: {fileID: 0}
+  head: {fileID: 3975680172731319606}
 --- !u!1 &6980171121164515178
 GameObject:
   m_ObjectHideFlags: 0

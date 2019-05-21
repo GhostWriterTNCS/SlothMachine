@@ -99,10 +99,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7a14a2ee753b9c4abd853b774972bf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enableLeftHand: 1
+  enableRightHand: 0
+  enableLeftFoot: 0
+  enableRightFoot: 0
+  enableHead: 0
+--- !u!114 &114335663366700074
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7a14a2ee753b9c4abd853b774972bf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   enableLeftHand: 0
   enableRightHand: 0
-  enableLeftFoot: 1
-  enableRightFoot: 0
+  enableLeftFoot: 0
+  enableRightFoot: 1
   enableHead: 0
 --- !u!114 &114402225662995650
 MonoBehaviour:
@@ -2537,7 +2554,8 @@ AnimatorState:
   m_Transitions:
   - {fileID: 1101739347844547114}
   - {fileID: 1101585935284728310}
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: 114335663366700074}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1

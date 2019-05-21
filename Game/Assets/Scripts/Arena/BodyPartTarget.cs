@@ -3,11 +3,11 @@ using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
 public class BodyPartTarget : MonoBehaviour {
-	Robot player;
+	Robot robot;
 	List<Collider> siblings = new List<Collider>();
 
 	void Start() {
-		player = GetPlayer(transform);
+		robot = GetRobot(transform);
 
 		Transform t = transform.parent;
 		while (t.parent) {
@@ -20,15 +20,15 @@ public class BodyPartTarget : MonoBehaviour {
 		if (other.GetComponent<BodyPartHitter>() != null) {
 			if (!siblings.Contains(other) && other.isTrigger && !other.GetComponent<BodyPartTarget>()) {
 				other.enabled = false;
-				player.CmdGetHitted(GetPlayer(other.transform), other.transform.position);
+				robot.CmdGetHitted(GetRobot(other.transform).gameObject, other.transform.position);
 			}
 		}
 	}
 
-	Robot GetPlayer(Transform t) {
-		while (transform != null && transform.GetComponentInParent<Robot>() == null) {
-			t = transform.parent;
+	Robot GetRobot(Transform t) {
+		while (t != null && t.GetComponentInParent<Robot>() == null) {
+			t = t.parent;
 		}
-		return transform.GetComponentInParent<Robot>();
+		return t.GetComponentInParent<Robot>();
 	}
 }

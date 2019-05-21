@@ -12,18 +12,14 @@ public class RobotModel : NetworkBehaviour {
 	public int speed = 3;
 
 	[Space]
-	[SerializeField]
 	public RuntimeAnimatorController animatorController;
-	[SerializeField]
 	public Avatar avatar;
 
-	[SerializeField]
-	public SphereCollider leftHand;
-	[SerializeField]
-	public SphereCollider rightHand;
+	public Collider leftHand;
+	public Collider rightHand;
 
-	[SerializeField]
-	public SphereCollider leftFoot;
-	[SerializeField]
-	public SphereCollider rightFoot;
+	public Collider leftFoot;
+	public Collider rightFoot;
+
+	public Collider head;
 }

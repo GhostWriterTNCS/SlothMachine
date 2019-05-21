@@ -88,6 +88,7 @@ MonoBehaviour:
   rightHand: {fileID: 0}
   leftFoot: {fileID: 0}
   rightFoot: {fileID: 0}
+  head: {fileID: 0}
   healthSlider: {fileID: 7362678987741950062}
   handsParticle: {fileID: 0}
   maxHealth: 100
@@ -5332,7 +5333,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: cebdd90a63af7634490b73f08cb17d86, type: 2}
+  - {fileID: 2100000, guid: d30058a3876984141b23c1fc43e5754e, type: 2}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0

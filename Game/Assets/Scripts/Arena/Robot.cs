@@ -21,17 +21,13 @@ public class Robot : NetworkBehaviour {
 
 	[Header("Generated settings")]
 	public Player player;
-	[SerializeField]
-	public SphereCollider leftHand;
-	[SerializeField]
-	public SphereCollider rightHand;
-	[SerializeField]
-	public SphereCollider leftFoot;
-	[SerializeField]
-	public SphereCollider rightFoot;
+	public Collider leftHand;
+	public Collider rightHand;
+	public Collider leftFoot;
+	public Collider rightFoot;
+	public Collider head;
 	public Slider healthSlider;
 
-	[SerializeField]
 	public GameObject handsParticle;
 
 	[SyncVar]
@@ -45,6 +41,7 @@ public class Robot : NetworkBehaviour {
 	PlayerCamera playerCamera;
 	PlayerMove playerMove;
 	Rigidbody rigidbody;
+	float initialComboScore = 2;
 
 	void Start() {
 		player = GetComponentInParent<Player>();
@@ -55,9 +52,15 @@ public class Robot : NetworkBehaviour {
 			return;
 		}
 		leftHand = robotModel.leftHand;
+		leftHand.enabled = false;
 		rightHand = robotModel.rightHand;
+		rightHand.enabled = false;
 		leftFoot = robotModel.leftFoot;
+		leftFoot.enabled = false;
 		rightFoot = robotModel.rightFoot;
+		rightFoot.enabled = false;
+		head = robotModel.head;
+		head.enabled = false;
 
 		animator = GetComponent<Animator>();
 		animator.runtimeAnimatorController = robotModel.animatorController;
@@ -71,6 +74,8 @@ public class Robot : NetworkBehaviour {
 		CmdUpdateHealthValue(maxHealth);
 		leftHand.enabled = false;
 		rightHand.enabled = false;
+
+		CmdResetComboScore();
 	}
 
 	float holdButton = 0;
@@ -81,6 +86,13 @@ public class Robot : NetworkBehaviour {
 	float evadeTime = 0;
 	Transform lockCamera;
 	void Update() {
+		if (comboScoreDuration > 0) {
+			comboScoreDuration -= Time.deltaTime;
+		} else {
+			if (comboScore > initialComboScore) {
+				CmdResetComboScore();
+			}
+		}
 		if (evadeTime > 0) {
 			playerMove.canMove = false;
 			rigidbody.MovePosition(rigidbody.position + (evadeDirection * evadeDistance));
@@ -175,6 +187,22 @@ public class Robot : NetworkBehaviour {
 		}
 	}
 
+	[SyncVar]
+	float comboScore;
+	[SyncVar]
+	float comboScoreDuration = 0;
+	[Command]
+	public void CmdIncreaseComboScore() {
+		comboScore *= 1.5f;
+		comboScoreDuration = 1;
+		Debug.Log(player.name + " Multiply combo score: " + comboScore);
+	}
+	[Command]
+	public void CmdResetComboScore() {
+		comboScore = initialComboScore;
+		Debug.Log(player.name + " Reset combo score: " + comboScore);
+	}
+
 	IEnumerator DelayCall(Action action, float delayTime) {
 		yield return new WaitForSeconds(delayTime);
 		action();
@@ -197,14 +225,18 @@ public class Robot : NetworkBehaviour {
 	}
 
 	[Command]
-	public void CmdGetHitted(Robot hitter, Vector3 position) {
-		Debug.Log(name + " hitted by " + hitter.name + " | " + hitter.holdDuration);
+	public void CmdGetHitted(GameObject hitterGO, Vector3 position) {
+		Robot hitter = hitterGO.GetComponent<Robot>();
+		//Debug.Log(player.name + " hitted by " + hitter.player.name + " | " + hitter.holdDuration);
 		GameObject effect = Instantiate(hitter.hitEffect);
 		effect.transform.position = position;
 		effect.transform.localScale = Vector3.one;
 		NetworkServer.Spawn(effect);
 		animator.SetTrigger("Reaction");
 		UpdateHealth(-5 * hitter.robotModel.attack / (float)robotModel.defense);
+		hitter.player.scraps += 3;
+		Debug.Log(hitter.player.name + " Current combo score: " + hitter.comboScore);
+		hitter.player.score += (int)hitter.comboScore;
 	}
 
 	[Command]
@@ -240,9 +272,9 @@ public class Robot : NetworkBehaviour {
 				rightParticle.transform.SetParent(rightFoot.transform);
 			}
 
-			leftParticle.transform.localPosition = leftHand.center;
+			leftParticle.transform.localPosition = leftHand.transform.localPosition;
 			leftParticle.transform.localScale = Vector3.one;
-			rightParticle.transform.localPosition = rightFoot.center;
+			rightParticle.transform.localPosition = rightFoot.transform.localPosition;
 			rightParticle.transform.localScale = Vector3.one;
 		}
 	}

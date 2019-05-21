@@ -167,7 +167,6 @@ namespace Prototype.NetworkLobby {
 				textComponent.text = "READY";
 				textComponent.color = ReadyColor;
 				Image image = readyButton.transform.GetChild(0).GetComponentInChildren<Image>();
-				Debug.Log(image.name);
 				image.enabled = false;
 				readyButton.interactable = false;
 				if (colorButton)
