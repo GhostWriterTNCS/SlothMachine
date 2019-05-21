@@ -16,7 +16,6 @@ public class TextManager : MonoBehaviour {
 		foreach (Text t in Resources.FindObjectsOfTypeAll<Text>()) {
 			TextProperties tp = t.GetComponent<TextProperties>();
 			if (tp) {
-				t.resizeTextForBestFit = true;
 				if (tp.type == TextProperties.TextType.Header) {
 					t.fontSize = fontSizeH;
 					t.resizeTextMaxSize = fontSizeH;
@@ -31,11 +30,13 @@ public class TextManager : MonoBehaviour {
 				}
 			} else {
 				t.fontSize = fontSize;
+				t.resizeTextMaxSize = fontSize;
 			}
 			if (!tp || !tp.useCustomColor) {
 				t.color = fontColor;
 			}
 			t.font = (Font)Resources.Load(fontName);
+			t.resizeTextForBestFit = true;
 #if UNITY_EDITOR
 			// Stop execution here when not playing.
 			if (!Application.isPlaying) return;
