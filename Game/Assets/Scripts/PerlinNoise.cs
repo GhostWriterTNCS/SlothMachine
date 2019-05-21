@@ -46,11 +46,11 @@ public class PerlinNoise : MonoBehaviour {
 		ArenaSphere = Resources.Load("Prefabs/ArenaSphere") as GameObject;*/
 		SpawnObject(terrain.terrainData);
 
-		spawnArenaSphere();
+		//spawnArenaSphere();
 
 		foreach (NetworkStartPosition pos in FindObjectsOfType<NetworkStartPosition>()) {
 			Vector3 v3 = pos.transform.position;
-			pos.transform.position = new Vector3(v3.x, terrain.terrainData.GetHeight((int)v3.x, (int)v3.z) + 2, v3.z);
+			pos.transform.position = new Vector3(v3.x, terrain.terrainData.GetHeight((int)v3.x, (int)v3.z), v3.z);
 		}
 	}
 

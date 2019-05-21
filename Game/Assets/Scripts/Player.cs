@@ -49,8 +49,10 @@ public class Player : NetworkBehaviour {
 			GameObject newPlayer = Instantiate(arenaPrefab, transform);
 			NetworkServer.Spawn(newPlayer);
 			RpcSetParent(newPlayer, gameObject);
-			if (!isAgent)
+			newPlayer.transform.position = NetworkManager.singleton.GetStartPosition().position;
+			if (!isAgent) {
 				NetworkServer.ReplacePlayerForConnection(conn, newPlayer, 0);
+			}
 		} else if (SceneManager.GetActiveScene().name == GameScenes.Auction) {
 			Debug.Log("Spawn in auction.");
 			upgradeAssigned = false;
