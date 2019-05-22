@@ -138,7 +138,7 @@ public class Robot : NetworkBehaviour {
 					playerMove.moveSpeedMultiplier = 0.55f + (robotModel.speed - 3) / 20f;
 				} else if (Input.GetButtonUp("LB")) {
 					animator.SetBool("LB", false);
-					playerMove.moveSpeedMultiplier = 1 * (robotModel.speed - 3) / 12f;
+					playerMove.moveSpeedMultiplier = 1 + (robotModel.speed - 3) / 12f;
 				}
 				if (Input.GetButtonDown("RS")) {
 					if (lockCamera) {
