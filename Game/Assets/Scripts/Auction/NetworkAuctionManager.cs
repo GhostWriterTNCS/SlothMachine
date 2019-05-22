@@ -86,8 +86,8 @@ public class NetworkAuctionManager : NetworkBehaviour {
 
 	IEnumerator AuctionWinnerCoroutine() {
 		foreach (AuctionPlayer pb in FindObjectsOfType<AuctionPlayer>()) {
-			while (!pb.bidRegistered) {
-				yield return new WaitForSeconds(0.01f);
+			while (!pb.bidRegistered && !pb.player.upgradeAssigned) {
+				yield return new WaitForSeconds(0.05f);
 			}
 			if (pb.bid > pb.player.scraps) {
 				pb.bid = pb.player.scraps;
@@ -115,7 +115,9 @@ public class NetworkAuctionManager : NetworkBehaviour {
 
 	[ClientRpc]
 	public void RpcCountdownFinished() {
-		FindObjectOfType<ScrapsInput>().SendBidValue();
+		if (FindObjectOfType<ScrapsInput>()) {
+			FindObjectOfType<ScrapsInput>().SendBidValue();
+		}
 		auctionManager.scrapsInput.SetActive(false);
 		auctionManager.scrapsWait.SetActive(false);
 		auctionManager.scrapsList.SetActive(true);
@@ -158,7 +160,7 @@ public class NetworkAuctionManager : NetworkBehaviour {
 		StartCoroutine(AuctionWinnerCoroutine());
 		RpcUpdateResults();
 		while (auctionWinner == null) {
-			yield return new WaitForSeconds(0.01f);
+			yield return new WaitForSeconds(0.05f);
 		}
 		auctionWinner.GetComponent<AuctionPlayer>().player.CmdAddUpgrade(usedUpgrades[currentUpgrade].value1, usedUpgrades[currentUpgrade].value2);
 		RpcSetHeader(pauseText.Replace("#", auctionWinner.GetComponent<AuctionPlayer>().player.name));
