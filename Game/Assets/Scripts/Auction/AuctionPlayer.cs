@@ -48,9 +48,9 @@ public class AuctionPlayer : NetworkBehaviour {
 				FindObjectOfType<ScrapsInput>().SetPlayerBox(this);
 			}
 		}
-		foreach (Image i in upgrades) {
+		/*foreach (Image i in upgrades) {
 			i.enabled = false;
-		}
+		}*/
 	}
 
 	[Command]
