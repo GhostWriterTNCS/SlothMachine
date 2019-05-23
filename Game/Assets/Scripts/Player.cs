@@ -46,9 +46,9 @@ public class Player : NetworkBehaviour {
 			NetworkServer.ReplacePlayerForConnection(conn, gameObject, 0);
 		if (SceneManager.GetActiveScene().name == GameScenes.Arena) {
 			Debug.Log("Spawn in arena.");
-			GameObject newPlayer = Instantiate(arenaPrefab, transform);
+			GameObject newPlayer = Instantiate(arenaPrefab);
 			NetworkServer.Spawn(newPlayer);
-			RpcSetParent(newPlayer, gameObject);
+			newPlayer.GetComponent<Robot>().playerGO = gameObject;
 			newPlayer.transform.position = NetworkManager.singleton.GetStartPosition().position;
 			if (!isAgent) {
 				NetworkServer.ReplacePlayerForConnection(conn, newPlayer, 0);
@@ -74,11 +74,6 @@ public class Player : NetworkBehaviour {
 				NAM.GetComponent<NetworkAuctionManager>().CmdLoad();
 			}
 		}
-	}
-	[ClientRpc]
-	public void RpcSetParent(GameObject go, GameObject parent) {
-		Debug.Log("Set parent: " + go.name + " - " + parent.name);
-		go.transform.SetParent(parent.transform);
 	}
 
 	[Command]

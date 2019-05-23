@@ -25,7 +25,7 @@ public class Countdown : MonoBehaviour {
 			if (text) {
 				if (showMinutes) {
 					TimeSpan time = TimeSpan.FromSeconds(seconds);
-					text.text = s.Replace("#", time.ToString(@"m\:ss"));
+					text.text = s.Replace("#", time.ToString(@"mm\:ss"));
 				} else {
 					text.text = s.Replace("#", ((int)seconds).ToString());
 				}
