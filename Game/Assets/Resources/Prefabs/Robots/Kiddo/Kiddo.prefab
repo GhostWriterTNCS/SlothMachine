@@ -239,6 +239,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5076043681178704357}
   - component: {fileID: 2453414629325659329}
+  - component: {fileID: 1121470070559409038}
   m_Layer: 0
   m_Name: mixamorig:RightFoot
   m_TagString: Untagged
@@ -274,6 +275,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.8
   m_Center: {x: 0, y: 0.1, z: 0.46}
+--- !u!114 &1121470070559409038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 267112113203095922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12b6c1dfadd74704b95f609285985a83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &287522915039577958
 GameObject:
   m_ObjectHideFlags: 0
@@ -370,6 +383,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6131271303190584192}
+  - component: {fileID: 3860545739047078598}
+  - component: {fileID: 4576188941253403102}
   m_Layer: 0
   m_Name: mixamorig:Spine2
   m_TagString: Untagged
@@ -394,6 +409,32 @@ Transform:
   m_Father: {fileID: 1699063227786810461}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &3860545739047078598
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 288969857322397573}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 1.52
+  m_Height: 6.37
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.01, z: 0}
+--- !u!114 &4576188941253403102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 288969857322397573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dac069dcd38102645aa34772586fe000, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &808501928741309581
 GameObject:
   m_ObjectHideFlags: 0
@@ -404,6 +445,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3089226695691644895}
   - component: {fileID: 8213976084427667089}
+  - component: {fileID: 4935575900004130346}
   m_Layer: 0
   m_Name: mixamorig:Head
   m_TagString: Untagged
@@ -440,6 +482,18 @@ CapsuleCollider:
   m_Height: 3.3776088
   m_Direction: 1
   m_Center: {x: -0.040594578, y: 0.8931523, z: -1.0732604e-15}
+--- !u!114 &4935575900004130346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 808501928741309581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12b6c1dfadd74704b95f609285985a83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &843536117321714068
 GameObject:
   m_ObjectHideFlags: 0
@@ -1742,6 +1796,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1904032674589526101}
   - component: {fileID: 4657237673281975916}
+  - component: {fileID: 8587978687382975595}
   m_Layer: 0
   m_Name: mixamorig:RightHandMiddle1
   m_TagString: Untagged
@@ -1777,6 +1832,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.4
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8587978687382975595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3140025132027101923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12b6c1dfadd74704b95f609285985a83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3180680916253263713
 GameObject:
   m_ObjectHideFlags: 0
@@ -3762,6 +3829,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4758310506990150568}
   - component: {fileID: 2960367990123254551}
+  - component: {fileID: 2513944042314273536}
   m_Layer: 0
   m_Name: mixamorig:LeftFoot
   m_TagString: Untagged
@@ -3797,6 +3865,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.8
   m_Center: {x: 0, y: 0.1, z: 0.46}
+--- !u!114 &2513944042314273536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7992339242831954389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12b6c1dfadd74704b95f609285985a83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8089326322768834261
 GameObject:
   m_ObjectHideFlags: 0

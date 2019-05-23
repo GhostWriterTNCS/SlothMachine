@@ -20,6 +20,8 @@ public class Robot : NetworkBehaviour {
 	public float evadeDistance = 0.3f;
 
 	[Header("Generated settings")]
+	[SyncVar]
+	public GameObject playerGO;
 	public Player player;
 	public Collider leftHand;
 	public Collider rightHand;
@@ -44,13 +46,17 @@ public class Robot : NetworkBehaviour {
 	float initialComboScore = 2;
 
 	void Start() {
-		player = GetComponentInParent<Player>();
+		StartCoroutine(SetupCoroutine());
+	}
+	IEnumerator SetupCoroutine() {
+		while (!playerGO) {
+			yield return new WaitForSeconds(0.05f);
+		}
+
+		player = playerGO.GetComponent<Player>();
+		transform.SetParent(player.transform);
 		GameObject model = Instantiate(Resources.Load<GameObject>("Prefabs/Robots/" + player.robotName + "/" + player.robotName), transform);
 		robotModel = model.GetComponent<RobotModel>();
-		if (!robotModel) {
-			Debug.LogError("No robot model");
-			return;
-		}
 		leftHand = robotModel.leftHand;
 		leftHand.enabled = false;
 		rightHand = robotModel.rightHand;
@@ -74,6 +80,10 @@ public class Robot : NetworkBehaviour {
 		CmdUpdateHealthValue(maxHealth);
 		leftHand.enabled = false;
 		rightHand.enabled = false;
+
+		ArenaManager AM = FindObjectOfType<ArenaManager>();
+		GameObject arenaBox = Instantiate(AM.arenaBoxPrefab, AM.leaderboard.transform);
+		arenaBox.GetComponent<ArenaBox>().player = player;
 
 		CmdResetComboScore();
 	}
@@ -195,12 +205,12 @@ public class Robot : NetworkBehaviour {
 	public void CmdIncreaseComboScore() {
 		comboScore *= 1.5f;
 		comboScoreDuration = 1;
-		Debug.Log(player.name + " Multiply combo score: " + comboScore);
+		//Debug.Log(player.name + " Multiply combo score: " + comboScore);
 	}
 	[Command]
 	public void CmdResetComboScore() {
 		comboScore = initialComboScore;
-		Debug.Log(player.name + " Reset combo score: " + comboScore);
+		//Debug.Log(player.name + " Reset combo score: " + comboScore);
 	}
 
 	IEnumerator DelayCall(Action action, float delayTime) {
@@ -209,7 +219,7 @@ public class Robot : NetworkBehaviour {
 	}
 
 	void UpdateHealthSlider(float value) {
-		healthSlider.value = health / maxHealth;
+		healthSlider.value = value / maxHealth;
 	}
 	[Command]
 	public void CmdUpdateHealthValue(float newHealth) {
