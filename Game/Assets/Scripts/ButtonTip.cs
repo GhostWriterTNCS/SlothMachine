@@ -35,7 +35,7 @@ public class ButtonTip : MonoBehaviour {
 				} else {
 					temp = 0;
 				}
-			} else if (Input.GetButton(button)) {
+			} else if (Input.GetButtonDown(button)) {
 				b.onClick.Invoke();
 			}
 		}

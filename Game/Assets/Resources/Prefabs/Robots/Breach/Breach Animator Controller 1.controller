@@ -99,8 +99,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7a14a2ee753b9c4abd853b774972bf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enableLeftHand: 1
-  enableRightHand: 0
+  enableLeftHand: 0
+  enableRightHand: 1
   enableLeftFoot: 0
   enableRightFoot: 0
   enableHead: 0

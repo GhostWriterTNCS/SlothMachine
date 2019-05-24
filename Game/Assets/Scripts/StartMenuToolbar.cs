@@ -23,6 +23,7 @@ public class StartMenuToolbar : MonoBehaviour {
 	}
 
 	public void showPrevious() {
+		Debug.Log("Show previous");
 		index--;
 		if (index < 0) {
 			index = panels.Length - 1;
@@ -31,6 +32,7 @@ public class StartMenuToolbar : MonoBehaviour {
 	}
 
 	public void showNext() {
+		Debug.Log("Show next");
 		index++;
 		if (index >= panels.Length) {
 			index = 0;
