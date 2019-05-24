@@ -45,11 +45,15 @@ public class Player : NetworkBehaviour {
 		if (!isAgent)
 			NetworkServer.ReplacePlayerForConnection(conn, gameObject, 0);
 		if (SceneManager.GetActiveScene().name == GameScenes.Arena) {
+			transform.position = Vector3.zero;
+			transform.rotation = Quaternion.identity;
 			Debug.Log("Spawn in arena.");
 			GameObject newPlayer = Instantiate(arenaPrefab);
+			Transform t = NetworkManager.singleton.GetStartPosition();
+			newPlayer.transform.position = t.position;
+			newPlayer.transform.rotation = t.rotation;
 			NetworkServer.Spawn(newPlayer);
 			newPlayer.GetComponent<Robot>().playerGO = gameObject;
-			newPlayer.transform.position = NetworkManager.singleton.GetStartPosition().position;
 			if (!isAgent) {
 				NetworkServer.ReplacePlayerForConnection(conn, newPlayer, 0);
 			}
