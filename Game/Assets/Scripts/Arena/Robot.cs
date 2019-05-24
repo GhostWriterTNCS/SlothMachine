@@ -41,9 +41,18 @@ public class Robot : NetworkBehaviour {
 	public Slider healthSlider;
 
 	public GameObject handsParticle;
+	public bool isGuardOn;
 
 	[SyncVar(hook = "UpdateHealthSlider")]
 	public float health;
+	[SyncVar]
+	public float healthMax;
+	[SyncVar]
+	public float attack;
+	[SyncVar]
+	public float defense;
+	[SyncVar]
+	public float speed;
 
 	RobotModel robotModel;
 	Animator animator;
@@ -67,14 +76,29 @@ public class Robot : NetworkBehaviour {
 		robotModel = model.GetComponent<RobotModel>();
 		leftHand = robotModel.leftHand;
 		leftHand.enabled = false;
+		if (!leftHand.GetComponent<BodyPartHitter>()) {
+			leftHand.gameObject.AddComponent<BodyPartHitter>();
+		}
 		rightHand = robotModel.rightHand;
 		rightHand.enabled = false;
+		if (!rightHand.GetComponent<BodyPartHitter>()) {
+			rightHand.gameObject.AddComponent<BodyPartHitter>();
+		}
 		leftFoot = robotModel.leftFoot;
 		leftFoot.enabled = false;
+		if (!leftFoot.GetComponent<BodyPartHitter>()) {
+			leftFoot.gameObject.AddComponent<BodyPartHitter>();
+		}
 		rightFoot = robotModel.rightFoot;
 		rightFoot.enabled = false;
+		if (!rightFoot.GetComponent<BodyPartHitter>()) {
+			rightFoot.gameObject.AddComponent<BodyPartHitter>();
+		}
 		head = robotModel.head;
 		head.enabled = false;
+		if (!head.GetComponent<BodyPartHitter>()) {
+			head.gameObject.AddComponent<BodyPartHitter>();
+		}
 
 		animator = GetComponent<Animator>();
 		animator.runtimeAnimatorController = robotModel.animatorController;
@@ -86,13 +110,14 @@ public class Robot : NetworkBehaviour {
 
 		leftHand.enabled = false;
 		rightHand.enabled = false;
+		isGuardOn = false;
 
 		ArenaManager AM = FindObjectOfType<ArenaManager>();
 		GameObject arenaBox = Instantiate(AM.arenaBoxPrefab, AM.leaderboard.transform);
 		arenaBox.GetComponent<ArenaBox>().player = player;
 
 		CmdCalculateBonus();
-		CmdUpdateHealthValue(GetHealthMax());
+		CmdUpdateHealthValue(healthMax);
 
 		CmdResetComboScore();
 	}
@@ -106,19 +131,15 @@ public class Robot : NetworkBehaviour {
 		foreach (Pair upgrade in player.upgrades) {
 			Upgrades.list[upgrade.value1][upgrade.value2].OnAdd(this);
 		}
+		CmdRefreshStats();
 	}
 
-	public float GetHealthMax() {
-		return (100 * (1 + (robotModel.health + healthBonus - 5) / 10f));
-	}
-	public float GetAttack() {
-		return robotModel.attack + attackBonus;
-	}
-	public float GetDefense() {
-		return robotModel.defense + defenseBonus;
-	}
-	public float GetSpeed() {
-		return 1 + (robotModel.speed + speedBonus - 5) / 12f;
+	[Command]
+	public void CmdRefreshStats() {
+		healthMax = 100 * (1 + (robotModel.health + healthBonus - 5) / 10f);
+		attack = robotModel.attack + attackBonus;
+		defense = robotModel.defense + defenseBonus;
+		speed = 1 + (robotModel.speed + speedBonus - 5) / 12f;
 	}
 
 	float holdButton = 0;
@@ -177,11 +198,10 @@ public class Robot : NetworkBehaviour {
 					SetTrigger("Y");
 				}
 				if (Input.GetButtonDown("LB")) {
-					animator.SetBool("LB", true);
-					playerMove.moveSpeedMultiplier = GetSpeed() * 0.55f;
+					GuardOn();
+					playerMove.moveSpeedMultiplier = speed * 0.55f;
 				} else if (Input.GetButtonUp("LB")) {
-					animator.SetBool("LB", false);
-					playerMove.moveSpeedMultiplier = GetSpeed();
+					GuardOff();
 				}
 				if (Input.GetButtonDown("RS")) {
 					if (lockCamera) {
@@ -207,6 +227,17 @@ public class Robot : NetworkBehaviour {
 				}
 			}
 		}
+	}
+
+	void GuardOn() {
+		animator.SetBool("LB", true);
+		isGuardOn = true;
+		playerMove.moveSpeedMultiplier = speed * 0.55f;
+	}
+	void GuardOff() {
+		animator.SetBool("LB", false);
+		isGuardOn = false;
+		playerMove.moveSpeedMultiplier = speed;
 	}
 
 	Dictionary<string, int> triggers = new Dictionary<string, int>();
@@ -252,7 +283,7 @@ public class Robot : NetworkBehaviour {
 	}
 
 	void UpdateHealthSlider(float value) {
-		healthSlider.value = value / GetHealthMax();
+		healthSlider.value = value / healthMax;
 	}
 	[Command]
 	public void CmdUpdateHealthValue(float newHealth) {
@@ -270,21 +301,27 @@ public class Robot : NetworkBehaviour {
 	[Command]
 	public void CmdGetHitted(GameObject hitterGO, Vector3 position) {
 		Robot hitter = hitterGO.GetComponent<Robot>();
-		//Debug.Log(player.name + " hitted by " + hitter.player.name + " | " + hitter.holdDuration);
-		GameObject effect = Instantiate(hitter.hitEffect);
-		effect.transform.position = position;
-		effect.transform.localScale = Vector3.one;
-		NetworkServer.Spawn(effect);
-		animator.SetTrigger("Reaction");
-		UpdateHealth(-5 * hitter.GetAttack() / GetDefense());
-		hitter.player.scraps += 3;
-		Debug.Log(hitter.player.name + " Current combo score: " + hitter.comboScore);
-		hitter.player.score += (int)hitter.comboScore;
+		//Debug.Log(ionParticle.GetComponent<Renderer>().material.name + " ~ " + hitter.ionParticle.GetComponent<Renderer>().material.name);
+		if (!isGuardOn ||
+			ionParticle.GetComponent<Renderer>().material.name.StartsWith(ionNull.name) && !hitter.ionParticle.GetComponent<Renderer>().material.name.StartsWith(ionNull.name) ||
+			ionParticle.GetComponent<Renderer>().material.name.StartsWith(ionPlus.name) && hitter.ionParticle.GetComponent<Renderer>().material.name.StartsWith(ionMinus.name) ||
+			ionParticle.GetComponent<Renderer>().material.name.StartsWith(ionMinus.name) && hitter.ionParticle.GetComponent<Renderer>().material.name.StartsWith(ionPlus.name)) {
+			GameObject effect = Instantiate(hitter.hitEffect);
+			effect.transform.position = position;
+			effect.transform.localScale = Vector3.one;
+			NetworkServer.Spawn(effect);
+			animator.SetTrigger("Reaction");
+			UpdateHealth(-5 * hitter.attack / defense);
+			hitter.player.scraps += 3;
+			Debug.Log(hitter.player.name + " Current combo score: " + hitter.comboScore);
+			hitter.player.score += (int)hitter.comboScore;
+			GuardOff();
+		}
 	}
 
 	[Command]
 	void CmdRespawn() {
-		CmdUpdateHealthValue(GetHealthMax());
+		CmdUpdateHealthValue(healthMax);
 		var spawn = NetworkManager.singleton.GetStartPosition();
 		transform.position = spawn.position;
 		transform.rotation = spawn.rotation;

@@ -23,7 +23,7 @@ public class MyAnimation : StateMachineBehaviour {
 			player.leftFoot.enabled = true;
 		}
 		if (enableRightFoot) {
-			player.head.enabled = true;
+			player.rightFoot.enabled = true;
 		}
 		if (enableHead) {
 			player.head.enabled = true;
