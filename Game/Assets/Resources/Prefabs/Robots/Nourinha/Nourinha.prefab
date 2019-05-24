@@ -666,6 +666,7 @@ MonoBehaviour:
   leftFoot: {fileID: 2201046213576537707}
   rightFoot: {fileID: 7679319555513481841}
   head: {fileID: 2451626362595309683}
+  body: {fileID: 7384839073697769817}
 --- !u!1 &4083704304006016833
 GameObject:
   m_ObjectHideFlags: 0

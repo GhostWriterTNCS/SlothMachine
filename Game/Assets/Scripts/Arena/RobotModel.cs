@@ -22,4 +22,5 @@ public class RobotModel : NetworkBehaviour {
 	public Collider rightFoot;
 
 	public Collider head;
+	public Collider body;
 }

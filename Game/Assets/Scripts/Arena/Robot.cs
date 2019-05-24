@@ -38,6 +38,7 @@ public class Robot : NetworkBehaviour {
 	public Collider leftFoot;
 	public Collider rightFoot;
 	public Collider head;
+	public Collider body;
 	public Slider healthSlider;
 
 	public GameObject handsParticle;
@@ -98,6 +99,11 @@ public class Robot : NetworkBehaviour {
 		head.enabled = false;
 		if (!head.GetComponent<BodyPartHitter>()) {
 			head.gameObject.AddComponent<BodyPartHitter>();
+		}
+		body = robotModel.body;
+		body.enabled = false;
+		if (!body.GetComponent<BodyPartTarget>()) {
+			body.gameObject.AddComponent<BodyPartTarget>();
 		}
 
 		animator = GetComponent<Animator>();
