@@ -19,6 +19,16 @@ public class Robot : NetworkBehaviour {
 	public float evadeDuration = 0.1f;
 	public float evadeDistance = 0.3f;
 
+	[Header("Bonus")]
+	[SyncVar]
+	public int healthBonus = 0;
+	[SyncVar]
+	public int attackBonus = 0;
+	[SyncVar]
+	public int defenseBonus = 0;
+	[SyncVar]
+	public int speedBonus = 0;
+
 	[Header("Generated settings")]
 	[SyncVar]
 	public GameObject playerGO;
@@ -32,8 +42,6 @@ public class Robot : NetworkBehaviour {
 
 	public GameObject handsParticle;
 
-	[SyncVar]
-	public int maxHealth = 100;
 	[SyncVar(hook = "UpdateHealthSlider")]
 	public float health;
 
@@ -76,8 +84,6 @@ public class Robot : NetworkBehaviour {
 		playerMove = GetComponent<PlayerMove>();
 		rigidbody = GetComponent<Rigidbody>();
 
-		maxHealth = (int)(100 * (1 + (robotModel.health - 3) / 10f));
-		CmdUpdateHealthValue(maxHealth);
 		leftHand.enabled = false;
 		rightHand.enabled = false;
 
@@ -85,7 +91,34 @@ public class Robot : NetworkBehaviour {
 		GameObject arenaBox = Instantiate(AM.arenaBoxPrefab, AM.leaderboard.transform);
 		arenaBox.GetComponent<ArenaBox>().player = player;
 
+		CmdCalculateBonus();
+		CmdUpdateHealthValue(GetHealthMax());
+
 		CmdResetComboScore();
+	}
+
+	[Command]
+	public void CmdCalculateBonus() {
+		healthBonus = 0;
+		attackBonus = 0;
+		defenseBonus = 0;
+		speedBonus = 0;
+		foreach (Pair upgrade in player.upgrades) {
+			Upgrades.list[upgrade.value1][upgrade.value2].OnAdd(this);
+		}
+	}
+
+	public float GetHealthMax() {
+		return (100 * (1 + (robotModel.health + healthBonus - 5) / 10f));
+	}
+	public float GetAttack() {
+		return robotModel.attack + attackBonus;
+	}
+	public float GetDefense() {
+		return robotModel.defense + defenseBonus;
+	}
+	public float GetSpeed() {
+		return 1 + (robotModel.speed + speedBonus - 5) / 12f;
 	}
 
 	float holdButton = 0;
@@ -145,10 +178,10 @@ public class Robot : NetworkBehaviour {
 				}
 				if (Input.GetButtonDown("LB")) {
 					animator.SetBool("LB", true);
-					playerMove.moveSpeedMultiplier = 0.55f + (robotModel.speed - 3) / 20f;
+					playerMove.moveSpeedMultiplier = GetSpeed() * 0.55f;
 				} else if (Input.GetButtonUp("LB")) {
 					animator.SetBool("LB", false);
-					playerMove.moveSpeedMultiplier = 1 + (robotModel.speed - 3) / 12f;
+					playerMove.moveSpeedMultiplier = GetSpeed();
 				}
 				if (Input.GetButtonDown("RS")) {
 					if (lockCamera) {
@@ -219,7 +252,7 @@ public class Robot : NetworkBehaviour {
 	}
 
 	void UpdateHealthSlider(float value) {
-		healthSlider.value = value / maxHealth;
+		healthSlider.value = value / GetHealthMax();
 	}
 	[Command]
 	public void CmdUpdateHealthValue(float newHealth) {
@@ -243,7 +276,7 @@ public class Robot : NetworkBehaviour {
 		effect.transform.localScale = Vector3.one;
 		NetworkServer.Spawn(effect);
 		animator.SetTrigger("Reaction");
-		UpdateHealth(-5 * hitter.robotModel.attack / (float)robotModel.defense);
+		UpdateHealth(-5 * hitter.GetAttack() / GetDefense());
 		hitter.player.scraps += 3;
 		Debug.Log(hitter.player.name + " Current combo score: " + hitter.comboScore);
 		hitter.player.score += (int)hitter.comboScore;
@@ -251,7 +284,7 @@ public class Robot : NetworkBehaviour {
 
 	[Command]
 	void CmdRespawn() {
-		CmdUpdateHealthValue(maxHealth);
+		CmdUpdateHealthValue(GetHealthMax());
 		var spawn = NetworkManager.singleton.GetStartPosition();
 		transform.position = spawn.position;
 		transform.rotation = spawn.rotation;
