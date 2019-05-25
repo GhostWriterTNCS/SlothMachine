@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 49173105}
   - component: {fileID: 49173104}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: Nourinha
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1470,6 +1470,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   useCustomColor: 0
+  noShadow: 0
 --- !u!114 &622374928
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3622,6 +3623,8 @@ MonoBehaviour:
   infoPanel: {fileID: 1367616300}
   countdownPanel: {fileID: 1367643464}
   addPlayerButton: {fileID: 1361627270}
+  mainPanelFirstButton: {fileID: 534260684}
+  lobbyPanelFirstButton: {fileID: 1825364740}
   backButton: {fileID: 431102075}
   backToStartButton: {fileID: 1133861868}
   statusInfo: {fileID: 0}
@@ -3642,7 +3645,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -3765,7 +3768,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 323bbefc9ee8c5f4f8c3e0981fd65c34, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 34684e739c88f7e498e043b54a579b11, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -3885,7 +3888,7 @@ GameObject:
   - component: {fileID: 1389349620}
   - component: {fileID: 1389349619}
   m_Layer: 5
-  m_Name: Image (3)
+  m_Name: Dozzer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4298,7 +4301,7 @@ GameObject:
   - component: {fileID: 1623512140}
   - component: {fileID: 1623512139}
   m_Layer: 5
-  m_Name: Image (2)
+  m_Name: Breach
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4817,7 +4820,7 @@ GameObject:
   - component: {fileID: 1825364743}
   - component: {fileID: 1825364742}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Kiddo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5110,6 +5113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   useCustomColor: 0
+  noShadow: 0
 --- !u!114 &1955577565
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5244,7 +5248,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: b34476aa22e94e2409cff5b846c6f167, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 08ef07c6a70e83e43b8bcb30469322c3, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

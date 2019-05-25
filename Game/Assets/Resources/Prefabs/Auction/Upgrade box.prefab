@@ -353,6 +353,7 @@ GameObject:
   - component: {fileID: 9415}
   - component: {fileID: 9793}
   - component: {fileID: 3143169531384022094}
+  - component: {fileID: 114177129842407410}
   m_Layer: 5
   m_Name: Name
   m_TagString: Untagged
@@ -411,9 +412,9 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: 1f5cc9f2e9cf96b4586aaa2f6f0d3875, type: 3}
     m_FontSize: 34
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 10
-    m_MaxSize: 40
+    m_MaxSize: 34
     m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -441,6 +442,21 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &114177129842407410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1573420865, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 2, y: -2}
+  m_UseGraphicAlpha: 1
 --- !u!1 &4886
 GameObject:
   m_ObjectHideFlags: 0
@@ -549,6 +565,7 @@ GameObject:
   - component: {fileID: 9869}
   - component: {fileID: 9802}
   - component: {fileID: 3432807775579067223}
+  - component: {fileID: 114130489549602028}
   m_Layer: 5
   m_Name: Level
   m_TagString: Untagged
@@ -607,9 +624,9 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: 1f5cc9f2e9cf96b4586aaa2f6f0d3875, type: 3}
     m_FontSize: 28
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 10
-    m_MaxSize: 40
+    m_MaxSize: 28
     m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -631,6 +648,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 2
   useCustomColor: 0
+  noShadow: 0
 --- !u!114 &3432807775579067223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -651,6 +669,21 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &114130489549602028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1573420865, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 2, y: -2}
+  m_UseGraphicAlpha: 1
 --- !u!1 &2064702982350426358
 GameObject:
   m_ObjectHideFlags: 0

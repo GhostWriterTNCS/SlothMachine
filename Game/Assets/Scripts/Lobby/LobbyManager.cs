@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Networking;
 using UnityEngine.Networking.Match;
 using UnityEngine.Networking.Types;
@@ -26,6 +27,8 @@ namespace Prototype.NetworkLobby {
 		public LobbyInfoPanel infoPanel;
 		public LobbyCountdownPanel countdownPanel;
 		public GameObject addPlayerButton;
+		public GameObject mainPanelFirstButton;
+		public GameObject lobbyPanelFirstButton;
 
 		protected RectTransform currentPanel;
 
@@ -63,6 +66,7 @@ namespace Prototype.NetworkLobby {
 			DontDestroyOnLoad(gameObject);
 
 			SetServerInfo("Offline", "None");
+			ChangeTo(mainMenuPanel);
 		}
 
 		public override void OnLobbyClientSceneChanged(NetworkConnection conn) {
@@ -90,10 +94,14 @@ namespace Prototype.NetworkLobby {
 				backButton.gameObject.SetActive(true);
 				backToStartButton.gameObject.SetActive(false);
 			} else {
+				FindObjectOfType<EventSystem>().SetSelectedGameObject(mainPanelFirstButton);
 				backButton.gameObject.SetActive(false);
 				backToStartButton.gameObject.SetActive(true);
 				SetServerInfo("Offline", "None");
 				_isMatchmaking = false;
+			}
+			if (currentPanel == lobbyPanel) {
+				FindObjectOfType<EventSystem>().SetSelectedGameObject(lobbyPanelFirstButton);
 			}
 
 			buttonTips.SetActive(newPanel != null);

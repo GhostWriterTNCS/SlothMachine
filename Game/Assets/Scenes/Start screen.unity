@@ -471,6 +471,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   useCustomColor: 0
+  noShadow: 0
 --- !u!1 &146776120
 GameObject:
   m_ObjectHideFlags: 0
@@ -767,6 +768,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 2
   useCustomColor: 1
+  noShadow: 0
 --- !u!114 &265103021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1000,6 +1002,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   useCustomColor: 0
+  noShadow: 0
 --- !u!114 &341438364
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3005,6 +3008,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   useCustomColor: 0
+  noShadow: 0
 --- !u!114 &1075641055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3548,6 +3552,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   useCustomColor: 0
+  noShadow: 0
 --- !u!1 &1409305538
 GameObject:
   m_ObjectHideFlags: 0
@@ -3640,6 +3645,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   useCustomColor: 0
+  noShadow: 0
 --- !u!114 &1429456788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3734,6 +3740,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   useCustomColor: 0
+  noShadow: 0
 --- !u!114 &1435093601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4003,6 +4010,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   useCustomColor: 0
+  noShadow: 0
 --- !u!114 &1560167068
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4199,7 +4207,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 1c1572bd659cfea44a6ea9d904186b54, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 10a5a60bbfbb63d4d8bff55ee9432851, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -4881,7 +4889,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 8440f07a44bfc844aa276d3987fa108e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a2f550a1debd82f47ba5f744dc30c44d, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -5396,6 +5404,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e40bd4495b5bb964d9b3bd2a571426de, type: 3}
+--- !u!1 &520737503861445921 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 520737503732656980, guid: e40bd4495b5bb964d9b3bd2a571426de,
+    type: 3}
+  m_PrefabInstance: {fileID: 520737503861445920}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &520737503861445922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 520737503861445921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1573420865, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 2, y: -2}
+  m_UseGraphicAlpha: 1
 --- !u!114 &761471850112349150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5409,7 +5438,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -5801,7 +5830,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
