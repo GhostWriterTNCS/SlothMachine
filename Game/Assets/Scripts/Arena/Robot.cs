@@ -39,6 +39,7 @@ public class Robot : NetworkBehaviour {
 	public Collider rightFoot;
 	public Collider head;
 	public Collider body;
+	public Text nameText;
 	public Slider healthSlider;
 
 	public GameObject handsParticle;
@@ -73,6 +74,12 @@ public class Robot : NetworkBehaviour {
 
 		player = playerGO.GetComponent<Player>();
 		transform.SetParent(player.transform);
+		if (isLocalPlayer) {
+			nameText.text = "";
+		} else {
+			nameText.text = player.name;
+		}
+
 		GameObject model = Instantiate(Resources.Load<GameObject>("Prefabs/Robots/" + player.robotName + "/" + player.robotName), transform);
 		robotModel = model.GetComponent<RobotModel>();
 		leftHand = robotModel.leftHand;
@@ -101,7 +108,6 @@ public class Robot : NetworkBehaviour {
 			head.gameObject.AddComponent<BodyPartHitter>();
 		}
 		body = robotModel.body;
-		body.enabled = false;
 		if (!body.GetComponent<BodyPartTarget>()) {
 			body.gameObject.AddComponent<BodyPartTarget>();
 		}
@@ -274,6 +280,9 @@ public class Robot : NetworkBehaviour {
 	[Command]
 	public void CmdIncreaseComboScore() {
 		comboScore *= 1.5f;
+		if (comboScore > 20) {
+			comboScore = 20;
+		}
 		comboScoreDuration = 1;
 		//Debug.Log(player.name + " Multiply combo score: " + comboScore);
 	}
@@ -307,7 +316,7 @@ public class Robot : NetworkBehaviour {
 	[Command]
 	public void CmdGetHitted(GameObject hitterGO, Vector3 position) {
 		Robot hitter = hitterGO.GetComponent<Robot>();
-		//Debug.Log(ionParticle.GetComponent<Renderer>().material.name + " ~ " + hitter.ionParticle.GetComponent<Renderer>().material.name);
+		Debug.Log(hitter.name + " hits " + name);
 		if (!isGuardOn ||
 			ionParticle.GetComponent<Renderer>().material.name.StartsWith(ionNull.name) && !hitter.ionParticle.GetComponent<Renderer>().material.name.StartsWith(ionNull.name) ||
 			ionParticle.GetComponent<Renderer>().material.name.StartsWith(ionPlus.name) && hitter.ionParticle.GetComponent<Renderer>().material.name.StartsWith(ionMinus.name) ||

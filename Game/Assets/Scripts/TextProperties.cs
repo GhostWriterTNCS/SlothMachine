@@ -5,9 +5,11 @@ public class TextProperties : MonoBehaviour {
 		Normal,
 		Header,
 		Small,
-		Expand
+		Expand,
+		Custom
 	}
 	public TextType type;
 	public bool useCustomColor;
 	public bool noShadow;
+	public bool useCustomShadow;
 }

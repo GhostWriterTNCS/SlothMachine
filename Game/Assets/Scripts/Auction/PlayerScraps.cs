@@ -18,18 +18,11 @@ public class PlayerScraps : NetworkBehaviour {
 	}
 
 	public IEnumerator LoadPlayer() {
-		Debug.Log("Awaken");
 		while (!playerBoxGO) {
-			Debug.Log("Searching playerBoxGO");
 			yield return new WaitForSeconds(0.05f);
 		}
-		Debug.Log("playerBoxGO found");
 		playerBox = playerBoxGO.GetComponent<AuctionPlayer>();
 		playerName.text = playerBox.player.name;
-	}
-
-	public void UpdateResult() {
-		//FindObjectOfType<AuctionManager>().StartCoroutine(UpdateResultCoroutine());
 	}
 
 	[Command]

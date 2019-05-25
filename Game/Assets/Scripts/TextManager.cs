@@ -10,9 +10,9 @@ public class TextManager : MonoBehaviour {
 	public static Color fontColor = new Color(0.8654326f, 0.9438342f, 0.9811321f);
 
 	void Awake() {
-		fontSize = Screen.height / 31;
+		fontSize = Screen.height / 35;
 		fontSizeH = Screen.height / 16;
-		fontSizeSmall = Screen.height / 38;
+		fontSizeSmall = Screen.height / 42;
 		foreach (Text t in Resources.FindObjectsOfTypeAll<Text>()) {
 			TextProperties tp = t.GetComponent<TextProperties>();
 			if (tp) {
@@ -37,10 +37,14 @@ public class TextManager : MonoBehaviour {
 			}
 			if ((!tp || !tp.noShadow) && !t.GetComponent<Shadow>()) {
 				Shadow s = t.gameObject.AddComponent<Shadow>();
-				s.effectDistance = new Vector2(2, -2);
+				if (tp && !tp.useCustomShadow) {
+					s.effectDistance = new Vector2(2, -2);
+				}
 			}
 			t.font = (Font)Resources.Load(fontName);
-			t.resizeTextForBestFit = true;
+			if (tp && tp.type != TextProperties.TextType.Custom) {
+				t.resizeTextForBestFit = true;
+			}
 #if UNITY_EDITOR
 			// Stop execution here when not playing.
 			if (!Application.isPlaying) return;
