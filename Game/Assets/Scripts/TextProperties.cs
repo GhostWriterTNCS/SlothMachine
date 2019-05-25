@@ -9,4 +9,5 @@ public class TextProperties : MonoBehaviour {
 	}
 	public TextType type;
 	public bool useCustomColor;
+	public bool noShadow;
 }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class AuctionManager : MonoBehaviour {
@@ -12,16 +13,36 @@ public class AuctionManager : MonoBehaviour {
 	public NetworkAuctionManager networkAuctionManager;
 
 	public void CalculateAgentsBids() {
-		foreach (PlayerScraps ps in FindObjectsOfType<PlayerScraps>()) {
-			if (ps.playerBox.player.isAgent && !ps.playerBox.player.upgradeAssigned) {
+		foreach (PlayerScraps ps in Resources.FindObjectsOfTypeAll<PlayerScraps>()) {
+			if (ps.playerBox && ps.playerBox.player.isAgent && !ps.playerBox.player.upgradeAssigned) {
 				ps.CmdCalculateAgentsBids();
 			}
 		}
 	}
 
 	public void UpdateResults() {
-		foreach (PlayerScraps ps in FindObjectsOfType<PlayerScraps>()) {
+		/*foreach (PlayerScraps ps in Resources.FindObjectsOfTypeAll<PlayerScraps>()) {
 			ps.UpdateResult();
+		}*/
+		StartCoroutine(UpdateResultsCoroutine());
+	}
+
+	IEnumerator UpdateResultsCoroutine() {
+		while (networkAuctionManager.auctionWinner == null) {
+			yield return new WaitForSeconds(0.05f);
+		}
+		foreach (PlayerScraps ps in Resources.FindObjectsOfTypeAll<PlayerScraps>()) {
+			if (ps.playerBox) {
+				if (ps.playerBoxGO == networkAuctionManager.auctionWinner) {
+					ps.playerName.fontStyle = FontStyle.Bold;
+					ps.scrapsValue.fontStyle = FontStyle.Bold;
+				} else {
+					ps.playerName.fontStyle = FontStyle.Normal;
+					ps.scrapsValue.fontStyle = FontStyle.Normal;
+				}
+				ps.scrapsSlider.value = ps.playerBox.bid / (float)networkAuctionManager.maxBid;
+				ps.scrapsValue.text = ps.playerBox.bid.ToString();
+			}
 		}
 	}
 }

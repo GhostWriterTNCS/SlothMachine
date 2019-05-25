@@ -12,24 +12,24 @@ public class PlayerScraps : NetworkBehaviour {
 	public GameObject playerBoxGO;
 	public AuctionPlayer playerBox;
 
-	/*[SyncVar]
-	public GameObject highestBid;*/
-
-	void Start() {
-		StartCoroutine(LoadPlayer());
+	void Awake() {
+		transform.SetParent(FindObjectOfType<AuctionManager>().scrapsList.transform);
+		FindObjectOfType<AuctionManager>().StartCoroutine(LoadPlayer());
 	}
 
-	IEnumerator LoadPlayer() {
+	public IEnumerator LoadPlayer() {
+		Debug.Log("Awaken");
 		while (!playerBoxGO) {
+			Debug.Log("Searching playerBoxGO");
 			yield return new WaitForSeconds(0.05f);
 		}
-		transform.SetParent(FindObjectOfType<AuctionManager>().scrapsList.transform);
+		Debug.Log("playerBoxGO found");
 		playerBox = playerBoxGO.GetComponent<AuctionPlayer>();
 		playerName.text = playerBox.player.name;
 	}
 
 	public void UpdateResult() {
-		StartCoroutine(UpdateResultCoroutine());
+		//FindObjectOfType<AuctionManager>().StartCoroutine(UpdateResultCoroutine());
 	}
 
 	[Command]
@@ -51,8 +51,8 @@ public class PlayerScraps : NetworkBehaviour {
 				ps.playerName.fontStyle = FontStyle.Normal;
 				ps.scrapsValue.fontStyle = FontStyle.Normal;
 			}
+			ps.scrapsSlider.value = ps.playerBox.bid / (float)NAM.maxBid;
+			ps.scrapsValue.text = ps.playerBox.bid.ToString();
 		}
-		scrapsSlider.value = playerBox.bid / (float)NAM.maxBid;
-		scrapsValue.text = playerBox.bid.ToString();
 	}
 }

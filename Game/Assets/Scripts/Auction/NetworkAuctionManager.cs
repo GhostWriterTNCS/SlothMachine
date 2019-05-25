@@ -50,6 +50,7 @@ public class NetworkAuctionManager : NetworkBehaviour {
 
 	void Start() {
 		auctionManager = FindObjectOfType<AuctionManager>();
+		auctionManager.networkAuctionManager = this;
 		auctionManager.scrapsInput.SetActive(true);
 		auctionManager.scrapsWait.SetActive(false);
 		auctionManager.scrapsList.SetActive(false);
@@ -119,14 +120,15 @@ public class NetworkAuctionManager : NetworkBehaviour {
 			FindObjectOfType<ScrapsInput>().SendBidValue();
 		}
 		auctionManager.scrapsInput.SetActive(false);
-		auctionManager.scrapsWait.SetActive(false);
-		auctionManager.scrapsList.SetActive(true);
+		auctionManager.scrapsWait.SetActive(true);
 		auctionManager.CalculateAgentsBids();
 	}
 
 	[ClientRpc]
 	public void RpcUpdateResults() {
 		auctionManager.UpdateResults();
+		auctionManager.scrapsWait.SetActive(false);
+		auctionManager.scrapsList.SetActive(true);
 	}
 
 	[ClientRpc]
@@ -153,7 +155,7 @@ public class NetworkAuctionManager : NetworkBehaviour {
 	IEnumerator AuctionCoroutine() {
 		while (currentCountdown > 0) {
 			currentCountdown -= Time.deltaTime;
-			RpcSetHeader(countdownText.Replace("#", ((int)currentCountdown).ToString()));
+			RpcSetHeader(countdownText.Replace("#", ((int)currentCountdown + 1).ToString()));
 			yield return new WaitForEndOfFrame();
 		}
 		RpcCountdownFinished();

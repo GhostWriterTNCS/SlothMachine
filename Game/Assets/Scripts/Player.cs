@@ -71,6 +71,7 @@ public class Player : NetworkBehaviour {
 			NetworkServer.Spawn(playerScraps);
 			PlayerScraps ps = playerScraps.GetComponent<PlayerScraps>();
 			ps.playerBoxGO = pb.gameObject;
+			//RpcInitPlayerScraps(playerScraps);
 
 			if (FindObjectOfType<NetworkAuctionManager>() == null) {
 				GameObject NAM = Instantiate(networkAuctionManager);
@@ -79,6 +80,11 @@ public class Player : NetworkBehaviour {
 			}
 		}
 	}
+
+	/*[ClientRpc]
+	public void RpcInitPlayerScraps(GameObject ps) {
+		StartCoroutine(ps.GetComponent<PlayerScraps>().LoadPlayer());
+	}*/
 
 	[Command]
 	public void CmdAddUpgrade(int level, int ID) {

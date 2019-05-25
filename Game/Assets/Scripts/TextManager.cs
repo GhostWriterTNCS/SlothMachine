@@ -35,6 +35,10 @@ public class TextManager : MonoBehaviour {
 			if (!tp || !tp.useCustomColor) {
 				t.color = fontColor;
 			}
+			if ((!tp || !tp.noShadow) && !t.GetComponent<Shadow>()) {
+				Shadow s = t.gameObject.AddComponent<Shadow>();
+				s.effectDistance = new Vector2(2, -2);
+			}
 			t.font = (Font)Resources.Load(fontName);
 			t.resizeTextForBestFit = true;
 #if UNITY_EDITOR
