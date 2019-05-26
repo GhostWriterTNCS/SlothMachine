@@ -61,6 +61,8 @@ public class Robot : NetworkBehaviour {
 	public float defense;
 	[SyncVar]
 	public float speed;
+	[SyncVar]
+	public int roundScore;
 
 	RobotModel robotModel;
 	Animator animator;
@@ -141,6 +143,7 @@ public class Robot : NetworkBehaviour {
 
 		CmdResetComboScore();
 		upgradeWheel = FindObjectOfType<UpgradeWheel>();
+		roundScore = 0;
 	}
 
 	[Command]
@@ -298,12 +301,10 @@ public class Robot : NetworkBehaviour {
 			comboScore = 20;
 		}
 		comboScoreDuration = 1;
-		//Debug.Log(player.name + " Multiply combo score: " + comboScore);
 	}
 	[Command]
 	public void CmdResetComboScore() {
 		comboScore = initialComboScore;
-		//Debug.Log(player.name + " Reset combo score: " + comboScore);
 	}
 
 	IEnumerator DelayCall(Action action, float delayTime) {
@@ -351,6 +352,7 @@ public class Robot : NetworkBehaviour {
 			hitter.player.scraps += 3;
 			Debug.Log(hitter.player.name + " Current combo score: " + hitter.comboScore);
 			hitter.player.score += (int)hitter.comboScore;
+			hitter.roundScore += (int)hitter.comboScore;
 			GuardOff();
 		}
 	}

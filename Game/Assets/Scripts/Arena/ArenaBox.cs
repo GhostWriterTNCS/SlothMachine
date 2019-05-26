@@ -3,9 +3,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ArenaBox : MonoBehaviour {
-	/*[SyncVar]
-	public GameObject playerGO;*/
 	public Player player;
+	public Robot robot;
 
 	public Image robotImage;
 	public Text nameText;
@@ -17,6 +16,7 @@ public class ArenaBox : MonoBehaviour {
 		StartCoroutine(FixHeight());
 		robotImage.sprite = Resources.Load<Sprite>("UI/Robots/" + player.robotName);
 		nameText.text = player.name;
+		robot = player.GetComponent<Robot>();
 	}
 
 	IEnumerator FixHeight() {
@@ -28,7 +28,6 @@ public class ArenaBox : MonoBehaviour {
 
 	void Update() {
 		scoreText.text = player.score.ToString();
-		scoreSlider.value = player.score;
-		//sliderImage.preferredWidth = player.score;
+		scoreSlider.value = robot.roundScore; // Show only the score for the current round.
 	}
 }
