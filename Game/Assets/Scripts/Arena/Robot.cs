@@ -64,6 +64,8 @@ public class Robot : NetworkBehaviour {
 	Rigidbody rigidbody;
 	float initialComboScore = 2;
 
+	UpgradeWheel upgradeWheel;
+
 	void Start() {
 		StartCoroutine(SetupCoroutine());
 	}
@@ -132,6 +134,7 @@ public class Robot : NetworkBehaviour {
 		CmdUpdateHealthValue(healthMax);
 
 		CmdResetComboScore();
+		upgradeWheel = FindObjectOfType<UpgradeWheel>();
 	}
 
 	[Command]
@@ -209,12 +212,17 @@ public class Robot : NetworkBehaviour {
 					//Debug.Log(holdDuration + " " + (holdDuration >= holdMinDuration));
 					SetTrigger("Y");
 				}
+
 				if (Input.GetButtonDown("LB")) {
 					GuardOn();
 					playerMove.moveSpeedMultiplier = speed * 0.55f;
 				} else if (Input.GetButtonUp("LB")) {
 					GuardOff();
 				}
+
+				upgradeWheel.gameObject.SetActive(Input.GetAxis("Triggers") < -0.01f);
+				playerMove.canRotateCamera = Input.GetAxis("Triggers") >= -0.01f;
+
 				if (Input.GetButtonDown("RS")) {
 					if (lockCamera) {
 						lockCamera = null;
@@ -230,9 +238,9 @@ public class Robot : NetworkBehaviour {
 				if (lockCamera) {
 					transform.LookAt(lockCamera);
 				}
-				if (Input.GetButton("RB") && !Input.GetButton("RT")) {
+				if (Input.GetButton("RB") && Input.GetAxis("Triggers") <= 0.01f) {
 					ionParticle.GetComponent<Renderer>().material = ionPlus;
-				} else if (Input.GetButton("RT") && !Input.GetButton("RB")) {
+				} else if (Input.GetAxis("Triggers") > 0.01f && !Input.GetButton("RB")) {
 					ionParticle.GetComponent<Renderer>().material = ionMinus;
 				} else {
 					ionParticle.GetComponent<Renderer>().material = ionNull;
