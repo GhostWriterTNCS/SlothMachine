@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   style="height: 512px; width: 512px;"
+   viewBox="0 0 512 512"
+   version="1.1"
+   id="svg6"
+   sodipodi:docname="fire-armor.svg"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   inkscape:export-filename="C:\Users\Davide\Downloads\8.png"
+   inkscape:export-xdpi="300"
+   inkscape:export-ydpi="300">
+  <metadata
+     id="metadata12">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs10" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="640"
+     inkscape:window-height="480"
+     id="namedview8"
+     showgrid="false"
+     inkscape:zoom="0.87792969"
+     inkscape:cx="298.5242"
+     inkscape:cy="292.81292"
+     inkscape:current-layer="svg6" />
+  <g
+     class=""
+     style="fill:#db3500;fill-opacity:1"
+     transform="matrix(0.75919889,0,0,0.75919889,-24.351486,136.46532)"
+     id="g4">
+    <path
+       d="M 156.7,25.83 89,39.38 C 88.9,97.95 87.26,158.7 45.51,206.6 104.4,246.5 189,260.7 247,248.8 v -99 L 108.3,88.22 115.7,71.78 256,134.2 396.3,71.78 403.7,88.22 265,149.8 v 99 c 58,11.9 142.6,-2.3 201.5,-42.2 C 424.7,158.7 423.1,97.95 423,39.38 L 355.3,25.83 C 342.4,39.71 334.7,53.98 322.4,66.36 308.9,79.78 289.5,89 256,89 222.5,89 203.1,79.78 189.6,66.36 177.3,53.98 169.6,39.71 156.7,25.83 Z M 53.88,232.9 C 75.96,281 96.07,336.6 102.7,392.8 l 65,22.8 c 4.2,-52.7 28.2,-104 63.7,-146.1 -55.1,6.3 -122.7,-5.8 -177.52,-36.6 z m 404.22,0 c -54.8,30.8 -122.4,42.9 -177.5,36.6 35.5,42.1 59.5,93.4 63.7,146.1 l 65.2,-22.9 c 6.6,-56.8 26.6,-111.8 48.6,-159.8 z M 256,269 c -40.5,43.1 -67.7,97.9 -70.7,152.7 L 247,443.3 V 336 h 18 v 107.3 l 61.7,-21.6 C 323.6,366.9 296.5,312.1 256,269 Z M 407.7,412.4 297,451.1 v 18.8 l 110.2,-44.1 c 0.1,-4.5 0.3,-8.9 0.5,-13.4 z m -303.3,0.1 c 0.3,4.5 0.4,8.9 0.5,13.4 l 110.1,44 v -18.7 z m 174.6,44.9 -23,8.1 -23,-8 v 19.6 l 23,9.2 23,-9.2 z"
+       id="path2"
+       style="fill:#db3500;fill-opacity:1"
+       inkscape:connector-curvature="0" />
+  </g>
+  <g
+     id="g844"
+     transform="translate(3.4455926,1.4920553)">
+    <g
+       id="g4-8"
+       transform="translate(-14.807564,29.615128)"
+       style="fill:#db3500;fill-opacity:1"
+       class="" />
+    <g
+       transform="translate(11.26239,-20.922217)"
+       class=""
+       id="g852" />
+    <g
+       transform="translate(2.4178654,-26.810412)"
+       class=""
+       id="g866">
+      <path
+         sodipodi:nodetypes="cccccccccccccccccc"
+         style="fill:#db3500;fill-opacity:1"
+         inkscape:connector-curvature="0"
+         d="m 366.9,36.88 c -49.5,6.81 -66,65.52 -55.2,104.52 13.8,49.7 -46.5,54.2 -33.3,-24.7 -17.5,28.4 -22.4,53.7 -18.6,74.9 3.7,21.3 14.7,37.7 29.8,49.6 9.5,7.5 20.6,13.3 32.5,17 27.2,-25.1 31.2,-69.5 18.2,-98.4 19.3,12.1 30.3,35.4 28.9,62.5 11.9,0.7 27.2,-6.8 36.4,-17.8 0.4,19 2.3,34.7 -8.9,52.4 C 425.2,246 461,220.7 462.4,205.7 463.8,190 460.9,171.5 454.1,150 437,216.8 376.7,189.6 411.5,104.6 349.8,158.2 342,93.5 366.9,36.88 Z m 116.8,2.09 c -8,13.23 -16,34.87 -45.9,32.25 20.5,22.17 20.4,33.78 11.8,63.88 37.2,-31.9 37.8,-67.34 34.1,-96.13 z"
+         id="path864" />
+    </g>
+  </g>
+</svg>

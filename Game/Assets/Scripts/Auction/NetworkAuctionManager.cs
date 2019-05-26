@@ -69,7 +69,7 @@ public class NetworkAuctionManager : NetworkBehaviour {
 				level = 1;
 			}
 			do {
-				upgrade = Random.Range(1, Upgrades.list[level].Length);
+				upgrade = Random.Range(1, Upgrades.permanent[level].Length);
 			} while (usedUpgrades.Contains(new Pair(level, upgrade)));
 			usedUpgrades.Add(new Pair(level, upgrade));
 			ub.ID = upgrade;

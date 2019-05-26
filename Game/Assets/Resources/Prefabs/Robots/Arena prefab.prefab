@@ -83,6 +83,10 @@ MonoBehaviour:
   pushBackPower: 360
   evadeDuration: 0.1
   evadeDistance: 0.54
+  fireParticle: {fileID: 5164135998390545375, guid: 892f4acb1608d9b459723facca094745,
+    type: 3}
+  lightningParticle: {fileID: 9138153940207548372, guid: 81ee345aa73f7e8498396d0f562ef0c4,
+    type: 3}
   healthBonus: 0
   attackBonus: 0
   defenseBonus: 0
@@ -98,6 +102,7 @@ MonoBehaviour:
   nameText: {fileID: 6936976404130121216}
   healthSlider: {fileID: 7362678987741950062}
   handsParticle: {fileID: 0}
+  feetParticle: {fileID: 0}
   isGuardOn: 0
   health: 0
   healthMax: 0
@@ -120,6 +125,7 @@ MonoBehaviour:
   moveSpeedMultiplier: 1
   turnSpeed: 3
   canMove: 1
+  canRotateCamera: 1
 --- !u!114 &5134306811947782759
 MonoBehaviour:
   m_ObjectHideFlags: 0

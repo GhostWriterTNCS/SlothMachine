@@ -9,10 +9,14 @@ using UnityEngine.UI;
 public class Robot : NetworkBehaviour {
 	[Header("Generic settings")]
 	public GameObject hitEffect;
+	public GameObject fireParticle;
+	public GameObject lightningParticle;
+	[Space]
 	public Material ionPlus;
 	public Material ionMinus;
 	public Material ionNull;
 	public ParticleSystem ionParticle;
+	[Space]
 	public float comboDelay = 1;
 	public float holdMinDuration = 0.76f;
 	public float pushBackPower = 360;
@@ -43,6 +47,7 @@ public class Robot : NetworkBehaviour {
 	public Slider healthSlider;
 
 	public GameObject handsParticle;
+	public GameObject feetParticle;
 	public bool isGuardOn;
 
 	[SyncVar(hook = "UpdateHealthSlider")]
@@ -144,7 +149,7 @@ public class Robot : NetworkBehaviour {
 		defenseBonus = 0;
 		speedBonus = 0;
 		foreach (Pair upgrade in player.upgrades) {
-			Upgrades.list[upgrade.value1][upgrade.value2].OnAdd(this);
+			Upgrades.permanent[upgrade.value1][upgrade.value2].OnAdd(this);
 		}
 		CmdRefreshStats();
 	}
@@ -310,6 +315,9 @@ public class Robot : NetworkBehaviour {
 	}
 	[Command]
 	public void CmdUpdateHealthValue(float newHealth) {
+		if (newHealth > healthMax) {
+			newHealth = healthMax;
+		}
 		health = newHealth;
 		if (health <= 0) {
 			CmdRespawn();
@@ -335,6 +343,9 @@ public class Robot : NetworkBehaviour {
 			NetworkServer.Spawn(effect);
 			animator.SetTrigger("Reaction");
 			UpdateHealth(-5 * hitter.attack / defense);
+			if (health <= 0) {
+				hitter.UpdateHealth(hitter.healthMax / 3);
+			}
 			hitter.player.scraps += 3;
 			Debug.Log(hitter.player.name + " Current combo score: " + hitter.comboScore);
 			hitter.player.score += (int)hitter.comboScore;
@@ -352,7 +363,7 @@ public class Robot : NetworkBehaviour {
 	}
 
 	List<GameObject> particles = new List<GameObject>();
-	public void SetHandsParticle(GameObject particle, bool hands = true) {
+	public void SetUpgradeParticle(GameObject particle, bool hands = true) {
 		Debug.Log("Set hands particle: " + particle.name);
 		if (particle != handsParticle) {
 			handsParticle = particle;

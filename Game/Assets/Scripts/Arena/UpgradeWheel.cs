@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -11,14 +12,25 @@ public class UpgradeWheel : MonoBehaviour {
 	public Button downLeft;
 	public Button left;
 	public Button upLeft;
+	[Space]
+	public Button[] buttons;
+	public GameObject center;
+	public Text upgradeName;
+	public Text upgradeDesc;
+	public Text upgradePrice;
+	public Button upgradeBuy;
 
+	public Player player;
 	EventSystem eventSystem;
+	List<int> upgrades = new List<int>();
 
 	void Start() {
 		eventSystem = FindObjectOfType<EventSystem>();
+		Populate();
 	}
 
 	void OnEnable() {
+		center.SetActive(false);
 		eventSystem.SetSelectedGameObject(null);
 	}
 
@@ -43,6 +55,23 @@ public class UpgradeWheel : MonoBehaviour {
 	}
 
 	public void Populate() {
+		upgrades.Clear();
+		for (int i = 0; i < buttons.Length; i++) {
+			int u = 0;
+			do {
+				u = Random.Range(1, Upgrades.temporary.Length);
+			} while (upgrades.Contains(u));
+			upgrades.Add(u);
+			buttons[i].GetComponent<UpgradeWheelSegment>().upgrade = Upgrades.temporary[u];
+			buttons[i].transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>("UI/Upgrades/" + u);
+		}
+	}
 
+	public void ShowDetails(Upgrade u) {
+		upgradeName.text = u.name;
+		upgradeDesc.text = u.description;
+		upgradePrice.text = u.price + " scraps";
+		upgradeBuy.onClick.AddListener(() => { });
+		center.SetActive(true);
 	}
 }

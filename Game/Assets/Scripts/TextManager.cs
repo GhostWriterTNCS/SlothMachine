@@ -37,7 +37,7 @@ public class TextManager : MonoBehaviour {
 			}
 			if ((!tp || !tp.noShadow) && !t.GetComponent<Shadow>()) {
 				Shadow s = t.gameObject.AddComponent<Shadow>();
-				if (tp && !tp.useCustomShadow) {
+				if (!tp || (tp && !tp.useCustomShadow)) {
 					s.effectDistance = new Vector2(2, -2);
 				}
 			}

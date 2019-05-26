@@ -56,6 +56,7 @@ public class Player : NetworkBehaviour {
 			newPlayer.GetComponent<Robot>().playerGO = gameObject;
 			if (!isAgent) {
 				NetworkServer.ReplacePlayerForConnection(conn, newPlayer, 0);
+				FindObjectOfType<ArenaManager>().upgradeWheel.player = this;
 			}
 		} else if (SceneManager.GetActiveScene().name == GameScenes.Auction) {
 			Debug.Log("Spawn in auction.");
