@@ -48,6 +48,7 @@ public class Robot : NetworkBehaviour {
 
 	public GameObject handsParticle;
 	public GameObject feetParticle;
+	public GameObject bodyParticle;
 	public bool isGuardOn;
 
 	[SyncVar(hook = "UpdateHealthSlider")]
@@ -345,6 +346,7 @@ public class Robot : NetworkBehaviour {
 			UpdateHealth(-5 * hitter.attack / defense);
 			if (health <= 0) {
 				hitter.UpdateHealth(hitter.healthMax / 3);
+				hitter.lockCamera = null;
 			}
 			hitter.player.scraps += 3;
 			Debug.Log(hitter.player.name + " Current combo score: " + hitter.comboScore);
@@ -362,34 +364,79 @@ public class Robot : NetworkBehaviour {
 		rigidbody.velocity = Vector3.zero;
 	}
 
-	List<GameObject> particles = new List<GameObject>();
-	public void SetUpgradeParticle(GameObject particle, bool hands = true) {
-		Debug.Log("Set hands particle: " + particle.name);
-		if (particle != handsParticle) {
-			handsParticle = particle;
-			// Remove existing particles.
-			for (int i = 0; i < particles.Count; i++) {
-				Destroy(particles[i]);
-			}
-			particles.Clear();
+	public enum BodyPart {
+		Hands,
+		Feet,
+		Body
+	}
+	List<GameObject> handsParticles = new List<GameObject>();
+	List<GameObject> feetParticles = new List<GameObject>();
+	GameObject bodyParticles;
+	public void SetUpgradeParticle(GameObject particle, BodyPart bodyPart) {
+		Debug.Log("Set particle " + particle.name + " for " + bodyPart);
+		switch (bodyPart) {
+			case BodyPart.Hands:
+				if (particle != handsParticle) {
+					handsParticle = particle;
+					// Remove existing particles.
+					for (int i = 0; i < handsParticles.Count; i++) {
+						Destroy(handsParticles[i]);
+					}
+					handsParticles.Clear();
 
-			GameObject leftParticle = Instantiate(particle);
-			GameObject rightParticle = Instantiate(particle);
-			particles.Add(leftParticle);
-			particles.Add(rightParticle);
+					GameObject leftParticle = Instantiate(particle);
+					GameObject rightParticle = Instantiate(particle);
+					handsParticles.Add(leftParticle);
+					handsParticles.Add(rightParticle);
 
-			if (hands) {
-				leftParticle.transform.SetParent(leftHand.transform);
-				rightParticle.transform.SetParent(rightHand.transform);
-			} else {
-				leftParticle.transform.SetParent(leftFoot.transform);
-				rightParticle.transform.SetParent(rightFoot.transform);
-			}
+					leftParticle.transform.SetParent(leftHand.transform);
+					rightParticle.transform.SetParent(rightHand.transform);
 
-			leftParticle.transform.localPosition = leftHand.transform.localPosition;
-			leftParticle.transform.localScale = Vector3.one;
-			rightParticle.transform.localPosition = rightFoot.transform.localPosition;
-			rightParticle.transform.localScale = Vector3.one;
+					leftParticle.transform.localPosition = leftHand.transform.localPosition;
+					//leftParticle.transform.localScale = Vector3.one;
+					rightParticle.transform.localPosition = rightFoot.transform.localPosition;
+					//rightParticle.transform.localScale = Vector3.one;
+				}
+				break;
+			case BodyPart.Feet:
+				if (particle != feetParticle) {
+					feetParticle = particle;
+					// Remove existing particles.
+					for (int i = 0; i < feetParticles.Count; i++) {
+						Destroy(feetParticles[i]);
+					}
+					feetParticles.Clear();
+
+					GameObject leftParticle = Instantiate(particle);
+					GameObject rightParticle = Instantiate(particle);
+					feetParticles.Add(leftParticle);
+					feetParticles.Add(rightParticle);
+
+					leftParticle.transform.SetParent(leftFoot.transform);
+					rightParticle.transform.SetParent(rightFoot.transform);
+
+					leftParticle.transform.localPosition = leftFoot.transform.localPosition;
+					//leftParticle.transform.localScale = Vector3.one;
+					rightParticle.transform.localPosition = rightFoot.transform.localPosition;
+					//rightParticle.transform.localScale = Vector3.one;
+				}
+				break;
+			default:
+				if (particle != bodyParticle) {
+					bodyParticle = particle;
+					// Remove existing particles.
+					Destroy(bodyParticles);
+
+					GameObject bodyParticleLocal = Instantiate(particle);
+					feetParticles.Add(bodyParticleLocal);
+
+					bodyParticleLocal.transform.SetParent(body.transform);
+
+					bodyParticleLocal.transform.localPosition = body.transform.localPosition;
+					//rightParticle.transform.localScale = Vector3.one;
+				}
+				break;
 		}
+
 	}
 }

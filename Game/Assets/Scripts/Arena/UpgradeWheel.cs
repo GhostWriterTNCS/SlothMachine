@@ -23,14 +23,20 @@ public class UpgradeWheel : MonoBehaviour {
 	public Player player;
 	EventSystem eventSystem;
 	List<int> upgrades = new List<int>();
+	System.Action currentAction;
 
 	void Start() {
-		eventSystem = FindObjectOfType<EventSystem>();
+		if (!eventSystem) {
+			eventSystem = FindObjectOfType<EventSystem>();
+		}
 		Populate();
 	}
 
 	void OnEnable() {
 		center.SetActive(false);
+		if (!eventSystem) {
+			eventSystem = FindObjectOfType<EventSystem>();
+		}
 		eventSystem.SetSelectedGameObject(null);
 	}
 
@@ -52,6 +58,9 @@ public class UpgradeWheel : MonoBehaviour {
 		} else if (Input.GetAxis("Camera Horizontal") < -0.5f) { // left
 			eventSystem.SetSelectedGameObject(left.gameObject);
 		}
+		if (Input.GetButtonDown("A")) {
+			currentAction();
+		}
 	}
 
 	public void Populate() {
@@ -62,16 +71,17 @@ public class UpgradeWheel : MonoBehaviour {
 				u = Random.Range(1, Upgrades.temporary.Length);
 			} while (upgrades.Contains(u));
 			upgrades.Add(u);
-			buttons[i].GetComponent<UpgradeWheelSegment>().upgrade = Upgrades.temporary[u];
+			buttons[i].GetComponent<UpgradeWheelSegment>().upgradeID = u;
 			buttons[i].transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>("UI/Upgrades/" + u);
 		}
 	}
 
-	public void ShowDetails(Upgrade u) {
+	public void ShowDetails(int ID) {
+		Upgrade u = Upgrades.temporary[ID];
 		upgradeName.text = u.name;
 		upgradeDesc.text = u.description;
 		upgradePrice.text = u.price + " scraps";
-		upgradeBuy.onClick.AddListener(() => { });
+		currentAction = () => { player.CmdAddTemporaryUpgrade(ID); };
 		center.SetActive(true);
 	}
 }

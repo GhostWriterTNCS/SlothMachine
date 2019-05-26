@@ -88,12 +88,23 @@ public class Player : NetworkBehaviour {
 	}*/
 
 	[Command]
-	public void CmdAddUpgrade(int level, int ID) {
+	public void CmdAddPermanentUpgrade(int level, int ID) {
 		upgradeAssigned = true;
-		RpcAddUpgrade(level, ID);
+		RpcAddPermanentUpgrade(level, ID);
+	}
+	[Command]
+	public void CmdAddTemporaryUpgrade(int ID) {
+		Upgrade u = Upgrades.temporary[ID];
+		if (u.price <= scraps) {
+			scraps -= u.price;
+			u.OnAdd(GetComponentInChildren<Robot>());
+			Debug.Log("Upgrade " + u.name + " mounted!");
+		} else {
+			Debug.Log("Not enough scraps!");
+		}
 	}
 	[ClientRpc]
-	public void RpcAddUpgrade(int level, int ID) {
+	public void RpcAddPermanentUpgrade(int level, int ID) {
 		upgrades.Add(new Pair(level, ID));
 		foreach (AuctionPlayer pb in FindObjectsOfType<AuctionPlayer>()) {
 			pb.ShowUpgrade(upgrades.Count - 1);

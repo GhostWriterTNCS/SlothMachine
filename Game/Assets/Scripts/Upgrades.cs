@@ -42,10 +42,10 @@ public class Upgrades {
 
 	public static Upgrade[] temporary = {
 		new Upgrade("", UpgradeTypes.Core, 0, "", null, null), // Upgrade IDs start from 1.
-		new Upgrade("Burning arms", UpgradeTypes.Hands, 8, "Adds fire effect to the fists.", (Robot r) => { r.SetUpgradeParticle(r.fireParticle, true); }, (Robot r) => {}),
-		new Upgrade("Electrified arms", UpgradeTypes.Hands, 8, "Adds lightning effect to the fists.", (Robot r) => { r.SetUpgradeParticle(r.lightningParticle, true); }, (Robot r) => {}),
-		new Upgrade("Burning legs", UpgradeTypes.Feet, 8, "Adds fire effect to the kick.", (Robot r) => { r.SetUpgradeParticle(r.fireParticle, false); }, (Robot r) => {}),
-		new Upgrade("Electrified legs", UpgradeTypes.Feet, 8, "Adds lightning effect to the kick.", (Robot r) => { r.SetUpgradeParticle(r.lightningParticle, false); }, (Robot r) => {}),
+		new Upgrade("Burning arms", UpgradeTypes.Hands, 8, "Adds fire effect to the fists.", (Robot r) => { r.SetUpgradeParticle(r.fireParticle, Robot.BodyPart.Hands); }, (Robot r) => {}),
+		new Upgrade("Electrified arms", UpgradeTypes.Hands, 8, "Adds lightning effect to the fists.", (Robot r) => { r.SetUpgradeParticle(r.lightningParticle, Robot.BodyPart.Hands); }, (Robot r) => {}),
+		new Upgrade("Burning legs", UpgradeTypes.Feet, 8, "Adds fire effect to the kick.", (Robot r) => { r.SetUpgradeParticle(r.fireParticle, Robot.BodyPart.Feet); }, (Robot r) => {}),
+		new Upgrade("Electrified legs", UpgradeTypes.Feet, 8, "Adds lightning effect to the kick.", (Robot r) => { r.SetUpgradeParticle(r.lightningParticle, Robot.BodyPart.Feet); }, (Robot r) => {}),
 		new Upgrade("Repair kit", UpgradeTypes.Consumable, 12, "Recover 50 health.", (Robot r) => { r.UpdateHealth(50); }, (Robot r) => {}),
 		new Upgrade("Advanced repair kit", UpgradeTypes.Consumable, 20, "Recover 100 health.", (Robot r) => { r.UpdateHealth(100); }, (Robot r) => {}),
 		new Upgrade("Ultimate repair kit", UpgradeTypes.Consumable, 28, "Recover your full health.", (Robot r) => { r.UpdateHealth(r.healthMax); }, (Robot r) => {}),

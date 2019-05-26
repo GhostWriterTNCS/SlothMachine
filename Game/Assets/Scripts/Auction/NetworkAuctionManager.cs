@@ -164,7 +164,7 @@ public class NetworkAuctionManager : NetworkBehaviour {
 		while (auctionWinner == null) {
 			yield return new WaitForSeconds(0.05f);
 		}
-		auctionWinner.GetComponent<AuctionPlayer>().player.CmdAddUpgrade(usedUpgrades[currentUpgrade].value1, usedUpgrades[currentUpgrade].value2);
+		auctionWinner.GetComponent<AuctionPlayer>().player.CmdAddPermanentUpgrade(usedUpgrades[currentUpgrade].value1, usedUpgrades[currentUpgrade].value2);
 		RpcSetHeader(pauseText.Replace("#", auctionWinner.GetComponent<AuctionPlayer>().player.name));
 		while (currentPause > 0) {
 			currentPause -= Time.deltaTime;
@@ -189,7 +189,7 @@ public class NetworkAuctionManager : NetworkBehaviour {
 		} else {
 			foreach (Player p in FindObjectsOfType<Player>()) {
 				if (!p.upgradeAssigned) {
-					p.CmdAddUpgrade(upgrades[3].level, upgrades[3].ID);
+					p.CmdAddPermanentUpgrade(upgrades[3].level, upgrades[3].ID);
 					break;
 				}
 			}
