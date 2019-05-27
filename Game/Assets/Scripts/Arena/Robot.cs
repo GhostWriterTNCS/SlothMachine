@@ -369,8 +369,10 @@ public class Robot : NetworkBehaviour {
 			float damage = 5 * hitter.attack / defense;
 			if (health - damage <= 0) {
 				hitter.UpdateHealth(hitter.healthMax / 3);
-				hitter.lockCameraRobot.marker.enabled = false;
-				hitter.lockCameraRobot = null;
+				if (hitter.lockCameraRobot) {
+					hitter.lockCameraRobot.marker.enabled = false;
+					hitter.lockCameraRobot = null;
+				}
 			}
 			UpdateHealth(-damage);
 			hitter.player.scraps += 3;

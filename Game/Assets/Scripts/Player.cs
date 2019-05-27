@@ -13,6 +13,8 @@ public class Player : NetworkBehaviour {
 	[SyncVar]
 	public int scraps;
 	[SyncVar]
+	public int roundWinner;
+	[SyncVar]
 	public bool isAgent;
 
 	public GameObject auctionPrefab;
@@ -29,14 +31,11 @@ public class Player : NetworkBehaviour {
 	}
 
 	void Start() {
-		if (isAgent) {
-			name = "Bot " + playerID;
-		} else {
-			name = "Player " + playerID;
-		}
-		CmdRespawn(gameObject);
+		name = "Player " + playerID + (isAgent ? " (bot)" : "");
 		score = 0;
 		scraps = 100;
+		roundWinner = 0;
+		CmdRespawn(gameObject);
 	}
 
 	[Command]
@@ -53,8 +52,9 @@ public class Player : NetworkBehaviour {
 			newPlayer.transform.position = t.position;
 			newPlayer.transform.rotation = t.rotation;
 			NetworkServer.Spawn(newPlayer);
-			newPlayer.GetComponent<Robot>().playerGO = gameObject;
-			newPlayer.GetComponent<Robot>().roundScore = 0;
+			Robot robot = newPlayer.GetComponent<Robot>();
+			robot.playerGO = gameObject;
+			robot.roundScore = 0;
 			if (!isAgent) {
 				NetworkServer.ReplacePlayerForConnection(conn, newPlayer, 0);
 				FindObjectOfType<ArenaManager>().upgradeWheel.player = this;
