@@ -54,6 +54,7 @@ public class Player : NetworkBehaviour {
 			newPlayer.transform.rotation = t.rotation;
 			NetworkServer.Spawn(newPlayer);
 			newPlayer.GetComponent<Robot>().playerGO = gameObject;
+			newPlayer.GetComponent<Robot>().roundScore = 0;
 			if (!isAgent) {
 				NetworkServer.ReplacePlayerForConnection(conn, newPlayer, 0);
 				FindObjectOfType<ArenaManager>().upgradeWheel.player = this;

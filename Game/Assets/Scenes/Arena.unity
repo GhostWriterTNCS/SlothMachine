@@ -244,6 +244,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4030b7ff0e4eecf4b801cbb7ad724da6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  upgradeID: 0
 --- !u!1 &27351671
 GameObject:
   m_ObjectHideFlags: 0
@@ -558,6 +559,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4030b7ff0e4eecf4b801cbb7ad724da6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  upgradeID: 0
 --- !u!1 &128343548
 GameObject:
   m_ObjectHideFlags: 0
@@ -1459,6 +1461,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4030b7ff0e4eecf4b801cbb7ad724da6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  upgradeID: 0
 --- !u!1 &614141200
 GameObject:
   m_ObjectHideFlags: 0
@@ -1688,6 +1691,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4030b7ff0e4eecf4b801cbb7ad724da6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  upgradeID: 0
 --- !u!1 &817361968
 GameObject:
   m_ObjectHideFlags: 0
@@ -1862,6 +1866,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4030b7ff0e4eecf4b801cbb7ad724da6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  upgradeID: 0
 --- !u!1 &1029392163
 GameObject:
   m_ObjectHideFlags: 0
@@ -2067,6 +2072,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4030b7ff0e4eecf4b801cbb7ad724da6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  upgradeID: 0
 --- !u!1 &1085615173
 GameObject:
   m_ObjectHideFlags: 0
@@ -2329,7 +2335,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 5ec788707bbbcfa43a63c4938b0fb588, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f4feb14b97f44244dace0788bc8a1667, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -2436,6 +2442,7 @@ MonoBehaviour:
   upgradeWheel: {fileID: 2016328454}
   arenaBoxPrefab: {fileID: 8461475249229986270, guid: cb8aaea42a98ce245acf6a94fefbba5b,
     type: 3}
+  canvas: {fileID: 1235703676}
 --- !u!1 &1441819848
 GameObject:
   m_ObjectHideFlags: 0
@@ -3212,6 +3219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4030b7ff0e4eecf4b801cbb7ad724da6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  upgradeID: 0
 --- !u!1 &2008193351
 GameObject:
   m_ObjectHideFlags: 0
@@ -3343,6 +3351,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4030b7ff0e4eecf4b801cbb7ad724da6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  upgradeID: 0
 --- !u!1 &2016328452
 GameObject:
   m_ObjectHideFlags: 0

@@ -694,7 +694,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 5970140290013538755}
   m_FillRect: {fileID: 1112206339822108043}
   m_HandleRect: {fileID: 0}
   m_Direction: 0
@@ -864,6 +864,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  robot: {fileID: 0}
   robotImage: {fileID: 2037029496583695554}
   nameText: {fileID: 3171791533107718462}
   scoreText: {fileID: 7841758685222442425}

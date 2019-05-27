@@ -37,15 +37,18 @@ public class Robot : NetworkBehaviour {
 	[SyncVar]
 	public GameObject playerGO;
 	public Player player;
+	[Space]
 	public Collider leftHand;
 	public Collider rightHand;
 	public Collider leftFoot;
 	public Collider rightFoot;
 	public Collider head;
 	public Collider body;
+	[Space]
 	public Text nameText;
 	public Slider healthSlider;
-
+	public Image marker;
+	[Space]
 	public GameObject handsParticle;
 	public GameObject feetParticle;
 	public GameObject bodyParticle;
@@ -134,6 +137,9 @@ public class Robot : NetworkBehaviour {
 		rightHand.enabled = false;
 		isGuardOn = false;
 
+		marker = Instantiate(Resources.Load<GameObject>("Prefabs/Arena/Marker"), FindObjectOfType<ArenaManager>().canvas.transform).GetComponent<Image>();
+		marker.enabled = false;
+
 		ArenaManager AM = FindObjectOfType<ArenaManager>();
 		GameObject arenaBox = Instantiate(AM.arenaBoxPrefab, AM.leaderboard.transform);
 		arenaBox.GetComponent<ArenaBox>().player = player;
@@ -143,7 +149,6 @@ public class Robot : NetworkBehaviour {
 
 		CmdResetComboScore();
 		upgradeWheel = FindObjectOfType<UpgradeWheel>();
-		roundScore = 0;
 	}
 
 	[Command]
@@ -172,7 +177,7 @@ public class Robot : NetworkBehaviour {
 
 	Vector3 evadeDirection;
 	float evadeTime = 0;
-	Transform lockCamera;
+	Robot lockCameraRobot;
 	void Update() {
 		if (comboScoreDuration > 0) {
 			comboScoreDuration -= Time.deltaTime;
@@ -233,19 +238,36 @@ public class Robot : NetworkBehaviour {
 				playerMove.canRotateCamera = Input.GetAxis("Triggers") >= -0.01f;
 
 				if (Input.GetButtonDown("RS")) {
-					if (lockCamera) {
-						lockCamera = null;
+					if (lockCameraRobot) {
+						lockCameraRobot.marker.enabled = false;
+						lockCameraRobot = null;
 					} else {
 						RaycastHit hit;
 						if (Physics.BoxCast(transform.position, new Vector3(3, 3, 3), transform.TransformDirection(Vector3.forward), out hit, Quaternion.identity, 30, 9)) {
-							if (hit.transform.gameObject.GetComponent<Robot>()) {
-								lockCamera = hit.transform;
+							lockCameraRobot = hit.transform.gameObject.GetComponent<Robot>();
+							if (lockCameraRobot) {
+								lockCameraRobot.marker.enabled = true;
 							}
 						}
 					}
 				}
-				if (lockCamera) {
-					transform.LookAt(lockCamera);
+				if (lockCameraRobot) {
+					if (Vector3.Distance(transform.position, lockCameraRobot.transform.position) > 10) {
+						lockCameraRobot.marker.enabled = false;
+						lockCameraRobot = null;
+					} else {
+						transform.LookAt(lockCameraRobot.transform);
+
+						// Final position of marker above GO in world space
+						//Vector3 offsetPos = new Vector3(lockCameraRobot.transform.position.x, lockCameraRobot.transform.position.y + 1.5f, lockCameraRobot.transform.position.z);
+						// Calculate *screen* position (note, not a canvas/recttransform position)
+						Vector2 screenPoint = Camera.main.WorldToScreenPoint(lockCameraRobot.transform.position + new Vector3(0, 1, 0));
+						// Convert screen position to Canvas / RectTransform space <- leave camera null if Screen Space Overlay
+						Vector2 canvasPos;
+						RectTransformUtility.ScreenPointToLocalPointInRectangle(FindObjectOfType<ArenaManager>().canvas.GetComponent<RectTransform>(), screenPoint, null, out canvasPos);
+						// Set
+						lockCameraRobot.GetComponent<Robot>().marker.transform.localPosition = canvasPos;
+					}
 				}
 				if (Input.GetButton("RB") && Input.GetAxis("Triggers") <= 0.01f) {
 					ionParticle.GetComponent<Renderer>().material = ionPlus;
@@ -344,11 +366,13 @@ public class Robot : NetworkBehaviour {
 			effect.transform.localScale = Vector3.one;
 			NetworkServer.Spawn(effect);
 			animator.SetTrigger("Reaction");
-			UpdateHealth(-5 * hitter.attack / defense);
-			if (health <= 0) {
+			float damage = 5 * hitter.attack / defense;
+			if (health - damage <= 0) {
 				hitter.UpdateHealth(hitter.healthMax / 3);
-				hitter.lockCamera = null;
+				hitter.lockCameraRobot.marker.enabled = false;
+				hitter.lockCameraRobot = null;
 			}
+			UpdateHealth(-damage);
 			hitter.player.scraps += 3;
 			Debug.Log(hitter.player.name + " Current combo score: " + hitter.comboScore);
 			hitter.player.score += (int)hitter.comboScore;

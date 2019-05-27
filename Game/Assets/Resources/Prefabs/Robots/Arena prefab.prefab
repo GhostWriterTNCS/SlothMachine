@@ -74,6 +74,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitEffect: {fileID: 1743301284569550, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
+  fireParticle: {fileID: 5164135998390545375, guid: 892f4acb1608d9b459723facca094745,
+    type: 3}
+  lightningParticle: {fileID: 9138153940207548372, guid: 81ee345aa73f7e8498396d0f562ef0c4,
+    type: 3}
   ionPlus: {fileID: 2100000, guid: 7cb40efc35d398247b9b7e4247da0161, type: 2}
   ionMinus: {fileID: 2100000, guid: cebdd90a63af7634490b73f08cb17d86, type: 2}
   ionNull: {fileID: 2100000, guid: d30058a3876984141b23c1fc43e5754e, type: 2}
@@ -83,10 +87,6 @@ MonoBehaviour:
   pushBackPower: 360
   evadeDuration: 0.1
   evadeDistance: 0.54
-  fireParticle: {fileID: 5164135998390545375, guid: 892f4acb1608d9b459723facca094745,
-    type: 3}
-  lightningParticle: {fileID: 9138153940207548372, guid: 81ee345aa73f7e8498396d0f562ef0c4,
-    type: 3}
   healthBonus: 0
   attackBonus: 0
   defenseBonus: 0
@@ -101,14 +101,17 @@ MonoBehaviour:
   body: {fileID: 0}
   nameText: {fileID: 6936976404130121216}
   healthSlider: {fileID: 7362678987741950062}
+  marker: {fileID: 0}
   handsParticle: {fileID: 0}
   feetParticle: {fileID: 0}
+  bodyParticle: {fileID: 0}
   isGuardOn: 0
   health: 0
   healthMax: 0
   attack: 0
   defense: 0
   speed: 0
+  roundScore: 0
 --- !u!114 &4381043123533344500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -269,7 +272,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1539005498623338202}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -278,10 +281,10 @@ RectTransform:
   m_Father: {fileID: 3321679964773760274}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 25, y: -16.199999}
+  m_SizeDelta: {x: 50, y: 7.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7362678987741950062
 MonoBehaviour:
@@ -564,17 +567,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5909603071128647826}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3321679964773760274}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 25, y: -10.000001}
+  m_SizeDelta: {x: 50, y: 20.000002}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7224141008568582986
 CanvasRenderer:
@@ -763,7 +766,6 @@ GameObject:
   - component: {fileID: 6694441404594177526}
   - component: {fileID: 5414260961304953459}
   - component: {fileID: 6930974902801662581}
-  - component: {fileID: 9037375827727588909}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -789,8 +791,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 2.57}
-  m_SizeDelta: {x: 50, y: 20}
+  m_AnchoredPosition: {x: 0, y: 1.436}
+  m_SizeDelta: {x: 50, y: 95.587}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &6694441404594177526
 Canvas:
@@ -852,29 +854,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &9037375827727588909
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8463253608057588014}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1297475563, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
-  m_ChildAlignment: 0
-  m_Spacing: 1
-  m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 1
-  m_ChildControlHeight: 1
 --- !u!1 &8913313640239066182
 GameObject:
   m_ObjectHideFlags: 0

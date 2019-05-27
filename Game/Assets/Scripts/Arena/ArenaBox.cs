@@ -10,13 +10,13 @@ public class ArenaBox : MonoBehaviour {
 	public Text nameText;
 	public Text scoreText;
 	public Slider scoreSlider;
-	public Image sliderImage;
+	//public Image sliderImage;
 
 	void Start() {
 		StartCoroutine(FixHeight());
 		robotImage.sprite = Resources.Load<Sprite>("UI/Robots/" + player.robotName);
 		nameText.text = player.name;
-		robot = player.GetComponent<Robot>();
+		robot = player.GetComponentInChildren<Robot>();
 	}
 
 	IEnumerator FixHeight() {
