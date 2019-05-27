@@ -24,7 +24,11 @@ public class ArenaManager : MonoBehaviour {
 		countdown.SetActive(false);
 		roundWinnerText.text = roundWinnerText.text.Replace("#", roundWinner.name);
 		roundWinnerText.gameObject.SetActive(true);
-		StartCoroutine(LoadAuction());
+		if (roundWinner.roundWinner < 2) {
+			StartCoroutine(LoadAuction());
+		} else {
+			// TODO
+		}
 	}
 
 	IEnumerator LoadAuction() {

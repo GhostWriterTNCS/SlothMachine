@@ -60,7 +60,11 @@ public class UpgradeBox : NetworkBehaviour {
 			yield return new WaitForSeconds(0.05f);
 		}
 		if (transform.parent == null) {
-			transform.SetParent(FindObjectOfType<AuctionManager>().upgradesList.transform);
+			AuctionManager auctionManager = FindObjectOfType<AuctionManager>();
+			if (auctionManager.upgradesList.transform.childCount > 0) {
+				Instantiate(Resources.Load<GameObject>("Prefabs/Separator horizontal"), auctionManager.upgradesList.transform);
+			}
+			transform.SetParent(auctionManager.upgradesList.transform);
 		}
 		Refresh();
 		RefreshSelected();

@@ -10,6 +10,7 @@ public class AuctionPlayer : NetworkBehaviour {
 
 	public Image robotImage;
 	public Text nameText;
+	public Image roundWinnerImage;
 	public Text scoreText;
 	public Slider scoreSlider;
 	public Image[] upgrades;
@@ -27,12 +28,19 @@ public class AuctionPlayer : NetworkBehaviour {
 		while (!playerGO) {
 			yield return new WaitForSeconds(0.05f);
 		}
-		transform.SetParent(FindObjectOfType<AuctionManager>().playersList.transform);
+		AuctionManager auctionManager = FindObjectOfType<AuctionManager>();
+		if (auctionManager.playersList.transform.childCount > 0) {
+			Instantiate(Resources.Load<GameObject>("Prefabs/Separator horizontal"), auctionManager.playersList.transform);
+		}
+		transform.SetParent(auctionManager.playersList.transform);
 		Debug.Log("Load player " + playerGO.name);
 		player = playerGO.GetComponent<Player>();
 		if (player) {
 			robotImage.sprite = Resources.Load<Sprite>("UI/Robots/" + player.robotName);
 			nameText.text = player.name;
+			if (player.roundWinner == 0) {
+				roundWinnerImage.color = new Color(0, 0, 0, 0);
+			}
 			scoreText.text = player.score.ToString();
 			float maxScore = 0;
 			foreach (Player p in FindObjectsOfType<Player>()) {
@@ -41,6 +49,9 @@ public class AuctionPlayer : NetworkBehaviour {
 				}
 			}
 			scoreSlider.value = player.score / maxScore;
+			for (int i = 0; i < player.upgrades.Count; i++) {
+				ShowUpgrade(i);
+			}
 			if (isLocalPlayer) {
 				while (!FindObjectOfType<ScrapsInput>()) {
 					yield return new WaitForSeconds(0.05f);
@@ -48,9 +59,6 @@ public class AuctionPlayer : NetworkBehaviour {
 				FindObjectOfType<ScrapsInput>().SetPlayerBox(this);
 			}
 		}
-		/*foreach (Image i in upgrades) {
-			i.enabled = false;
-		}*/
 	}
 
 	[Command]
