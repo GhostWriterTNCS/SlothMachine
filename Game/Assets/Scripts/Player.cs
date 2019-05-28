@@ -48,9 +48,9 @@ public class Player : NetworkBehaviour {
 			transform.rotation = Quaternion.identity;
 			Debug.Log("Spawn in arena.");
 			GameObject newPlayer = Instantiate(arenaPrefab);
-			Transform t = NetworkManager.singleton.GetStartPosition();
+			/*Transform t = NetworkManager.singleton.GetStartPosition();
 			newPlayer.transform.position = t.position;
-			newPlayer.transform.rotation = t.rotation;
+			newPlayer.transform.rotation = t.rotation;*/
 			NetworkServer.Spawn(newPlayer);
 			Robot robot = newPlayer.GetComponent<Robot>();
 			robot.playerGO = gameObject;

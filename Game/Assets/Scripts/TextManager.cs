@@ -10,9 +10,9 @@ public class TextManager : MonoBehaviour {
 	public static Color fontColor = new Color(0.8654326f, 0.9438342f, 0.9811321f);
 
 	void Awake() {
-		fontSize = Screen.height / 35;
-		fontSizeH = Screen.height / 16;
-		fontSizeSmall = Screen.height / 42;
+		fontSize = 34; // Screen.height / 35;
+		fontSizeH = 67; // Screen.height / 16;
+		fontSizeSmall = 25; // Screen.height / 42;
 		foreach (Text t in Resources.FindObjectsOfTypeAll<Text>()) {
 			TextProperties tp = t.GetComponent<TextProperties>();
 			if (tp) {

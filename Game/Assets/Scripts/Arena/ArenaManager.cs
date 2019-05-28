@@ -25,14 +25,14 @@ public class ArenaManager : MonoBehaviour {
 		roundWinnerText.text = roundWinnerText.text.Replace("#", roundWinner.name);
 		roundWinnerText.gameObject.SetActive(true);
 		if (roundWinner.roundWinner < 2) {
-			StartCoroutine(LoadAuction());
+			StartCoroutine(LoadAuction(GameScenes.Auction));
 		} else {
-			// TODO
+			StartCoroutine(LoadAuction(GameScenes.Arena));
 		}
 	}
 
-	IEnumerator LoadAuction() {
+	IEnumerator LoadAuction(string scene) {
 		yield return new WaitForSeconds(5);
-		NetworkManager.singleton.ServerChangeScene(GameScenes.Auction);
+		NetworkManager.singleton.ServerChangeScene(scene);
 	}
 }

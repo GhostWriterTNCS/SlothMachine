@@ -52,6 +52,11 @@ public class PerlinNoise : MonoBehaviour {
 			Vector3 v3 = pos.transform.position;
 			pos.transform.position = new Vector3(v3.x, terrain.terrainData.GetHeight((int)v3.x, (int)v3.z), v3.z);
 		}
+		foreach (Robot r in FindObjectsOfType<Robot>()) {
+			Transform t = NetworkManager.singleton.GetStartPosition();
+			r.transform.position = t.position;
+			r.transform.rotation = t.rotation;
+		}
 	}
 
 	TerrainData GenerateTerrain(TerrainData terrainData) {
