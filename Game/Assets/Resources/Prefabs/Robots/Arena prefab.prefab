@@ -78,6 +78,8 @@ MonoBehaviour:
     type: 3}
   lightningParticle: {fileID: 9138153940207548372, guid: 81ee345aa73f7e8498396d0f562ef0c4,
     type: 3}
+  iceParticle: {fileID: 8171788015425755898, guid: 0c94454042a18b345a625a4e040d9e1a,
+    type: 3}
   ionPlus: {fileID: 2100000, guid: 7cb40efc35d398247b9b7e4247da0161, type: 2}
   ionMinus: {fileID: 2100000, guid: cebdd90a63af7634490b73f08cb17d86, type: 2}
   ionNull: {fileID: 2100000, guid: d30058a3876984141b23c1fc43e5754e, type: 2}

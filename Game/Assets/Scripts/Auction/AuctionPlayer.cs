@@ -74,7 +74,7 @@ public class AuctionPlayer : NetworkBehaviour {
 		while (player.upgrades.Count <= index) {
 			yield return new WaitForSeconds(0.05f);
 		}
-		upgrades[index].sprite = Resources.Load<Sprite>("UI/Upgrades/" + player.upgrades[index].value1 + "_" + player.upgrades[index].value2);
+		upgrades[index].sprite = Resources.Load<Sprite>("UI/Upgrades/Permanent/" + player.upgrades[index].value1 + "_" + player.upgrades[index].value2);
 		upgrades[index].enabled = true;
 	}
 }

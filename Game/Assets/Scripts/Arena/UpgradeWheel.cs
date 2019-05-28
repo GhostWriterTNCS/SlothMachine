@@ -72,7 +72,7 @@ public class UpgradeWheel : MonoBehaviour {
 			} while (upgrades.Contains(u));
 			upgrades.Add(u);
 			buttons[i].GetComponent<UpgradeWheelSegment>().upgradeID = u;
-			buttons[i].transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>("UI/Upgrades/" + u);
+			buttons[i].transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>("UI/Upgrades/Temporary/" + u);
 		}
 	}
 

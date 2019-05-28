@@ -11,6 +11,7 @@ public class Robot : NetworkBehaviour {
 	public GameObject hitEffect;
 	public GameObject fireParticle;
 	public GameObject lightningParticle;
+	public GameObject iceParticle;
 	[Space]
 	public Material ionPlus;
 	public Material ionMinus;
@@ -402,6 +403,7 @@ public class Robot : NetworkBehaviour {
 	GameObject bodyParticles;
 	public void SetUpgradeParticle(GameObject particle, BodyPart bodyPart) {
 		Debug.Log("Set particle " + particle.name + " for " + bodyPart);
+		Vector3 scale = new Vector3(1 / transform.localScale.x, 1 / transform.localScale.y, 1 / transform.localScale.z);
 		switch (bodyPart) {
 			case BodyPart.Hands:
 				if (particle != handsParticle) {
@@ -421,9 +423,9 @@ public class Robot : NetworkBehaviour {
 					rightParticle.transform.SetParent(rightHand.transform);
 
 					leftParticle.transform.localPosition = leftHand.transform.localPosition;
-					//leftParticle.transform.localScale = Vector3.one;
+					leftParticle.transform.localScale = scale;
 					rightParticle.transform.localPosition = rightFoot.transform.localPosition;
-					//rightParticle.transform.localScale = Vector3.one;
+					rightParticle.transform.localScale = scale;
 				}
 				break;
 			case BodyPart.Feet:
@@ -444,9 +446,9 @@ public class Robot : NetworkBehaviour {
 					rightParticle.transform.SetParent(rightFoot.transform);
 
 					leftParticle.transform.localPosition = leftFoot.transform.localPosition;
-					//leftParticle.transform.localScale = Vector3.one;
+					leftParticle.transform.localScale = scale;
 					rightParticle.transform.localPosition = rightFoot.transform.localPosition;
-					//rightParticle.transform.localScale = Vector3.one;
+					rightParticle.transform.localScale = scale;
 				}
 				break;
 			default:
@@ -461,7 +463,7 @@ public class Robot : NetworkBehaviour {
 					bodyParticleLocal.transform.SetParent(body.transform);
 
 					bodyParticleLocal.transform.localPosition = body.transform.localPosition;
-					//rightParticle.transform.localScale = Vector3.one;
+					bodyParticleLocal.transform.localScale = scale * 1.5f;
 				}
 				break;
 		}

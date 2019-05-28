@@ -26,7 +26,7 @@ public class UpgradeBox : NetworkBehaviour {
 	}
 
 	public void Refresh() {
-		image.sprite = Resources.Load<Sprite>("UI/Upgrades/" + level + "_" + ID);
+		image.sprite = Resources.Load<Sprite>("UI/Upgrades/Permanent/" + level + "_" + ID);
 		upgradeName.text = Upgrades.permanent[level][ID].name;
 		levelText.text = "Level " + level;
 		typeImage.sprite = Resources.Load<Sprite>("UI/Upgrades/Types/" + ((int)Upgrades.permanent[level][ID].type + 1));
