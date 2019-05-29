@@ -16,11 +16,14 @@ public class Player : NetworkBehaviour {
 	public int roundWinner;
 	[SyncVar]
 	public bool isAgent;
+	/*[SyncVar]
+	public int roundCounter;*/
 
 	public GameObject auctionPrefab;
 	public GameObject auctionPlayerScraps;
 	public GameObject networkAuctionManager;
 	public GameObject arenaPrefab;
+	public GameObject networkArenaManager;
 
 	public List<Pair> upgrades = new List<Pair>();
 	[SyncVar]
@@ -35,6 +38,7 @@ public class Player : NetworkBehaviour {
 		score = 0;
 		scraps = 100;
 		roundWinner = 0;
+		//roundCounter = 0;
 		CmdRespawn(gameObject);
 	}
 
@@ -44,13 +48,11 @@ public class Player : NetworkBehaviour {
 		if (!isAgent)
 			NetworkServer.ReplacePlayerForConnection(conn, gameObject, 0);
 		if (SceneManager.GetActiveScene().name == GameScenes.Arena) {
+			Debug.Log("Spawn in arena.");
+			//roundCounter++;
 			transform.position = Vector3.zero;
 			transform.rotation = Quaternion.identity;
-			Debug.Log("Spawn in arena.");
 			GameObject newPlayer = Instantiate(arenaPrefab);
-			/*Transform t = NetworkManager.singleton.GetStartPosition();
-			newPlayer.transform.position = t.position;
-			newPlayer.transform.rotation = t.rotation;*/
 			NetworkServer.Spawn(newPlayer);
 			Robot robot = newPlayer.GetComponent<Robot>();
 			robot.playerGO = gameObject;
@@ -58,6 +60,12 @@ public class Player : NetworkBehaviour {
 			if (!isAgent) {
 				NetworkServer.ReplacePlayerForConnection(conn, newPlayer, 0);
 				FindObjectOfType<ArenaManager>().upgradeWheel.player = this;
+			}
+
+			if (!FindObjectOfType<NetworkArenaManager>()) {
+				GameObject NAM = Instantiate(networkArenaManager);
+				NetworkServer.Spawn(NAM);
+				NAM.GetComponent<NetworkArenaManager>().CmdLoad();
 			}
 		} else if (SceneManager.GetActiveScene().name == GameScenes.Auction) {
 			Debug.Log("Spawn in auction.");
@@ -75,7 +83,7 @@ public class Player : NetworkBehaviour {
 			ps.playerBoxGO = pb.gameObject;
 			//RpcInitPlayerScraps(playerScraps);
 
-			if (FindObjectOfType<NetworkAuctionManager>() == null) {
+			if (!FindObjectOfType<NetworkAuctionManager>()) {
 				GameObject NAM = Instantiate(networkAuctionManager);
 				NetworkServer.Spawn(NAM);
 				NAM.GetComponent<NetworkAuctionManager>().CmdLoad();
@@ -83,10 +91,10 @@ public class Player : NetworkBehaviour {
 		}
 	}
 
-	/*[ClientRpc]
-	public void RpcInitPlayerScraps(GameObject ps) {
-		StartCoroutine(ps.GetComponent<PlayerScraps>().LoadPlayer());
-	}*/
+	[Server]
+	public void IncreaseRoundCounter() {
+		FindObjectOfType<MatchManager>().roundCounter++;
+	}
 
 	[Command]
 	public void CmdAddPermanentUpgrade(int level, int ID) {
@@ -137,9 +145,4 @@ public class Player : NetworkBehaviour {
 		}
 		CmdRespawn(gameObject);
 	}
-
-
-	// -- NetworkAuctionManager --
-
-
 }

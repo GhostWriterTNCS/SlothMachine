@@ -15,13 +15,20 @@ public class ArenaManager : MonoBehaviour {
 	public string roundX;
 	public string finalRound;
 	public string roundWinnerIs;
+	[Space]
+	public NetworkArenaManager networkArenaManager;
+	public bool arenaReady;
 
 	public void Start() {
+		arenaReady = false;
 		StartCoroutine(SetupCoroutine());
 	}
 
 	IEnumerator SetupCoroutine() {
-		title.text = roundX.Replace("#", 1.ToString());
+		/*while (!FindObjectOfType<Robot>() || !FindObjectOfType<Robot>().player) {
+			yield return new WaitForSeconds(0.05f);
+		}*/
+		title.text = roundX.Replace("#", MatchManager.singleton.roundCounter.ToString());
 		yield return new WaitForSeconds(2);
 		title.gameObject.SetActive(false);
 		CmdPauseAll(false);
@@ -35,26 +42,10 @@ public class ArenaManager : MonoBehaviour {
 	}
 
 	public void RoundOver() {
-		int scoreMax = 0;
-		Player roundWinner = null;
-		foreach (Player p in FindObjectsOfType<Player>()) {
-			if (p.score > scoreMax) {
-				scoreMax = p.score;
-				roundWinner = p;
-			}
-		}
-		roundWinner.roundWinner++;
-		countdown.SetActive(false);
-		title.text = roundWinnerIs.Replace("#", roundWinner.name);
-		title.gameObject.SetActive(true);
-		if (roundWinner.roundWinner < 2) {
-			StartCoroutine(LoadAuction(GameScenes.Auction));
-		} else {
-			StartCoroutine(LoadAuction(GameScenes.Arena));
-		}
+		FindObjectOfType<NetworkArenaManager>().CmdRoundOver();
 	}
 
-	IEnumerator LoadAuction(string scene) {
+	IEnumerator LoadScene(string scene) {
 		yield return new WaitForSeconds(5);
 		NetworkManager.singleton.ServerChangeScene(scene);
 	}
