@@ -155,6 +155,7 @@ public class Robot : NetworkBehaviour {
 
 		CmdResetComboScore();
 		upgradeWheel = FindObjectOfType<UpgradeWheel>();
+		CmdRespawn();
 	}
 
 	[Command]
