@@ -2,9 +2,11 @@
 using UnityEngine.SceneManagement;
 
 public class ArenaBuilder : MonoBehaviour {
-	static ArenaBuilder singleton;
+	public static ArenaBuilder singleton;
+	public bool arenaReady;
 
 	void Awake() {
+		arenaReady = false;
 		if (!singleton || SceneManager.GetActiveScene().name == GameScenes.Arena) {
 			if (singleton) {
 				Destroy(singleton.gameObject);

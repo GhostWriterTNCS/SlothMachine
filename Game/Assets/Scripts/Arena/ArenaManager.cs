@@ -12,19 +12,15 @@ public class ArenaManager : MonoBehaviour {
 	public Text scrapsCounter;
 	[Space]
 	public Text title;
-	public string roundWinnerIs;
 	public string roundX;
 	public string finalRound;
+	public string roundWinnerIs;
 
 	public void Start() {
 		StartCoroutine(SetupCoroutine());
 	}
 
 	IEnumerator SetupCoroutine() {
-		while (FindObjectsOfType<Robot>().Length < 4) {
-			yield return new WaitForSeconds(0.05f);
-		}
-		CmdPauseAll(true);
 		title.text = roundX.Replace("#", 1.ToString());
 		yield return new WaitForSeconds(2);
 		title.gameObject.SetActive(false);

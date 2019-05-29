@@ -155,6 +155,15 @@ public class Robot : NetworkBehaviour {
 
 		CmdResetComboScore();
 		upgradeWheel = FindObjectOfType<UpgradeWheel>();
+		upgradeWheel.gameObject.SetActive(false);
+		StartCoroutine(FixPosition());
+		paused = true;
+	}
+
+	IEnumerator FixPosition() {
+		while (!ArenaBuilder.singleton.arenaReady) {
+			yield return new WaitForSeconds(0.05f);
+		}
 		CmdRespawn();
 	}
 
@@ -186,6 +195,7 @@ public class Robot : NetworkBehaviour {
 	float evadeTime = 0;
 	Robot lockCameraRobot;
 	void Update() {
+		playerMove.canMove = !paused;
 		if (paused) {
 			return;
 		}

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using Random = UnityEngine.Random;
 
-public class PerlinNoise : MonoBehaviour {
+public class PerlinNoise : NetworkBehaviour {
 
 	[Serializable]
 	public class Count {
@@ -33,7 +33,12 @@ public class PerlinNoise : MonoBehaviour {
 	private Transform boardHolder;
 	public GameObject ArenaSphere;
 
+	[SyncVar]
+	public int randomSeed = 0;
+
 	public void Start() {
+		ArenaBuilder.singleton.arenaReady = false;
+		Random.seed = randomSeed;
 		scale = Random.Range(scaleMin, scaleMax);
 
 		Terrain terrain = GetComponent<Terrain>();
@@ -52,6 +57,7 @@ public class PerlinNoise : MonoBehaviour {
 			Vector3 v3 = pos.transform.position;
 			pos.transform.position = new Vector3(v3.x, terrain.terrainData.GetHeight((int)v3.x, (int)v3.z), v3.z);
 		}
+		ArenaBuilder.singleton.arenaReady = true;
 	}
 
 	TerrainData GenerateTerrain(TerrainData terrainData) {
