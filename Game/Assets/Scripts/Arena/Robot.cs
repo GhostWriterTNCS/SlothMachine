@@ -67,6 +67,8 @@ public class Robot : NetworkBehaviour {
 	public float speed;
 	[SyncVar]
 	public int roundScore;
+	[SyncVar]
+	public bool paused;
 
 	RobotModel robotModel;
 	Animator animator;
@@ -75,8 +77,10 @@ public class Robot : NetworkBehaviour {
 	PlayerMove playerMove;
 	Rigidbody rigidbody;
 	float initialComboScore = 2;
+	Text scrapsCounter;
 
 	UpgradeWheel upgradeWheel;
+	ArenaManager arenaManager;
 
 	void Start() {
 		StartCoroutine(SetupCoroutine());
@@ -88,8 +92,10 @@ public class Robot : NetworkBehaviour {
 
 		player = playerGO.GetComponent<Player>();
 		transform.SetParent(player.transform);
+		arenaManager = FindObjectOfType<ArenaManager>();
 		if (isLocalPlayer) {
 			nameText.text = "";
+			scrapsCounter = arenaManager.scrapsCounter;
 		} else {
 			nameText.text = player.name;
 		}
@@ -138,11 +144,10 @@ public class Robot : NetworkBehaviour {
 		rightHand.enabled = false;
 		isGuardOn = false;
 
-		marker = Instantiate(Resources.Load<GameObject>("Prefabs/Arena/Marker"), FindObjectOfType<ArenaManager>().canvas.transform).GetComponent<Image>();
+		marker = Instantiate(Resources.Load<GameObject>("Prefabs/Arena/Marker"), arenaManager.canvas.transform).GetComponent<Image>();
 		marker.enabled = false;
 
-		ArenaManager AM = FindObjectOfType<ArenaManager>();
-		GameObject arenaBox = Instantiate(AM.arenaBoxPrefab, AM.leaderboard.transform);
+		GameObject arenaBox = Instantiate(arenaManager.arenaBoxPrefab, arenaManager.leaderboard.transform);
 		arenaBox.GetComponent<ArenaBox>().player = player;
 
 		CmdCalculateBonus();
@@ -180,6 +185,9 @@ public class Robot : NetworkBehaviour {
 	float evadeTime = 0;
 	Robot lockCameraRobot;
 	void Update() {
+		if (paused) {
+			return;
+		}
 		if (comboScoreDuration > 0) {
 			comboScoreDuration -= Time.deltaTime;
 		} else {
@@ -195,10 +203,11 @@ public class Robot : NetworkBehaviour {
 			playerMove.canMove = true;
 			// Actions
 			if (isLocalPlayer) {
+				scrapsCounter.text = player.scraps + " scraps";
 				holdButton += Time.deltaTime;
 				if (Input.GetButtonDown("A")) {
 					holdButton = 0;
-				} else if (Input.GetButtonUp("A")) {
+				} else if (Input.GetButtonUp("A") && Input.GetAxis("Triggers") >= -0.01f) {
 					SetTrigger("A");
 				} else if (Input.GetButtonDown("B")) {
 					holdButton = 0;
@@ -265,7 +274,7 @@ public class Robot : NetworkBehaviour {
 						Vector2 screenPoint = Camera.main.WorldToScreenPoint(lockCameraRobot.transform.position + new Vector3(0, 1, 0));
 						// Convert screen position to Canvas / RectTransform space <- leave camera null if Screen Space Overlay
 						Vector2 canvasPos;
-						RectTransformUtility.ScreenPointToLocalPointInRectangle(FindObjectOfType<ArenaManager>().canvas.GetComponent<RectTransform>(), screenPoint, null, out canvasPos);
+						RectTransformUtility.ScreenPointToLocalPointInRectangle(arenaManager.canvas.GetComponent<RectTransform>(), screenPoint, null, out canvasPos);
 						// Set
 						lockCameraRobot.GetComponent<Robot>().marker.transform.localPosition = canvasPos;
 					}

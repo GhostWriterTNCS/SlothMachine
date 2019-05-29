@@ -123,6 +123,12 @@ namespace Prototype.NetworkLobby {
 		public delegate void BackButtonDelegate();
 		public BackButtonDelegate backDelegate;
 		public void GoBackButton() {
+			_playerNumber = 0;
+			PlayerController[] list = ClientScene.localPlayers.ToArray();
+			foreach (PlayerController p in list) {
+				if (p != null && p.playerControllerId != -1)
+					ClientScene.RemovePlayer(p.playerControllerId);
+			}
 			backDelegate();
 		}
 
@@ -218,6 +224,7 @@ namespace Prototype.NetworkLobby {
 				localPlayerCount += (p == null || p.playerControllerId == -1) ? 0 : 1;
 
 			// show button only on server
+			Debug.Log(localPlayerCount + " < " + maxPlayersPerConnection);
 			addPlayerButton.SetActive(NetworkServer.active && localPlayerCount < maxPlayersPerConnection && _playerNumber < maxPlayers);
 		}
 

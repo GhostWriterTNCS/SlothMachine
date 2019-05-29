@@ -9,7 +9,34 @@ public class ArenaManager : MonoBehaviour {
 	public UpgradeWheel upgradeWheel;
 	public GameObject arenaBoxPrefab;
 	public Canvas canvas;
-	public Text roundWinnerText;
+	public Text scrapsCounter;
+	[Space]
+	public Text title;
+	public string roundWinnerIs;
+	public string roundX;
+	public string finalRound;
+
+	public void Start() {
+		StartCoroutine(SetupCoroutine());
+	}
+
+	IEnumerator SetupCoroutine() {
+		while (FindObjectsOfType<Robot>().Length < 4) {
+			yield return new WaitForSeconds(0.05f);
+		}
+		CmdPauseAll(true);
+		title.text = roundX.Replace("#", 1.ToString());
+		yield return new WaitForSeconds(2);
+		title.gameObject.SetActive(false);
+		CmdPauseAll(false);
+	}
+
+	//[Command]
+	public void CmdPauseAll(bool value) {
+		foreach (Robot r in FindObjectsOfType<Robot>()) {
+			r.paused = value;
+		}
+	}
 
 	public void RoundOver() {
 		int scoreMax = 0;
@@ -22,8 +49,8 @@ public class ArenaManager : MonoBehaviour {
 		}
 		roundWinner.roundWinner++;
 		countdown.SetActive(false);
-		roundWinnerText.text = roundWinnerText.text.Replace("#", roundWinner.name);
-		roundWinnerText.gameObject.SetActive(true);
+		title.text = roundWinnerIs.Replace("#", roundWinner.name);
+		title.gameObject.SetActive(true);
 		if (roundWinner.roundWinner < 2) {
 			StartCoroutine(LoadAuction(GameScenes.Auction));
 		} else {
