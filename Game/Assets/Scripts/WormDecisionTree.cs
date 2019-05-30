@@ -67,7 +67,7 @@ public class WormDecisionTree : MonoBehaviour
     {
         while (true)
         {
-            Debug.Log("Worm");
+           // Debug.Log("Worm");
             dt.walk();
             yield return new WaitForSeconds(reactionTime);
         }
@@ -92,7 +92,7 @@ public class WormDecisionTree : MonoBehaviour
         {
             return true;
         }
-        Debug.Log("checkRobotAround");
+        //Debug.Log("checkRobotAround");
         GetComponent<Collider>().enabled = true;
         particle.Play();
         System.Random rnd = new System.Random();
@@ -126,7 +126,7 @@ public class WormDecisionTree : MonoBehaviour
     {
         if (playerTarget)
         {
-            Debug.Log("attackRandomly");
+            //Debug.Log("attackRandomly");
             //myRigidbody.MovePosition(playerTarget.transform.position);
             destination = playerTarget.transform;
         }

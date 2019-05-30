@@ -97,7 +97,7 @@ public class Robot : NetworkBehaviour {
 		if (isLocalPlayer) {
 			nameText.text = "";
 			scrapsCounter = arenaManager.scrapsCounter;
-            //arenaManager.pauseMenu.robot = this;
+            arenaManager.pauseMenu.robot = this;
 		} else {
 			nameText.text = player.name;
 		}
@@ -219,7 +219,9 @@ public class Robot : NetworkBehaviour {
 			if (isLocalPlayer) {
 				scrapsCounter.text = player.scraps + " scraps";
 				holdButton += Time.deltaTime;
-				if (Input.GetButtonDown("A")) {
+                if(Input.GetButtonUp("Menu")) {
+                    arenaManager.pauseMenu.Pause();
+                } else if (Input.GetButtonDown("A")) {
 					holdButton = 0;
 				} else if (Input.GetButtonUp("A") && Input.GetAxis("Triggers") >= -0.01f) {
 					SetTrigger("A");

@@ -62,6 +62,12 @@ public class PerlinNoise : NetworkBehaviour {
 			}
 		}*/
 		FindObjectOfType<ArenaManager>().arenaReady = true;
+        WormDecisionTree worm = FindObjectOfType<WormDecisionTree>();
+        if(worm)
+        {
+            Vector3 v3 = worm.transform.position;
+            worm.transform.position = new Vector3(v3.x, terrain.terrainData.GetHeight((int)v3.x, (int)v3.z), v3.z);
+        }
 	}
 
 	TerrainData GenerateTerrain(TerrainData terrainData) {

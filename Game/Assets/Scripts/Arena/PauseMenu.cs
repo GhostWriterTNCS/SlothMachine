@@ -5,16 +5,23 @@ using UnityEngine.Networking;
 
 public class PauseMenu : MonoBehaviour
 {
-	public GameObject pauseMenu;
-	public Robot robot;	
-	
+	public Robot robot;
+
+    void Update()
+    {
+        if (Input.GetButtonUp("Menu"))
+        {
+            Pause();
+        }
+    }
+
     public void Pause()
     {
         if(!robot)
         {
             return;
         }
-		pauseMenu.SetActive(!robot.paused);
+		gameObject.SetActive(!robot.paused);
 		robot.paused = !robot.paused;
     }
 
