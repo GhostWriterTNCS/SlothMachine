@@ -7,11 +7,11 @@ public class WormDecisionTree : MonoBehaviour
 {
 
     [Range(0f, 20f)] public float range = 5f;
-    [Range(0f, 10f)] public float moveSpeed = 1f;
+    [Range(0f, 10f)] public float moveSpeed = 3f;
     public float reactionTime = 2f;
     public float waitDuration = 10;
     public ParticleSystem particle;
-    public GameObject wormEvolution;
+    public GameObject wormPrefab;
     private DecisionTree dt;
     private Robot playerTarget;
     private Rigidbody myRigidbody;
@@ -148,16 +148,16 @@ public class WormDecisionTree : MonoBehaviour
         if (other.GetComponent<Robot>())
         {
             timerArena = FindObjectOfType<ArenaManager>().countdown.GetComponentInChildren<Countdown>().seconds;
-            Debug.Log(timerArena);
+            //Debug.Log(timerArena);
             if (timerArena <= spawnTime)
             {
                 Debug.Log("timerArena < "+ spawnTime);
-                Instantiate(wormEvolution, new Vector3(destination.position.x, destination.position.y-10, destination.position.z), Quaternion.identity);
-                float specificCoordinate = wormEvolution.GetComponent<Rigidbody>().position.y + 100;
+                Instantiate(wormPrefab, new Vector3(destination.position.x, destination.position.y-10, destination.position.z), Quaternion.identity);
+                float specificCoordinate = wormPrefab.GetComponent<Rigidbody>().position.y + 100;
 
-                Vector3 wormPosition = new Vector3(wormEvolution.GetComponent<Rigidbody>().position.x, wormEvolution.GetComponent<Rigidbody>().position.y, wormEvolution.GetComponent<Rigidbody>().position.z);
+                Vector3 wormPosition = new Vector3(wormPrefab.GetComponent<Rigidbody>().position.x, wormPrefab.GetComponent<Rigidbody>().position.y, wormPrefab.GetComponent<Rigidbody>().position.z);
 
-                wormEvolution.GetComponent<Rigidbody>().AddForce(0, 2500, 0);
+                wormPrefab.GetComponent<Rigidbody>().AddForce(0, 2500, 0);
                 
 
             }
