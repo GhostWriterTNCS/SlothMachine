@@ -17,6 +17,7 @@ public class WormDecisionTree : MonoBehaviour
     private Rigidbody myRigidbody;
     private float timer;
     private float timerArena;
+    private int spawnTime;
 
     // Start is called before the first frame update
     void Start()
@@ -42,9 +43,24 @@ public class WormDecisionTree : MonoBehaviour
         particle = GetComponent<ParticleSystem>();
         StartCoroutine(Hunt());
 
-       
+        spawnTime = FindObjectOfType<ArenaManager>().roundDuration / 2;
     }
 
+    Transform destination;
+    private void Update()
+    {
+        if (destination)
+        {
+
+            Vector3 verticalAdj = new Vector3(destination.position.x, transform.position.y, destination.position.z);
+            Vector3 toDestination = (verticalAdj - transform.position);
+
+                // we keep only option a
+                transform.LookAt(verticalAdj);
+                Rigidbody rb = GetComponent<Rigidbody>();
+                myRigidbody.MovePosition(myRigidbody.position + transform.forward * moveSpeed * Time.deltaTime);
+        }
+    }
 
     // Take decision every interval, run forever
     public IEnumerator Hunt()
@@ -111,8 +127,8 @@ public class WormDecisionTree : MonoBehaviour
         if (playerTarget)
         {
             Debug.Log("attackRandomly");
-            myRigidbody.position = Vector3.MoveTowards(myRigidbody.transform.position, playerTarget.transform.position, moveSpeed);
-
+            //myRigidbody.MovePosition(playerTarget.transform.position);
+            destination = playerTarget.transform;
         }
         return null;
     }
@@ -133,10 +149,10 @@ public class WormDecisionTree : MonoBehaviour
         {
             timerArena = FindObjectOfType<ArenaManager>().countdown.GetComponentInChildren<Countdown>().seconds;
             Debug.Log(timerArena);
-            if (timerArena <= 90)
+            if (timerArena <= spawnTime)
             {
-                Debug.Log("timerArena < 1.30");
-                Instantiate(wormEvolution, new Vector3(playerTarget.transform.position.x, playerTarget.transform.position.y-10, playerTarget.transform.position.z), Quaternion.identity);
+                Debug.Log("timerArena < "+ spawnTime);
+                Instantiate(wormEvolution, new Vector3(destination.position.x, destination.position.y-10, destination.position.z), Quaternion.identity);
                 float specificCoordinate = wormEvolution.GetComponent<Rigidbody>().position.y + 100;
 
                 Vector3 wormPosition = new Vector3(wormEvolution.GetComponent<Rigidbody>().position.x, wormEvolution.GetComponent<Rigidbody>().position.y, wormEvolution.GetComponent<Rigidbody>().position.z);
@@ -147,6 +163,7 @@ public class WormDecisionTree : MonoBehaviour
             }
             Debug.Log("colpito");
             playerTarget = null;
+            destination = null;
             timer = waitDuration;
         }
     }
