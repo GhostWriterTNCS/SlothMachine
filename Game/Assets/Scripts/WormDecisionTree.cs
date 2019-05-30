@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class WormDecisionTree : MonoBehaviour
+public class WormDecisionTree : NetworkBehaviour
 {
 
     [Range(0f, 20f)] public float range = 5f;
@@ -152,7 +153,8 @@ public class WormDecisionTree : MonoBehaviour
             if (timerArena <= spawnTime)
             {
                 Debug.Log("timerArena < "+ spawnTime);
-                Instantiate(wormPrefab, new Vector3(destination.position.x, destination.position.y-10, destination.position.z), Quaternion.identity);
+                CmdSpawnWorm(wormPrefab, new Vector3(destination.position.x, destination.position.y - 10, destination.position.z));
+
                 float specificCoordinate = wormPrefab.GetComponent<Rigidbody>().position.y + 100;
 
                 Vector3 wormPosition = new Vector3(wormPrefab.GetComponent<Rigidbody>().position.x, wormPrefab.GetComponent<Rigidbody>().position.y, wormPrefab.GetComponent<Rigidbody>().position.z);
@@ -168,4 +170,11 @@ public class WormDecisionTree : MonoBehaviour
         }
     }
 
+    [Command]
+    public void CmdSpawnWorm(GameObject prefab, Vector3 pos)
+    {
+        transform.position = new Vector3(150, FindObjectOfType<Terrain>().terrainData.GetHeight(150, 150), 150);
+        GameObject worm = Instantiate(prefab, pos, Quaternion.identity);
+        NetworkServer.Spawn(worm);
+    }
 }

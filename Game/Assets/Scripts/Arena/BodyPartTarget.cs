@@ -3,7 +3,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
 public class BodyPartTarget : MonoBehaviour {
-	Robot robot;
+	public Robot robot;
 	List<Collider> siblings = new List<Collider>();
 
 	void Start() {
