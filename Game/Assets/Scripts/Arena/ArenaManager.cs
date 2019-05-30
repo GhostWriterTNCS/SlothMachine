@@ -9,6 +9,7 @@ public class ArenaManager : MonoBehaviour {
 	public GameObject arenaBoxPrefab;
 	public Canvas canvas;
 	public Text scrapsCounter;
+    public PauseMenu pauseMenu;
 	[Space]
 	public Text title;
 	public string roundX;

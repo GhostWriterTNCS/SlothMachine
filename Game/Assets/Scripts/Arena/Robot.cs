@@ -97,6 +97,7 @@ public class Robot : NetworkBehaviour {
 		if (isLocalPlayer) {
 			nameText.text = "";
 			scrapsCounter = arenaManager.scrapsCounter;
+            //arenaManager.pauseMenu.robot = this;
 		} else {
 			nameText.text = player.name;
 		}

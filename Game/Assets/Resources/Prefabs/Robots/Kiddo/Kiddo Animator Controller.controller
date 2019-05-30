@@ -169,7 +169,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enableLeftHand: 0
   enableRightHand: 0
-  enableLeftFoot: 1
+  enableLeftFoot: 0
   enableRightFoot: 1
   enableHead: 0
 --- !u!114 &114695532405840842
@@ -237,7 +237,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enableLeftHand: 0
   enableRightHand: 0
-  enableLeftFoot: 1
+  enableLeftFoot: 0
   enableRightFoot: 1
   enableHead: 0
 --- !u!114 &114989439631996470
@@ -1033,10 +1033,7 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions:
-  - m_ConditionMode: 2
-    m_ConditionEvent: LB
-    m_EventTreshold: 0
+  m_Conditions: []
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102124713762486784}
   m_Solo: 0
@@ -1046,7 +1043,7 @@ AnimatorStateTransition:
   m_TransitionDuration: 0.25
   m_TransitionOffset: 0
   m_ExitTime: 0.75
-  m_HasExitTime: 0
+  m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
@@ -3727,7 +3724,7 @@ AnimatorStateTransition:
   serializedVersion: 3
   m_TransitionDuration: 0.25
   m_TransitionOffset: 0
-  m_ExitTime: 0.8369565
+  m_ExitTime: 0.7580645
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -4954,7 +4951,7 @@ AnimatorStateMachine:
     m_Position: {x: 132, y: 420, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102648688880410478}
-    m_Position: {x: 744, y: -360, z: 0}
+    m_Position: {x: 732, y: -360, z: 0}
   m_ChildStateMachines:
   - serializedVersion: 1
     m_StateMachine: {fileID: 1107587674188657674}

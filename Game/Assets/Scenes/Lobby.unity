@@ -3820,7 +3820,7 @@ MonoBehaviour:
   m_GamePlayerPrefab: {fileID: 5214476385118057602, guid: 5cd51795ac7b921419f14e6da773ccdd,
     type: 3}
   m_LobbyScene: Lobby
-  m_PlayScene: Auction
+  m_PlayScene: Arena
   lobbySlots: []
   prematchCountdown: 0
   mainMenuPanel: {fileID: 466531211}

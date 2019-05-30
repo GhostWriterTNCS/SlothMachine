@@ -58,7 +58,7 @@ public class NetworkAuctionManager : NetworkBehaviour {
 
 	[Command]
 	public void CmdLoad() {
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < FindObjectsOfType<Player>().Length; i++) {
 			GameObject newPlayer = Instantiate(upgradeBoxPrefab);
 			NetworkServer.Spawn(newPlayer);
 			UpgradeBox ub = newPlayer.GetComponent<UpgradeBox>();
@@ -184,12 +184,13 @@ public class NetworkAuctionManager : NetworkBehaviour {
 		RpcPauseFinished();
 		currentCountdown = countdownDuration;
 		currentPause = pauseDuration;
-		if (currentUpgrade < 3) {
+        int size = upgrades.Count-1;
+        if (currentUpgrade < size) {
 			StartCoroutine(AuctionCoroutine());
 		} else {
 			foreach (Player p in FindObjectsOfType<Player>()) {
 				if (!p.upgradeAssigned) {
-					p.CmdAddPermanentUpgrade(upgrades[3].level, upgrades[3].ID);
+					p.CmdAddPermanentUpgrade(upgrades[size].level, upgrades[size].ID);
 					break;
 				}
 			}

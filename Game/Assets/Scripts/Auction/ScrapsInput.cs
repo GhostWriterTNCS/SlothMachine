@@ -1,4 +1,5 @@
-﻿using UnityEngine.Networking;
+﻿using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class ScrapsInput : NetworkBehaviour {
@@ -15,7 +16,31 @@ public class ScrapsInput : NetworkBehaviour {
 		upgradeAssigned = false;
 	}
 
-	void UpdateText() {
+    private void Update()
+    {
+        if(!player)
+        {
+            return;
+        }
+        if(Input.GetAxis("Vertical") >= 0.5f)
+        {
+            value += 10;
+        }else if(Input.GetAxis("Vertical") <= -0.5f)
+        {
+            value -= 10;
+        }
+        if(value < 0)
+        {
+            value = 0;
+        }
+        if (value > player.scraps)
+        {
+            value = player.scraps;
+        }
+        UpdateText();
+    }
+
+    void UpdateText() {
 		input.text = value + "/" + player.scraps;
 	}
 
