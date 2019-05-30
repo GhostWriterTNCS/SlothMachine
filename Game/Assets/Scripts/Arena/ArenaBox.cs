@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class ArenaBox : MonoBehaviour {
@@ -13,21 +12,22 @@ public class ArenaBox : MonoBehaviour {
 	//public Image sliderImage;
 
 	void Start() {
-		StartCoroutine(FixHeight());
+		//StartCoroutine(FixHeight());
 		robotImage.sprite = Resources.Load<Sprite>("UI/Robots/" + player.robotName);
 		nameText.text = player.name;
 		robot = player.GetComponentInChildren<Robot>();
 	}
 
-	IEnumerator FixHeight() {
+	/*IEnumerator FixHeight() {
 		while (robotImage.GetComponent<RectTransform>().rect == Rect.zero) {
 			yield return new WaitForEndOfFrame();
 		}
 		robotImage.GetComponent<LayoutElement>().minWidth = robotImage.GetComponent<RectTransform>().rect.height;
-	}
+	}*/
 
 	void Update() {
-		scoreText.text = player.score.ToString();
-		scoreSlider.value = robot.roundScore; // Show only the score for the current round.
+		// Show only the score for the current round.
+		scoreText.text = robot.roundScore.ToString();
+		scoreSlider.value = robot.roundScore;
 	}
 }

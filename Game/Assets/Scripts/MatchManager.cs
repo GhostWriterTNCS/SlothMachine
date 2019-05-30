@@ -26,7 +26,7 @@ public class MatchManager : NetworkBehaviour {
 		SceneManager.sceneLoaded -= OnSceneLoaded;
 	}
 	private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
-		if (scene.name == GameScenes.Arena) {
+		if (scene.name == GameScenes.Arena && roundCounter >= 0) {
 			roundCounter++;
 		}
 	}

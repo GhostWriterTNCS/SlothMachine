@@ -1030,7 +1030,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 215163406}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d9f6ecb928c2f054b8bf1a9825c25bee, type: 3}
   m_Name: 
@@ -2770,7 +2770,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9523c6d873d426e4bb2c73381680d10b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  countdown: {fileID: 129301109}
+  countdown: {fileID: 215163410}
+  roundDuration: 20
   leaderboard: {fileID: 614141200}
   upgradeWheel: {fileID: 2016328454}
   arenaBoxPrefab: {fileID: 8461475249229986270, guid: cb8aaea42a98ce245acf6a94fefbba5b,
@@ -2782,6 +2783,7 @@ MonoBehaviour:
   finalRound: Final round
   roundWinnerIs: The round winner is\n#
   networkArenaManager: {fileID: 0}
+  arenaReady: 0
 --- !u!1 &1441819848
 GameObject:
   m_ObjectHideFlags: 0

@@ -65,7 +65,7 @@ public class Player : NetworkBehaviour {
 			if (!FindObjectOfType<NetworkArenaManager>()) {
 				GameObject NAM = Instantiate(networkArenaManager);
 				NetworkServer.Spawn(NAM);
-				NAM.GetComponent<NetworkArenaManager>().CmdLoad();
+				//NAM.GetComponent<NetworkArenaManager>().CmdLoad();
 			}
 		} else if (SceneManager.GetActiveScene().name == GameScenes.Auction) {
 			Debug.Log("Spawn in auction.");
@@ -89,11 +89,6 @@ public class Player : NetworkBehaviour {
 				NAM.GetComponent<NetworkAuctionManager>().CmdLoad();
 			}
 		}
-	}
-
-	[Server]
-	public void IncreaseRoundCounter() {
-		FindObjectOfType<MatchManager>().roundCounter++;
 	}
 
 	[Command]
