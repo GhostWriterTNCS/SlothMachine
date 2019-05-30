@@ -42,7 +42,7 @@ public class WormDecisionTree : MonoBehaviour
         particle = GetComponent<ParticleSystem>();
         StartCoroutine(Hunt());
 
-        timerArena = FindObjectOfType<ArenaManager>().countdown.GetComponentInChildren<Countdown>().seconds;
+       
     }
 
 
@@ -131,21 +131,19 @@ public class WormDecisionTree : MonoBehaviour
     {
         if (other.GetComponent<Robot>())
         {
+            timerArena = FindObjectOfType<ArenaManager>().countdown.GetComponentInChildren<Countdown>().seconds;
             Debug.Log(timerArena);
             if (timerArena <= 90)
             {
                 Debug.Log("timerArena < 1.30");
-                Instantiate(wormEvolution, playerTarget.transform.position, Quaternion.identity);
-                float specificCoordinate = wormEvolution.GetComponent<Rigidbody>().position.y + 30;
+                Instantiate(wormEvolution, new Vector3(playerTarget.transform.position.x, playerTarget.transform.position.y-10, playerTarget.transform.position.z), Quaternion.identity);
+                float specificCoordinate = wormEvolution.GetComponent<Rigidbody>().position.y + 100;
 
-                while (wormEvolution.GetComponent<Rigidbody>().position.y != specificCoordinate)
-                {
-                    Vector3 wormPosition = new Vector3(wormEvolution.GetComponent<Rigidbody>().position.x, wormEvolution.GetComponent<Rigidbody>().position.y, wormEvolution.GetComponent<Rigidbody>().position.z);
+                Vector3 wormPosition = new Vector3(wormEvolution.GetComponent<Rigidbody>().position.x, wormEvolution.GetComponent<Rigidbody>().position.y, wormEvolution.GetComponent<Rigidbody>().position.z);
 
-                    wormEvolution.GetComponent<Rigidbody>().position = Vector3.MoveTowards(wormPosition, new Vector3(wormPosition.x, specificCoordinate, wormPosition.z), moveSpeed);
+                wormEvolution.GetComponent<Rigidbody>().AddForce(0, 2500, 0);
+                
 
-                }
-                wormEvolution.transform.Rotate(new Vector3(180, 0, 0));
             }
             Debug.Log("colpito");
             playerTarget = null;
