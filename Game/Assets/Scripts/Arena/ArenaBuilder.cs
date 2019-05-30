@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class ArenaBuilder : MonoBehaviour {
-	public static ArenaBuilder singleton;
-	public bool arenaReady;
+	//public static ArenaBuilder singleton;
+	//public bool arenaReady;
 
-	void Awake() {
+	/*void Awake() {
 		arenaReady = false;
+		//roundCounter = 1;
 		if (!singleton || SceneManager.GetActiveScene().name == GameScenes.Arena) {
 			if (singleton) {
 				Destroy(singleton.gameObject);
@@ -16,5 +16,5 @@ public class ArenaBuilder : MonoBehaviour {
 		} else {
 			Destroy(gameObject);
 		}
-	}
+	}*/
 }

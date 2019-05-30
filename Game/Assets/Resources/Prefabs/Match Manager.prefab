@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5214476385118057602
+--- !u!1 &5129426254647627279
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,37 +8,37 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5214476385118057603}
-  - component: {fileID: 5214476385118057605}
-  - component: {fileID: 4643356926412524769}
-  m_Layer: 9
-  m_Name: Player
+  - component: {fileID: 76745347700851326}
+  - component: {fileID: 1106981056170728309}
+  - component: {fileID: 6200309941786921415}
+  m_Layer: 0
+  m_Name: Match Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5214476385118057603
+--- !u!4 &76745347700851326
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5214476385118057602}
+  m_GameObject: {fileID: 5129426254647627279}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.903132, y: -1.6068044, z: 22.176191}
+  m_LocalPosition: {x: 221.68015, y: -31.28992, z: 201.80316}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5214476385118057605
+--- !u!114 &1106981056170728309
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5214476385118057602}
+  m_GameObject: {fileID: 5129426254647627279}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
@@ -64,34 +64,17 @@ MonoBehaviour:
     i14: 0
     i15: 0
   m_ServerOnly: 0
-  m_LocalPlayerAuthority: 1
---- !u!114 &4643356926412524769
+  m_LocalPlayerAuthority: 0
+--- !u!114 &6200309941786921415
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5214476385118057602}
+  m_GameObject: {fileID: 5129426254647627279}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 172e2e2df8e179f4083d7d0075fa40a2, type: 3}
+  m_Script: {fileID: 11500000, guid: 18067af16a57be045beb255c07b8c6fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerID: 0
-  robotName: Dozzer
-  score: 100
-  scraps: 100
-  roundWinner: 0
-  isAgent: 0
   roundCounter: 0
-  auctionPrefab: {fileID: 1268324097812021732, guid: 67c77e7f20bba264f9bcf0f5ba20364d,
-    type: 3}
-  auctionPlayerScraps: {fileID: 8895915483734406524, guid: 6625d04d3acd0bc48bacde975d802eb1,
-    type: 3}
-  networkAuctionManager: {fileID: 6800637653821773375, guid: bb611050639dde44eaa506cf35b7c93a,
-    type: 3}
-  arenaPrefab: {fileID: 398361175911409946, guid: 1ba252de51f3be54fb409fe3d37b6971,
-    type: 3}
-  networkArenaManager: {fileID: 8073506518977825839, guid: b320e8da3b3fbec40b9c2cca50d9a1cd,
-    type: 3}
-  upgradeAssigned: 0

@@ -37,7 +37,6 @@ public class PerlinNoise : NetworkBehaviour {
 	public int randomSeed = 0;
 
 	public void Start() {
-		ArenaBuilder.singleton.arenaReady = false;
 		Random.seed = randomSeed;
 		scale = Random.Range(scaleMin, scaleMax);
 
@@ -57,7 +56,12 @@ public class PerlinNoise : NetworkBehaviour {
 			Vector3 v3 = pos.transform.position;
 			pos.transform.position = new Vector3(v3.x, terrain.terrainData.GetHeight((int)v3.x, (int)v3.z), v3.z);
 		}
-		ArenaBuilder.singleton.arenaReady = true;
+		/*if (isServer) {
+			foreach (Robot robot in FindObjectsOfType<Robot>()) {
+				robot.CmdRespawn();
+			}
+		}*/
+		FindObjectOfType<ArenaManager>().arenaReady = true;
 	}
 
 	TerrainData GenerateTerrain(TerrainData terrainData) {

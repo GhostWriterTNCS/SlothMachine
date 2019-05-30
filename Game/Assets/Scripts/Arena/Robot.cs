@@ -86,6 +86,7 @@ public class Robot : NetworkBehaviour {
 		StartCoroutine(SetupCoroutine());
 	}
 	IEnumerator SetupCoroutine() {
+		paused = true;
 		while (!playerGO) {
 			yield return new WaitForSeconds(0.05f);
 		}
@@ -154,17 +155,17 @@ public class Robot : NetworkBehaviour {
 		CmdUpdateHealthValue(healthMax);
 
 		CmdResetComboScore();
-		upgradeWheel = FindObjectOfType<UpgradeWheel>();
-		upgradeWheel.gameObject.SetActive(false);
-		StartCoroutine(FixPosition());
-		paused = true;
-	}
+		upgradeWheel = FindObjectOfType<ArenaManager>().upgradeWheel;
+		if (upgradeWheel)
+			upgradeWheel.gameObject.SetActive(false);
 
-	IEnumerator FixPosition() {
-		while (!ArenaBuilder.singleton.arenaReady) {
+		while (!arenaManager.arenaReady) {
 			yield return new WaitForSeconds(0.05f);
 		}
-		CmdRespawn();
+		Transform spawn = NetworkManager.singleton.GetStartPosition();
+		transform.position = spawn.position;
+		transform.rotation = spawn.rotation;
+		rigidbody.velocity = Vector3.zero;
 	}
 
 	[Command]
@@ -195,7 +196,8 @@ public class Robot : NetworkBehaviour {
 	float evadeTime = 0;
 	Robot lockCameraRobot;
 	void Update() {
-		playerMove.canMove = !paused;
+		if (playerMove)
+			playerMove.canMove = !paused;
 		if (paused) {
 			return;
 		}
@@ -255,7 +257,8 @@ public class Robot : NetworkBehaviour {
 					GuardOff();
 				}
 
-				upgradeWheel.gameObject.SetActive(Input.GetAxis("Triggers") < -0.01f);
+				if (upgradeWheel)
+					upgradeWheel.gameObject.SetActive(Input.GetAxis("Triggers") < -0.01f);
 				playerMove.canRotateCamera = Input.GetAxis("Triggers") >= -0.01f;
 
 				if (Input.GetButtonDown("RS")) {
@@ -405,12 +408,13 @@ public class Robot : NetworkBehaviour {
 	}
 
 	[Command]
-	void CmdRespawn() {
+	public void CmdRespawn() {
 		CmdUpdateHealthValue(healthMax);
-		var spawn = NetworkManager.singleton.GetStartPosition();
+		Transform spawn = NetworkManager.singleton.GetStartPosition();
 		transform.position = spawn.position;
 		transform.rotation = spawn.rotation;
 		rigidbody.velocity = Vector3.zero;
+		Debug.Log("Repositioned " + player.name + " at " + spawn.position);
 	}
 
 	public enum BodyPart {
