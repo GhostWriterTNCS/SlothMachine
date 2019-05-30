@@ -555,7 +555,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 063e5a21e606a2d45a12b3de5def26c1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a6426f2771848e543b42ed000aa6d889, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3820,7 +3820,7 @@ MonoBehaviour:
   m_GamePlayerPrefab: {fileID: 5214476385118057602, guid: 5cd51795ac7b921419f14e6da773ccdd,
     type: 3}
   m_LobbyScene: Lobby
-  m_PlayScene: Auction
+  m_PlayScene: Arena
   lobbySlots: []
   prematchCountdown: 0
   mainMenuPanel: {fileID: 466531211}
