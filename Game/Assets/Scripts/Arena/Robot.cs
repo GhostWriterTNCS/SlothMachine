@@ -9,9 +9,13 @@ using UnityEngine.UI;
 public class Robot : NetworkBehaviour {
 	[Header("Generic settings")]
 	public GameObject hitEffect;
+	public AudioClip hitSound;
 	public GameObject fireParticle;
+	//public AudioClip fireSound;
 	public GameObject lightningParticle;
+	//public AudioClip lightningSound;
 	public GameObject iceParticle;
+	//public AudioClip iceSound;
 	[Space]
 	public Material ionPlus;
 	public Material ionMinus;
@@ -391,6 +395,7 @@ public class Robot : NetworkBehaviour {
 			ionParticle.GetComponent<Renderer>().material.name.StartsWith(ionPlus.name) && hitter.ionParticle.GetComponent<Renderer>().material.name.StartsWith(ionMinus.name) ||
 			ionParticle.GetComponent<Renderer>().material.name.StartsWith(ionMinus.name) && hitter.ionParticle.GetComponent<Renderer>().material.name.StartsWith(ionPlus.name)) {
 			GameObject effect = Instantiate(hitter.hitEffect);
+			AudioManager.singleton.PlayClip(hitSound);
 			effect.transform.position = position;
 			effect.transform.localScale = Vector3.one;
 			NetworkServer.Spawn(effect);

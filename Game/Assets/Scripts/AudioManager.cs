@@ -1,22 +1,22 @@
 ﻿using UnityEngine;
 
 public class AudioManager : MonoBehaviour {
-	public static AudioManager audioManager;
+	public static AudioManager singleton;
 	public AudioSource backgroundSource;
 	public AudioSource effectSource;
 	public AudioClip backgroundMusic;
 
 	private void Awake() {
-		if (audioManager == null) {
-			audioManager = this;
-		} else if (audioManager != this) {
+		if (singleton == null) {
+			singleton = this;
+		} else if (singleton != this) {
 			Destroy(gameObject);
 		}
 		DontDestroyOnLoad(gameObject);
 	}
 
 	void Start() {
-		PlayBackground(audioManager.backgroundMusic);
+		PlayBackground(singleton.backgroundMusic);
 		//SetSpeakers();
 	}
 
@@ -30,16 +30,16 @@ public class AudioManager : MonoBehaviour {
 		if (clip == null) {
 			return;
 		}
-		audioManager.effectSource.clip = clip;
-		audioManager.effectSource.loop = loop;
-		audioManager.effectSource.Play();
+		singleton.effectSource.clip = clip;
+		singleton.effectSource.loop = loop;
+		singleton.effectSource.Play();
 	}
 
 	public void PlayBackground(AudioClip clip) {
-		if (clip != null && clip != audioManager.backgroundSource.clip) {
-			audioManager.backgroundSource.Stop();
-			audioManager.backgroundSource.clip = clip;
-			audioManager.backgroundSource.Play();
+		if (clip != null && clip != singleton.backgroundSource.clip) {
+			singleton.backgroundSource.Stop();
+			singleton.backgroundSource.clip = clip;
+			singleton.backgroundSource.Play();
 		}
 	}
 }

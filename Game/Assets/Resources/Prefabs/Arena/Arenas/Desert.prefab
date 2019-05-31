@@ -289,6 +289,7 @@ GameObject:
   - component: {fileID: 11653}
   - component: {fileID: 11629}
   - component: {fileID: 12330}
+  - component: {fileID: 7747090631504712823}
   - component: {fileID: 12283}
   m_Layer: 0
   m_Name: Desert
@@ -403,6 +404,18 @@ MonoBehaviour:
   ArenaSphere: {fileID: 4790992225004315661, guid: 5c4e5f008e06ce54e823f2bdfd607387,
     type: 3}
   randomSeed: 0
+--- !u!114 &7747090631504712823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 725e76ae8a5b44e429d7f6ba8b8379fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &12283
 MonoBehaviour:
   m_ObjectHideFlags: 0
