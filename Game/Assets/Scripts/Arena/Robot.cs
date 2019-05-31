@@ -21,6 +21,8 @@ public class Robot : NetworkBehaviour {
 	public Material ionMinus;
 	public Material ionNull;
 	public ParticleSystem ionParticle;
+	public ParticleSystem bossParticlePlus;
+	public ParticleSystem bossParticleMinus;
 	[Space]
 	public float comboDelay = 1;
 	public float holdMinDuration = 0.76f;
@@ -174,6 +176,9 @@ public class Robot : NetworkBehaviour {
 			transform.position = spawn.position;
 			transform.rotation = spawn.rotation;
 			transform.localScale = new Vector3(2, 2, 2);
+			ionParticle.gameObject.SetActive(false);
+			bossParticlePlus.gameObject.SetActive(true);
+			bossParticleMinus.gameObject.SetActive(true);
 		} else {
 			Transform spawn = NetworkManager.singleton.GetStartPosition();
 			transform.position = spawn.position;
@@ -228,10 +233,10 @@ public class Robot : NetworkBehaviour {
 			evadeTime -= Time.deltaTime;
 		} else {
 			playerMove.canMove = true;
-			// Actions
 			if (isLocalPlayer) {
 				scrapsCounter.text = player.scraps + " scraps";
 				holdButton += Time.deltaTime;
+				// Actions
 				if (Input.GetButtonUp("Menu")) {
 					arenaManager.pauseMenu.Pause();
 				} else if (Input.GetButtonDown("A")) {
@@ -291,6 +296,7 @@ public class Robot : NetworkBehaviour {
 						}
 					}
 				}
+
 				if (lockCameraRobot) {
 					if (Vector3.Distance(transform.position, lockCameraRobot.transform.position) > 10) {
 						lockCameraRobot.marker.enabled = false;
@@ -309,6 +315,8 @@ public class Robot : NetworkBehaviour {
 						lockCameraRobot.GetComponent<Robot>().marker.transform.localPosition = canvasPos;
 					}
 				}
+
+				// Ion particles
 				if (Input.GetButton("RB") && Input.GetAxis("Triggers") <= 0.01f) {
 					ionParticle.GetComponent<Renderer>().material = ionPlus;
 				} else if (Input.GetAxis("Triggers") > 0.01f && !Input.GetButton("RB")) {

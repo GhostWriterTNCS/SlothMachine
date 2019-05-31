@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 public class NetworkArenaManager : NetworkBehaviour {
 	ArenaManager arenaManager;
@@ -59,7 +60,9 @@ public class NetworkArenaManager : NetworkBehaviour {
 		RpcUpdateTitle(arenaManager.roundWinnerIs.Replace("\\n", "\n").Replace("#", roundWinner.name));
 		yield return new WaitForSeconds(5);
 		string scene = GameScenes.Auction;
-		if (roundWinner.roundWinner >= 2) {
+		if (MatchManager.singleton.roundCounter == -1) {
+			scene = GameScenes.MatchResult;
+		} else if (roundWinner.roundWinner >= 2) {
 			MatchManager.singleton.roundCounter = -1;
 			scene = GameScenes.Arena;
 		}

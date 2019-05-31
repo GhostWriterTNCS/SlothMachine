@@ -27,36 +27,5 @@ public class ArenaManager : MonoBehaviour {
 		arenaReady = false;
 		countdown.text = "";
 		scrapsCounter.text = "";
-		//StartCoroutine(SetupCoroutine());
 	}
-
-	/*IEnumerator SetupCoroutine() {
-		/*while (!FindObjectOfType<Robot>() || !FindObjectOfType<Robot>().player) {
-			yield return new WaitForSeconds(0.05f);
-		}*/
-	/*if (MatchManager.singleton.roundCounter > 0) {
-		title.text = roundX.Replace("#", MatchManager.singleton.roundCounter.ToString());
-	} else {
-		title.text = finalRound;
-	}
-	yield return new WaitForSeconds(2);
-	title.gameObject.SetActive(false);
-	CmdPauseAll(false);
-}*/
-
-	//[Command]
-	/*public void CmdPauseAll(bool value) {
-		foreach (Robot r in FindObjectsOfType<Robot>()) {
-			r.paused = value;
-		}
-	}*/
-
-	/*public void RoundOver() {
-		FindObjectOfType<NetworkArenaManager>().CmdRoundOver();
-	}
-
-	IEnumerator LoadScene(string scene) {
-		yield return new WaitForSeconds(5);
-		NetworkManager.singleton.ServerChangeScene(scene);
-	}*/
 }
