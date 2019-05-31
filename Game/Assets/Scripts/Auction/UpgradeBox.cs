@@ -22,6 +22,7 @@ public class UpgradeBox : NetworkBehaviour {
 
 	void Start() {
 		isUpdated = true;
+		transform.localScale = Vector3.one;
 		StartCoroutine(LoadUpgradeCoroutine());
 	}
 

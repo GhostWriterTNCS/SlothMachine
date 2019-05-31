@@ -70,7 +70,7 @@ public class PerlinNoise : NetworkBehaviour {
 	public void CmdFixWormPosition() {
 		WormDecisionTree worm = FindObjectOfType<WormDecisionTree>();
 		Vector3 v3 = worm.transform.position;
-		worm.transform.position = new Vector3(v3.x, FindObjectOfType<Terrain>().terrainData.GetHeight((int)v3.x, (int)v3.z), v3.z);
+		worm.transform.position = new Vector3(v3.x, FindObjectOfType<Terrain>().terrainData.GetHeight((int)v3.x, (int)v3.z) + 1, v3.z);
 	}
 
 	TerrainData GenerateTerrain(TerrainData terrainData) {

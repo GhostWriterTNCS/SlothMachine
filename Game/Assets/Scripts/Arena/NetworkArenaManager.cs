@@ -74,25 +74,13 @@ public class NetworkArenaManager : NetworkBehaviour {
 	public void RpcUpdateCountdown(string s) {
 		FindObjectOfType<ArenaManager>().countdown.text = s;
 	}
-	/*[ClientRpc]
-	public void RpcLoadScene(string scene) {
-		NetworkManager.singleton.ServerChangeScene(scene);
-	}*/
 
-	/*public void FixPlayersPositions() {
-		StartCoroutine(FixPlayersPositionsCoroutine());
+	[Command]
+	public void CmdSpawnWorm(GameObject prefab, Vector3 pos) {
+		Debug.Log("Spawn worm");
+		transform.position = new Vector3(150, FindObjectOfType<Terrain>().terrainData.GetHeight(150, 150) + 1, 150);
+		GameObject worm = Instantiate(prefab, pos, Quaternion.identity);
+		NetworkServer.Spawn(worm);
+		worm.GetComponent<Rigidbody>().AddForce(0, 2500, 0);
 	}
-	IEnumerator FixPlayersPositionsCoroutine() {
-		while (!arenaManager.arenaReady) {
-			yield return new WaitForSeconds(0.05f);
-		}
-		Debug.Log("FixPlayersPositionsCoroutine");
-		foreach (Player player in FindObjectsOfType<Player>()) {
-			while (!player.GetComponentInChildren<Robot>()) {
-				yield return new WaitForSeconds(0.05f);
-			}
-			Debug.Log("Repos " + player.name);
-			player.GetComponentInChildren<Robot>().CmdRespawn();
-		}
-	}*/
 }
