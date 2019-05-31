@@ -50,11 +50,11 @@ public class PerlinNoise : NetworkBehaviour {
 		ArenaSphere = Resources.Load("Prefabs/ArenaSphere") as GameObject;*/
 		SpawnObject(terrain.terrainData);
 
-        //spawnArenaSphere();
+		//spawnArenaSphere();
 
 		foreach (NetworkStartPosition pos in FindObjectsOfType<NetworkStartPosition>()) {
-            Vector3 v3 = pos.transform.position;
-			pos.transform.position = new Vector3(v3.x, terrain.terrainData.GetHeight((int)v3.x, (int)v3.z), v3.z);
+			Vector3 v3 = pos.transform.position;
+			pos.transform.position = new Vector3(v3.x, terrain.terrainData.GetHeight((int)v3.x, (int)v3.z) + 3.5f, v3.z);
 		}
 		/*if (isServer) {
 			foreach (Robot robot in FindObjectsOfType<Robot>()) {
@@ -62,19 +62,18 @@ public class PerlinNoise : NetworkBehaviour {
 			}
 		}*/
 		FindObjectOfType<ArenaManager>().arenaReady = true;
-        CmdFixWormPosition();
+		CmdFixWormPosition();
 
-    }
+	}
 
-    [Command]
-    public void CmdFixWormPosition()
-    {
-        WormDecisionTree worm = FindObjectOfType<WormDecisionTree>();
-       Vector3 v3 = worm.transform.position;
-        worm.transform.position = new Vector3(v3.x, FindObjectOfType<Terrain>().terrainData.GetHeight((int)v3.x, (int)v3.z), v3.z);
-    }
+	[Command]
+	public void CmdFixWormPosition() {
+		WormDecisionTree worm = FindObjectOfType<WormDecisionTree>();
+		Vector3 v3 = worm.transform.position;
+		worm.transform.position = new Vector3(v3.x, FindObjectOfType<Terrain>().terrainData.GetHeight((int)v3.x, (int)v3.z), v3.z);
+	}
 
-    TerrainData GenerateTerrain(TerrainData terrainData) {
+	TerrainData GenerateTerrain(TerrainData terrainData) {
 		terrainData.heightmapResolution = width + 1;
 		terrainData.size = new Vector3(width, dept, height);
 

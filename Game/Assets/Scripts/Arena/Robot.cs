@@ -97,7 +97,7 @@ public class Robot : NetworkBehaviour {
 		if (isLocalPlayer) {
 			nameText.text = "";
 			scrapsCounter = arenaManager.scrapsCounter;
-            arenaManager.pauseMenu.robot = this;
+			arenaManager.pauseMenu.robot = this;
 		} else {
 			nameText.text = player.name;
 		}
@@ -219,9 +219,9 @@ public class Robot : NetworkBehaviour {
 			if (isLocalPlayer) {
 				scrapsCounter.text = player.scraps + " scraps";
 				holdButton += Time.deltaTime;
-                if(Input.GetButtonUp("Menu")) {
-                    arenaManager.pauseMenu.Pause();
-                } else if (Input.GetButtonDown("A")) {
+				if (Input.GetButtonUp("Menu")) {
+					arenaManager.pauseMenu.Pause();
+				} else if (Input.GetButtonDown("A")) {
 					holdButton = 0;
 				} else if (Input.GetButtonUp("A") && Input.GetAxis("Triggers") >= -0.01f) {
 					SetTrigger("A");
@@ -370,13 +370,15 @@ public class Robot : NetworkBehaviour {
 			newHealth = healthMax;
 		}
 		health = newHealth;
-		if (health <= 0) {
-			CmdRespawn();
-		}
 	}
 	public void UpdateHealth(float variation, bool isHeavy = false) {
 		if (!animator.GetBool("LB") || isHeavy) {
-			CmdUpdateHealthValue(health + variation);
+			float newHealth = health + variation;
+			CmdUpdateHealthValue(newHealth);
+			if (newHealth <= 0) {
+				//StartCoroutine(RespawnCoroutine());
+				RpcRespawn();
+			}
 		}
 	}
 
@@ -410,14 +412,46 @@ public class Robot : NetworkBehaviour {
 		}
 	}
 
-	[Command]
-	public void CmdRespawn() {
+	float respawnWaiting;
+	[ClientRpc]
+	public void RpcRespawn() {
+		StartCoroutine(RespawnCoroutine());
+	}
+	IEnumerator RespawnCoroutine() {
+		for (int i = 0; i < transform.childCount; i++) {
+			if (!transform.GetChild(i).GetComponent<Camera>()) {
+				transform.GetChild(i).gameObject.SetActive(false);
+			}
+		}
+		respawnWaiting = 3;
+		CmdSetPaused(gameObject, true);
+		if (isLocalPlayer) {
+			arenaManager.title.gameObject.SetActive(true);
+		}
+		while (respawnWaiting > 0) {
+			respawnWaiting -= Time.deltaTime;
+			if (isLocalPlayer) {
+				arenaManager.title.text = arenaManager.respawnIn.Replace("#", ((int)respawnWaiting + 1).ToString());
+			}
+			yield return new WaitForEndOfFrame();
+		}
+		if (isLocalPlayer) {
+			arenaManager.title.gameObject.SetActive(false);
+		}
 		CmdUpdateHealthValue(healthMax);
+		CmdSetPaused(gameObject, false);
 		Transform spawn = NetworkManager.singleton.GetStartPosition();
 		transform.position = spawn.position;
 		transform.rotation = spawn.rotation;
 		rigidbody.velocity = Vector3.zero;
-		Debug.Log("Repositioned " + player.name + " at " + spawn.position);
+		for (int i = 0; i < transform.childCount; i++) {
+			transform.GetChild(i).gameObject.SetActive(true);
+		}
+	}
+
+	[Command]
+	public void CmdSetPaused(GameObject robot, bool value) {
+		robot.GetComponent<Robot>().paused = value;
 	}
 
 	public enum BodyPart {

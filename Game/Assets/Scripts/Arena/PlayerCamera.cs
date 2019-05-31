@@ -20,8 +20,10 @@ public class PlayerCamera : NetworkBehaviour {
 			// Adjust health sliders orientation
 			foreach (Robot a in FindObjectsOfType<Robot>()) {
 				Canvas c = a.GetComponentInChildren<Canvas>();
-				c.transform.LookAt(playerCamera.transform);
-				c.transform.Rotate(0, 180, 0);
+				if (c) {
+					c.transform.LookAt(playerCamera.transform);
+					c.transform.Rotate(0, 180, 0);
+				}
 			}
 		}
 	}

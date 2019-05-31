@@ -4,7 +4,7 @@ public class KillOnTouch : MonoBehaviour {
 	private void OnTriggerExit(Collider other) {
 		Robot p = other.GetComponent<Robot>();
 		if (p) {
-			p.CmdUpdateHealthValue(0);
+			p.UpdateHealth(-p.healthMax);
 		}
 	}
 }

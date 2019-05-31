@@ -15,6 +15,7 @@ public class ArenaManager : MonoBehaviour {
 	public string roundX;
 	public string finalRound;
 	public string roundWinnerIs;
+	public string respawnIn;
 	[Space]
 	public GameObject[] arenaPrefabs;
 	[Space]

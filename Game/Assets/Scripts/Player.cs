@@ -16,8 +16,6 @@ public class Player : NetworkBehaviour {
 	public int roundWinner;
 	[SyncVar]
 	public bool isAgent;
-	/*[SyncVar]
-	public int roundCounter;*/
 
 	public GameObject auctionPrefab;
 	public GameObject auctionPlayerScraps;
@@ -38,7 +36,6 @@ public class Player : NetworkBehaviour {
 		score = 0;
 		scraps = 100;
 		roundWinner = 0;
-		//roundCounter = 0;
 		CmdRespawn(gameObject);
 	}
 
@@ -65,7 +62,6 @@ public class Player : NetworkBehaviour {
 			if (!FindObjectOfType<NetworkArenaManager>()) {
 				GameObject NAM = Instantiate(networkArenaManager);
 				NetworkServer.Spawn(NAM);
-				//NAM.GetComponent<NetworkArenaManager>().CmdLoad();
 			}
 		} else if (SceneManager.GetActiveScene().name == GameScenes.Auction) {
 			Debug.Log("Spawn in auction.");
@@ -81,7 +77,6 @@ public class Player : NetworkBehaviour {
 			NetworkServer.Spawn(playerScraps);
 			PlayerScraps ps = playerScraps.GetComponent<PlayerScraps>();
 			ps.playerBoxGO = pb.gameObject;
-			//RpcInitPlayerScraps(playerScraps);
 
 			if (!FindObjectOfType<NetworkAuctionManager>()) {
 				GameObject NAM = Instantiate(networkAuctionManager);
