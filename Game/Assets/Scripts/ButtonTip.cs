@@ -5,6 +5,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Image))]
 public class ButtonTip : MonoBehaviour {
 	public string button;
+	public static float inputInterval = 0.1f;
 	Image image;
 	Button b;
 
@@ -13,27 +14,23 @@ public class ButtonTip : MonoBehaviour {
 		b = GetComponentInParent<Button>();
 	}
 
-	float freq = 1;
-	float temp = 0;
+	float inputTimer = 0;
 	void Update() {
 		if (b) {
+			inputTimer -= Time.deltaTime;
 			if (button == "Dpad_Left") {
-				if (Input.GetAxis("Horizontal") < -0.1) {
-					if (temp == 0 || temp > freq) {
+				if (inputTimer <= 0) {
+					if (Input.GetAxis("Horizontal") < -0.1) {
 						b.onClick.Invoke();
+						inputTimer = inputInterval;
 					}
-					temp += Time.deltaTime;
-				} else {
-					temp = 0;
 				}
 			} else if (button == "Dpad_Right") {
-				if (Input.GetAxis("Horizontal") > 0.1) {
-					if (temp == 0 || temp > freq) {
+				if (inputTimer <= 0) {
+					if (Input.GetAxis("Horizontal") > 0.1) {
 						b.onClick.Invoke();
+						inputTimer = inputInterval;
 					}
-					temp += Time.deltaTime;
-				} else {
-					temp = 0;
 				}
 			} else if (Input.GetButtonDown(button)) {
 				b.onClick.Invoke();

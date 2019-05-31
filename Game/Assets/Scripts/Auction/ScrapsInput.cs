@@ -16,31 +16,31 @@ public class ScrapsInput : NetworkBehaviour {
 		upgradeAssigned = false;
 	}
 
-    private void Update()
-    {
-        if(!player)
-        {
-            return;
-        }
-        if(Input.GetAxis("Vertical") >= 0.5f)
-        {
-            value += 10;
-        }else if(Input.GetAxis("Vertical") <= -0.5f)
-        {
-            value -= 10;
-        }
-        if(value < 0)
-        {
-            value = 0;
-        }
-        if (value > player.scraps)
-        {
-            value = player.scraps;
-        }
-        UpdateText();
-    }
+	float inputTimer = 0;
+	private void Update() {
+		if (!player) {
+			return;
+		}
+		inputTimer -= Time.deltaTime;
+		if (inputTimer <= 0) {
+			if (Input.GetAxis("Vertical") >= 0.4f) {
+				value += 10;
+				inputTimer = ButtonTip.inputInterval;
+			} else if (Input.GetAxis("Vertical") <= -0.4f) {
+				value -= 10;
+				inputTimer = ButtonTip.inputInterval;
+			}
+			if (value < 0) {
+				value = 0;
+			}
+			if (value > player.scraps) {
+				value = player.scraps;
+			}
+			UpdateText();
+		}
+	}
 
-    void UpdateText() {
+	void UpdateText() {
 		input.text = value + "/" + player.scraps;
 	}
 

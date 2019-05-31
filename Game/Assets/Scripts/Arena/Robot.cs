@@ -167,9 +167,18 @@ public class Robot : NetworkBehaviour {
 		while (!arenaManager.arenaReady) {
 			yield return new WaitForSeconds(0.05f);
 		}
-		Transform spawn = NetworkManager.singleton.GetStartPosition();
-		transform.position = spawn.position;
-		transform.rotation = spawn.rotation;
+
+		if (player.roundWinner >= 2) {
+			Debug.Log(player.name + " is Boss");
+			Transform spawn = FindObjectOfType<BossArena>().bossSpawnPosition;
+			transform.position = spawn.position;
+			transform.rotation = spawn.rotation;
+			transform.localScale = new Vector3(2, 2, 2);
+		} else {
+			Transform spawn = NetworkManager.singleton.GetStartPosition();
+			transform.position = spawn.position;
+			transform.rotation = spawn.rotation;
+		}
 		rigidbody.velocity = Vector3.zero;
 	}
 

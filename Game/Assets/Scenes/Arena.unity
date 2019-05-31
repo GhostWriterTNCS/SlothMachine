@@ -3103,7 +3103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   countdown: {fileID: 215163410}
-  roundDuration: 60
+  roundDuration: 20
   leaderboard: {fileID: 614141200}
   upgradeWheel: {fileID: 2016328454}
   arenaBoxPrefab: {fileID: 8461475249229986270, guid: cb8aaea42a98ce245acf6a94fefbba5b,
@@ -3118,6 +3118,8 @@ MonoBehaviour:
   respawnIn: 'Respawn in #...'
   arenaPrefabs:
   - {fileID: 6140, guid: f0acee9b10c335f46891396b92b88d00, type: 3}
+  bossArena: {fileID: 3134559228210685050, guid: 3cef1836587cc0c41aaaa7ff2cd14a5a,
+    type: 3}
   networkArenaManager: {fileID: 0}
   arenaReady: 0
 --- !u!1 &1441819848
@@ -4302,72 +4304,3 @@ MonoBehaviour:
   upgradePrice: {fileID: 128343551}
   upgradeBuy: {fileID: 1806885029}
   player: {fileID: 0}
---- !u!1001 &3134559229455875993
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3134559228210685050, guid: 3cef1836587cc0c41aaaa7ff2cd14a5a,
-        type: 3}
-      propertyPath: m_Name
-      value: Boss
-      objectReference: {fileID: 0}
-    - target: {fileID: 3134559228210685053, guid: 3cef1836587cc0c41aaaa7ff2cd14a5a,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3134559228210685053, guid: 3cef1836587cc0c41aaaa7ff2cd14a5a,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3134559228210685053, guid: 3cef1836587cc0c41aaaa7ff2cd14a5a,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3134559228210685053, guid: 3cef1836587cc0c41aaaa7ff2cd14a5a,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3134559228210685053, guid: 3cef1836587cc0c41aaaa7ff2cd14a5a,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3134559228210685053, guid: 3cef1836587cc0c41aaaa7ff2cd14a5a,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3134559228210685053, guid: 3cef1836587cc0c41aaaa7ff2cd14a5a,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3134559228210685053, guid: 3cef1836587cc0c41aaaa7ff2cd14a5a,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 3134559228210685053, guid: 3cef1836587cc0c41aaaa7ff2cd14a5a,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3134559228210685053, guid: 3cef1836587cc0c41aaaa7ff2cd14a5a,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3134559228210685053, guid: 3cef1836587cc0c41aaaa7ff2cd14a5a,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 3cef1836587cc0c41aaaa7ff2cd14a5a, type: 3}

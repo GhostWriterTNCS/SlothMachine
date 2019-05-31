@@ -18,6 +18,7 @@ public class ArenaManager : MonoBehaviour {
 	public string respawnIn;
 	[Space]
 	public GameObject[] arenaPrefabs;
+	public GameObject bossArena;
 	[Space]
 	public NetworkArenaManager networkArenaManager;
 	public bool arenaReady;
