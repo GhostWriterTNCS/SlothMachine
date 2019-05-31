@@ -22,15 +22,15 @@ public class Countdown : MonoBehaviour {
 
 	IEnumerator Run() {
 		while (seconds >= 0) {
+			seconds -= Time.fixedDeltaTime;
 			if (text) {
 				if (showMinutes) {
-					TimeSpan time = TimeSpan.FromSeconds(seconds);
+					TimeSpan time = TimeSpan.FromSeconds(seconds + 1);
 					text.text = s.Replace("#", time.ToString(@"mm\:ss"));
 				} else {
-					text.text = s.Replace("#", ((int)seconds).ToString());
+					text.text = s.Replace("#", ((int)seconds + 1).ToString());
 				}
 			}
-			seconds -= Time.fixedDeltaTime;
 			yield return new WaitForFixedUpdate();
 		}
 		if (onFinish != null) {

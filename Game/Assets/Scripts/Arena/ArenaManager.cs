@@ -9,12 +9,14 @@ public class ArenaManager : MonoBehaviour {
 	public GameObject arenaBoxPrefab;
 	public Canvas canvas;
 	public Text scrapsCounter;
-    public PauseMenu pauseMenu;
+	public PauseMenu pauseMenu;
 	[Space]
 	public Text title;
 	public string roundX;
 	public string finalRound;
 	public string roundWinnerIs;
+	[Space]
+	public GameObject[] arenaPrefabs;
 	[Space]
 	public NetworkArenaManager networkArenaManager;
 	public bool arenaReady;

@@ -106,12 +106,12 @@ public class NetworkAuctionManager : NetworkBehaviour {
 
 	[ClientRpc]
 	public void RpcSetHeader(string s) {
-		auctionManager.header.text = s;
+		FindObjectOfType<AuctionManager>().header.text = s;
 	}
 
 	[ClientRpc]
 	public void RpcUpgradeBoxSetParent(GameObject go) {
-		go.transform.SetParent(auctionManager.upgradesList.transform);
+		go.transform.SetParent(FindObjectOfType<AuctionManager>().upgradesList.transform);
 	}
 
 	[ClientRpc]
@@ -119,16 +119,16 @@ public class NetworkAuctionManager : NetworkBehaviour {
 		if (FindObjectOfType<ScrapsInput>()) {
 			FindObjectOfType<ScrapsInput>().SendBidValue();
 		}
-		auctionManager.scrapsInput.SetActive(false);
-		auctionManager.scrapsWait.SetActive(true);
-		auctionManager.CalculateAgentsBids();
+		FindObjectOfType<AuctionManager>().scrapsInput.SetActive(false);
+		FindObjectOfType<AuctionManager>().scrapsWait.SetActive(true);
+		FindObjectOfType<AuctionManager>().CalculateAgentsBids();
 	}
 
 	[ClientRpc]
 	public void RpcUpdateResults() {
-		auctionManager.UpdateResults();
-		auctionManager.scrapsWait.SetActive(false);
-		auctionManager.scrapsList.SetActive(true);
+		FindObjectOfType<AuctionManager>().UpdateResults();
+		FindObjectOfType<AuctionManager>().scrapsWait.SetActive(false);
+		FindObjectOfType<AuctionManager>().scrapsList.SetActive(true);
 	}
 
 	[ClientRpc]
@@ -140,9 +140,9 @@ public class NetworkAuctionManager : NetworkBehaviour {
 				break;
 			}
 		}
-		auctionManager.scrapsInput.SetActive(!player.upgradeAssigned);
-		auctionManager.scrapsWait.SetActive(player.upgradeAssigned);
-		auctionManager.scrapsList.SetActive(false);
+		FindObjectOfType<AuctionManager>().scrapsInput.SetActive(!player.upgradeAssigned);
+		FindObjectOfType<AuctionManager>().scrapsWait.SetActive(player.upgradeAssigned);
+		FindObjectOfType<AuctionManager>().scrapsList.SetActive(false);
 		ScrapsInput si = FindObjectOfType<ScrapsInput>();
 		if (si) {
 			si.ResetValue();
@@ -184,8 +184,8 @@ public class NetworkAuctionManager : NetworkBehaviour {
 		RpcPauseFinished();
 		currentCountdown = countdownDuration;
 		currentPause = pauseDuration;
-        int size = upgrades.Count-1;
-        if (currentUpgrade < size) {
+		int size = upgrades.Count - 1;
+		if (currentUpgrade < size) {
 			StartCoroutine(AuctionCoroutine());
 		} else {
 			foreach (Player p in FindObjectsOfType<Player>()) {

@@ -19,6 +19,8 @@ public class NetworkArenaManager : NetworkBehaviour {
 
 	IEnumerator Run() {
 		arenaManager = FindObjectOfType<ArenaManager>();
+		GameObject arena = Instantiate(arenaManager.arenaPrefabs[UnityEngine.Random.Range(0, arenaManager.arenaPrefabs.Length)]);
+		NetworkServer.Spawn(arena);
 		roundDuration = arenaManager.roundDuration;
 		string title = arenaManager.finalRound;
 		if (MatchManager.singleton.roundCounter > 0) {
