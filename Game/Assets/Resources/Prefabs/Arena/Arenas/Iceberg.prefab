@@ -66,7 +66,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 725e76ae8a5b44e429d7f6ba8b8379fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backgroundMusic: {fileID: 0}
+  backgroundMusic: {fileID: 8300000, guid: 4b7dfa84e39a4b84cb224356a3935910, type: 3}
   randomSounds: []
 --- !u!114 &317806856973119855
 MonoBehaviour:
