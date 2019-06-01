@@ -23,10 +23,10 @@ public class ScrapsInput : NetworkBehaviour {
 		}
 		inputTimer -= Time.deltaTime;
 		if (inputTimer <= 0) {
-			if (Input.GetAxis("Vertical") >= 0.4f) {
+			if (Input.GetAxis("Vertical") >= ButtonTip.threshold) {
 				value += 10;
 				inputTimer = ButtonTip.inputInterval;
-			} else if (Input.GetAxis("Vertical") <= -0.4f) {
+			} else if (Input.GetAxis("Vertical") <= -ButtonTip.threshold) {
 				value -= 10;
 				inputTimer = ButtonTip.inputInterval;
 			}

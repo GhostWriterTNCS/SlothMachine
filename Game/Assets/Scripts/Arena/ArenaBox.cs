@@ -7,23 +7,22 @@ public class ArenaBox : MonoBehaviour {
 
 	public Image robotImage;
 	public Text nameText;
+	public Image roundWinnerImage1;
+	public Image roundWinnerImage2;
 	public Text scoreText;
 	public Slider scoreSlider;
-	//public Image sliderImage;
 
 	void Start() {
-		//StartCoroutine(FixHeight());
 		robotImage.sprite = Resources.Load<Sprite>("UI/Robots/" + player.robotName);
 		nameText.text = player.name;
+		if (player.roundWinner <= 1) {
+			roundWinnerImage2.gameObject.SetActive(false);
+			if (player.roundWinner == 0) {
+				roundWinnerImage1.gameObject.SetActive(false);
+			}
+		}
 		robot = player.GetComponentInChildren<Robot>();
 	}
-
-	/*IEnumerator FixHeight() {
-		while (robotImage.GetComponent<RectTransform>().rect == Rect.zero) {
-			yield return new WaitForEndOfFrame();
-		}
-		robotImage.GetComponent<LayoutElement>().minWidth = robotImage.GetComponent<RectTransform>().rect.height;
-	}*/
 
 	void Update() {
 		// Show only the score for the current round.

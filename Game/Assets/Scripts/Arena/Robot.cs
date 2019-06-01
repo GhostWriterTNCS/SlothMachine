@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Animator))]
@@ -98,6 +99,7 @@ public class Robot : NetworkBehaviour {
 		}
 
 		player = playerGO.GetComponent<Player>();
+		player.robot = this;
 		transform.SetParent(player.transform);
 		arenaManager = FindObjectOfType<ArenaManager>();
 		if (isLocalPlayer) {
@@ -205,6 +207,10 @@ public class Robot : NetworkBehaviour {
 		attack = robotModel.attack + attackBonus;
 		defense = robotModel.defense + defenseBonus;
 		speed = 1 + (robotModel.speed + speedBonus - 5) / 12f;
+		if (player.roundWinner >= 2) {
+			healthMax *= 2;
+			defense *= 2;
+		}
 	}
 
 	float holdButton = 0;
@@ -397,7 +403,6 @@ public class Robot : NetworkBehaviour {
 			float newHealth = health + variation;
 			CmdUpdateHealthValue(newHealth);
 			if (newHealth <= 0) {
-				//StartCoroutine(RespawnCoroutine());
 				RpcRespawn();
 			}
 		}
@@ -445,11 +450,15 @@ public class Robot : NetworkBehaviour {
 				transform.GetChild(i).gameObject.SetActive(false);
 			}
 		}
-		respawnWaiting = 3;
 		CmdSetPaused(gameObject, true);
 		if (isLocalPlayer) {
 			arenaManager.title.gameObject.SetActive(true);
 		}
+		if (MatchManager.singleton.roundCounter < 0) {
+			arenaManager.title.text = arenaManager.youDefeated;
+			yield break;
+		}
+		respawnWaiting = 3;
 		while (respawnWaiting > 0) {
 			respawnWaiting -= Time.deltaTime;
 			if (isLocalPlayer) {
@@ -468,6 +477,12 @@ public class Robot : NetworkBehaviour {
 		rigidbody.velocity = Vector3.zero;
 		for (int i = 0; i < transform.childCount; i++) {
 			transform.GetChild(i).gameObject.SetActive(true);
+		}
+		if (player.roundWinner >= 2) {
+			ionParticle.gameObject.SetActive(false);
+		} else {
+			bossParticlePlus.gameObject.SetActive(false);
+			bossParticleMinus.gameObject.SetActive(false);
 		}
 	}
 

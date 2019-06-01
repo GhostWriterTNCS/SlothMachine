@@ -40,7 +40,7 @@ public class AuctionPlayer : NetworkBehaviour {
 			robotImage.sprite = Resources.Load<Sprite>("UI/Robots/" + player.robotName);
 			nameText.text = player.name;
 			if (player.roundWinner == 0) {
-				roundWinnerImage.color = new Color(0, 0, 0, 0);
+				roundWinnerImage.gameObject.SetActive(false);
 			}
 			scoreText.text = player.score.ToString();
 			float maxScore = 0;

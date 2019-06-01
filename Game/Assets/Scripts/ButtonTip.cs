@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class ButtonTip : MonoBehaviour {
 	public string button;
 	public static float inputInterval = 0.1f;
+	public static float threshold = 0.25f;
 	Image image;
 	Button b;
 
@@ -20,14 +21,14 @@ public class ButtonTip : MonoBehaviour {
 			inputTimer -= Time.deltaTime;
 			if (button == "Dpad_Left") {
 				if (inputTimer <= 0) {
-					if (Input.GetAxis("Horizontal") < -0.1) {
+					if (Input.GetAxis("Horizontal") < -threshold) {
 						b.onClick.Invoke();
 						inputTimer = inputInterval;
 					}
 				}
 			} else if (button == "Dpad_Right") {
 				if (inputTimer <= 0) {
-					if (Input.GetAxis("Horizontal") > 0.1) {
+					if (Input.GetAxis("Horizontal") > threshold) {
 						b.onClick.Invoke();
 						inputTimer = inputInterval;
 					}

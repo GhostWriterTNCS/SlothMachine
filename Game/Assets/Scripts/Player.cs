@@ -22,6 +22,7 @@ public class Player : NetworkBehaviour {
 	public GameObject networkAuctionManager;
 	public GameObject arenaPrefab;
 	public GameObject networkArenaManager;
+	public Robot robot;
 
 	public List<Pair> upgrades = new List<Pair>();
 	[SyncVar]

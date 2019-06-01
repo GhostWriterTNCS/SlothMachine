@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
@@ -37,9 +38,39 @@ public class NetworkArenaManager : NetworkBehaviour {
 		RpcUpdateTitle(title);
 		yield return new WaitForSeconds(2);
 		RpcTitleSetActive(false);
+		Robot boss = null;
+		List<Robot> otherRobots = new List<Robot>();
 		foreach (Robot r in FindObjectsOfType<Robot>()) {
 			r.paused = false;
+			if (MatchManager.singleton.roundCounter < 0) {
+				if (r.player.roundWinner >= 2) {
+					boss = r;
+				} else {
+					otherRobots.Add(r);
+				}
+			}
 		}
+		// Boss round
+		if (MatchManager.singleton.roundCounter < 0) {
+			RpcUpdateCountdown("");
+			while (!boss || boss.health > 0) {
+				bool someLeft = false;
+				foreach (Robot r in otherRobots) {
+					if (r.health > 0) {
+						someLeft = true;
+						break;
+					}
+				}
+				if (!someLeft) {
+					break;
+				}
+				yield return new WaitForEndOfFrame();
+			}
+			RpcUpdateTitle(arenaManager.matchOver);
+			yield return new WaitForSeconds(5);
+			NetworkManager.singleton.ServerChangeScene(GameScenes.MatchResult);
+		}
+		// Normal round
 		while (roundDuration >= 0) {
 			roundDuration -= Time.fixedDeltaTime;
 			TimeSpan time = TimeSpan.FromSeconds(roundDuration + 1);
@@ -49,9 +80,9 @@ public class NetworkArenaManager : NetworkBehaviour {
 		int scoreMax = -1;
 		Player roundWinner = null;
 		foreach (Player p in FindObjectsOfType<Player>()) {
-			p.GetComponentInChildren<Robot>().paused = true;
-			if (p.score > scoreMax) {
-				scoreMax = p.score;
+			p.robot.paused = true;
+			if (p.robot.roundScore > scoreMax) {
+				scoreMax = p.robot.roundScore;
 				roundWinner = p;
 			}
 		}
@@ -60,9 +91,7 @@ public class NetworkArenaManager : NetworkBehaviour {
 		RpcUpdateTitle(arenaManager.roundWinnerIs.Replace("\\n", "\n").Replace("#", roundWinner.name));
 		yield return new WaitForSeconds(5);
 		string scene = GameScenes.Auction;
-		if (MatchManager.singleton.roundCounter == -1) {
-			scene = GameScenes.MatchResult;
-		} else if (roundWinner.roundWinner >= 2) {
+		if (roundWinner.roundWinner >= 2) {
 			MatchManager.singleton.roundCounter = -1;
 			scene = GameScenes.Arena;
 		}
