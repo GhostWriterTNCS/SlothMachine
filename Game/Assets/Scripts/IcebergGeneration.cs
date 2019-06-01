@@ -22,8 +22,8 @@ public class IcebergGeneration : MonoBehaviour
     }
 
 
-    public int columns = 39;
-    public int rows = 39;
+    public int columns = 150;
+    public int rows = 150;
     public float probaility;
     public GameObject[] iceRocksTiles = new GameObject[1];
     public GameObject[] icePlatformTiles = new GameObject[1];
@@ -35,9 +35,9 @@ public class IcebergGeneration : MonoBehaviour
     void Start()
     {
         probaility = Random.Range(0.25f, 0.65f);
-        icePlatformTiles[0] = Resources.Load("Prefabs/IcePlatform") as GameObject;
-        waterPlatformTiles[0] = Resources.Load("Prefabs/WaterPlatform") as GameObject;
-        iceRocksTiles[0] = Resources.Load("Prefabs/Cactus02") as GameObject;
+        icePlatformTiles[0] = Resources.Load("Prefabs/Arena/IcePlatform") as GameObject;
+        waterPlatformTiles[0] = Resources.Load("Prefabs/Arena/WaterPlatform") as GameObject;
+        iceRocksTiles[0] = Resources.Load("Prefabs/Arena/Cactus02") as GameObject;
         setIceBlock();
     }
 
@@ -96,11 +96,11 @@ public class IcebergGeneration : MonoBehaviour
 
     void setIceBlock()
     {
-        (Instantiate(Resources.Load("Prefabs/DishOfWater") as GameObject, new Vector3(0f, 0f, 0f), Quaternion.identity) as GameObject).transform.SetParent(boardHolder);
+        (Instantiate(Resources.Load("Prefabs/Arena/DishOfWater") as GameObject, new Vector3(0f, 0f, 0f), Quaternion.identity) as GameObject).transform.SetParent(boardHolder);
         boardHolder = new GameObject("Board").transform;
-        for (int x = -38; x < columns; x+=2)
+        for (int x = 0; x < columns; x+=2)
         {
-            for (int z = -38; z < rows; z+=2)
+            for (int z = 0; z < rows; z+=2)
             {
                 GameObject toInstance;
                 if (x == columns-1 || z == rows-1 || ((x >= -38 && z >= -38) && (x <= -22 && z <= -2) || ((x <= 38 && z <= 38) && (x >= 22 && z >= 22)) || ((x >= -38 && z <= 38) && (x <= -22 && z >= 22)) || ((x <= 38 && z >= -38) && (x >= 22 && z <= -22))))
