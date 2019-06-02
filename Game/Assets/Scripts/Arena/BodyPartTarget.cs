@@ -16,14 +16,15 @@ public class BodyPartTarget : MonoBehaviour {
 		siblings.AddRange(t.GetComponentsInChildren<Collider>());
 	}
 
+	/*List<Collider> hitters = new List<Collider>();
 	private void OnTriggerEnter(Collider other) {
 		if (other.GetComponent<BodyPartHitter>() != null) {
-			if (!siblings.Contains(other) && other.isTrigger && !other.GetComponent<BodyPartTarget>()) {
-				other.enabled = false;
+			if (!siblings.Contains(other) && !hitters.Contains(other) && other.isTrigger && !other.GetComponent<BodyPartTarget>()) {
+				hitters.Add(other);
 				robot.CmdGetHitted(GetRobot(other.transform).gameObject, other.transform.position);
 			}
 		}
-	}
+	}*/
 
 	Robot GetRobot(Transform t) {
 		while (t != null && t.GetComponentInParent<Robot>() == null) {

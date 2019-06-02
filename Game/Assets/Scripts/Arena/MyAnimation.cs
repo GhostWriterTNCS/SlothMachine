@@ -7,26 +7,26 @@ public class MyAnimation : StateMachineBehaviour {
 	public bool enableRightFoot = false;
 	public bool enableHead = false;
 
-	Robot player;
+	Robot robot;
 
 	// OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
 	override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-		player = animator.GetComponent<Robot>();
-		player.CmdIncreaseComboScore();
+		robot = animator.GetComponent<Robot>();
+		robot.CmdIncreaseComboScore();
 		if (enableLeftHand) {
-			player.leftHand.enabled = true;
+			robot.leftHand.enabled = true;
 		}
 		if (enableRightHand) {
-			player.rightHand.enabled = true;
+			robot.rightHand.enabled = true;
 		}
 		if (enableLeftFoot) {
-			player.leftFoot.enabled = true;
+			robot.leftFoot.enabled = true;
 		}
 		if (enableRightFoot) {
-			player.rightFoot.enabled = true;
+			robot.rightFoot.enabled = true;
 		}
 		if (enableHead) {
-			player.head.enabled = true;
+			robot.head.enabled = true;
 		}
 	}
 
@@ -39,36 +39,39 @@ public class MyAnimation : StateMachineBehaviour {
 	// OnStateExit is called when a transition ends and the state machine finishes evaluating this state
 	override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
 		if (enableLeftHand) {
-			if (player.leftHand.enabled) {
-				player.CmdResetComboScore();
+			if (robot.leftHand.enabled) {
+				robot.CmdResetComboScore();
 			}
-			player.leftHand.enabled = false;
+			robot.leftHand.enabled = false;
 		}
 		if (enableRightHand) {
-			if (player.rightHand.enabled) {
-				player.CmdResetComboScore();
+			if (robot.rightHand.enabled) {
+				robot.CmdResetComboScore();
 			}
-			player.rightHand.enabled = false;
+			robot.rightHand.enabled = false;
 		}
 		if (enableLeftFoot) {
-			if (player.leftFoot.enabled) {
-				player.CmdResetComboScore();
+			if (robot.leftFoot.enabled) {
+				robot.CmdResetComboScore();
 			}
-			player.leftFoot.enabled = false;
+			robot.leftFoot.enabled = false;
 		}
 		if (enableRightFoot) {
-			if (player.rightFoot.enabled) {
-				player.CmdResetComboScore();
+			if (robot.rightFoot.enabled) {
+				robot.CmdResetComboScore();
 			}
-			player.rightFoot.enabled = false;
+			robot.rightFoot.enabled = false;
 		}
 		if (enableHead) {
-			if (player.head.enabled) {
-				player.CmdResetComboScore();
+			if (robot.head.enabled) {
+				robot.CmdResetComboScore();
 			}
-			player.head.enabled = false;
+			robot.head.enabled = false;
 		}
 
+		foreach (BodyPartHitter h in robot.GetComponentsInChildren<BodyPartHitter>()) {
+			h.hitters.Clear();
+		}
 	}
 
 	// OnStateMove is called right after Animator.OnAnimatorMove()

@@ -364,7 +364,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 725e76ae8a5b44e429d7f6ba8b8379fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backgroundMusic: {fileID: 0}
+  backgroundMusic: {fileID: 8300000, guid: 83bad84dd02e44f40b6c879b22e548b8, type: 3}
   randomSounds: []
 --- !u!4 &144415786
 Transform:

@@ -56,11 +56,6 @@ public class PerlinNoise : NetworkBehaviour {
 			Vector3 v3 = pos.transform.position;
 			pos.transform.position = new Vector3(v3.x, terrain.terrainData.GetHeight((int)v3.x, (int)v3.z) + 3.5f, v3.z);
 		}
-		/*if (isServer) {
-			foreach (Robot robot in FindObjectsOfType<Robot>()) {
-				robot.CmdRespawn();
-			}
-		}*/
 		FindObjectOfType<ArenaManager>().arenaReady = true;
 		CmdFixWormPosition();
 
@@ -70,7 +65,7 @@ public class PerlinNoise : NetworkBehaviour {
 	public void CmdFixWormPosition() {
 		WormDecisionTree worm = FindObjectOfType<WormDecisionTree>();
 		Vector3 v3 = worm.transform.position;
-		worm.transform.position = new Vector3(v3.x, FindObjectOfType<Terrain>().terrainData.GetHeight((int)v3.x, (int)v3.z) + 1, v3.z);
+		worm.transform.position = new Vector3(v3.x, FindObjectOfType<Terrain>().terrainData.GetHeight((int)v3.x, (int)v3.z) + 3, v3.z);
 	}
 
 	TerrainData GenerateTerrain(TerrainData terrainData) {
