@@ -121,8 +121,8 @@ public class WormDecisionTree : NetworkBehaviour {
 
 	//move randomly for an amount of time near the boundaries of the map
 	public object moveToBoundaries(object o) {
-		GetComponent<Collider>().enabled = false;
-		particle.Stop();
+		//GetComponent<Collider>().enabled = false;
+		//particle.Stop();
 		return null;
 	}
 
@@ -133,7 +133,7 @@ public class WormDecisionTree : NetworkBehaviour {
 			//Debug.Log(timerArena);
 			if (timerArena <= spawnTime) {
 				Debug.Log("timerArena < " + spawnTime);
-				FindObjectOfType<NetworkArenaManager>().CmdSpawnWorm(wormPrefab, new Vector3(destination.position.x, destination.position.y - 10, destination.position.z));
+				FindObjectOfType<NetworkArenaManager>().CmdSpawnWorm(wormPrefab, new Vector3(transform.position.x, transform.position.y - 10, transform.position.z));
 			}
 			Debug.Log("colpito");
 			playerTarget = null;

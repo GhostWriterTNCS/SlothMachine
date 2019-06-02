@@ -7,7 +7,7 @@ public class ColliderScript : MonoBehaviour
 {
     public void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<wormIdle>())
+        if (other.GetComponent<WormHitbox>())
         {
             NetworkManager.Destroy(other.gameObject);
         }
