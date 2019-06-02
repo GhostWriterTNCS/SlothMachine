@@ -15,6 +15,8 @@ public class Player : NetworkBehaviour {
 	[SyncVar]
 	public int roundWinner;
 	[SyncVar]
+	public int deathCount;
+	[SyncVar]
 	public bool isAgent;
 
 	public GameObject auctionPrefab;
@@ -22,6 +24,7 @@ public class Player : NetworkBehaviour {
 	public GameObject networkAuctionManager;
 	public GameObject arenaPrefab;
 	public GameObject networkArenaManager;
+	public GameObject matchResultPrefab;
 	public Robot robot;
 
 	public List<Pair> upgrades = new List<Pair>();
@@ -37,6 +40,7 @@ public class Player : NetworkBehaviour {
 		score = 0;
 		scraps = 100;
 		roundWinner = 0;
+		deathCount = 0;
 		CmdRespawn(gameObject);
 	}
 
@@ -84,6 +88,11 @@ public class Player : NetworkBehaviour {
 				NetworkServer.Spawn(NAM);
 				NAM.GetComponent<NetworkAuctionManager>().CmdLoad();
 			}
+		} else if (SceneManager.GetActiveScene().name == GameScenes.MatchResult) {
+			GameObject newPlayer = Instantiate(matchResultPrefab);
+			NetworkServer.Spawn(newPlayer);
+			PlayerResult res = newPlayer.GetComponent<PlayerResult>();
+			res.playerGO = gameObject;
 		}
 	}
 

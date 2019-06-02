@@ -82,8 +82,8 @@ MonoBehaviour:
   score: 100
   scraps: 100
   roundWinner: 0
+  deathCount: 0
   isAgent: 0
-  roundCounter: 0
   auctionPrefab: {fileID: 1268324097812021732, guid: 67c77e7f20bba264f9bcf0f5ba20364d,
     type: 3}
   auctionPlayerScraps: {fileID: 8895915483734406524, guid: 6625d04d3acd0bc48bacde975d802eb1,
@@ -94,4 +94,7 @@ MonoBehaviour:
     type: 3}
   networkArenaManager: {fileID: 8073506518977825839, guid: b320e8da3b3fbec40b9c2cca50d9a1cd,
     type: 3}
+  matchResultPrefab: {fileID: 916769700366191920, guid: 495091cae3b06b240b5e534aac2a9bf6,
+    type: 3}
+  robot: {fileID: 0}
   upgradeAssigned: 0

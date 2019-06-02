@@ -6,6 +6,7 @@ public class MatchManager : NetworkBehaviour {
 	public static MatchManager singleton;
 	//[SyncVar]
 	public int roundCounter;
+	public bool bossRound;
 	bool handlerAdded;
 
 	void Awake() {
@@ -19,6 +20,7 @@ public class MatchManager : NetworkBehaviour {
 
 	void Start() {
 		roundCounter = 0;
+		bossRound = false;
 	}
 
 	void OnEnable() {

@@ -296,8 +296,10 @@ public class Robot : NetworkBehaviour {
 						RaycastHit hit;
 						if (Physics.BoxCast(transform.position, new Vector3(3, 3, 3), transform.TransformDirection(Vector3.forward), out hit, Quaternion.identity, 30, 9)) {
 							lockCameraRobot = hit.transform.gameObject.GetComponent<Robot>();
-							if (lockCameraRobot) {
+							if (lockCameraRobot && lockCameraRobot.health > 0) {
 								lockCameraRobot.marker.enabled = true;
+							} else {
+								lockCameraRobot = null;
 							}
 						}
 					}
@@ -396,6 +398,9 @@ public class Robot : NetworkBehaviour {
 		if (newHealth > healthMax) {
 			newHealth = healthMax;
 		}
+		if (newHealth <= 0) {
+			player.deathCount++;
+		}
 		health = newHealth;
 	}
 	public void UpdateHealth(float variation, bool isHeavy = false) {
@@ -454,7 +459,7 @@ public class Robot : NetworkBehaviour {
 		if (isLocalPlayer) {
 			arenaManager.title.gameObject.SetActive(true);
 		}
-		if (MatchManager.singleton.roundCounter < 0) {
+		if (MatchManager.singleton.bossRound) {
 			arenaManager.title.text = arenaManager.youDefeated;
 			yield break;
 		}

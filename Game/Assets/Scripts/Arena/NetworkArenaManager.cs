@@ -22,10 +22,10 @@ public class NetworkArenaManager : NetworkBehaviour {
 	IEnumerator Run() {
 		arenaManager = FindObjectOfType<ArenaManager>();
 		GameObject arena;
-		if (FindObjectOfType<MatchManager>().roundCounter > 0) {
-			arena = Instantiate(arenaManager.arenaPrefabs[UnityEngine.Random.Range(0, arenaManager.arenaPrefabs.Length)]);
-		} else {
+		if (MatchManager.singleton.bossRound) {
 			arena = Instantiate(arenaManager.bossArena);
+		} else {
+			arena = Instantiate(arenaManager.arenaPrefabs[UnityEngine.Random.Range(0, arenaManager.arenaPrefabs.Length)]);
 		}
 		NetworkServer.Spawn(arena);
 		roundDuration = arenaManager.roundDuration;
@@ -42,7 +42,7 @@ public class NetworkArenaManager : NetworkBehaviour {
 		List<Robot> otherRobots = new List<Robot>();
 		foreach (Robot r in FindObjectsOfType<Robot>()) {
 			r.paused = false;
-			if (MatchManager.singleton.roundCounter < 0) {
+			if (MatchManager.singleton.bossRound) {
 				if (r.player.roundWinner >= 2) {
 					boss = r;
 				} else {
@@ -51,7 +51,7 @@ public class NetworkArenaManager : NetworkBehaviour {
 			}
 		}
 		// Boss round
-		if (MatchManager.singleton.roundCounter < 0) {
+		if (MatchManager.singleton.bossRound) {
 			RpcUpdateCountdown("");
 			while (!boss || boss.health > 0) {
 				bool someLeft = false;
@@ -92,7 +92,7 @@ public class NetworkArenaManager : NetworkBehaviour {
 		yield return new WaitForSeconds(5);
 		string scene = GameScenes.Auction;
 		if (roundWinner.roundWinner >= 2) {
-			MatchManager.singleton.roundCounter = -1;
+			MatchManager.singleton.bossRound = true;
 			scene = GameScenes.Arena;
 		}
 		NetworkManager.singleton.ServerChangeScene(scene);
