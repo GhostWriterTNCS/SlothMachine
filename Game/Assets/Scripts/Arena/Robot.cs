@@ -296,7 +296,8 @@ public class Robot : NetworkBehaviour {
 						RaycastHit hit;
 						if (Physics.BoxCast(transform.position, new Vector3(3, 3, 3), transform.TransformDirection(Vector3.forward), out hit, Quaternion.identity, 30, 9)) {
 							lockCameraRobot = hit.transform.gameObject.GetComponent<Robot>();
-							if (lockCameraRobot && lockCameraRobot.health > 0) {
+							// in the boss round, you can lock only the boss
+							if (lockCameraRobot && lockCameraRobot.health > 0 && (!MatchManager.singleton.bossRound || lockCameraRobot.player.roundWinner >= 2)) {
 								lockCameraRobot.marker.enabled = true;
 							} else {
 								lockCameraRobot = null;
