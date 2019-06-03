@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 
 public class MyAnimation : StateMachineBehaviour {
-	public bool enableLeftHand = false;
-	public bool enableRightHand = false;
-	public bool enableLeftFoot = false;
-	public bool enableRightFoot = false;
-	public bool enableHead = false;
+	public bool enableLeftHand;
+	public bool enableRightHand;
+	public bool enableLeftFoot;
+	public bool enableRightFoot;
+	public bool enableHead;
+	public bool breakGuard;
+	public bool pushBack;
 
 	Robot robot;
 
@@ -28,6 +30,8 @@ public class MyAnimation : StateMachineBehaviour {
 		if (enableHead) {
 			robot.head.enabled = true;
 		}
+		robot.breakGuard = breakGuard;
+		robot.pushBack = pushBack;
 	}
 
 	// OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

@@ -52,6 +52,8 @@ public class Robot : NetworkBehaviour {
 	public Collider rightFoot;
 	public Collider head;
 	public Collider body;
+	public bool breakGuard;
+	public bool pushBack;
 	[Space]
 	public Text nameText;
 	public Slider healthSlider;
@@ -203,10 +205,16 @@ public class Robot : NetworkBehaviour {
 
 	[Command]
 	public void CmdRefreshStats() {
-		healthMax = 100 * (1 + (robotModel.health + healthBonus - 5) / 10f);
+		healthMax = (robotModel.health + healthBonus) * 30;
 		attack = robotModel.attack + attackBonus;
 		defense = robotModel.defense + defenseBonus;
-		speed = 1 + (robotModel.speed + speedBonus - 5) / 12f;
+		if (robotModel.speed + speedBonus - 5 > 0) {
+			speed = 1 + Mathf.Abs(robotModel.speed + speedBonus - 5) / 2;
+		} else if (robotModel.speed + speedBonus - 5 < 0) {
+			speed = 1 - Mathf.Abs(robotModel.speed + speedBonus - 5) / 4;
+		} else {
+			speed = 1;
+		}
 		if (player.roundWinner >= 2) {
 			healthMax *= 2;
 			defense *= 2;
@@ -417,8 +425,8 @@ public class Robot : NetworkBehaviour {
 	[Command]
 	public void CmdGetHitted(GameObject hitterGO, Vector3 position) {
 		Robot hitter = hitterGO.GetComponent<Robot>();
-		Debug.Log(hitter.name + " hits " + name);
-		if (!isGuardOn ||
+		Debug.Log(hitter.name + " hits " + name + " " + hitter.pushBack);
+		if (!isGuardOn || hitter.breakGuard ||
 			ionParticle.GetComponent<Renderer>().material.name.StartsWith(ionNull.name) && !hitter.ionParticle.GetComponent<Renderer>().material.name.StartsWith(ionNull.name) ||
 			ionParticle.GetComponent<Renderer>().material.name.StartsWith(ionPlus.name) && hitter.ionParticle.GetComponent<Renderer>().material.name.StartsWith(ionMinus.name) ||
 			ionParticle.GetComponent<Renderer>().material.name.StartsWith(ionMinus.name) && hitter.ionParticle.GetComponent<Renderer>().material.name.StartsWith(ionPlus.name)) {
@@ -428,13 +436,17 @@ public class Robot : NetworkBehaviour {
 			effect.transform.localScale = Vector3.one;
 			NetworkServer.Spawn(effect);
 			animator.SetTrigger("Reaction");
-			float damage = 5 * hitter.attack / defense;
+			float damage = hitter.attack * 2 * (1 - (defense * 5) / 100);
 			if (health - damage <= 0) {
 				hitter.UpdateHealth(hitter.healthMax / 3);
 				if (hitter.lockCameraRobot) {
 					hitter.lockCameraRobot.marker.enabled = false;
 					hitter.lockCameraRobot = null;
 				}
+			}
+			if (hitter.pushBack) {
+				Debug.Log("Push");
+				rigidbody.AddForce(hitter.transform.forward * 8.5f, ForceMode.Impulse);
 			}
 			UpdateHealth(-damage);
 			hitter.player.scraps += 3;
