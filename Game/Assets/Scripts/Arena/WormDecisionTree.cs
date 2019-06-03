@@ -129,7 +129,7 @@ public class WormDecisionTree : NetworkBehaviour {
 
 	private void OnTriggerEnter(Collider other) {
 		if (other.GetComponent<Robot>()) {
-			timerArena = FindObjectOfType<ArenaManager>().countdown.GetComponentInChildren<Countdown>().seconds;
+			timerArena = FindObjectOfType<NetworkArenaManager>().roundDuration;
 			//Debug.Log(timerArena);
 			if (timerArena <= spawnTime) {
 				Debug.Log("timerArena < " + spawnTime);
