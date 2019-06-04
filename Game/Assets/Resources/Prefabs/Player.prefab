@@ -84,6 +84,7 @@ MonoBehaviour:
   roundWinner: 0
   deathCount: 0
   isAgent: 0
+  color: {r: 0, g: 0, b: 0, a: 0}
   auctionPrefab: {fileID: 1268324097812021732, guid: 67c77e7f20bba264f9bcf0f5ba20364d,
     type: 3}
   auctionPlayerScraps: {fileID: 8895915483734406524, guid: 6625d04d3acd0bc48bacde975d802eb1,
@@ -91,6 +92,8 @@ MonoBehaviour:
   networkAuctionManager: {fileID: 6800637653821773375, guid: bb611050639dde44eaa506cf35b7c93a,
     type: 3}
   arenaPrefab: {fileID: 398361175911409946, guid: 1ba252de51f3be54fb409fe3d37b6971,
+    type: 3}
+  minimapPrefa: {fileID: 2944472875829436888, guid: e3c42267cbef48a458a97073fbaaa9f0,
     type: 3}
   networkArenaManager: {fileID: 8073506518977825839, guid: b320e8da3b3fbec40b9c2cca50d9a1cd,
     type: 3}

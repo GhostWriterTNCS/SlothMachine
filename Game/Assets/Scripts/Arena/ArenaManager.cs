@@ -10,6 +10,7 @@ public class ArenaManager : MonoBehaviour {
 	public Canvas canvas;
 	public Text scrapsCounter;
 	public PauseMenu pauseMenu;
+	public Transform minimap;
 	[Space]
 	public Text title;
 	public string roundX;

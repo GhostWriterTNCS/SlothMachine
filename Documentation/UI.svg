@@ -255,6 +255,17 @@
        fx="982.67719"
        fy="555.59052"
        r="415.74802" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient1024"
+       id="radialGradient1026-0"
+       cx="98.849182"
+       cy="300.47241"
+       fx="98.849182"
+       fy="300.47241"
+       r="56.692913"
+       gradientTransform="matrix(2.1666666,1.5975017e-8,-9.216357e-10,0.50000006,116.53543,206.92911)"
+       gradientUnits="userSpaceOnUse" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -263,9 +274,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.53033009"
-     inkscape:cx="746.2658"
-     inkscape:cy="366.36796"
+     inkscape:zoom="1.5"
+     inkscape:cx="378.87723"
+     inkscape:cy="713.6962"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -285,7 +296,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -294,6 +305,15 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(0,-42.519657)">
+    <path
+       style="opacity:1;fill:url(#radialGradient1026-0);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-miterlimit:4.60298777;stroke-dasharray:none;stroke-opacity:0.78431373;paint-order:normal"
+       d="m 292.91339,376.06297 v -37.79528 l 4.7244,-9.44882 h 66.14173 l 4.72441,9.44882 v 37.79528 l -4.72441,9.44882 h -66.14173 z"
+       id="path1006-7"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccccccc"
+       inkscape:export-filename="D:\Varie\SlothMachine\Game\Assets\Resources\UI\button.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
     <path
        style="opacity:1;fill:url(#radialGradient875);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-miterlimit:4.60298777;stroke-dasharray:none;stroke-opacity:0.78431373;paint-order:normal"
        d="m 158.63086,332.81876 -14.89844,29.79492 94.48766,-3e-4 14.89843,-29.79492 z m 2,5.44922 85.03843,-3e-4 -9.44921,18.89648 -85.03844,3e-4 z"
@@ -530,5 +550,14 @@
          id="rect4640"
          style="opacity:1;fill:none;fill-opacity:0.31372549;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-miterlimit:4.60298777;stroke-dasharray:none;stroke-opacity:0.31372549;paint-order:normal" />
     </g>
+    <path
+       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
+       d="m 302.3622,366.61415 9.44882,-28.34646 9.44882,28.34646 -9.44882,-5.44882 z"
+       id="path69"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="D:\Varie\SlothMachine\Game\Assets\Resources\UI\minimap player.png"
+       inkscape:export-xdpi="95"
+       inkscape:export-ydpi="95" />
   </g>
 </svg>

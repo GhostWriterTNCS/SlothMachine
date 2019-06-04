@@ -17,6 +17,7 @@ public class Robot : NetworkBehaviour {
 	//public AudioClip lightningSound;
 	public GameObject iceParticle;
 	//public AudioClip iceSound;
+	public SpriteRenderer minimapCursor;
 	[Space]
 	public Material ionPlus;
 	public Material ionMinus;
@@ -189,6 +190,8 @@ public class Robot : NetworkBehaviour {
 			transform.rotation = spawn.rotation;
 		}
 		rigidbody.velocity = Vector3.zero;
+
+		minimapCursor.color = player.color;
 	}
 
 	[Command]

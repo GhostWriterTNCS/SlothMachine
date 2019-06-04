@@ -18,6 +18,8 @@ public class Player : NetworkBehaviour {
 	public int deathCount;
 	[SyncVar]
 	public bool isAgent;
+	[SyncVar]
+	public Color color;
 
 	public GameObject auctionPrefab;
 	public GameObject auctionPlayerScraps;

@@ -10,5 +10,6 @@ public class NetworkLobbyHook : LobbyHook {
 		p.playerID = lobby.playerID;
 		p.robotName = lobby.playerName;
 		p.isAgent = lobby.isAgent;
+		p.color = lobby.playerColor;
 	}
 }
