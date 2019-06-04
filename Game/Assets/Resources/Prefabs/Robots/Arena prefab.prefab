@@ -4775,7 +4775,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitEffect: {fileID: 1743301284569550, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
-  hitSound: {fileID: 8300000, guid: 612cf1d9149dbc74d86d997076b230fd, type: 3}
+  hitSound: {fileID: 8300000, guid: 9ddb5fe8f47480541902181e12233555, type: 3}
   fireParticle: {fileID: 5164135998390545375, guid: 892f4acb1608d9b459723facca094745,
     type: 3}
   lightningParticle: {fileID: 9138153940207548372, guid: 81ee345aa73f7e8498396d0f562ef0c4,
