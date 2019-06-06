@@ -6,6 +6,7 @@ public class ArenaBox : MonoBehaviour {
 	public Robot robot;
 
 	public Image robotImage;
+	public Image robotImageFrame;
 	public Text nameText;
 	public Image roundWinnerImage1;
 	public Image roundWinnerImage2;
@@ -14,6 +15,7 @@ public class ArenaBox : MonoBehaviour {
 
 	void Start() {
 		robotImage.sprite = Resources.Load<Sprite>("UI/Robots/" + player.robotName);
+		robotImageFrame.color = player.color;
 		nameText.text = player.name;
 		if (player.roundWinner <= 1) {
 			roundWinnerImage2.gameObject.SetActive(false);

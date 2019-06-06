@@ -21,13 +21,25 @@
      id="defs2">
     <linearGradient
        inkscape:collect="always"
+       id="linearGradient897">
+      <stop
+         style="stop-color:#f43030;stop-opacity:1;"
+         offset="0"
+         id="stop893" />
+      <stop
+         style="stop-color:#f43030;stop-opacity:0;"
+         offset="1"
+         id="stop895" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
        id="linearGradient925">
       <stop
-         style="stop-color:#f43030;stop-opacity:0.78431374"
+         style="stop-color:#f43030;stop-opacity:1"
          offset="0"
          id="stop921" />
       <stop
-         style="stop-color:#f43030;stop-opacity:0.3137255"
+         style="stop-color:#f43030;stop-opacity:0.50480771"
          offset="1"
          id="stop923" />
     </linearGradient>
@@ -121,7 +133,7 @@
        fx="127.19563"
        fy="328.81885"
        r="56.692913"
-       gradientTransform="matrix(0.83333331,-8.8812188e-8,1.0235109e-7,0.83333334,262.50755,7.5590751)"
+       gradientTransform="matrix(0.83333331,-8.8812188e-8,1.0235109e-7,0.83333334,141.12172,-66.58264)"
        gradientUnits="userSpaceOnUse" />
     <radialGradient
        inkscape:collect="always"
@@ -154,7 +166,7 @@
        fx="311.81104"
        fy="357.16534"
        r="37.795277"
-       gradientTransform="matrix(2.9999996,3.373408e-7,-5.6223523e-8,0.5000004,-746.45658,206.92887)"
+       gradientTransform="matrix(65.147994,5.0287494e-12,0,0.25000027,-20124.887,296.22036)"
        gradientUnits="userSpaceOnUse" />
     <radialGradient
        inkscape:collect="always"
@@ -264,8 +276,32 @@
        fx="98.849182"
        fy="300.47241"
        r="56.692913"
-       gradientTransform="matrix(2.1666666,1.5975017e-8,-9.216357e-10,0.50000006,116.53543,206.92911)"
+       gradientTransform="matrix(5.1458338,3.1950032e-8,-2.1888851e-9,1.0000001,-125.98432,28.346449)"
        gradientUnits="userSpaceOnUse" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient897"
+       id="radialGradient903"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(8.9981122,-2.8088078e-4,1.0280713e-6,0.03422723,-2616.7346,330.85492)"
+       cx="311.81104"
+       cy="357.16534"
+       fx="311.81104"
+       fy="357.16534"
+       r="37.795277" />
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter1067"
+       x="-0.048"
+       width="1.096"
+       y="-0.048"
+       height="1.096">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.8897656"
+         id="feGaussianBlur1069" />
+    </filter>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -274,16 +310,18 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.5"
-     inkscape:cx="378.87723"
-     inkscape:cy="713.6962"
+     inkscape:zoom="5.6568543"
+     inkscape:cx="177.44384"
+     inkscape:cy="744.69663"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
      units="px"
      inkscape:snap-smooth-nodes="true"
      inkscape:snap-bbox="true"
-     inkscape:bbox-nodes="true">
+     inkscape:bbox-nodes="true"
+     inkscape:snap-bbox-midpoints="true"
+     inkscape:snap-global="true">
     <inkscape:grid
        type="xygrid"
        id="grid18" />
@@ -306,8 +344,8 @@
      id="layer1"
      transform="translate(0,-42.519657)">
     <path
-       style="opacity:1;fill:url(#radialGradient1026-0);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-miterlimit:4.60298777;stroke-dasharray:none;stroke-opacity:0.78431373;paint-order:normal"
-       d="m 292.91339,376.06297 v -37.79528 l 4.7244,-9.44882 h 66.14173 l 4.72441,9.44882 v 37.79528 l -4.72441,9.44882 h -66.14173 z"
+       style="opacity:1;fill:url(#radialGradient1026-0);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3.00000024;stroke-miterlimit:4.60298777;stroke-dasharray:none;stroke-opacity:0.78431373;paint-order:normal"
+       d="M 292.91339,366.61415 V 291.0236 l 11.22045,-18.89764 h 157.08663 l 11.22047,18.89764 v 75.59055 l -11.22047,18.89764 H 304.13384 Z"
        id="path1006-7"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccccccc"
@@ -435,7 +473,7 @@
        style="opacity:1;fill:url(#radialGradient1166);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-miterlimit:4.60298777;stroke-dasharray:none;stroke-opacity:0.78431373;paint-order:normal" />
     <path
        style="opacity:1;fill:#54c7f6;fill-opacity:0.78431373;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-miterlimit:4.60298777;stroke-dasharray:none;stroke-opacity:0.78431373;paint-order:normal"
-       d="m 342.15748,270.67712 v -6 l 9.44882,-9.44881 h 6 v 7.44881 l -6,2 -2,6 z"
+       d="m 220.77165,196.53541 v -6 l 9.44882,-9.44881 h 6 v 7.44881 l -6,2 -2,6 z"
        id="path1174"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cccccccc"
@@ -444,7 +482,7 @@
        inkscape:export-ydpi="300" />
     <path
        style="opacity:1;fill:#54c7f6;fill-opacity:0.78431373;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-miterlimit:4.60298777;stroke-dasharray:none;stroke-opacity:0.78431373;paint-order:normal"
-       d="m 394.85039,270.67712 v -6 l -9.44882,-9.44881 h -6 v 7.44881 l 6,2 2,6 z"
+       d="m 273.46456,196.53541 v -6 l -9.44882,-9.44881 h -6 v 7.44881 l 6,2 2,6 z"
        id="path1174-9"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cccccccc"
@@ -455,7 +493,7 @@
        sodipodi:nodetypes="cccccccc"
        inkscape:connector-curvature="0"
        id="path1191"
-       d="m 342.15748,292.47242 v 6 l 9.44882,9.44881 h 6 v -7.44881 l -6,-2 -2,-6 z"
+       d="m 220.77165,218.33071 v 6 l 9.44882,9.44881 h 6 v -7.44881 l -6,-2 -2,-6 z"
        style="opacity:1;fill:#54c7f6;fill-opacity:0.78431373;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-miterlimit:4.60298777;stroke-dasharray:none;stroke-opacity:0.78431373;paint-order:normal"
        inkscape:export-filename="D:\Varie\SlothMachine\Game\Assets\Resources\UI\placeholder.png"
        inkscape:export-xdpi="300"
@@ -464,14 +502,14 @@
        sodipodi:nodetypes="cccccccc"
        inkscape:connector-curvature="0"
        id="path1193"
-       d="m 394.85039,292.47242 v 6 l -9.44882,9.44881 h -6 v -7.44881 l 6,-2 2,-6 z"
+       d="m 273.46456,218.33071 v 6 l -9.44882,9.44881 h -6 v -7.44881 l 6,-2 2,-6 z"
        style="opacity:1;fill:#54c7f6;fill-opacity:0.78431373;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-miterlimit:4.60298777;stroke-dasharray:none;stroke-opacity:0.78431373;paint-order:normal"
        inkscape:export-filename="D:\Varie\SlothMachine\Game\Assets\Resources\UI\placeholder.png"
        inkscape:export-xdpi="300"
        inkscape:export-ydpi="300" />
     <path
        style="opacity:1;fill:url(#radialGradient1026-2);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.2247448;stroke-miterlimit:4.60298777;stroke-dasharray:none;stroke-opacity:0.78431373;paint-order:normal"
-       d="m 357.60547,255.22852 v 7.44921 l -6,2 -2,6 h -7.44727 v 21.79413 h 7.44727 l 2,6 6,2 v 7.44922 h 21.79607 v -7.44922 l 6,-2 2,-6 h 7.44921 v -21.79413 h -7.44921 l -2,-6 -6,-2 v -7.44921 z"
+       d="m 236.21964,181.08681 v 7.44921 l -6,2 -2,6 h -7.44727 v 21.79413 h 7.44727 l 2,6 6,2 v 7.44922 h 21.79607 v -7.44922 l 6,-2 2,-6 h 7.44921 v -21.79413 h -7.44921 l -2,-6 -6,-2 v -7.44921 z"
        id="path1006-2"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccccccccccccccccccc"
@@ -488,12 +526,13 @@
        inkscape:export-ydpi="300" />
     <path
        style="opacity:1;fill:url(#radialGradient927);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-miterlimit:4.60298777;stroke-dasharray:none;stroke-opacity:0.78431373;paint-order:normal"
-       d="m 151.1811,394.9606 9.44882,-18.89763 h 66.14173 l -9.44882,18.89763 z"
+       d="m 155.18111,394.9606 -4,-9.44882 4,-9.44882 67.59054,1e-5 4,9.44881 -4,9.44882 z"
        id="path43-6"
        inkscape:connector-curvature="0"
        inkscape:export-filename="D:\Varie\SlothMachine\Game\Assets\Resources\UI\health slider.png"
        inkscape:export-xdpi="300"
-       inkscape:export-ydpi="300" />
+       inkscape:export-ydpi="300"
+       sodipodi:nodetypes="ccccccc" />
     <path
        style="opacity:1;fill:url(#radialGradient872);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-miterlimit:4.60298777;stroke-dasharray:none;stroke-opacity:0.78431373;paint-order:normal"
        d="m 786.98828,191.08802 c -18.93317,11.43962 -38.26659,22.28609 -55.39869,36.39485 -16.52746,11.70273 -30.8705,26.1564 -45.51363,40.04742 -14.10941,15.72465 -28.5142,31.21179 -40.17755,48.90316 -12.4869,16.3585 -22.16093,34.65847 -32.08858,52.61274 -4.10002,8.83165 -8.20004,17.6633 -12.30006,26.49495 45.29947,18.76368 90.59895,37.52735 135.89843,56.29102 9.66031,-22.11786 21.80086,-43.15254 36.92652,-61.99698 13.20358,-16.69402 28.51857,-31.77923 45.33225,-44.82441 18.15186,-14.08307 38.11097,-25.72098 59.18459,-34.85244 -18.77213,-45.32031 -37.54427,-90.64062 -56.3164,-135.96094 -11.84896,5.63021 -23.69792,11.26042 -35.54688,16.89063 z"
@@ -559,5 +598,46 @@
        inkscape:export-filename="D:\Varie\SlothMachine\Game\Assets\Resources\UI\minimap player.png"
        inkscape:export-xdpi="95"
        inkscape:export-ydpi="95" />
+    <g
+       id="g913"
+       inkscape:export-filename="D:\Varie\SlothMachine\Game\Assets\Resources\UI\slider background.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="6.3229422e-006"
+         y="376.06296"
+         x="151.18111"
+         height="18.897638"
+         width="75.590553"
+         id="rect908"
+         style="opacity:1;fill:none;fill-opacity:0.78431373;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" />
+      <path
+         id="path901"
+         transform="translate(0,42.519657)"
+         d="M 151.73828 341.67578 L 151.18164 342.99219 L 151.73828 344.30859 L 226.21484 344.30859 L 226.77148 342.99219 L 226.21484 341.67578 L 151.73828 341.67578 z "
+         style="opacity:1;fill:url(#radialGradient903);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3.00000024;stroke-miterlimit:4.60298777;stroke-dasharray:none;stroke-opacity:0.78431373;paint-order:normal" />
+    </g>
+    <g
+       id="g1073"
+       transform="translate(201.53848,-324.37241)"
+       inkscape:export-filename="D:\Varie\SlothMachine\Game\Assets\Resources\UI\robot frame.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <path
+         sodipodi:nodetypes="cccccccccc"
+         transform="matrix(0.91551092,0,0,0.91551092,15.168088,55.722844)"
+         inkscape:connector-curvature="0"
+         id="rect915"
+         d="m 132.28306,612.28304 v 94.48828 h 94.48828 v -94.48828 z m 9.36108,9.36108 h 75.76612 v 75.76612 h -75.76612 z"
+         mask="none"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.09228623;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal;filter:url(#filter1067)" />
+      <path
+         sodipodi:nodetypes="cccccccccc"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
+         mask="none"
+         d="m 132.28306,612.28304 v 94.48828 h 94.48828 v -94.48828 z m 7.44922,7.44922 h 79.58984 v 79.58984 h -79.58984 z"
+         id="path1065"
+         inkscape:connector-curvature="0" />
+    </g>
   </g>
 </svg>
