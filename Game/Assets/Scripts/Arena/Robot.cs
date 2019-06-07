@@ -251,7 +251,7 @@ public class Robot : NetworkBehaviour {
 		} else {
 			playerMove.canMove = true;
 			if (isLocalPlayer) {
-				scrapsCounter.text = player.scraps + " scraps";
+				scrapsCounter.text = player.scraps.ToString();
 				holdButton += Time.deltaTime;
 				// Actions
 				if (Input.GetButtonUp("Menu")) {

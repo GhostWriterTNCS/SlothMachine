@@ -276,7 +276,7 @@
        fx="98.849182"
        fy="300.47241"
        r="56.692913"
-       gradientTransform="matrix(5.1458338,3.1950032e-8,-2.1888851e-9,1.0000001,-125.98432,28.346449)"
+       gradientTransform="matrix(5.1458338,3.1950032e-8,-2.1888851e-9,1.0000001,-130.70873,28.346445)"
        gradientUnits="userSpaceOnUse" />
     <radialGradient
        inkscape:collect="always"
@@ -310,9 +310,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="5.6568543"
-     inkscape:cx="177.44384"
-     inkscape:cy="744.69663"
+     inkscape:zoom="2.8284272"
+     inkscape:cx="296.52314"
+     inkscape:cy="816.70245"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -345,7 +345,7 @@
      transform="translate(0,-42.519657)">
     <path
        style="opacity:1;fill:url(#radialGradient1026-0);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3.00000024;stroke-miterlimit:4.60298777;stroke-dasharray:none;stroke-opacity:0.78431373;paint-order:normal"
-       d="M 292.91339,366.61415 V 291.0236 l 11.22045,-18.89764 h 157.08663 l 11.22047,18.89764 v 75.59055 l -11.22047,18.89764 H 304.13384 Z"
+       d="m 288.18898,366.61414 v -75.59055 l 11.22045,-18.89764 h 157.08663 l 11.22047,18.89764 v 75.59055 l -11.22047,18.89764 H 299.40943 Z"
        id="path1006-7"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccccccc"
@@ -617,27 +617,24 @@
          d="M 151.73828 341.67578 L 151.18164 342.99219 L 151.73828 344.30859 L 226.21484 344.30859 L 226.77148 342.99219 L 226.21484 341.67578 L 151.73828 341.67578 z "
          style="opacity:1;fill:url(#radialGradient903);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3.00000024;stroke-miterlimit:4.60298777;stroke-dasharray:none;stroke-opacity:0.78431373;paint-order:normal" />
     </g>
-    <g
-       id="g1073"
-       transform="translate(201.53848,-324.37241)"
+    <path
+       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.09228623;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal;filter:url(#filter1067)"
+       mask="none"
+       d="M 127.91391,607.91391 V 709.53954 H 229.53955 V 607.91391 Z m 10.32082,10.32081 h 80.984 v 80.98401 h -80.984 z"
+       id="rect915"
+       inkscape:connector-curvature="0"
+       transform="matrix(0.91551092,0,0,0.91551092,237.94853,-269.52823)"
+       sodipodi:nodetypes="cccccccccc" />
+    <rect
+       style="opacity:1;fill:none;fill-opacity:0.50480772;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
+       id="rect86"
+       width="85.039368"
+       height="85.039368"
+       x="359.05511"
+       y="291.02359"
+       ry="6.32294e-006"
        inkscape:export-filename="D:\Varie\SlothMachine\Game\Assets\Resources\UI\robot frame.png"
        inkscape:export-xdpi="300"
-       inkscape:export-ydpi="300">
-      <path
-         sodipodi:nodetypes="cccccccccc"
-         transform="matrix(0.91551092,0,0,0.91551092,15.168088,55.722844)"
-         inkscape:connector-curvature="0"
-         id="rect915"
-         d="m 132.28306,612.28304 v 94.48828 h 94.48828 v -94.48828 z m 9.36108,9.36108 h 75.76612 v 75.76612 h -75.76612 z"
-         mask="none"
-         style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.09228623;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal;filter:url(#filter1067)" />
-      <path
-         sodipodi:nodetypes="cccccccccc"
-         style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
-         mask="none"
-         d="m 132.28306,612.28304 v 94.48828 h 94.48828 v -94.48828 z m 7.44922,7.44922 h 79.58984 v 79.58984 h -79.58984 z"
-         id="path1065"
-         inkscape:connector-curvature="0" />
-    </g>
+       inkscape:export-ydpi="300" />
   </g>
 </svg>
