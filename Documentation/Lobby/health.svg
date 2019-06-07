@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   style="height: 512px; width: 512px;"
+   viewBox="0 0 512 512"
+   version="1.1"
+   id="svg6"
+   sodipodi:docname="health.svg"
+   inkscape:export-filename="C:\Users\Davide\Downloads\health.png"
+   inkscape:export-xdpi="300"
+   inkscape:export-ydpi="300"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)">
+  <metadata
+     id="metadata12">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs10" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="640"
+     inkscape:window-height="480"
+     id="namedview8"
+     showgrid="false"
+     inkscape:zoom="1.7558594"
+     inkscape:cx="256"
+     inkscape:cy="256"
+     inkscape:current-layer="svg6" />
+  <g
+     class=""
+     style="touch-action: none;"
+     transform="translate(0,0)"
+     id="g4">
+    <path
+       d="M366.688 30.027c-1.01-.01-2.022-.01-3.034.004h.002c-41.495.563-83.634 22.155-110.844 69.282-41.912-117.77-236.49-76.29-232 64.5.64 20.068 5.132 38.987 12.454 56.917h76.45l21.22-74.126 26.375 90.134 18.46-64.312 17.238 48.303H328.1l21.222-74.126 26.375 90.13 18.46-64.308 17.238 48.303h72.517c7.097-18.183 10.927-37.136 10.307-56.917-2.61-83.04-63.874-133.082-127.533-133.786zM131.125 211.34l-7.842 27.39h-81.58c54.51 103.006 197.737 172.59 216.172 241.395 16.782-62.62 165.07-139.482 217.855-241.396h-77.023l-2.69-7.542-20.154 70.208-26.353-90.054-7.84 27.387H180.32l-2.69-7.54-20.15 70.206-26.355-90.056z"
+       fill="#ffffff"
+       fill-opacity="1"
+       id="path2" />
+  </g>
+</svg>
