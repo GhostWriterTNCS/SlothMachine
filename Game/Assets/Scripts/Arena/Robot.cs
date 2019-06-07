@@ -17,6 +17,8 @@ public class Robot : NetworkBehaviour {
 	//public AudioClip lightningSound;
 	public GameObject iceParticle;
 	//public AudioClip iceSound;
+	public GameObject sonicParticle;
+	//public AudioClip sonicSound;
 	public SpriteRenderer minimapCursor;
 	[Space]
 	public Material ionPlus;
