@@ -19,11 +19,13 @@ public class UpgradeBox : NetworkBehaviour {
 	public bool selected;
 	[SyncVar]
 	public bool isUpdated;
+	[SyncVar]
+	public bool isIntro;
 
 	void Start() {
 		isUpdated = true;
 		transform.localScale = Vector3.one;
-		StartCoroutine(LoadUpgradeCoroutine());
+		FindObjectOfType<AuctionManager>().StartCoroutine(LoadUpgradeCoroutine());
 	}
 
 	public void Refresh() {
@@ -37,12 +39,12 @@ public class UpgradeBox : NetworkBehaviour {
 	}
 
 	public void RefreshSelected() {
-		StartCoroutine(RefreshSelectedCoroutine());
+		FindObjectOfType<AuctionManager>().StartCoroutine(RefreshSelectedCoroutine());
 	}
 
 	IEnumerator RefreshSelectedCoroutine() {
-		while (!isUpdated) {
-			yield return new WaitForSeconds(0.05f);
+		while (!isUpdated || isIntro) {
+			yield return 0;
 		}
 		if (backgroundImage) {
 			backgroundImage.enabled = selected;
@@ -58,14 +60,18 @@ public class UpgradeBox : NetworkBehaviour {
 
 	IEnumerator LoadUpgradeCoroutine() {
 		while (ID == 0) {
-			yield return new WaitForSeconds(0.05f);
+			yield return 0;
 		}
 		if (transform.parent == null) {
 			AuctionManager auctionManager = FindObjectOfType<AuctionManager>();
-			if (auctionManager.upgradesList.transform.childCount > 0) {
-				Instantiate(Resources.Load<GameObject>("Prefabs/Separator horizontal"), auctionManager.upgradesList.transform);
+			if (isIntro) {
+				transform.SetParent(auctionManager.introPanel.GetComponentInChildren<GridLayoutGroup>().transform);
+			} else {
+				if (auctionManager.upgradesList.transform.childCount > 0) {
+					Instantiate(Resources.Load<GameObject>("Prefabs/Separator horizontal"), auctionManager.upgradesList.transform);
+				}
+				transform.SetParent(auctionManager.upgradesList.transform);
 			}
-			transform.SetParent(auctionManager.upgradesList.transform);
 		}
 		Refresh();
 		RefreshSelected();

@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class AuctionManager : MonoBehaviour {
 	public Text header;
+	public GameObject introPanel;
+	public GameObject auctionPanel;
 	public GameObject playersList;
 	public GameObject scrapsInput;
 	public GameObject scrapsWait;
@@ -29,7 +31,7 @@ public class AuctionManager : MonoBehaviour {
 
 	IEnumerator UpdateResultsCoroutine() {
 		while (networkAuctionManager.auctionWinner == null) {
-			yield return new WaitForSeconds(0.05f);
+			yield return 0;
 		}
 		foreach (PlayerScraps ps in Resources.FindObjectsOfTypeAll<PlayerScraps>()) {
 			if (ps.playerBox) {

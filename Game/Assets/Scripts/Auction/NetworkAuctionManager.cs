@@ -24,6 +24,11 @@ public struct Pair {
 
 public class NetworkAuctionManager : NetworkBehaviour {
 	public GameObject upgradeBoxPrefab;
+	public GameObject upgradeBoxWithDescPrefab;
+	public int introDuration = 5;
+	public string introText;
+	[SyncVar]
+	float currentIntro;
 
 	[Space]
 	public int countdownDuration = 10;
@@ -54,6 +59,8 @@ public class NetworkAuctionManager : NetworkBehaviour {
 		auctionManager.scrapsInput.SetActive(true);
 		auctionManager.scrapsWait.SetActive(false);
 		auctionManager.scrapsList.SetActive(false);
+		auctionManager.introPanel.SetActive(true);
+		auctionManager.auctionPanel.SetActive(false);
 	}
 
 	[Command]
@@ -76,11 +83,18 @@ public class NetworkAuctionManager : NetworkBehaviour {
 			ub.level = level;
 			ub.selected = (i == 0);
 			upgrades.Add(ub);
+			GameObject presUpgrade = Instantiate(upgradeBoxWithDescPrefab);
+			NetworkServer.Spawn(presUpgrade);
+			ub = presUpgrade.GetComponent<UpgradeBox>();
+			ub.ID = upgrade;
+			ub.level = level;
+			ub.isIntro = true;
 		}
 
+		RpcSetHeader(introText);
+		currentIntro = introDuration;
 		currentCountdown = countdownDuration;
-		RpcSetHeader(countdownText.Replace("#", ((int)currentCountdown).ToString()));
-
+		//RpcSetHeader(countdownText.Replace("#", ((int)currentCountdown).ToString()));
 		currentPause = pauseDuration;
 		StartCoroutine(AuctionCoroutine());
 	}
@@ -88,7 +102,7 @@ public class NetworkAuctionManager : NetworkBehaviour {
 	IEnumerator AuctionWinnerCoroutine() {
 		foreach (AuctionPlayer pb in FindObjectsOfType<AuctionPlayer>()) {
 			while (!pb.bidRegistered && !pb.player.upgradeAssigned) {
-				yield return new WaitForSeconds(0.05f);
+				yield return 0;
 			}
 			if (pb.bid > pb.player.scraps) {
 				pb.bid = pb.player.scraps;
@@ -107,6 +121,12 @@ public class NetworkAuctionManager : NetworkBehaviour {
 	[ClientRpc]
 	public void RpcSetHeader(string s) {
 		FindObjectOfType<AuctionManager>().header.text = s;
+	}
+
+	[ClientRpc]
+	public void RpcShowAuctionPanel() {
+		FindObjectOfType<AuctionManager>().introPanel.SetActive(false);
+		FindObjectOfType<AuctionManager>().auctionPanel.SetActive(true);
 	}
 
 	[ClientRpc]
@@ -153,22 +173,28 @@ public class NetworkAuctionManager : NetworkBehaviour {
 	}
 
 	IEnumerator AuctionCoroutine() {
+		while (currentIntro > 0) {
+			currentIntro -= Time.deltaTime;
+			yield return 0;
+		}
+		RpcShowAuctionPanel();
+		RpcSetHeader(countdownText.Replace("#", ((int)currentCountdown).ToString()));
 		while (currentCountdown > 0) {
 			currentCountdown -= Time.deltaTime;
 			RpcSetHeader(countdownText.Replace("#", ((int)currentCountdown + 1).ToString()));
-			yield return new WaitForEndOfFrame();
+			yield return 0;
 		}
 		RpcCountdownFinished();
 		StartCoroutine(AuctionWinnerCoroutine());
 		RpcUpdateResults();
 		while (auctionWinner == null) {
-			yield return new WaitForSeconds(0.05f);
+			yield return 0;
 		}
 		auctionWinner.GetComponent<AuctionPlayer>().player.CmdAddPermanentUpgrade(usedUpgrades[currentUpgrade].value1, usedUpgrades[currentUpgrade].value2);
 		RpcSetHeader(pauseText.Replace("#", auctionWinner.GetComponent<AuctionPlayer>().player.name));
 		while (currentPause > 0) {
 			currentPause -= Time.deltaTime;
-			yield return new WaitForEndOfFrame();
+			yield return 0;
 		}
 		foreach (AuctionPlayer pb in FindObjectsOfType<AuctionPlayer>()) {
 			pb.bid = 0;

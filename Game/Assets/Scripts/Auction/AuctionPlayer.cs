@@ -54,10 +54,10 @@ public class AuctionPlayer : NetworkBehaviour {
 				ShowUpgrade(i);
 			}
 			if (isLocalPlayer) {
-				while (!FindObjectOfType<ScrapsInput>()) {
-					yield return new WaitForSeconds(0.05f);
-				}
-				FindObjectOfType<ScrapsInput>().SetPlayerBox(this);
+				/*while (!FindObjectOfType<ScrapsInput>()) {
+					yield return 0;
+				}*/
+				FindObjectOfType<AuctionManager>().scrapsInput.GetComponent<ScrapsInput>().SetPlayerBox(this);
 			}
 		}
 	}
