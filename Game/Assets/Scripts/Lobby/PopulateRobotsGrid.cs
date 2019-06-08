@@ -9,7 +9,7 @@ public class PopulateRobotsGrid : NetworkBehaviour {
 
 	public IEnumerator LoadDefault() {
 		while (lobbyPlayer == null) {
-			yield return new WaitForSeconds(0.05f);
+			yield return 0;
 		}
 		LoadKiddo();
 	}

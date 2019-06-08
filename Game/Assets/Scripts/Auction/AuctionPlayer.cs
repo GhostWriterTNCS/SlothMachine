@@ -27,7 +27,7 @@ public class AuctionPlayer : NetworkBehaviour {
 
 	IEnumerator LoadPlayer() {
 		while (!playerGO) {
-			yield return new WaitForSeconds(0.05f);
+			yield return 0;
 		}
 		AuctionManager auctionManager = FindObjectOfType<AuctionManager>();
 		if (auctionManager.playersList.transform.childCount > 0) {
@@ -73,7 +73,7 @@ public class AuctionPlayer : NetworkBehaviour {
 	}
 	IEnumerator ShowUpgradeCoroutine(int index) {
 		while (player.upgrades.Count <= index) {
-			yield return new WaitForSeconds(0.05f);
+			yield return 0;
 		}
 		upgrades[index].sprite = Resources.Load<Sprite>("UI/Upgrades/Permanent/" + player.upgrades[index].value1 + "_" + player.upgrades[index].value2);
 		upgrades[index].enabled = true;

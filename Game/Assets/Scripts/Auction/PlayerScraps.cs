@@ -19,7 +19,7 @@ public class PlayerScraps : NetworkBehaviour {
 
 	public IEnumerator LoadPlayer() {
 		while (!playerBoxGO) {
-			yield return new WaitForSeconds(0.05f);
+			yield return 0;
 		}
 		playerBox = playerBoxGO.GetComponent<AuctionPlayer>();
 		playerName.text = playerBox.player.name;
@@ -34,7 +34,7 @@ public class PlayerScraps : NetworkBehaviour {
 	IEnumerator UpdateResultCoroutine() {
 		NetworkAuctionManager NAM = FindObjectOfType<NetworkAuctionManager>();
 		while (NAM.auctionWinner == null) {
-			yield return new WaitForSeconds(0.05f);
+			yield return 0;
 		}
 		foreach (PlayerScraps ps in FindObjectsOfType<PlayerScraps>()) {
 			if (ps.playerBoxGO == NAM.auctionWinner) {

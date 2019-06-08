@@ -100,7 +100,7 @@ public class Robot : NetworkBehaviour {
 	IEnumerator SetupCoroutine() {
 		paused = true;
 		while (!playerGO) {
-			yield return new WaitForSeconds(0.05f);
+			yield return 0;
 		}
 
 		player = playerGO.GetComponent<Player>();
@@ -174,7 +174,7 @@ public class Robot : NetworkBehaviour {
 			upgradeWheel.gameObject.SetActive(false);
 
 		while (!arenaManager.arenaReady) {
-			yield return new WaitForSeconds(0.05f);
+			yield return 0;
 		}
 
 		if (player.roundWinner >= 2) {
