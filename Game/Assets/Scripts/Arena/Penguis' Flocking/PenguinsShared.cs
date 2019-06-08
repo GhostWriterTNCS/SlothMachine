@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class PenguinsShared : MonoBehaviour
 {
-    [Range(0f, 10f)] public float _BoidFOV = 2f;
+    [Range(0f, 10f)] public float _PenguinFOV = 2f;
     public static float PenguinFOW = 0f;
 
-    [Range(1f, 20f)] public float _BoidSpeed = 10f;
+    [Range(1f, 20f)] public float _PenguinSpeed = 10f;
     public static float PenguinSpeed = 0f;
 
     [Range(0f, 1f)] public float _AlignComponent = 1f;
@@ -30,8 +30,8 @@ public class PenguinsShared : MonoBehaviour
 
     private void OnValidate()
     {
-        PenguinFOW = _BoidFOV;
-        PenguinSpeed = _BoidSpeed;
+        PenguinFOW = _PenguinFOV;
+        PenguinSpeed = _PenguinSpeed;
         AlignComponent = _AlignComponent;
         CohesionComponent = _CohesionComponent;
         SeparationComponent = _SeparationComponent;
