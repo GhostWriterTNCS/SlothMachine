@@ -23,8 +23,10 @@ public class IcebergGeneration : MonoBehaviour {
 	public int rows = 150;
 	public float probaility;
 	public GameObject[] iceRocksTiles = new GameObject[1];
-	public GameObject[] icePlatformTiles = new GameObject[1];
-	public GameObject[] waterPlatformTiles = new GameObject[1];
+	public GameObject[] icePlatformTilesInternal = new GameObject[1];
+    public GameObject[] icePlatformTilesMedium = new GameObject[1];
+    public GameObject[] icePlatformTilesExternal = new GameObject[2];
+    public GameObject[] waterPlatformTiles = new GameObject[1];
 	private List<Vector3> gridPositions = new List<Vector3>();
 	private Transform boardHolder;
 	// Start is called before the first frame update
@@ -95,7 +97,7 @@ public class IcebergGeneration : MonoBehaviour {
 					float probabilityIce = Random.RandomRange(0f, 1f);
 
 					if (0f < probabilityIce && probabilityIce < probaility) {
-						toInstance = icePlatformTiles[0];
+						toInstance = icePlatformTilesExternal[Random.Range(0,2)];
 						(Instantiate(toInstance, new Vector3(x, 0f, z), Quaternion.identity) as GameObject).transform.SetParent(boardHolder);
 					}
 				} else if (x < 50 || x > 100 || z < 50 || z > 100) {
@@ -103,11 +105,11 @@ public class IcebergGeneration : MonoBehaviour {
 					float probabilityIce = Random.RandomRange(0f, 1f);
 
 					if ((0f <= probabilityIce && probabilityIce <= probaility) || probabilityIce >= 1 - probaility) {
-						toInstance = icePlatformTiles[0];
+						toInstance = icePlatformTilesMedium[0];
 						(Instantiate(toInstance, new Vector3(x, 0f, z), Quaternion.identity) as GameObject).transform.SetParent(boardHolder);
 					}
 				} else {
-					toInstance = icePlatformTiles[0];
+					toInstance = icePlatformTilesInternal[0];
 					(Instantiate(toInstance, new Vector3(x, 0f, z), Quaternion.identity) as GameObject).transform.SetParent(boardHolder);
 				}
 			}
