@@ -54,5 +54,8 @@ public class Upgrades {
 		new Upgrade("Freezing arms", UpgradeTypes.Hands, 8, "Adds ice effect to the fists.", (Robot r) => { r.SetUpgradeParticle(r.iceParticle, Robot.BodyPart.Hands); }, (Robot r) => {}),
 		new Upgrade("Freezing legs", UpgradeTypes.Feet, 8, "Adds ice effect to the kicks.", (Robot r) => { r.SetUpgradeParticle(r.iceParticle, Robot.BodyPart.Feet); }, (Robot r) => {}),
 		new Upgrade("Freezing armor", UpgradeTypes.Armor, 12, "Adds ice effect to the armor.", (Robot r) => { r.defenseBonus += 2; }, (Robot r) => {}),
+		new Upgrade("Sonic arms", UpgradeTypes.Hands, 8, "Adds sonic effect to the fists.", (Robot r) => { r.SetUpgradeParticle(r.sonicParticle, Robot.BodyPart.Hands); }, (Robot r) => {}),
+		new Upgrade("Sonic legs", UpgradeTypes.Feet, 8, "Adds sonic effect to the kicks.", (Robot r) => { r.SetUpgradeParticle(r.sonicParticle, Robot.BodyPart.Feet); }, (Robot r) => {}),
+		new Upgrade("Sonic armor", UpgradeTypes.Armor, 12, "Adds sonic effect to the armor.", (Robot r) => { r.defenseBonus += 2; }, (Robot r) => {}),
 	};
 }
