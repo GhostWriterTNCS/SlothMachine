@@ -35,9 +35,6 @@ public class IcebergGeneration : MonoBehaviour
     void Start()
     {
         probaility = Random.Range(0.25f, 0.60f);
-        icePlatformTiles[0] = Resources.Load("Prefabs/IcePlatform") as GameObject;
-        waterPlatformTiles[0] = Resources.Load("Prefabs/WaterPlatform") as GameObject;
-        iceRocksTiles[0] = Resources.Load("Prefabs/Cactus02") as GameObject;
         setIceBlock();
     }
 

@@ -267,9 +267,9 @@ MonoBehaviour:
   iceRocksTiles:
   - {fileID: 0}
   icePlatformTiles:
-  - {fileID: 0}
+  - {fileID: 1415872715055257680, guid: dbe6ddaf08e40d741959e687bda87238, type: 3}
   waterPlatformTiles:
-  - {fileID: 0}
+  - {fileID: 2295693121361046663, guid: 41c6aacc407717a45a5e375c25989055, type: 3}
 --- !u!114 &4792160116941772105
 MonoBehaviour:
   m_ObjectHideFlags: 0
