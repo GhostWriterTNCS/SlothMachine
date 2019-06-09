@@ -562,10 +562,10 @@ MonoBehaviour:
   icePlatformTilesInternal:
   - {fileID: 1415872715055257680, guid: dbe6ddaf08e40d741959e687bda87238, type: 3}
   icePlatformTilesMedium:
-  - {fileID: 2354471854623821479, guid: a7110cf8a7672fd4e9bcd852e4edc643, type: 3}
+  - {fileID: 1415872715055257680, guid: dbe6ddaf08e40d741959e687bda87238, type: 3}
   icePlatformTilesExternal:
-  - {fileID: 2089981531598533727, guid: 90f9de0365e7610419a9973759221de2, type: 3}
-  - {fileID: 5970774990328224298, guid: d0bc60ef92e0cce4094362fa2bf4264c, type: 3}
+  - {fileID: 1415872715055257680, guid: dbe6ddaf08e40d741959e687bda87238, type: 3}
+  - {fileID: 1415872715055257680, guid: dbe6ddaf08e40d741959e687bda87238, type: 3}
   waterPlatformTiles:
   - {fileID: 2295693121361046663, guid: 41c6aacc407717a45a5e375c25989055, type: 3}
 --- !u!114 &4792160116941772105
