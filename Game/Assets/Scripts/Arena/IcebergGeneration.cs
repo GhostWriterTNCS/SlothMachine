@@ -92,8 +92,8 @@ public class IcebergGeneration : MonoBehaviour {
 	void setIceBlock() {
 		(Instantiate(waterPlatformTiles[0], new Vector3(rows / 2f, 0f, columns / 2f), Quaternion.identity) as GameObject).transform.SetParent(boardHolder);
 		boardHolder = new GameObject("Board").transform;
-		for (int x = 0; x < columns; x += 2) {
-			for (int z = 0; z < rows; z += 2) {
+		for (int x = 0; x < columns; x += 5) {
+			for (int z = 0; z < rows; z += 5) {
 				GameObject toInstance;
                 if ((x == 0 || z == 0) || (x == columns || z == rows) || (x < 40 || x > 110 || z < 40 || z > 110))
                 {
@@ -120,7 +120,45 @@ public class IcebergGeneration : MonoBehaviour {
                 }
                 else if (x == 50 || z == 50 || x == 100 || z == 100)
                 {
-
+                    if(x==50 && z == 50)
+                    {
+                        toInstance = icePlatformAngle[0];
+                        (Instantiate(toInstance, new Vector3(x, 0f, z), Quaternion.EulerAngles(0, 0, 0)) as GameObject).transform.SetParent(boardHolder);
+                    }
+                    else if (x == 50 && z == 100)
+                    {
+                        toInstance = icePlatformAngle[0];
+                        (Instantiate(toInstance, new Vector3(x, 0f, z), Quaternion.EulerAngles(0, 90, 0)) as GameObject).transform.SetParent(boardHolder);
+                    }
+                    else if (x == 100 && z == 50)
+                    {
+                        toInstance = icePlatformAngle[0];
+                        (Instantiate(toInstance, new Vector3(x, 0f, z), Quaternion.EulerAngles(0, -90, 0)) as GameObject).transform.SetParent(boardHolder);
+                    }
+                    else if (x==100 && z==100)
+                    {
+                        toInstance = icePlatformAngle[0];
+                        (Instantiate(toInstance, new Vector3(x, 0f, z), Quaternion.EulerAngles(0, -180, 0)) as GameObject).transform.SetParent(boardHolder);
+                    }else if (x == 50 && z>50)
+                    {
+                        toInstance = icePlatformSide[0];
+                        (Instantiate(toInstance, new Vector3(x, 0f, z), Quaternion.EulerAngles(0, 0, 0)) as GameObject).transform.SetParent(boardHolder);
+                    }
+                    else if (x == 100 && z > 50)
+                    {
+                        toInstance = icePlatformAngle[0];
+                        (Instantiate(toInstance, new Vector3(x, 0f, z), Quaternion.EulerAngles(0, 180, 0)) as GameObject).transform.SetParent(boardHolder);
+                    }
+                    else if (x > 50 && z == 50)
+                    {
+                        toInstance = icePlatformAngle[0];
+                        (Instantiate(toInstance, new Vector3(x, 0f, z), Quaternion.EulerAngles(0, -90, 0)) as GameObject).transform.SetParent(boardHolder);
+                    }
+                    else if (x > 50 && z == 100)
+                    {
+                        toInstance = icePlatformAngle[0];
+                        (Instantiate(toInstance, new Vector3(x, 0f, z), Quaternion.EulerAngles(0, 90, 0)) as GameObject).transform.SetParent(boardHolder);
+                    }
                 }
                 else
                 {
