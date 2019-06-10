@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b3ccaea216fe2dd46abe00f03ed78921
+guid: bdf8adcefb175614cb80ac31e8291c68
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -12,7 +12,7 @@ ModelImporter:
     400004: //RootNode
     400006: Lamp
     2000000: Camera
-    2100000: Material
+    2100000: No Name
     2300000: Cube
     3300000: Cube
     4300000: Cube
@@ -21,7 +21,7 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Material
+      name: No Name
     second: {fileID: 2100000, guid: ce3932b7a24d40a409d3bb6ffaff1408, type: 2}
   materials:
     importMaterials: 1

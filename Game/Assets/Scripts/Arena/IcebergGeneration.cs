@@ -27,6 +27,8 @@ public class IcebergGeneration : MonoBehaviour {
     public GameObject[] icePlatformTilesMedium = new GameObject[1];
     public GameObject[] icePlatformTilesExternal = new GameObject[2];
     public GameObject[] waterPlatformTiles = new GameObject[1];
+    public GameObject[] icePlatformSide = new GameObject[1];
+    public GameObject[] icePlatformAngle = new GameObject[1];
 	private List<Vector3> gridPositions = new List<Vector3>();
 	private Transform boardHolder;
 	// Start is called before the first frame update
@@ -93,28 +95,38 @@ public class IcebergGeneration : MonoBehaviour {
 		for (int x = 0; x < columns; x += 2) {
 			for (int z = 0; z < rows; z += 2) {
 				GameObject toInstance;
-				if ((x == 0 || z == 0) || (x == columns || z == rows) || (x < 40 || x > 110 || z < 40 || z > 110)) {
-					float probabilityIce = Random.RandomRange(0f, 1f);
+                if ((x == 0 || z == 0) || (x == columns || z == rows) || (x < 40 || x > 110 || z < 40 || z > 110))
+                {
+                    float probabilityIce = Random.RandomRange(0f, 1f);
 
-					if (0f < probabilityIce && probabilityIce < probaility) {
-						toInstance = icePlatformTilesExternal[Random.Range(0,2)];
+                    if (0f < probabilityIce && probabilityIce < probaility)
+                    {
+                        toInstance = icePlatformTilesExternal[Random.Range(0, 2)];
                         //(Instantiate(toInstance, new Vector3(x, 0f, z), Quaternion.identity) as GameObject).transform.SetParent(boardHolder);
-                        (Instantiate(toInstance, new Vector3(x, 0f, z), Quaternion.EulerAngles(0, Random.RandomRange(0, 360),0)) as GameObject).transform.SetParent(boardHolder);
+                        (Instantiate(toInstance, new Vector3(x, 0f, z), Quaternion.EulerAngles(0, Random.RandomRange(0, 360), 0)) as GameObject).transform.SetParent(boardHolder);
                     }
-				} else if (x < 50 || x > 100 || z < 50 || z > 100) {
+                }
+                else if (x < 50 || x > 100 || z < 50 || z > 100)
+                {
 
-					float probabilityIce = Random.RandomRange(0f, 1f);
+                    float probabilityIce = Random.RandomRange(0f, 1f);
 
-					if (probabilityIce >= 1 - probaility)//(0f <= probabilityIce && probabilityIce <= probaility) || 
+                    if (probabilityIce >= 1 - probaility)//(0f <= probabilityIce && probabilityIce <= probaility) || 
                     {
                         toInstance = icePlatformTilesMedium[0];
                         //(Instantiate(toInstance, new Vector3(x, 0f, z), Quaternion.identity) as GameObject).transform.SetParent(boardHolder);
                         (Instantiate(toInstance, new Vector3(x, 0f, z), Quaternion.EulerAngles(0, Random.RandomRange(0, 360), 0)) as GameObject).transform.SetParent(boardHolder);
                     }
-				} else {
-					toInstance = icePlatformTilesInternal[0];
-					(Instantiate(toInstance, new Vector3(x, 0f, z), Quaternion.identity) as GameObject).transform.SetParent(boardHolder);
-				}
+                }
+                else if (x == 50 || z == 50 || x == 100 || z == 100)
+                {
+
+                }
+                else
+                {
+                    toInstance = icePlatformTilesInternal[0];
+                    (Instantiate(toInstance, new Vector3(x, 0f, z), Quaternion.identity) as GameObject).transform.SetParent(boardHolder);
+                }
 			}
 
 		}
