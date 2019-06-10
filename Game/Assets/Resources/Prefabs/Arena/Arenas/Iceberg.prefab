@@ -568,6 +568,10 @@ MonoBehaviour:
   - {fileID: 2015115691642564425, guid: cf025eee013e353468d86218f63f75ce, type: 3}
   waterPlatformTiles:
   - {fileID: 2295693121361046663, guid: 41c6aacc407717a45a5e375c25989055, type: 3}
+  icePlatformSide:
+  - {fileID: 1587874991770566048, guid: ab79936ef25b52a4d8b4ce41a8619854, type: 3}
+  icePlatformAngle:
+  - {fileID: 4406259146712433240, guid: a7bb4db30ce62a34ca7c5d31efabb70c, type: 3}
 --- !u!114 &4792160116941772105
 MonoBehaviour:
   m_ObjectHideFlags: 0
