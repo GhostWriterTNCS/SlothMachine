@@ -14,9 +14,9 @@
    viewBox="0 0 793.70081 1122.5197"
    version="1.1"
    id="svg8"
-   inkscape:version="0.92.3 (2405546, 2018-03-11)"
-   sodipodi:docname="maps layout.svg"
-   inkscape:export-filename="D:\Varie\SlothMachine\Documentation\maps layouts.png"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
+   sodipodi:docname="maps layouts.svg"
+   inkscape:export-filename="D:\Varie\Sloth Machine\Documentation\maps layouts.png"
    inkscape:export-xdpi="95"
    inkscape:export-ydpi="95">
   <sodipodi:namedview
@@ -26,9 +26,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.35"
-     inkscape:cx="1648.7252"
-     inkscape:cy="-495.00492"
+     inkscape:zoom="0.24748737"
+     inkscape:cx="1265.2925"
+     inkscape:cy="-241.9455"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -37,8 +37,8 @@
      inkscape:snap-bbox-midpoints="true"
      inkscape:bbox-nodes="false">
     <inkscape:grid
-       id="grid7"
-       type="xygrid" />
+       type="xygrid"
+       id="grid7" />
   </sodipodi:namedview>
   <defs
      id="defs2">
@@ -478,48 +478,36 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:64px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-opacity:1"
          id="tspan6021">Desert</tspan></text>
     <rect
-       style="opacity:1;fill:#000000;fill-opacity:0.35096154;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
+       style="opacity:1;fill:#000000;fill-opacity:0.35096154;fill-rule:nonzero;stroke:none;stroke-width:0.99999988;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
        id="rect3669-5"
-       width="661.41736"
-       height="661.4173"
+       width="566.92914"
+       height="566.92914"
        x="1171.6536"
-       y="1368.1891" />
+       y="1462.6772" />
     <path
        inkscape:connector-curvature="0"
        id="path11-1-8"
-       d="m 1870.866,1368.7552 v 660.8184"
+       d="m 1776.378,1462.5911 v 567.0152"
        style="opacity:1;fill:none;fill-opacity:0.35096154;fill-rule:nonzero;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#StopL-0-3);marker-end:url(#marker1136-6-8);paint-order:normal" />
     <path
        inkscape:connector-curvature="0"
        id="path11-10-4"
-       d="M 1832.5224,2067.4018 H 1172.0416"
+       d="M 1738.2707,2067.4018 H 1171.9656"
        style="opacity:1;fill:none;fill-opacity:0.35096154;fill-rule:nonzero;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#StopL-4-3);marker-end:url(#marker1136-2-3);paint-order:normal" />
-    <text
-       id="text7036"
-       y="2067.4016"
-       x="1502.282">
-      <tspan
-         y="2067.4016"
-         x="1502.282"
-         id="tspan7034"
-         dy="24.000002"
-         style="font-style:normal;font-weight:normal;font-size:48.00000381px;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
-         sodipodi:role="line">175 m</tspan>
-    </text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.66666698px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:sans-serif;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;opacity:1;fill:#000000;fill-opacity:0.35096154;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
-       x="1512.561"
-       y="1711.0723"
+       x="1455.8682"
+       y="1729.9698"
        id="text6019-1"><tspan
          sodipodi:role="line"
-         x="1512.561"
-         y="1711.0723"
+         x="1455.8682"
+         y="1729.9698"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:64px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-opacity:1"
          id="tspan6021-3">Iceberg</tspan><tspan
          sodipodi:role="line"
-         x="1512.561"
-         y="1791.0723"
+         x="1455.8682"
+         y="1809.9698"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:64px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-opacity:1"
          id="tspan8905">Maze</tspan></text>
     <text
@@ -619,15 +607,26 @@
          id="tspan9829">75 m</tspan>
     </text>
     <text
-       id="text188"
-       transform="rotate(0, 1870.866, 1699.1644)"
-       y="1699.1644"
-       x="1870.866">
+       id="text3986"
+       transform="rotate(0, 1776.378, 1746.0987)"
+       y="1746.0987"
+       x="1776.378">
       <tspan
-         id="tspan186"
-         dy="24.0000011275"
-         style="font-size:48.0000022549;vertical-align:bottom;fill-opacity:1.0;font-style:normal;fill:#000000;font-weight:normal;stroke:none;text-anchor:middle;text-align:center"
-         sodipodi:role="line">175 m</tspan>
+         id="tspan3984"
+         dy="20.0000009396"
+         style="font-size:40.0000018791;vertical-align:bottom;fill-opacity:1.0;font-style:normal;fill:#000000;font-weight:normal;stroke:none;text-anchor:middle;text-align:center"
+         sodipodi:role="line">150 m</tspan>
+    </text>
+    <text
+       id="text4085"
+       transform="rotate(0, 1455.11815, 2067.4018)"
+       y="2067.4018"
+       x="1455.11815">
+      <tspan
+         id="tspan4083"
+         dy="20.0000009396"
+         style="font-size:40.0000018791;vertical-align:bottom;fill-opacity:1.0;font-style:normal;fill:#000000;font-weight:normal;stroke:none;text-anchor:middle;text-align:center"
+         sodipodi:role="line">150 m</tspan>
     </text>
   </g>
 </svg>
