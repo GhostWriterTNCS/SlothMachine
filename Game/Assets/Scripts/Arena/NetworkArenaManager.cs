@@ -16,7 +16,8 @@ public class NetworkArenaManager : NetworkBehaviour {
 
 	[Command]
 	public void CmdStartCoroutine() {
-		StartCoroutine(Run());
+        UnityEngine.Random.InitState(System.Environment.TickCount);
+        StartCoroutine(Run());
 	}
 
 	IEnumerator Run() {

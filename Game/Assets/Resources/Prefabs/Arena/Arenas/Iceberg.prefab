@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 817028742973072454}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 120, y: 0, z: 120}
+  m_LocalPosition: {x: 78, y: 0, z: 81}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8411238131285222537}
@@ -340,8 +340,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4ebe22caea43f84f9c73bd201f384ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 10
-  count: 30
+  radius: 15
+  count: 20
   penguin: {fileID: 3348497873896043762, guid: 00d05be7253fc8242bd48892e5513b54, type: 3}
 --- !u!114 &5347687494385789782
 MonoBehaviour:
@@ -420,8 +420,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4ebe22caea43f84f9c73bd201f384ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 10
-  count: 30
+  radius: 15
+  count: 20
   penguin: {fileID: 3348497873896043762, guid: 00d05be7253fc8242bd48892e5513b54, type: 3}
 --- !u!114 &9201174885818781789
 MonoBehaviour:
@@ -707,8 +707,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4ebe22caea43f84f9c73bd201f384ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 10
-  count: 30
+  radius: 15
+  count: 20
   penguin: {fileID: 3348497873896043762, guid: 00d05be7253fc8242bd48892e5513b54, type: 3}
 --- !u!114 &6903867135741684080
 MonoBehaviour:
@@ -787,8 +787,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4ebe22caea43f84f9c73bd201f384ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 10
-  count: 30
+  radius: 15
+  count: 20
   penguin: {fileID: 3348497873896043762, guid: 00d05be7253fc8242bd48892e5513b54, type: 3}
 --- !u!114 &1341523246402105278
 MonoBehaviour:
