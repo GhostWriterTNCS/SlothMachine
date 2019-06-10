@@ -9,6 +9,7 @@ public class BodyPartHitter : MonoBehaviour {
 
 	void Start() {
 		robot = GetRobot(transform);
+		GetComponent<Collider>().isTrigger = true;
 
 		Transform t = transform.parent;
 		while (t.parent) {

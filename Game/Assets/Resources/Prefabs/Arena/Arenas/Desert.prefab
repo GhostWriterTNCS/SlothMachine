@@ -764,7 +764,7 @@ MonoBehaviour:
   reactionTime: 2
   waitDuration: 10
   particle: {fileID: 19895962, guid: e1e6e8f9171b39847be20b0af9f8cbdd, type: 3}
-  wormPrefab: {fileID: 2693847180005864626, guid: f01d2ffb62ee62f4ca831151710644fe,
+  wormPrefab: {fileID: 2693847180005864626, guid: 0a1522fe245c8214ba35cdfaba019c8e,
     type: 3}
 --- !u!199 &8613627234721397461
 ParticleSystemRenderer:
