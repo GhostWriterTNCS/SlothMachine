@@ -3342,7 +3342,7 @@ MonoBehaviour:
   respawnIn: 'Respawn in #...'
   youDefeated: You have been destroyed
   arenaPrefabs:
-  - {fileID: 6473611815099381824, guid: d9d91acb7b7c69841bff621d0527426a, type: 3}
+  - {fileID: 6140, guid: f0acee9b10c335f46891396b92b88d00, type: 3}
   - {fileID: 6473611815099381824, guid: d9d91acb7b7c69841bff621d0527426a, type: 3}
   bossArena: {fileID: 3134559228210685050, guid: 3cef1836587cc0c41aaaa7ff2cd14a5a,
     type: 3}
