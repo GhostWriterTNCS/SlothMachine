@@ -18,9 +18,11 @@ public class WormDecisionTree : NetworkBehaviour {
 	private float timer;
 	private float timerArena;
 	private int spawnTime;
+    public float radius = 5.0F;
+    public float power = 10.0F;
 
-	// Start is called before the first frame update
-	void Start() {
+    // Start is called before the first frame update
+    void Start() {
 		// Define actions
 		DTAction a1 = new DTAction(moveToBoundaries);
 		DTAction a2 = new DTAction(attackRandomly);
@@ -136,9 +138,14 @@ public class WormDecisionTree : NetworkBehaviour {
 				FindObjectOfType<NetworkArenaManager>().CmdSpawnWorm(wormPrefab, new Vector3(transform.position.x, transform.position.y - 10, transform.position.z));
 			}
 			Debug.Log("colpito");
-			playerTarget = null;
+            other.GetComponent<Rigidbody>().AddForce(transform.forward*30,ForceMode.Impulse);
+            playerTarget = null;
 			destination = null;
 			timer = waitDuration;
+            float x = Random.Range(40f, 450f);
+            float z = Random.Range(40f, 450f);
+            float y = FindObjectOfType<Terrain>().terrainData.GetHeight((int)x,(int)z)+3;
+            transform.position = new Vector3(x,y,z);
 		}
 	}
 }
