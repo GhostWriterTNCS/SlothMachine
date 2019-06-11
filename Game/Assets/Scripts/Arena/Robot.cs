@@ -579,13 +579,12 @@ public class Robot : NetworkBehaviour {
 					// Remove existing particles.
 					Destroy(bodyParticles);
 
-					GameObject bodyParticleLocal = Instantiate(particle);
-					feetParticles.Add(bodyParticleLocal);
+					bodyParticles = Instantiate(particle);
 
-					bodyParticleLocal.transform.SetParent(body.transform);
+					bodyParticles.transform.SetParent(body.transform);
 
-					bodyParticleLocal.transform.localPosition = body.transform.localPosition;
-					bodyParticleLocal.transform.localScale = scale * 1.5f;
+					bodyParticles.transform.localPosition = body.transform.localPosition;
+					bodyParticles.transform.localScale = scale * 1.5f;
 				}
 				break;
 		}

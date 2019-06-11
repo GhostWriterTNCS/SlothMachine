@@ -49,13 +49,13 @@ public class Upgrades {
 		new Upgrade("Repair kit", UpgradeTypes.Consumable, 12, "Recover 50 health.", (Robot r) => { r.UpdateHealth(50); }, (Robot r) => {}),
 		new Upgrade("Advanced repair kit", UpgradeTypes.Consumable, 20, "Recover 100 health.", (Robot r) => { r.UpdateHealth(100); }, (Robot r) => {}),
 		new Upgrade("Ultimate repair kit", UpgradeTypes.Consumable, 28, "Recover your full health.", (Robot r) => { r.UpdateHealth(r.healthMax); }, (Robot r) => {}),
-		new Upgrade("Burning armor", UpgradeTypes.Armor, 12, "Adds fire effect to the armor.", (Robot r) => { r.defenseBonus += 2; }, (Robot r) => {}),
-		new Upgrade("Electrified armor", UpgradeTypes.Armor, 12, "Adds lightning effect to the armor.", (Robot r) => { r.defenseBonus += 2; }, (Robot r) => {}),
+		new Upgrade("Burning armor", UpgradeTypes.Armor, 12, "Adds fire effect to the armor.", (Robot r) => { r.SetUpgradeParticle(r.fireParticle, Robot.BodyPart.Body); r.defenseBonus += 2; }, (Robot r) => {}),
+		new Upgrade("Electrified armor", UpgradeTypes.Armor, 12, "Adds lightning effect to the armor.", (Robot r) => { r.SetUpgradeParticle(r.lightningParticle, Robot.BodyPart.Body); r.defenseBonus += 2; }, (Robot r) => {}),
 		new Upgrade("Freezing arms", UpgradeTypes.Hands, 8, "Adds ice effect to the fists.", (Robot r) => { r.SetUpgradeParticle(r.iceParticle, Robot.BodyPart.Hands); }, (Robot r) => {}),
 		new Upgrade("Freezing legs", UpgradeTypes.Feet, 8, "Adds ice effect to the kicks.", (Robot r) => { r.SetUpgradeParticle(r.iceParticle, Robot.BodyPart.Feet); }, (Robot r) => {}),
-		new Upgrade("Freezing armor", UpgradeTypes.Armor, 12, "Adds ice effect to the armor.", (Robot r) => { r.defenseBonus += 2; }, (Robot r) => {}),
+		new Upgrade("Freezing armor", UpgradeTypes.Armor, 12, "Adds ice effect to the armor.", (Robot r) => { r.SetUpgradeParticle(r.iceParticle, Robot.BodyPart.Body); r.defenseBonus += 2; }, (Robot r) => {}),
 		new Upgrade("Sonic arms", UpgradeTypes.Hands, 8, "Adds sonic effect to the fists.", (Robot r) => { r.SetUpgradeParticle(r.sonicParticle, Robot.BodyPart.Hands); }, (Robot r) => {}),
 		new Upgrade("Sonic legs", UpgradeTypes.Feet, 8, "Adds sonic effect to the kicks.", (Robot r) => { r.SetUpgradeParticle(r.sonicParticle, Robot.BodyPart.Feet); }, (Robot r) => {}),
-		new Upgrade("Sonic armor", UpgradeTypes.Armor, 12, "Adds sonic effect to the armor.", (Robot r) => { r.defenseBonus += 2; }, (Robot r) => {}),
+		new Upgrade("Sonic armor", UpgradeTypes.Armor, 12, "Adds sonic effect to the armor.", (Robot r) => { r.SetUpgradeParticle(r.sonicParticle, Robot.BodyPart.Body); r.defenseBonus += 2; }, (Robot r) => {}),
 	};
 }
