@@ -510,6 +510,7 @@ GameObject:
   - component: {fileID: 7376023075996747355}
   - component: {fileID: 4792160116941772105}
   - component: {fileID: 317806856973119855}
+  - component: {fileID: 879116828113727307}
   m_Layer: 0
   m_Name: Iceberg
   m_TagString: Untagged
@@ -619,6 +620,18 @@ MonoBehaviour:
     i15: 0
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
+--- !u!114 &879116828113727307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6473611815099381824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78c96eca6e2e82843882f1b41ece5666, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7787420667539910685
 GameObject:
   m_ObjectHideFlags: 0
