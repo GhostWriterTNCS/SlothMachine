@@ -21,6 +21,7 @@ namespace Prototype.NetworkLobby {
 
 		[Space]
 		[Header("UI Reference")]
+		public LobbyTopPanel topPanel;
 		public RectTransform mainMenuPanel;
 		public RectTransform lobbyPanel;
 
@@ -69,13 +70,46 @@ namespace Prototype.NetworkLobby {
 			ChangeTo(mainMenuPanel);
 		}
 
-		public override void OnLobbyClientSceneChanged(NetworkConnection conn) {
+		/*public override void OnLobbyClientSceneChanged(NetworkConnection conn) {
 			if (SceneManager.GetSceneAt(0).name == lobbyScene) {
 				ChangeTo(mainMenuPanel);
 			} else {
 				ChangeTo(null);
 
 				Destroy(GameObject.Find("MainMenuUI(Clone)"));
+			}
+		}*/
+		public override void OnLobbyClientSceneChanged(NetworkConnection conn) {
+			if (SceneManager.GetSceneAt(0).name == lobbyScene) {
+				if (topPanel.isInGame) {
+					ChangeTo(lobbyPanel);
+					if (_isMatchmaking) {
+						if (conn.playerControllers[0].unetView.isServer) {
+							backDelegate = StopHostClbk;
+						} else {
+							backDelegate = StopClientClbk;
+						}
+					} else {
+						if (conn.playerControllers[0].unetView.isClient) {
+							backDelegate = StopHostClbk;
+						} else {
+							backDelegate = StopClientClbk;
+						}
+					}
+				} else {
+					ChangeTo(mainMenuPanel);
+				}
+
+				topPanel.ToggleVisibility(true);
+				topPanel.isInGame = false;
+			} else {
+				ChangeTo(null);
+
+				Destroy(GameObject.Find("MainMenuUI(Clone)"));
+
+				//backDelegate = StopGameClbk;
+				topPanel.isInGame = true;
+				topPanel.ToggleVisibility(false);
 			}
 		}
 
@@ -92,11 +126,11 @@ namespace Prototype.NetworkLobby {
 
 			if (currentPanel != mainMenuPanel) {
 				backButton.gameObject.SetActive(true);
-				backToStartButton.gameObject.SetActive(false);
+				//backToStartButton.gameObject.SetActive(false);
 			} else {
 				FindObjectOfType<EventSystem>().SetSelectedGameObject(mainPanelFirstButton);
 				backButton.gameObject.SetActive(false);
-				backToStartButton.gameObject.SetActive(true);
+				//backToStartButton.gameObject.SetActive(true);
 				SetServerInfo("Offline", "None");
 				_isMatchmaking = false;
 			}
@@ -104,7 +138,7 @@ namespace Prototype.NetworkLobby {
 				FindObjectOfType<EventSystem>().SetSelectedGameObject(lobbyPanelFirstButton);
 			}
 
-			buttonTips.SetActive(newPanel != null);
+			//buttonTips.SetActive(newPanel != null);
 		}
 
 		public void DisplayIsConnecting() {
@@ -130,6 +164,7 @@ namespace Prototype.NetworkLobby {
 					ClientScene.RemovePlayer(p.playerControllerId);
 			}
 			backDelegate();
+			topPanel.isInGame = false;
 		}
 
 		// ----------------- Server management
