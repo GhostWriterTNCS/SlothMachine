@@ -8,6 +8,7 @@ public class PlayerMove : NetworkBehaviour {
 	public float turnSpeed = 3;
 	public bool canMove = true;
 	public bool canRotateCamera = true;
+	public bool isAttacking = false;
 
 	Rigidbody rigidbody;
 	Animator animator;
@@ -18,7 +19,7 @@ public class PlayerMove : NetworkBehaviour {
 	}
 
 	void Update() {
-		if (isLocalPlayer && canMove) {
+		if (isLocalPlayer && canMove && !isAttacking) {
 			// Move player and rotate camera
 			rigidbody.MovePosition(rigidbody.position + (transform.forward * Input.GetAxis("Vertical") + transform.right * Input.GetAxis("Horizontal")) * Time.deltaTime * moveSpeed * moveSpeedMultiplier);
 			if (canRotateCamera) {

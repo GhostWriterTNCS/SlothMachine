@@ -32,6 +32,7 @@ public class MyAnimation : StateMachineBehaviour {
 		}
 		robot.breakGuard = breakGuard;
 		robot.pushBack = pushBack;
+		robot.GetComponent<PlayerMove>().isAttacking = true;
 	}
 
 	// OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -76,6 +77,7 @@ public class MyAnimation : StateMachineBehaviour {
 		foreach (BodyPartHitter h in robot.GetComponentsInChildren<BodyPartHitter>()) {
 			h.hitters.Clear();
 		}
+		robot.GetComponent<PlayerMove>().isAttacking = false;
 	}
 
 	// OnStateMove is called right after Animator.OnAnimatorMove()

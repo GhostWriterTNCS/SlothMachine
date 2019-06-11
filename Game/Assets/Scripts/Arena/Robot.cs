@@ -234,11 +234,11 @@ public class Robot : NetworkBehaviour {
 	float evadeTime = 0;
 	Robot lockCameraRobot;
 	void Update() {
-		if (playerMove)
-			playerMove.canMove = !paused;
 		if (paused) {
+			playerMove.canMove = false;
 			return;
 		}
+		playerMove.canMove = true;
 		if (comboScoreDuration > 0) {
 			comboScoreDuration -= Time.deltaTime;
 		} else {
@@ -251,7 +251,6 @@ public class Robot : NetworkBehaviour {
 			rigidbody.MovePosition(rigidbody.position + (evadeDirection * evadeDistance));
 			evadeTime -= Time.deltaTime;
 		} else {
-			playerMove.canMove = true;
 			if (isLocalPlayer) {
 				scrapsCounter.text = player.scraps.ToString();
 				holdButton += Time.deltaTime;
@@ -307,7 +306,7 @@ public class Robot : NetworkBehaviour {
 						lockCameraRobot = null;
 					} else {
 						RaycastHit hit;
-						if (Physics.BoxCast(transform.position, new Vector3(3, 3, 3), transform.TransformDirection(Vector3.forward), out hit, Quaternion.identity, 30, 9)) {
+						if (Physics.BoxCast(transform.position, new Vector3(7, 7, 0.1f), transform.TransformDirection(Vector3.forward), out hit, Quaternion.identity, 20, 9)) {
 							lockCameraRobot = hit.transform.gameObject.GetComponent<Robot>();
 							// in the boss round, you can lock only the boss
 							if (lockCameraRobot && lockCameraRobot.health > 0 && (!MatchManager.singleton.bossRound || lockCameraRobot.player.roundWinner >= 2)) {
@@ -320,7 +319,7 @@ public class Robot : NetworkBehaviour {
 				}
 
 				if (lockCameraRobot) {
-					if (Vector3.Distance(transform.position, lockCameraRobot.transform.position) > 10) {
+					if (Vector3.Distance(transform.position, lockCameraRobot.transform.position) > 20) {
 						lockCameraRobot.marker.enabled = false;
 						lockCameraRobot = null;
 					} else {
@@ -363,6 +362,8 @@ public class Robot : NetworkBehaviour {
 
 	Dictionary<string, int> triggers = new Dictionary<string, int>();
 	protected void SetTrigger(string trigger) {
+		if (trigger != "B")
+			playerMove.isAttacking = true;
 		networkAnimator.SetTrigger(trigger);
 		if (isServer) {
 			networkAnimator.animator.ResetTrigger(trigger);

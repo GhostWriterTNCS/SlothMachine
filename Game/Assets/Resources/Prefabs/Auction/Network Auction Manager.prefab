@@ -82,7 +82,7 @@ MonoBehaviour:
     type: 3}
   introDuration: 5
   introText: Get ready for the auction!
-  countdownDuration: 10
+  countdownDuration: 7
   countdownText: 'Make your bid! Time ends in #...'
   pauseDuration: 5
   pauseText: 'The winner is #!'

@@ -31,7 +31,7 @@ public class NetworkAuctionManager : NetworkBehaviour {
 	float currentIntro;
 
 	[Space]
-	public int countdownDuration = 10;
+	public int countdownDuration = 7;
 	public string countdownText;
 	[SyncVar]
 	float currentCountdown;
@@ -54,9 +54,6 @@ public class NetworkAuctionManager : NetworkBehaviour {
 	AuctionManager auctionManager;
 
 	void Start() {
-		if (FindObjectsOfType<Player>().Length == 1) {
-			NetworkManager.singleton.ServerChangeScene(GameScenes.Arena);
-		}
 		auctionManager = FindObjectOfType<AuctionManager>();
 		auctionManager.networkAuctionManager = this;
 		auctionManager.scrapsInput.SetActive(true);
@@ -68,6 +65,9 @@ public class NetworkAuctionManager : NetworkBehaviour {
 
 	[Command]
 	public void CmdLoad() {
+		if (FindObjectsOfType<Player>().Length == 1) {
+			NetworkManager.singleton.ServerChangeScene(GameScenes.Arena);
+		}
 		for (int i = 0; i < FindObjectsOfType<Player>().Length; i++) {
 			GameObject newPlayer = Instantiate(upgradeBoxPrefab);
 			NetworkServer.Spawn(newPlayer);
@@ -211,6 +211,7 @@ public class NetworkAuctionManager : NetworkBehaviour {
 			upgrades[i].isUpdated = true;
 		}
 		RpcPauseFinished();
+		countdownDuration--;
 		currentCountdown = countdownDuration;
 		currentPause = pauseDuration;
 		int size = upgrades.Count - 1;
