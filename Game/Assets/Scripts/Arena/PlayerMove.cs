@@ -19,14 +19,20 @@ public class PlayerMove : NetworkBehaviour {
 	}
 
 	void Update() {
-		if (isLocalPlayer && canMove && !isAttacking) {
-			// Move player and rotate camera
-			rigidbody.MovePosition(rigidbody.position + (transform.forward * Input.GetAxis("Vertical") + transform.right * Input.GetAxis("Horizontal")) * Time.deltaTime * moveSpeed * moveSpeedMultiplier);
+		if (isLocalPlayer && canMove) {
+			// Move player
+			if (!isAttacking) {
+				rigidbody.MovePosition(rigidbody.position + (transform.forward * Input.GetAxis("Vertical") + transform.right * Input.GetAxis("Horizontal")) * Time.deltaTime * moveSpeed * moveSpeedMultiplier);
+				animator.SetFloat("WalkH", Input.GetAxis("Horizontal"));
+				animator.SetFloat("WalkV", Input.GetAxis("Vertical"));
+			} else {
+				animator.SetFloat("WalkH", 0);
+				animator.SetFloat("WalkV", 0);
+			}
+			// Rotate camera
 			if (canRotateCamera) {
 				rigidbody.MoveRotation(rigidbody.rotation * Quaternion.Euler(Vector3.up * Input.GetAxis("Camera Horizontal") * turnSpeed));
 			}
-			animator.SetFloat("WalkH", Input.GetAxis("Horizontal"));
-			animator.SetFloat("WalkV", Input.GetAxis("Vertical"));
 		} else {
 			animator.SetFloat("WalkH", 0);
 			animator.SetFloat("WalkV", 0);
