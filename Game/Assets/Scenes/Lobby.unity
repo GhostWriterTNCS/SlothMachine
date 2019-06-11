@@ -2089,6 +2089,21 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: LoadBreach
       objectReference: {fileID: 0}
+    - target: {fileID: 7928721544603269399, guid: 49da5aa8bfbb5214d9ec1285ef6b56af,
+        type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7928721544603269399, guid: 49da5aa8bfbb5214d9ec1285ef6b56af,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnUp
+      value: 
+      objectReference: {fileID: 1825364743}
+    - target: {fileID: 7928721544603269399, guid: 49da5aa8bfbb5214d9ec1285ef6b56af,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnRight
+      value: 
+      objectReference: {fileID: 1583383713}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49da5aa8bfbb5214d9ec1285ef6b56af, type: 3}
 --- !u!1 &622374924
@@ -3530,6 +3545,26 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: LoadNourinha
       objectReference: {fileID: 0}
+    - target: {fileID: 7928721544603269399, guid: 49da5aa8bfbb5214d9ec1285ef6b56af,
+        type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7928721544603269399, guid: 49da5aa8bfbb5214d9ec1285ef6b56af,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnLeft
+      value: 
+      objectReference: {fileID: 1825364743}
+    - target: {fileID: 7928721544603269399, guid: 49da5aa8bfbb5214d9ec1285ef6b56af,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnRight
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7928721544603269399, guid: 49da5aa8bfbb5214d9ec1285ef6b56af,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnDown
+      value: 
+      objectReference: {fileID: 1583383713}
     - target: {fileID: 7464825631272362147, guid: 49da5aa8bfbb5214d9ec1285ef6b56af,
         type: 3}
       propertyPath: m_Sprite
@@ -5223,7 +5258,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 323bbefc9ee8c5f4f8c3e0981fd65c34, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 34684e739c88f7e498e043b54a579b11, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -5615,6 +5650,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1485361662}
   m_CullTransparentMesh: 0
+--- !u!114 &1583383713 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7928721544603269399, guid: 49da5aa8bfbb5214d9ec1285ef6b56af,
+    type: 3}
+  m_PrefabInstance: {fileID: 1597806283}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1597806283
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6300,6 +6347,21 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: LoadDozzer
       objectReference: {fileID: 0}
+    - target: {fileID: 7928721544603269399, guid: 49da5aa8bfbb5214d9ec1285ef6b56af,
+        type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7928721544603269399, guid: 49da5aa8bfbb5214d9ec1285ef6b56af,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnUp
+      value: 
+      objectReference: {fileID: 1614326872}
+    - target: {fileID: 7928721544603269399, guid: 49da5aa8bfbb5214d9ec1285ef6b56af,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnLeft
+      value: 
+      objectReference: {fileID: 1956924302}
     - target: {fileID: 8981671400509599667, guid: 49da5aa8bfbb5214d9ec1285ef6b56af,
         type: 3}
       propertyPath: m_Sprite
@@ -6308,6 +6370,18 @@ PrefabInstance:
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49da5aa8bfbb5214d9ec1285ef6b56af, type: 3}
+--- !u!114 &1614326872 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7928721544603269399, guid: 49da5aa8bfbb5214d9ec1285ef6b56af,
+    type: 3}
+  m_PrefabInstance: {fileID: 1245906325}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1628168398 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7928721544603269396, guid: 49da5aa8bfbb5214d9ec1285ef6b56af,
@@ -6717,6 +6791,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 7928721546294370833}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1825364743 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7928721544603269399, guid: 49da5aa8bfbb5214d9ec1285ef6b56af,
+    type: 3}
+  m_PrefabInstance: {fileID: 7928721546294370833}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1825364740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1861082050
 GameObject:
   m_ObjectHideFlags: 0
@@ -6945,6 +7031,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1955577561}
   m_CullTransparentMesh: 0
+--- !u!114 &1956924302 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7928721544603269399, guid: 49da5aa8bfbb5214d9ec1285ef6b56af,
+    type: 3}
+  m_PrefabInstance: {fileID: 593437561}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1978968137
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7106,7 +7204,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: b34476aa22e94e2409cff5b846c6f167, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 08ef07c6a70e83e43b8bcb30469322c3, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -8024,6 +8122,26 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1861082052}
+    - target: {fileID: 7928721544603269399, guid: 49da5aa8bfbb5214d9ec1285ef6b56af,
+        type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7928721544603269399, guid: 49da5aa8bfbb5214d9ec1285ef6b56af,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnLeft
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7928721544603269399, guid: 49da5aa8bfbb5214d9ec1285ef6b56af,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnDown
+      value: 
+      objectReference: {fileID: 1956924302}
+    - target: {fileID: 7928721544603269399, guid: 49da5aa8bfbb5214d9ec1285ef6b56af,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnRight
+      value: 
+      objectReference: {fileID: 1614326872}
     - target: {fileID: 7928721544594453565, guid: 49da5aa8bfbb5214d9ec1285ef6b56af,
         type: 3}
       propertyPath: m_PreferredWidth
