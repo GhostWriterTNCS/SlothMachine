@@ -7,9 +7,9 @@ public class NetworkLobbyHook : LobbyHook {
 		//base.OnLobbyServerSceneLoadedForPlayer(manager, lobbyPlayer, gamePlayer);
 		LobbyPlayer lobby = lobbyPlayer.GetComponent<LobbyPlayer>();
 		Player p = gamePlayer.GetComponent<Player>();
-		p.playerID = lobby.playerID;
+        p.playerID = 1;// lobby.playerID;
 		p.robotName = lobby.playerName;
-		p.isAgent = lobby.isAgent;
+        p.isAgent = false;// lobby.isAgent;
 		p.color = lobby.playerColor;
 	}
 }
