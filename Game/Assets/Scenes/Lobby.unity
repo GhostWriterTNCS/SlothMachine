@@ -1243,7 +1243,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &466531211
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5185,7 +5185,7 @@ GameObject:
   - component: {fileID: 1361634006}
   - component: {fileID: 1361634005}
   m_Layer: 5
-  m_Name: LobbyManager
+  m_Name: LobbyManager OLD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5818,8 +5818,8 @@ MonoBehaviour:
   isNetworkActive: 0
   matchMaker: {fileID: 0}
   m_ShowLobbyGUI: 0
-  m_MaxPlayers: 2
-  m_MaxPlayersPerConnection: 2
+  m_MaxPlayers: 4
+  m_MaxPlayersPerConnection: 4
   m_MinPlayers: 1
   m_LobbyPlayerPrefab: {fileID: 11487034, guid: ad727d7e1462ecc4f83c898ecc501997,
     type: 3}
@@ -5829,10 +5829,11 @@ MonoBehaviour:
   m_PlayScene: Auction
   lobbySlots: []
   prematchCountdown: 0
+  topPanel: {fileID: 0}
   mainMenuPanel: {fileID: 466531211}
   lobbyPanel: {fileID: 1474280535}
   infoPanel: {fileID: 1367616300}
-  countdownPanel: {fileID: 1367643464}
+  countdownPanel: {fileID: 0}
   addPlayerButton: {fileID: 1361627270}
   mainPanelFirstButton: {fileID: 534260684}
   lobbyPanelFirstButton: {fileID: 1825364740}
@@ -10332,13 +10333,14 @@ MonoBehaviour:
   m_PlayScene: Auction
   lobbySlots: []
   prematchCountdown: 0
+  topPanel: {fileID: 1709804829}
   mainMenuPanel: {fileID: 1709806095}
   lobbyPanel: {fileID: 1474280535}
   infoPanel: {fileID: 1709804809}
   countdownPanel: {fileID: 1709804833}
   addPlayerButton: {fileID: 1709815912}
   mainPanelFirstButton: {fileID: 0}
-  lobbyPanelFirstButton: {fileID: 0}
+  lobbyPanelFirstButton: {fileID: 1825364740}
   backButton: {fileID: 1709805036}
   backToStartButton: {fileID: 0}
   statusInfo: {fileID: 1709804851}
@@ -13310,8 +13312,11 @@ GameObject:
   - component: {fileID: 1709804826}
   - component: {fileID: 1709805055}
   - component: {fileID: 1709805034}
+  - component: {fileID: 1709815931}
+  - component: {fileID: 1709815929}
+  - component: {fileID: 1709815921}
   m_Layer: 5
-  m_Name: LobbyManager (1)
+  m_Name: LobbyManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13598,6 +13603,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1709815921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709815905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df063a6a738ed654bb2a2f91b0f1db8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1709815922
 GameObject:
   m_ObjectHideFlags: 0
@@ -13728,6 +13745,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1709815929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709815905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0e100de7f97fc34eb58e33d1550f741, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1709815930
 GameObject:
   m_ObjectHideFlags: 0
@@ -13747,6 +13776,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1709815931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709815905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5375b3f7e4fb21c44a8a1f59788e86da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1709815932
 GameObject:
   m_ObjectHideFlags: 0

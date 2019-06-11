@@ -171,10 +171,11 @@ namespace Prototype.NetworkLobby {
 
 		public void AddLocalPlayer() {
 			TryToAddPlayer();
-			LobbyPlayer p = lobbySlots[numPlayers - 1] as LobbyPlayer;
+			FindObjectsOfType<LobbyPlayer>()[0].isAgent = true;
+			/*LobbyPlayer p = lobbySlots[numPlayers - 1] as LobbyPlayer;
 			if (p) {
 				p.isAgent = true;
-			}
+			}*/
 			Debug.Log("Added local player " + numPlayers);
 		}
 
@@ -311,7 +312,7 @@ namespace Prototype.NetworkLobby {
 		public override bool OnLobbyServerSceneLoadedForPlayer(GameObject lobbyPlayer, GameObject gamePlayer) {
 			//This hook allows you to apply state data from the lobby-player to the game-player
 			//just subclass "LobbyHook" and add it to the lobby object.
-
+			Debug.Log("Lobby hook: " + _lobbyHooks);
 			if (_lobbyHooks)
 				_lobbyHooks.OnLobbyServerSceneLoadedForPlayer(this, lobbyPlayer, gamePlayer);
 
