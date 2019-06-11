@@ -1,12 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Darwin's Project 2.0" company="Sloth Machine" webLink="http://" view-date="2019-06-01" view-index="0" gantt-divider-location="300" resource-divider-location="300" version="2.8.10" locale="it">
+<?xml version="1.0" encoding="UTF-8"?><project name="Darwin's Project 2.0" company="Sloth Machine" webLink="http://" view-date="2019-03-01" view-index="0" gantt-divider-location="300" resource-divider-location="300" version="2.8.10" locale="it">
     <description/>
-    <view zooming-state="default:10" id="gantt-chart">
+    <view zooming-state="default:11" id="gantt-chart">
         <field id="tpd3" name="Nome" width="154" order="0"/>
         <field id="tpd4" name="Data d'inizio" width="64" order="1"/>
         <field id="tpd5" name="Data di fine" width="63" order="2"/>
-        <option id="color.recent">
-            <![CDATA[#ff6666 #f4f4f4 #54c737 #ff0033 #ff3366 #cc00ff #ffd82d #000000 #ff3c3c #ff3333]]>
-        </option>
+        <option id="color.recent"><![CDATA[#ff6666 #f4f4f4 #54c737 #ff0033 #ff3366 #cc00ff #ffd82d #000000 #ff3c3c #ff3333]]></option>
     </view>
     <view id="resource-table">
         <field id="0" name="Nome" width="210" order="0"/>
@@ -22,81 +20,31 @@
             <overriden-day-types/>
             <days/>
         </day-types>
-        <date year="" month="1" date="1" type="HOLIDAY">
-            <![CDATA[New Years Day]]>
-        </date>
-        <date year="" month="1" date="6" type="HOLIDAY">
-            <![CDATA[Epiphany]]>
-        </date>
-        <date year="" month="4" date="25" type="HOLIDAY">
-            <![CDATA[Liberation Day]]>
-        </date>
-        <date year="" month="5" date="1" type="HOLIDAY">
-            <![CDATA[Labor Day]]>
-        </date>
-        <date year="" month="6" date="2" type="HOLIDAY">
-            <![CDATA[Republic Day]]>
-        </date>
-        <date year="" month="8" date="15" type="HOLIDAY">
-            <![CDATA[Assumption Day]]>
-        </date>
-        <date year="" month="11" date="1" type="HOLIDAY">
-            <![CDATA[All Saints Day]]>
-        </date>
-        <date year="" month="12" date="8" type="HOLIDAY">
-            <![CDATA[Immaculate Conception Day]]>
-        </date>
-        <date year="" month="12" date="25" type="HOLIDAY">
-            <![CDATA[Christmas Day]]>
-        </date>
-        <date year="" month="12" date="26" type="HOLIDAY">
-            <![CDATA[St. Stephen's Day]]>
-        </date>
-        <date year="2005" month="3" date="28" type="HOLIDAY">
-            <![CDATA[Easter Monday]]>
-        </date>
-        <date year="2006" month="4" date="17" type="HOLIDAY">
-            <![CDATA[Easter Monday]]>
-        </date>
-        <date year="2007" month="4" date="9" type="HOLIDAY">
-            <![CDATA[Easter Monday]]>
-        </date>
-        <date year="2008" month="3" date="24" type="HOLIDAY">
-            <![CDATA[Easter Monday]]>
-        </date>
-        <date year="2009" month="4" date="13" type="HOLIDAY">
-            <![CDATA[Easter Monday]]>
-        </date>
-        <date year="2010" month="4" date="5" type="HOLIDAY">
-            <![CDATA[Easter Monday]]>
-        </date>
-        <date year="2011" month="4" date="25" type="HOLIDAY">
-            <![CDATA[Easter Monday]]>
-        </date>
-        <date year="2012" month="4" date="9" type="HOLIDAY">
-            <![CDATA[Easter Monday]]>
-        </date>
-        <date year="2013" month="4" date="1" type="HOLIDAY">
-            <![CDATA[Easter Monday]]>
-        </date>
-        <date year="2014" month="4" date="21" type="HOLIDAY">
-            <![CDATA[Easter Monday]]>
-        </date>
-        <date year="2015" month="4" date="6" type="HOLIDAY">
-            <![CDATA[Easter Monday]]>
-        </date>
-        <date year="2016" month="3" date="28" type="HOLIDAY">
-            <![CDATA[Easter Monday]]>
-        </date>
-        <date year="2017" month="4" date="17" type="HOLIDAY">
-            <![CDATA[Easter Monday]]>
-        </date>
-        <date year="2018" month="4" date="2" type="HOLIDAY">
-            <![CDATA[Easter Monday]]>
-        </date>
-        <date year="2019" month="4" date="22" type="HOLIDAY">
-            <![CDATA[Easter Monday]]>
-        </date>
+        <date year="" month="1" date="1" type="HOLIDAY"><![CDATA[New Years Day]]></date>
+        <date year="" month="1" date="6" type="HOLIDAY"><![CDATA[Epiphany]]></date>
+        <date year="" month="4" date="25" type="HOLIDAY"><![CDATA[Liberation Day]]></date>
+        <date year="" month="5" date="1" type="HOLIDAY"><![CDATA[Labor Day]]></date>
+        <date year="" month="6" date="2" type="HOLIDAY"><![CDATA[Republic Day]]></date>
+        <date year="" month="8" date="15" type="HOLIDAY"><![CDATA[Assumption Day]]></date>
+        <date year="" month="11" date="1" type="HOLIDAY"><![CDATA[All Saints Day]]></date>
+        <date year="" month="12" date="8" type="HOLIDAY"><![CDATA[Immaculate Conception Day]]></date>
+        <date year="" month="12" date="25" type="HOLIDAY"><![CDATA[Christmas Day]]></date>
+        <date year="" month="12" date="26" type="HOLIDAY"><![CDATA[St. Stephen's Day]]></date>
+        <date year="2005" month="3" date="28" type="HOLIDAY"><![CDATA[Easter Monday]]></date>
+        <date year="2006" month="4" date="17" type="HOLIDAY"><![CDATA[Easter Monday]]></date>
+        <date year="2007" month="4" date="9" type="HOLIDAY"><![CDATA[Easter Monday]]></date>
+        <date year="2008" month="3" date="24" type="HOLIDAY"><![CDATA[Easter Monday]]></date>
+        <date year="2009" month="4" date="13" type="HOLIDAY"><![CDATA[Easter Monday]]></date>
+        <date year="2010" month="4" date="5" type="HOLIDAY"><![CDATA[Easter Monday]]></date>
+        <date year="2011" month="4" date="25" type="HOLIDAY"><![CDATA[Easter Monday]]></date>
+        <date year="2012" month="4" date="9" type="HOLIDAY"><![CDATA[Easter Monday]]></date>
+        <date year="2013" month="4" date="1" type="HOLIDAY"><![CDATA[Easter Monday]]></date>
+        <date year="2014" month="4" date="21" type="HOLIDAY"><![CDATA[Easter Monday]]></date>
+        <date year="2015" month="4" date="6" type="HOLIDAY"><![CDATA[Easter Monday]]></date>
+        <date year="2016" month="3" date="28" type="HOLIDAY"><![CDATA[Easter Monday]]></date>
+        <date year="2017" month="4" date="17" type="HOLIDAY"><![CDATA[Easter Monday]]></date>
+        <date year="2018" month="4" date="2" type="HOLIDAY"><![CDATA[Easter Monday]]></date>
+        <date year="2019" month="4" date="22" type="HOLIDAY"><![CDATA[Easter Monday]]></date>
     </calendars>
     <tasks empty-milestones="true">
         <taskproperties>
@@ -267,37 +215,30 @@
                 <task id="691" name="Models polishing" color="#ff6666" meeting="false" start="2020-06-29" duration="33" complete="0" thirdDate="2019-11-28" thirdDate-constraint="0" expand="true"/>
                 <task id="552" name="Animation polishing" color="#8cb6ce" meeting="false" start="2020-06-29" duration="33" complete="0" thirdDate="2019-11-28" thirdDate-constraint="0" expand="true"/>
             </task>
-            <task id="435" name="Environment" color="#000000" meeting="false" start="2020-01-13" duration="59" complete="0" thirdDate="2019-07-02" thirdDate-constraint="0" expand="true">
-                <depend id="804" type="2" difference="0" hardness="Strong"/>
-                <task id="379" name="Volcano" color="#ff6666" meeting="false" start="2020-01-13" duration="8" complete="0" thirdDate="2019-07-02" thirdDate-constraint="0" expand="true">
+            <task id="435" name="Environment" color="#000000" meeting="false" start="2020-01-23" duration="46" complete="0" thirdDate="2019-07-02" thirdDate-constraint="0" expand="true">
+                <task id="595" name="Desert" color="#ff6666" meeting="false" start="2020-01-23" duration="3" complete="0" thirdDate="2019-10-29" thirdDate-constraint="0" expand="true">
                     <depend id="381" type="2" difference="0" hardness="Strong"/>
                 </task>
-                <task id="381" name="Iceberg" color="#ff6666" meeting="false" start="2020-01-23" duration="4" complete="0" thirdDate="2019-01-02" thirdDate-constraint="0" expand="true">
+                <task id="381" name="Iceberg" color="#ff6666" meeting="false" start="2020-01-28" duration="4" complete="0" thirdDate="2019-01-02" thirdDate-constraint="0" expand="true">
+                    <depend id="379" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="379" name="Volcano" color="#ff6666" meeting="false" start="2020-02-03" duration="8" complete="0" thirdDate="2019-07-02" thirdDate-constraint="0" expand="true">
                     <depend id="587" type="2" difference="0" hardness="Strong"/>
                 </task>
-                <task id="587" name="Power plant" color="#ff6666" meeting="false" start="2020-01-29" duration="9" complete="0" thirdDate="2019-01-02" thirdDate-constraint="0" expand="true">
+                <task id="587" name="Power plant" color="#ff6666" meeting="false" start="2020-02-13" duration="9" complete="0" thirdDate="2019-01-02" thirdDate-constraint="0" expand="true">
                     <depend id="589" type="2" difference="0" hardness="Strong"/>
                 </task>
-                <task id="589" name="Swamp" color="#ff6666" meeting="false" start="2020-02-11" duration="9" complete="0" thirdDate="2019-10-29" thirdDate-constraint="0" expand="true">
+                <task id="589" name="Swamp" color="#ff6666" meeting="false" start="2020-02-26" duration="9" complete="0" thirdDate="2019-10-29" thirdDate-constraint="0" expand="true">
                     <depend id="591" type="2" difference="0" hardness="Strong"/>
                 </task>
-                <task id="591" name="Mountain" color="#ff6666" meeting="false" start="2020-02-24" duration="7" complete="0" thirdDate="2019-10-29" thirdDate-constraint="0" expand="true">
-                    <depend id="593" type="2" difference="0" hardness="Strong"/>
-                </task>
-                <task id="593" name="Forest" color="#ff6666" meeting="false" start="2020-03-04" duration="7" complete="0" thirdDate="2019-10-29" thirdDate-constraint="0" expand="true">
-                    <depend id="595" type="2" difference="0" hardness="Strong"/>
-                </task>
-                <task id="595" name="Desert" color="#ff6666" meeting="false" start="2020-03-13" duration="3" complete="0" thirdDate="2019-10-29" thirdDate-constraint="0" expand="true">
-                    <depend id="597" type="2" difference="0" hardness="Strong"/>
-                </task>
-                <task id="597" name="Maze" color="#ff6666" meeting="false" start="2020-03-18" duration="6" complete="0" thirdDate="2019-10-29" thirdDate-constraint="0" expand="true">
+                <task id="591" name="Mountain" color="#ff6666" meeting="false" start="2020-03-10" duration="7" complete="0" thirdDate="2019-10-29" thirdDate-constraint="0" expand="true">
                     <depend id="599" type="2" difference="0" hardness="Strong"/>
                 </task>
-                <task id="599" name="Boss arena" color="#ff6666" meeting="false" start="2020-03-26" duration="6" complete="0" thirdDate="2019-10-29" thirdDate-constraint="0" expand="true"/>
+                <task id="599" name="Boss arena" color="#ff6666" meeting="false" start="2020-03-19" duration="6" complete="0" thirdDate="2019-10-29" thirdDate-constraint="0" expand="true">
+                    <depend id="804" type="2" difference="0" hardness="Strong"/>
+                </task>
             </task>
-            <task id="804" name="Upgrades" color="#ff6666" meeting="false" start="2020-04-03" duration="35" complete="0" thirdDate="2019-05-03" thirdDate-constraint="0" expand="true">
-                <depend id="691" type="2" difference="0" hardness="Strong"/>
-            </task>
+            <task id="804" name="Upgrades" color="#ff6666" meeting="false" start="2020-03-27" duration="35" complete="0" thirdDate="2019-05-03" thirdDate-constraint="0" expand="true"/>
         </task>
         <task id="569" name="Audio" meeting="false" start="2019-05-03" duration="41" complete="0" expand="true">
             <task id="570" name="Sound effects" color="#8cb6ce" meeting="false" start="2019-05-03" duration="12" complete="0" thirdDate="2018-12-03" thirdDate-constraint="0" expand="true">
