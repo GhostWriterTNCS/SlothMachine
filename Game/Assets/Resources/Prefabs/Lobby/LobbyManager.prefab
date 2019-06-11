@@ -2234,7 +2234,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lobbyManager: {fileID: 12463}
   serverListRect: {fileID: 12136}
-  serverEntryPrefab: {fileID: 104980, guid: 9a1af8c2b03c38c43a3e9c2b43db4483, type: 3}
+  serverEntryPrefab: {fileID: 5608, guid: 9a1af8c2b03c38c43a3e9c2b43db4483, type: 3}
   noServerFound: {fileID: 5705}
 --- !u!1 &5643
 GameObject:

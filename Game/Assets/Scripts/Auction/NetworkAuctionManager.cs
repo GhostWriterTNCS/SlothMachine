@@ -54,6 +54,9 @@ public class NetworkAuctionManager : NetworkBehaviour {
 	AuctionManager auctionManager;
 
 	void Start() {
+		if (FindObjectsOfType<Player>().Length == 1) {
+			NetworkManager.singleton.ServerChangeScene(GameScenes.Arena);
+		}
 		auctionManager = FindObjectOfType<AuctionManager>();
 		auctionManager.networkAuctionManager = this;
 		auctionManager.scrapsInput.SetActive(true);
