@@ -136,9 +136,13 @@ public class WormDecisionTree : NetworkBehaviour {
 			if (timerArena <= spawnTime) {
 				Debug.Log("timerArena < " + spawnTime);
 				FindObjectOfType<NetworkArenaManager>().CmdSpawnWorm(wormPrefab, new Vector3(transform.position.x, transform.position.y - 10, transform.position.z));
-			}
+            }
+            else
+            {
+                other.GetComponent<Rigidbody>().AddForce(transform.forward * 30, ForceMode.Impulse);
+            }
 			Debug.Log("colpito");
-            other.GetComponent<Rigidbody>().AddForce(transform.forward*30,ForceMode.Impulse);
+            
             playerTarget = null;
 			destination = null;
 			timer = waitDuration;
