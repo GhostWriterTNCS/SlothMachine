@@ -42,7 +42,7 @@ public class PauseMenu : MonoBehaviour {
 			} catch (Exception e) {
 				//Debug.LogError(e);
 			}
-			yield return new WaitForEndOfFrame();
+			yield return 0;
 		}
 	}
 }

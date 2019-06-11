@@ -54,7 +54,7 @@ public class TextManager : MonoBehaviour {
 
 		foreach (Button b in Resources.FindObjectsOfTypeAll<Button>()) {
 			ColorBlock cb = b.colors;
-			cb.highlightedColor = new Color(1, 0.9555849f, 0.6367924f);
+			cb.highlightedColor = new Color(0.6630108f, 1, 0.2122642f);
 			b.colors = cb;
 		}
 	}

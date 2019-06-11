@@ -16,8 +16,8 @@ public class NetworkArenaManager : NetworkBehaviour {
 
 	[Command]
 	public void CmdStartCoroutine() {
-        UnityEngine.Random.InitState(System.Environment.TickCount);
-        StartCoroutine(Run());
+		UnityEngine.Random.InitState(System.Environment.TickCount);
+		StartCoroutine(Run());
 	}
 
 	IEnumerator Run() {
@@ -65,7 +65,7 @@ public class NetworkArenaManager : NetworkBehaviour {
 				if (!someLeft) {
 					break;
 				}
-				yield return new WaitForEndOfFrame();
+				yield return 0;
 			}
 			RpcUpdateTitle(arenaManager.matchOver);
 			yield return new WaitForSeconds(5);
@@ -93,10 +93,15 @@ public class NetworkArenaManager : NetworkBehaviour {
 		yield return new WaitForSeconds(5);
 		string scene = GameScenes.Auction;
 		if (roundWinner.roundWinner >= 2) {
-			MatchManager.singleton.bossRound = true;
+			RpcSetBossRound();
 			scene = GameScenes.Arena;
 		}
 		NetworkManager.singleton.ServerChangeScene(scene);
+	}
+
+	[ClientRpc]
+	public void RpcSetBossRound() {
+		MatchManager.singleton.bossRound = true;
 	}
 
 	[ClientRpc]

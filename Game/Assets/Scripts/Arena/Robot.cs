@@ -488,7 +488,7 @@ public class Robot : NetworkBehaviour {
 			if (isLocalPlayer) {
 				arenaManager.title.text = arenaManager.respawnIn.Replace("#", ((int)respawnWaiting + 1).ToString());
 			}
-			yield return new WaitForEndOfFrame();
+			yield return 0;
 		}
 		if (isLocalPlayer) {
 			arenaManager.title.gameObject.SetActive(false);

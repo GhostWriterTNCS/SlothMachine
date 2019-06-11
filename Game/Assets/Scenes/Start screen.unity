@@ -3257,7 +3257,7 @@ GameObject:
   - component: {fileID: 590357849}
   - component: {fileID: 590357848}
   m_Layer: 5
-  m_Name: Current challanges
+  m_Name: Current challenges
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5277,7 +5277,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Current challanges
+  m_Text: Current challenges
 --- !u!222 &1574860798
 CanvasRenderer:
   m_ObjectHideFlags: 0
