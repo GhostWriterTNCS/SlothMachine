@@ -2797,7 +2797,7 @@ MonoBehaviour:
   m_Script: {fileID: -619905303, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 963375355}
+  m_FirstSelected: {fileID: 227395461}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &485463846
@@ -3851,7 +3851,7 @@ GameObject:
   - component: {fileID: 963375357}
   - component: {fileID: 963375358}
   m_Layer: 5
-  m_Name: Play
+  m_Name: Left column
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5024,7 +5024,7 @@ GameObject:
   - component: {fileID: 1452223199}
   - component: {fileID: 1452223198}
   m_Layer: 5
-  m_Name: World
+  m_Name: Right column
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
