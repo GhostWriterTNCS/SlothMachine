@@ -108,6 +108,25 @@ MonoBehaviour:
   enableHead: 0
   breakGuard: 0
   pushBack: 0
+--- !u!114 &114436594287503258
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7a14a2ee753b9c4abd853b774972bf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableLeftHand: 0
+  enableRightHand: 0
+  enableLeftFoot: 0
+  enableRightFoot: 0
+  enableHead: 0
+  breakGuard: 0
+  pushBack: 0
 --- !u!114 &114695532405840842
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -122,6 +141,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enableLeftHand: 0
   enableRightHand: 1
+  enableLeftFoot: 0
+  enableRightFoot: 0
+  enableHead: 0
+  breakGuard: 0
+  pushBack: 0
+--- !u!114 &114717467081554222
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7a14a2ee753b9c4abd853b774972bf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableLeftHand: 0
+  enableRightHand: 0
   enableLeftFoot: 0
   enableRightFoot: 0
   enableHead: 0
@@ -2170,7 +2208,8 @@ AnimatorState:
   m_Transitions:
   - {fileID: 1101637960881832216}
   - {fileID: 1101704342574357350}
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: 114436594287503258}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -2228,7 +2267,8 @@ AnimatorState:
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101854773430572960}
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: 114717467081554222}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
