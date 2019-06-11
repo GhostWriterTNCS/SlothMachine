@@ -6,7 +6,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Nourinha Animator Controller NEW
+  m_Name: Nourinha Animator Controller (not used)
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: Reaction
@@ -87,6 +87,8 @@ MonoBehaviour:
   enableLeftFoot: 0
   enableRightFoot: 0
   enableHead: 0
+  breakGuard: 0
+  pushBack: 0
 --- !u!114 &114070867078254616
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -104,6 +106,8 @@ MonoBehaviour:
   enableLeftFoot: 0
   enableRightFoot: 0
   enableHead: 0
+  breakGuard: 0
+  pushBack: 0
 --- !u!114 &114695532405840842
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -121,6 +125,8 @@ MonoBehaviour:
   enableLeftFoot: 0
   enableRightFoot: 0
   enableHead: 0
+  breakGuard: 0
+  pushBack: 0
 --- !u!1101 &1101008631960908306
 AnimatorStateTransition:
   m_ObjectHideFlags: 3
