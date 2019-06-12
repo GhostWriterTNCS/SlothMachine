@@ -155,6 +155,7 @@ public class Robot : NetworkBehaviour {
 		if (!body.GetComponent<BodyPartTarget>()) {
 			body.gameObject.AddComponent<BodyPartTarget>();
 		}
+		CmdMountUpgrades();
 
 		animator = GetComponent<Animator>();
 		animator.runtimeAnimatorController = robotModel.animatorController;
@@ -232,6 +233,23 @@ public class Robot : NetworkBehaviour {
 		if (player.roundWinner >= 2) {
 			healthMax *= 2;
 			defense *= 2;
+		}
+	}
+
+	[Command]
+	public void CmdMountUpgrades() {
+		foreach (Pair p in player.upgrades) {
+			GameObject prefab = Resources.Load<GameObject>("Prefabs/Robots/" + player.robotName + "/Upgrades/" + p.value1 + "_" + p.value2);
+			if (prefab) {
+				Prototype.NetworkLobby.LobbyManager.s_Singleton.spawnPrefabs.Add(prefab);
+				MountUpgrade upgrade = Instantiate(prefab).GetComponent<MountUpgrade>();
+				upgrade.type = p.value1;
+				upgrade.ID = p.value2;
+				upgrade.robotGO = gameObject;
+				NetworkServer.Spawn(upgrade.gameObject);
+			} else {
+				Debug.LogError("Missing prefab: Prefabs/Robots/" + player.robotName + "/Upgrades/" + p.value1 + "_" + p.value2);
+			}
 		}
 	}
 

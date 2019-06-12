@@ -30,13 +30,14 @@ public class Upgrades {
 		new Upgrade[] { }, // Upgrade levels start from 1.
 		new Upgrade[] {
 			new Upgrade("",UpgradeTypes.Core, 0, "", null, null), // Upgrade IDs start from 1.
-			new Upgrade("Hammer", UpgradeTypes.Hands, 0, "A light hammer.", (Robot r) => { r.attackBonus += 1; }, (Robot r) => {r.attackBonus -= 1; }),
-			new Upgrade("Spike ball", UpgradeTypes.Feet, 0, "A spiked ball.", (Robot r) => {r.attackBonus += 1; }, (Robot r) => {r.attackBonus -= 1; }),
+			new Upgrade("Hammer", UpgradeTypes.Hands, 0, "A light hammer.", (Robot r) => { r.attackBonus += 3; }, (Robot r) => {r.attackBonus -= 3; }),
+			new Upgrade("Spike ball", UpgradeTypes.Feet, 0, "A spiked ball.", (Robot r) => {r.attackBonus += 3; }, (Robot r) => {r.attackBonus -= 3; }),
 		},
 		new Upgrade[] {
 			new Upgrade("", UpgradeTypes.Core, 0, "", null, null), // Upgrade IDs start from 1.
-			new Upgrade("Spike armor", UpgradeTypes.Armor, 0, "A spiked armor.", (Robot r) => {r.defenseBonus += 1; }, (Robot r) => { r.defenseBonus -= 1;}),
-			new Upgrade("Core Mk 2", UpgradeTypes.Core, 0, "A more powerful core.", (Robot r) => { r.healthBonus += 1; }, (Robot r) => {r.healthBonus -= 1; }),
+			new Upgrade("Spike armor", UpgradeTypes.Armor, 0, "A spiked armor.", (Robot r) => {r.defenseBonus += 5; }, (Robot r) => { r.defenseBonus -= 5;}),
+			new Upgrade("Core Mk 2", UpgradeTypes.Core, 0, "A more powerful core.", (Robot r) => { r.healthBonus += 5; }, (Robot r) => {r.healthBonus -= 5; }),
+			new Upgrade("Drill", UpgradeTypes.Hands, 0, "A sharp drill.", (Robot r) => { r.attackBonus += 5; }, (Robot r) => {r.healthBonus -= 5; }),
 		}
 	};
 
