@@ -21,7 +21,6 @@ public class AuctionPlayer : NetworkBehaviour {
 	public int bid;
 
 	void Start() {
-		transform.localScale = FindObjectOfType<Canvas>().transform.localScale;
 		StartCoroutine(LoadPlayer());
 	}
 
@@ -29,6 +28,10 @@ public class AuctionPlayer : NetworkBehaviour {
 		while (!playerGO) {
 			yield return 0;
 		}
+		while (FindObjectOfType<Canvas>().transform.localScale.x < 0.1f) {
+			yield return 0;
+		}
+		transform.localScale = FindObjectOfType<Canvas>().transform.localScale;
 		AuctionManager auctionManager = FindObjectOfType<AuctionManager>();
 		if (auctionManager.playersList.transform.childCount > 0) {
 			Instantiate(Resources.Load<GameObject>("Prefabs/Separator horizontal"), auctionManager.playersList.transform);

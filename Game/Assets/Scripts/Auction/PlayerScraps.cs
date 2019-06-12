@@ -13,8 +13,6 @@ public class PlayerScraps : NetworkBehaviour {
 	public AuctionPlayer playerBox;
 
 	void Start() {
-		transform.localScale = FindObjectOfType<Canvas>().transform.localScale;
-		transform.SetParent(FindObjectOfType<AuctionManager>().scrapsList.transform);
 		FindObjectOfType<AuctionManager>().StartCoroutine(LoadPlayer());
 	}
 
@@ -22,6 +20,11 @@ public class PlayerScraps : NetworkBehaviour {
 		while (!playerBoxGO) {
 			yield return 0;
 		}
+		while (FindObjectOfType<Canvas>().transform.localScale.x < 0.1f) {
+			yield return 0;
+		}
+		transform.localScale = FindObjectOfType<Canvas>().transform.localScale;
+		transform.SetParent(FindObjectOfType<AuctionManager>().scrapsList.transform);
 		playerBox = playerBoxGO.GetComponent<AuctionPlayer>();
 		playerName.text = playerBox.player.name;
 	}

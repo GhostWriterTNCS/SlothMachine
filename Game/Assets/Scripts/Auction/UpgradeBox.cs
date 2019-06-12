@@ -24,9 +24,6 @@ public class UpgradeBox : NetworkBehaviour {
 
 	void Start() {
 		isUpdated = true;
-		if (isIntro || !description) {
-			transform.localScale = FindObjectOfType<Canvas>().transform.localScale;
-		}
 		FindObjectOfType<AuctionManager>().StartCoroutine(LoadUpgradeCoroutine());
 	}
 
@@ -63,6 +60,13 @@ public class UpgradeBox : NetworkBehaviour {
 	IEnumerator LoadUpgradeCoroutine() {
 		while (ID == 0) {
 			yield return 0;
+		}
+		while (FindObjectOfType<Canvas>().transform.localScale.x < 0.1f) {
+			yield return 0;
+		}
+		Debug.Log(FindObjectOfType<Canvas>().transform.localScale);
+		if (isIntro || !description) {
+			transform.localScale = FindObjectOfType<Canvas>().transform.localScale;
 		}
 		if (transform.parent == null) {
 			AuctionManager auctionManager = FindObjectOfType<AuctionManager>();
