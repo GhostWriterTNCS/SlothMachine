@@ -64,8 +64,8 @@ public class MyAnimation : StateMachineBehaviour {
 
 		/*foreach (BodyPartHitter h in robot.GetComponentsInChildren<BodyPartHitter>()) {
 			h.hitters.Clear();
-		}
-		robot.GetComponent<PlayerMove>().isAttacking = false;*/
+		}*/
+		robot.GetComponent<PlayerMove>().isAttacking = false;
 	}
 
 	// OnStateMove is called right after Animator.OnAnimatorMove()
