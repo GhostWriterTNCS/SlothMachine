@@ -34,6 +34,7 @@ public class Robot : NetworkBehaviour {
 	public float evadeDuration = 0.1f;
 	public float evadeDistance = 0.3f;
 	public float evadeCooldown = 1;
+	public AudioClip evadeSound;
 	[Space]
 	public GameObject keepOnRespawn;
 
@@ -304,6 +305,7 @@ public class Robot : NetworkBehaviour {
 					} else {
 						evadeDirection = transform.forward * -1;
 					}
+					AudioManager.singleton.PlayClip(evadeSound);
 					evadeTime = evadeDuration;
 					evadeCooldownTime = evadeCooldown;
 					SetTrigger("B");
