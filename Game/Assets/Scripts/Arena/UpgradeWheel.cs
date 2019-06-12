@@ -76,10 +76,15 @@ public class UpgradeWheel : MonoBehaviour {
 		do {
 			u = Random.Range(1, Upgrades.temporary.Length);
 		} while (upgrades.Contains(u));
-		upgrades.Add(u);
+		if (upgrades.Count > position) {
+			upgrades[position] = u;
+		} else {
+			upgrades.Add(u);
+		}
 		buttons[position].GetComponent<UpgradeWheelSegment>().upgradeID = u;
 		buttons[position].GetComponent<UpgradeWheelSegment>().position = position;
 		buttons[position].transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>("UI/Upgrades/Temporary/" + u);
+		eventSystem.SetSelectedGameObject(null);
 	}
 
 	public void ShowDetails(int ID, int position) {
@@ -87,7 +92,13 @@ public class UpgradeWheel : MonoBehaviour {
 		upgradeName.text = u.name;
 		upgradeDesc.text = u.description;
 		upgradePrice.text = u.price + " scraps";
-		currentAction = () => { player.CmdAddTemporaryUpgrade(ID); upgrades[position] = 0; AddNew(position); };
+		if (u.price <= player.scraps) {
+			upgradeBuy.interactable = true;
+			currentAction = () => { player.CmdAddTemporaryUpgrade(ID); upgrades[position] = 0; AddNew(position); };
+		} else {
+			upgradeBuy.interactable = false;
+			currentAction = () => { };
+		}
 		center.SetActive(true);
 	}
 }

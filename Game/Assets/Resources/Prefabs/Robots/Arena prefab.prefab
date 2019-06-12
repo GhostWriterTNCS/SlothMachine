@@ -4793,7 +4793,9 @@ MonoBehaviour:
   holdMinDuration: 0.76
   pushBackPower: 360
   evadeDuration: 0.1
-  evadeDistance: 0.54
+  evadeDistance: 0.75
+  evadeCountdown: 1
+  keepOnRespawn: {fileID: 5529818024574986447}
   healthBonus: 0
   attackBonus: 0
   defenseBonus: 0
@@ -4808,6 +4810,11 @@ MonoBehaviour:
   body: {fileID: 0}
   breakGuard: 0
   pushBack: 0
+  leftHandCounter: 0
+  rightHandCounter: 0
+  leftFootCounter: 0
+  rightFootCounter: 0
+  headCounter: 0
   nameText: {fileID: 6936976404130121216}
   healthSlider: {fileID: 7362678987741950062}
   marker: {fileID: 0}
@@ -5040,7 +5047,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.15
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -9908,7 +9915,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.00000011920929}
+  m_AnchoredPosition: {x: 0, y: -0.00000023841858}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3739284816306456384
@@ -10218,7 +10225,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7323570581365782689}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 5, z: 0}
   m_LocalScale: {x: 20, y: 20, z: 1}
   m_Children: []

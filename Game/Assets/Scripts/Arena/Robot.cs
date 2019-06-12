@@ -33,6 +33,9 @@ public class Robot : NetworkBehaviour {
 	public float pushBackPower = 360;
 	public float evadeDuration = 0.1f;
 	public float evadeDistance = 0.3f;
+	public float evadeCooldown = 1;
+	[Space]
+	public GameObject keepOnRespawn;
 
 	[Header("Bonus")]
 	[SyncVar]
@@ -238,6 +241,7 @@ public class Robot : NetworkBehaviour {
 
 	Vector3 evadeDirection;
 	float evadeTime = 0;
+	float evadeCooldownTime = 0;
 	Robot lockCameraRobot;
 	void Update() {
 		if (paused) {
@@ -258,6 +262,9 @@ public class Robot : NetworkBehaviour {
 			evadeTime -= Time.deltaTime;
 		} else {
 			if (isLocalPlayer) {
+				if (evadeCooldownTime > 0) {
+					evadeCooldownTime -= Time.deltaTime;
+				}
 				scrapsCounter.text = player.scraps.ToString();
 				holdButton += Time.deltaTime;
 				// Actions
@@ -269,7 +276,7 @@ public class Robot : NetworkBehaviour {
 					SetTrigger("A");
 				} else if (Input.GetButtonDown("B")) {
 					holdButton = 0;
-				} else if (Input.GetButtonUp("B")) {
+				} else if (Input.GetButtonUp("B") && evadeCooldownTime <= 0) {
 					if (Input.GetAxis("Horizontal") > 0.1) {
 						evadeDirection = transform.right;
 					} else if (Input.GetAxis("Horizontal") < -0.1) {
@@ -280,6 +287,7 @@ public class Robot : NetworkBehaviour {
 						evadeDirection = transform.forward * -1;
 					}
 					evadeTime = evadeDuration;
+					evadeCooldownTime = evadeCooldown;
 					SetTrigger("B");
 				} else if (Input.GetButtonDown("X")) {
 					holdButton = 0;
@@ -567,7 +575,7 @@ public class Robot : NetworkBehaviour {
 	}
 	IEnumerator RespawnCoroutine() {
 		for (int i = 0; i < transform.childCount; i++) {
-			if (!transform.GetChild(i).GetComponent<Camera>()) {
+			if (transform.GetChild(i).gameObject != keepOnRespawn) {
 				transform.GetChild(i).gameObject.SetActive(false);
 			}
 		}
