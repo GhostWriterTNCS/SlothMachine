@@ -54,9 +54,6 @@ public class AuctionPlayer : NetworkBehaviour {
 				ShowUpgrade(i);
 			}
 			if (isLocalPlayer) {
-				/*while (!FindObjectOfType<ScrapsInput>()) {
-					yield return 0;
-				}*/
 				FindObjectOfType<AuctionManager>().scrapsInput.GetComponent<ScrapsInput>().SetPlayerBox(this);
 			}
 		}
@@ -69,7 +66,7 @@ public class AuctionPlayer : NetworkBehaviour {
 	}
 
 	public void ShowUpgrade(int index) {
-		StartCoroutine(ShowUpgradeCoroutine(index));
+		FindObjectOfType<AuctionManager>().StartCoroutine(ShowUpgradeCoroutine(index));
 	}
 	IEnumerator ShowUpgradeCoroutine(int index) {
 		while (player.upgrades.Count <= index) {
