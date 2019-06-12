@@ -117,6 +117,9 @@ public class Player : NetworkBehaviour {
 	[ClientRpc]
 	public void RpcAddPermanentUpgrade(int level, int ID) {
 		upgrades.Add(new Pair(level, ID));
+		foreach (AuctionPlayer pb in FindObjectsOfType<AuctionPlayer>()) {
+			pb.ShowUpgrade(upgrades.Count - 1);
+		}
 	}
 
 	[Command]

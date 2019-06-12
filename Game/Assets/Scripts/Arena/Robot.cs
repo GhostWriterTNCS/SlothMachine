@@ -524,11 +524,11 @@ public class Robot : NetworkBehaviour {
 	public void CmdGetHitted(GameObject hitterGO, Vector3 position) {
 		Robot hitter = hitterGO.GetComponent<Robot>();
 		Debug.Log(hitter.name + " hits " + name + " " + hitter.pushBack);
-		if (MatchManager.singleton.bossRound && (player.roundWinner >= 2 && hitter.player.roundWinner < 2 || player.roundWinner < 2 && hitter.player.roundWinner >= 2) ||
-			!isGuardOn || hitter.breakGuard ||
+		if ((!MatchManager.singleton.bossRound || (player.roundWinner >= 2 && hitter.player.roundWinner < 2 || player.roundWinner < 2 && hitter.player.roundWinner >= 2)) &&
+			(!isGuardOn || hitter.breakGuard ||
 			ionParticle.GetComponent<Renderer>().material.name.StartsWith(ionNull.name) && !hitter.ionParticle.GetComponent<Renderer>().material.name.StartsWith(ionNull.name) ||
 			ionParticle.GetComponent<Renderer>().material.name.StartsWith(ionPlus.name) && hitter.ionParticle.GetComponent<Renderer>().material.name.StartsWith(ionMinus.name) ||
-			ionParticle.GetComponent<Renderer>().material.name.StartsWith(ionMinus.name) && hitter.ionParticle.GetComponent<Renderer>().material.name.StartsWith(ionPlus.name)) {
+			ionParticle.GetComponent<Renderer>().material.name.StartsWith(ionMinus.name) && hitter.ionParticle.GetComponent<Renderer>().material.name.StartsWith(ionPlus.name))) {
 			GameObject effect = Instantiate(hitter.hitEffect);
 			AudioManager.singleton.PlayClip(hitSound);
 			effect.transform.position = position;
