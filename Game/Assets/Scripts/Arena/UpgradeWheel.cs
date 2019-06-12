@@ -60,28 +60,34 @@ public class UpgradeWheel : MonoBehaviour {
 		}
 		if (Input.GetButtonDown("A")) {
 			currentAction();
+			//gameObject.SetActive(false);
 		}
 	}
 
 	public void Populate() {
 		upgrades.Clear();
 		for (int i = 0; i < buttons.Length; i++) {
-			int u = 0;
-			do {
-				u = Random.Range(1, Upgrades.temporary.Length);
-			} while (upgrades.Contains(u));
-			upgrades.Add(u);
-			buttons[i].GetComponent<UpgradeWheelSegment>().upgradeID = u;
-			buttons[i].transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>("UI/Upgrades/Temporary/" + u);
+			AddNew(i);
 		}
 	}
 
-	public void ShowDetails(int ID) {
+	public void AddNew(int position) {
+		int u = 0;
+		do {
+			u = Random.Range(1, Upgrades.temporary.Length);
+		} while (upgrades.Contains(u));
+		upgrades.Add(u);
+		buttons[position].GetComponent<UpgradeWheelSegment>().upgradeID = u;
+		buttons[position].GetComponent<UpgradeWheelSegment>().position = position;
+		buttons[position].transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>("UI/Upgrades/Temporary/" + u);
+	}
+
+	public void ShowDetails(int ID, int position) {
 		Upgrade u = Upgrades.temporary[ID];
 		upgradeName.text = u.name;
 		upgradeDesc.text = u.description;
 		upgradePrice.text = u.price + " scraps";
-		currentAction = () => { player.CmdAddTemporaryUpgrade(ID); };
+		currentAction = () => { player.CmdAddTemporaryUpgrade(ID); upgrades[position] = 0; AddNew(position); };
 		center.SetActive(true);
 	}
 }

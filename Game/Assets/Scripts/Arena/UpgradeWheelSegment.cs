@@ -3,6 +3,7 @@ using UnityEngine.EventSystems;
 
 public class UpgradeWheelSegment : MonoBehaviour, ISelectHandler {
 	public int upgradeID;
+	public int position;
 	UpgradeWheel upgradeWheel;
 
 	void Start() {
@@ -10,6 +11,6 @@ public class UpgradeWheelSegment : MonoBehaviour, ISelectHandler {
 	}
 
 	public void OnSelect(BaseEventData eventData) {
-		upgradeWheel.ShowDetails(upgradeID);
+		upgradeWheel.ShowDetails(upgradeID, position);
 	}
 }
