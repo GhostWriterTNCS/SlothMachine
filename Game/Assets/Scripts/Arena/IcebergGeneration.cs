@@ -116,16 +116,16 @@ public class IcebergGeneration : MonoBehaviour {
 				} else if (x == 50 || z == 50 || x == 100 || z == 100) {
 					if (x == 50 && z == 50) {
 						toInstance = icePlatformAngle[0];
-						Instantiate(toInstance, new Vector3(x, 0f, z), Quaternion.Euler(0, -90, 0));
+						Instantiate(toInstance, new Vector3(x + 2, 0f, z + 2), Quaternion.Euler(0, -90, 0));
 					} else if (x == 50 && z == 100) {
 						toInstance = icePlatformAngle[0];
-						Instantiate(toInstance, new Vector3(x, 0f, z), Quaternion.Euler(0, 0, 0));
+						Instantiate(toInstance, new Vector3(x + 2, 0f, z - 2), Quaternion.Euler(0, 0, 0));
 					} else if (x == 100 && z == 50) {
 						toInstance = icePlatformAngle[0];
-						Instantiate(toInstance, new Vector3(x, 0f, z), Quaternion.Euler(0, 180, 0));
+						Instantiate(toInstance, new Vector3(x - 2, 0f, z + 2), Quaternion.Euler(0, 180, 0));
 					} else if (x == 100 && z == 100) {
 						toInstance = icePlatformAngle[0];
-						Instantiate(toInstance, new Vector3(x, 0f, z), Quaternion.Euler(0, 90, 0));
+						Instantiate(toInstance, new Vector3(x - 2, 0f, z - 2), Quaternion.Euler(0, 90, 0));
 					} else if (x == 50 && z > 50) {
 						toInstance = icePlatformSide[0];
 						Instantiate(toInstance, new Vector3(x, 0f, z), Quaternion.Euler(0, -90, 0));

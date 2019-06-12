@@ -64,7 +64,6 @@ public class UpgradeBox : NetworkBehaviour {
 		while (FindObjectOfType<Canvas>().transform.localScale.x < 0.1f) {
 			yield return 0;
 		}
-		Debug.Log(FindObjectOfType<Canvas>().transform.localScale);
 		if (isIntro || !description) {
 			transform.localScale = FindObjectOfType<Canvas>().transform.localScale;
 		}
