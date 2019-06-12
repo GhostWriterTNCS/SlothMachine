@@ -260,7 +260,7 @@ public class Robot : NetworkBehaviour {
 	Vector3 evadeDirection;
 	float evadeTime = 0;
 	float evadeCooldownTime = 0;
-	Robot lockCameraRobot;
+	public Robot lockCameraRobot;
 	void Update() {
 		if (paused) {
 			playerMove.canMove = false;

@@ -5,6 +5,7 @@ using UnityEngine.Networking;
 public class PlayerMove : NetworkBehaviour {
 	public float moveSpeed = 3;
 	public float moveSpeedMultiplier = 1;
+	public float moveSpeedAdjust = 3;
 	public float turnSpeed = 3;
 	public bool canMove = true;
 	public bool canRotateCamera = true;
@@ -12,17 +13,26 @@ public class PlayerMove : NetworkBehaviour {
 
 	Rigidbody rigidbody;
 	Animator animator;
+	Robot robot;
 
 	void Start() {
 		rigidbody = GetComponent<Rigidbody>();
 		animator = GetComponent<Animator>();
+		robot = GetComponent<Robot>();
 	}
 
 	void Update() {
 		if (isLocalPlayer && canMove) {
 			// Move player
 			if (!isAttacking) {
-				rigidbody.MovePosition(rigidbody.position + (transform.forward * Input.GetAxis("Vertical") + transform.right * Input.GetAxis("Horizontal")) * Time.deltaTime * moveSpeed * moveSpeedMultiplier);
+				float adjustSpeed = 1;
+				if (robot.lockCameraRobot) {
+					float dist = Vector3.Distance(transform.position, robot.lockCameraRobot.transform.position) / moveSpeedAdjust;
+					if (dist < 1) {
+						adjustSpeed = dist;
+					}
+				}
+				rigidbody.MovePosition(rigidbody.position + (transform.forward * Input.GetAxis("Vertical") + transform.right * Input.GetAxis("Horizontal")) * Time.deltaTime * moveSpeed * moveSpeedMultiplier * adjustSpeed);
 				animator.SetFloat("WalkH", Input.GetAxis("Horizontal"));
 				animator.SetFloat("WalkV", Input.GetAxis("Vertical"));
 			} else {

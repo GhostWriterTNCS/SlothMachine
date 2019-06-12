@@ -291,6 +291,7 @@ GameObject:
   - component: {fileID: 12330}
   - component: {fileID: 7747090631504712823}
   - component: {fileID: 12283}
+  - component: {fileID: 8620020935652404833}
   m_Layer: 0
   m_Name: Desert
   m_TagString: Untagged
@@ -450,6 +451,19 @@ MonoBehaviour:
     i15: 0
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
+--- !u!114 &8620020935652404833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5404aa7645fe0b44e845e5d86140538d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skybox: {fileID: 2100000, guid: efd1c33efd2d58340b88804268e6833f, type: 2}
 --- !u!1 &185793510
 GameObject:
   m_ObjectHideFlags: 0

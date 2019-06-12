@@ -164,6 +164,7 @@ GameObject:
   - component: {fileID: 3402091185424263346}
   - component: {fileID: 5722622456800304064}
   - component: {fileID: 4661671340259618207}
+  - component: {fileID: 4471286059004790322}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Untagged
@@ -252,6 +253,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bossSpawnPosition: {fileID: 2554068471066665823}
+--- !u!114 &4471286059004790322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3134559228210685050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5404aa7645fe0b44e845e5d86140538d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skybox: {fileID: 2100000, guid: e391f00234292cc4f935308c11cf0e54, type: 2}
 --- !u!1 &6153124881933067349
 GameObject:
   m_ObjectHideFlags: 0

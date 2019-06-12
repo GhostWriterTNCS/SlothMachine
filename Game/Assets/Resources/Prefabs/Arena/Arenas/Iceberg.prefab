@@ -472,6 +472,7 @@ GameObject:
   - component: {fileID: 4792160116941772105}
   - component: {fileID: 317806856973119855}
   - component: {fileID: 879116828113727307}
+  - component: {fileID: 4934229935932162988}
   m_Layer: 0
   m_Name: Iceberg
   m_TagString: Untagged
@@ -595,6 +596,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   penguinsSpawner: []
+--- !u!114 &4934229935932162988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6473611815099381824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5404aa7645fe0b44e845e5d86140538d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skybox: {fileID: 2100000, guid: 4e154bf235e41704bbd6bbc6fd6c63f6, type: 2}
 --- !u!1 &7787420667539910685
 GameObject:
   m_ObjectHideFlags: 0
