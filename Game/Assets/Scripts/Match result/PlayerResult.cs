@@ -35,6 +35,9 @@ public class PlayerResult : MonoBehaviour {
 		stats = stats.Replace("#4", player.deathCount.ToString());
 		statsText.text = stats;
 		finalScore = player.score + player.roundWinner * 250 + player.scraps * 2 - player.deathCount * 50;
+		if (finalScore < 0) {
+			finalScore = 0;
+		}
 		finalScoreText.text = finalScore.ToString();
 		if (finalScore > maxFinalScore) {
 			maxFinalScore = finalScore;
