@@ -47,10 +47,18 @@ public class WormDecisionTree : NetworkBehaviour {
 		spawnTime = FindObjectOfType<ArenaManager>().roundDuration / 2;
 	}
 
+	public IEnumerator RespawnCoroutine() {
+		transform.position = new Vector3(0, -100, 0);
+		yield return new WaitForSeconds(5);
+		float x = Random.Range(225f, 310f);
+		float z = Random.Range(190f, 275f);
+		float y = FindObjectOfType<Terrain>().terrainData.GetHeight((int)x, (int)z) + 3;
+		transform.position = new Vector3(x, y, z);
+	}
+
 	Transform destination;
 	private void Update() {
 		if (destination) {
-
 			Vector3 verticalAdj = new Vector3(destination.position.x, transform.position.y, destination.position.z);
 			Vector3 toDestination = (verticalAdj - transform.position);
 
@@ -144,10 +152,7 @@ public class WormDecisionTree : NetworkBehaviour {
 			playerTarget = null;
 			destination = null;
 			timer = waitDuration;
-			float x = Random.Range(40f, 450f);
-			float z = Random.Range(40f, 450f);
-			float y = FindObjectOfType<Terrain>().terrainData.GetHeight((int)x, (int)z) + 3;
-			transform.position = new Vector3(x, y, z);
+			StartCoroutine(RespawnCoroutine());
 		}
 	}
 }
