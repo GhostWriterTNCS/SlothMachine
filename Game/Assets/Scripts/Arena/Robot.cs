@@ -58,6 +58,12 @@ public class Robot : NetworkBehaviour {
 	public bool breakGuard;
 	public bool pushBack;
 	[Space]
+	public int leftHandCounter;
+	public int rightHandCounter;
+	public int leftFootCounter;
+	public int rightFootCounter;
+	public int headCounter;
+	[Space]
 	public Text nameText;
 	public Slider healthSlider;
 	public Image marker;
@@ -302,8 +308,7 @@ public class Robot : NetworkBehaviour {
 
 				if (Input.GetButtonDown("RS")) {
 					if (lockCameraRobot) {
-						lockCameraRobot.marker.enabled = false;
-						lockCameraRobot = null;
+						DisableLockCamera();
 					} else {
 						RaycastHit hit;
 						if (Physics.BoxCast(transform.position, new Vector3(7, 7, 0.1f), transform.TransformDirection(Vector3.forward), out hit, Quaternion.identity, 20, 9)) {
@@ -320,8 +325,7 @@ public class Robot : NetworkBehaviour {
 
 				if (lockCameraRobot) {
 					if (Vector3.Distance(transform.position, lockCameraRobot.transform.position) > 20) {
-						lockCameraRobot.marker.enabled = false;
-						lockCameraRobot = null;
+						DisableLockCamera();
 					} else {
 						transform.LookAt(lockCameraRobot.transform);
 
@@ -347,6 +351,13 @@ public class Robot : NetworkBehaviour {
 				}
 			}
 		}
+	}
+
+	public void DisableLockCamera() {
+		lockCameraRobot.marker.enabled = false;
+		lockCameraRobot = null;
+		rigidbody.angularVelocity = Vector3.zero;
+		transform.localRotation = Quaternion.Euler(0, transform.localRotation.eulerAngles.y, 0);
 	}
 
 	void GuardOn() {
@@ -428,6 +439,87 @@ public class Robot : NetworkBehaviour {
 		}
 	}
 
+	public enum BodyPartCollider {
+		leftHand,
+		rightHand,
+		leftFoot,
+		rightFoot,
+		head
+	}
+
+	public void ActivateBodyPart(BodyPartCollider part, bool value) {
+		switch (part) {
+			case BodyPartCollider.leftHand:
+				if (value) {
+					leftHandCounter += 1;
+				} else {
+					leftHandCounter -= 1;
+				}
+				if (leftHandCounter > 0) {
+					leftHand.enabled = true;
+				} else {
+					leftHand.enabled = false;
+					playerMove.isAttacking = false;
+				}
+				break;
+			case BodyPartCollider.rightHand:
+				if (value) {
+					rightHandCounter += 1;
+				} else {
+					rightHandCounter -= 1;
+				}
+				if (rightHandCounter > 0) {
+					rightHand.enabled = true;
+				} else {
+					rightHand.enabled = false;
+					playerMove.isAttacking = false;
+				}
+				break;
+			case BodyPartCollider.leftFoot:
+				if (value) {
+					leftFootCounter += 1;
+				} else {
+					leftFootCounter -= 1;
+				}
+				if (leftFootCounter > 0) {
+					leftFoot.enabled = true;
+				} else {
+					leftFoot.enabled = false;
+					playerMove.isAttacking = false;
+				}
+				break;
+			case BodyPartCollider.rightFoot:
+				if (value) {
+					rightFootCounter += 1;
+				} else {
+					rightFootCounter -= 1;
+				}
+				if (rightFootCounter > 0) {
+					rightFoot.enabled = true;
+				} else {
+					rightFoot.enabled = false;
+					playerMove.isAttacking = false;
+				}
+				break;
+			case BodyPartCollider.head:
+				if (value) {
+					headCounter += 1;
+				} else {
+					headCounter -= 1;
+				}
+				if (headCounter > 0) {
+					head.enabled = true;
+				} else {
+					head.enabled = false;
+					playerMove.isAttacking = false;
+				}
+				break;
+			default:
+				Debug.LogError("Body part not recognized: " + part);
+				break;
+		}
+	}
+
 	[Command]
 	public void CmdGetHitted(GameObject hitterGO, Vector3 position) {
 		Robot hitter = hitterGO.GetComponent<Robot>();
@@ -446,8 +538,7 @@ public class Robot : NetworkBehaviour {
 			if (health - damage <= 0) {
 				hitter.UpdateHealth(hitter.healthMax / 3);
 				if (hitter.lockCameraRobot) {
-					hitter.lockCameraRobot.marker.enabled = false;
-					hitter.lockCameraRobot = null;
+					hitter.DisableLockCamera();
 				}
 			}
 			if (hitter.pushBack) {

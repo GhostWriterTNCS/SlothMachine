@@ -12,7 +12,8 @@ public class PlayerScraps : NetworkBehaviour {
 	public GameObject playerBoxGO;
 	public AuctionPlayer playerBox;
 
-	void Awake() {
+	void Start() {
+		transform.localScale = FindObjectOfType<Canvas>().transform.localScale;
 		transform.SetParent(FindObjectOfType<AuctionManager>().scrapsList.transform);
 		FindObjectOfType<AuctionManager>().StartCoroutine(LoadPlayer());
 	}

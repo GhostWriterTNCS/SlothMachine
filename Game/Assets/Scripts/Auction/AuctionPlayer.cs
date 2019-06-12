@@ -21,7 +21,7 @@ public class AuctionPlayer : NetworkBehaviour {
 	public int bid;
 
 	void Start() {
-		transform.localScale = Vector3.one;
+		transform.localScale = FindObjectOfType<Canvas>().transform.localScale;
 		StartCoroutine(LoadPlayer());
 	}
 
