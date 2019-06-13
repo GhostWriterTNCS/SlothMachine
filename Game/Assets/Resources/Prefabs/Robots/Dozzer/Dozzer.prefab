@@ -65,20 +65,33 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.8
   m_Center: {x: 0, y: 0.25, z: 0}
---- !u!136 &3112520550737891224
+--- !u!136 &6331132409551072882
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1956342086172096638}
+  m_GameObject: {fileID: 1956342086172096626}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 1.45
-  m_Height: 5
+  m_Radius: 1.7
+  m_Height: 5.83
   m_Direction: 1
-  m_Center: {x: 0, y: -0.3, z: 0}
+  m_Center: {x: 0, y: 0.02, z: 0}
+--- !u!114 &5813174167969091124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1956342086172096626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dac069dcd38102645aa34772586fe000, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  robot: {fileID: 0}
 --- !u!1 &7763002971276663307
 GameObject:
   m_ObjectHideFlags: 0
@@ -168,7 +181,7 @@ MonoBehaviour:
   leftFoot: {fileID: 8874325708980241936}
   rightFoot: {fileID: 8464686012353322910}
   head: {fileID: 4421968654529988059}
-  body: {fileID: 3112520550737891224}
+  body: {fileID: 6331132409551072882}
 --- !u!1001 &1956342086172065430
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -268,9 +281,9 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1956342086172065430}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1956342086172096638 stripped
+--- !u!1 &1956342086172096626 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 100072, guid: 13eb7cb5584f95843a2c68f4edbac29f,
+  m_CorrespondingSourceObject: {fileID: 100068, guid: 13eb7cb5584f95843a2c68f4edbac29f,
     type: 3}
   m_PrefabInstance: {fileID: 1956342086172065430}
   m_PrefabAsset: {fileID: 0}

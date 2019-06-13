@@ -31,13 +31,19 @@ public class NetworkArenaManager : NetworkBehaviour {
 		NetworkServer.Spawn(arena);
 		roundDuration = arenaManager.roundDuration;
 		string title = arenaManager.finalRound;
-		if (MatchManager.singleton.roundCounter > 0) {
+		if (!MatchManager.singleton.bossRound) {
 			title = arenaManager.roundX.Replace("#", MatchManager.singleton.roundCounter.ToString());
 		}
 		arenaManager.title.gameObject.SetActive(true);
 		arenaManager.title.text = title;
 		RpcUpdateTitle(title);
 		yield return new WaitForSeconds(2);
+		if (MatchManager.singleton.bossRound) {
+			Debug.Log("Boss phrase");
+			arenaManager.title.text = arenaManager.finalRoundOthers;
+			RpcUpdateTitle(arenaManager.finalRoundOthers);
+			yield return new WaitForSeconds(2);
+		}
 		RpcTitleSetActive(false);
 		Robot boss = null;
 		List<Robot> otherRobots = new List<Robot>();
@@ -107,6 +113,16 @@ public class NetworkArenaManager : NetworkBehaviour {
 	[ClientRpc]
 	public void RpcUpdateTitle(string s) {
 		FindObjectOfType<ArenaManager>().title.gameObject.SetActive(true);
+		if (s == FindObjectOfType<ArenaManager>().finalRoundOthers) {
+			foreach (Player player in FindObjectsOfType<Player>()) {
+				if (player.robot.isLocalPlayer) {
+					if (player.roundWinner >= 2) {
+						s = FindObjectOfType<ArenaManager>().finalRoundBoss;
+					}
+					break;
+				}
+			}
+		}
 		FindObjectOfType<ArenaManager>().title.text = s;
 	}
 	[ClientRpc]

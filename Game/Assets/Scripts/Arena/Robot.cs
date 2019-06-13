@@ -671,9 +671,9 @@ public class Robot : NetworkBehaviour {
 					leftParticle.transform.SetParent(leftHand.transform);
 					rightParticle.transform.SetParent(rightHand.transform);
 
-					leftParticle.transform.localPosition = leftHand.transform.localPosition;
+					leftParticle.transform.localPosition = Vector3.zero;
 					leftParticle.transform.localScale = scale;
-					rightParticle.transform.localPosition = rightFoot.transform.localPosition;
+					rightParticle.transform.localPosition = Vector3.zero;
 					rightParticle.transform.localScale = scale;
 				}
 				break;
@@ -694,9 +694,9 @@ public class Robot : NetworkBehaviour {
 					leftParticle.transform.SetParent(leftFoot.transform);
 					rightParticle.transform.SetParent(rightFoot.transform);
 
-					leftParticle.transform.localPosition = leftFoot.transform.localPosition;
+					leftParticle.transform.localPosition = Vector3.zero;
 					leftParticle.transform.localScale = scale;
-					rightParticle.transform.localPosition = rightFoot.transform.localPosition;
+					rightParticle.transform.localPosition = Vector3.zero;
 					rightParticle.transform.localScale = scale;
 				}
 				break;
@@ -708,9 +708,9 @@ public class Robot : NetworkBehaviour {
 
 					bodyParticles = Instantiate(particle);
 
-					bodyParticles.transform.SetParent(body.transform);
+					bodyParticles.transform.SetParent(body.transform.GetChild(0));
 
-					bodyParticles.transform.localPosition = body.transform.localPosition;
+					bodyParticles.transform.localPosition = Vector3.zero;
 					bodyParticles.transform.localScale = scale * 1.5f;
 				}
 				break;

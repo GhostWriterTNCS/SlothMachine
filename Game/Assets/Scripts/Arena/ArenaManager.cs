@@ -15,6 +15,8 @@ public class ArenaManager : MonoBehaviour {
 	public Text title;
 	public string roundX;
 	public string finalRound;
+	public string finalRoundBoss;
+	public string finalRoundOthers;
 	public string roundWinnerIs;
 	public string matchOver;
 	public string respawnIn;
