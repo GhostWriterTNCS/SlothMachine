@@ -184,27 +184,24 @@ public class Robot : NetworkBehaviour {
 		if (upgradeWheel)
 			upgradeWheel.gameObject.SetActive(false);
 
+		minimapCursor.color = player.color;
+
 		while (!arenaManager.arenaReady) {
 			yield return 0;
 		}
-
+		Transform spawn = NetworkManager.singleton.GetStartPosition();
 		if (player.roundWinner >= 2) {
 			Debug.Log(player.name + " is Boss");
-			Transform spawn = FindObjectOfType<BossArena>().bossSpawnPosition;
-			transform.position = spawn.position;
-			transform.rotation = spawn.rotation;
+			spawn = FindObjectOfType<BossArena>().bossSpawnPosition;
 			transform.localScale = new Vector3(2, 2, 2);
 			ionParticle.gameObject.SetActive(false);
 			bossParticlePlus.gameObject.SetActive(true);
 			bossParticleMinus.gameObject.SetActive(true);
-		} else {
-			Transform spawn = NetworkManager.singleton.GetStartPosition();
-			transform.position = spawn.position;
-			transform.rotation = spawn.rotation;
 		}
+		Debug.Log("Spawn player in " + spawn.position);
+		transform.position = spawn.position;
+		transform.rotation = spawn.rotation;
 		rigidbody.velocity = Vector3.zero;
-
-		minimapCursor.color = player.color;
 	}
 
 	[Command]
@@ -249,7 +246,7 @@ public class Robot : NetworkBehaviour {
 				upgrade.robotGO = gameObject;
 				NetworkServer.Spawn(upgrade.gameObject);
 			} else {
-				Debug.LogError("Missing prefab: Prefabs/Robots/" + player.robotName + "/Upgrades/" + p.value1 + "_" + p.value2);
+				Debug.LogWarning("Missing prefab: Prefabs/Robots/" + player.robotName + "/Upgrades/" + p.value1 + "_" + p.value2);
 			}
 		}
 	}

@@ -294,7 +294,7 @@ RectTransform:
   m_Father: {fileID: 1023707336}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.75, y: 0}
+  m_AnchorMin: {x: 0.65, y: 0}
   m_AnchorMax: {x: 0.95, y: 0}
   m_AnchoredPosition: {x: 0, y: 20}
   m_SizeDelta: {x: 0, y: 70}
@@ -363,7 +363,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: version 0.4a
+  m_Text: version 2018.06.24.1 (prototype)
 --- !u!222 &135703969
 CanvasRenderer:
   m_ObjectHideFlags: 0
