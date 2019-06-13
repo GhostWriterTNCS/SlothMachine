@@ -267,6 +267,9 @@ public class Robot : NetworkBehaviour {
 			playerMove.canMove = false;
 			return;
 		}
+		if (player.isAgent && Input.GetKeyDown(KeyCode.G)) {
+			GuardOn();
+		}
 		playerMove.canMove = true;
 		if (comboScoreDuration > 0) {
 			comboScoreDuration -= Time.deltaTime;
@@ -325,7 +328,6 @@ public class Robot : NetworkBehaviour {
 
 				if (Input.GetButtonDown("LB")) {
 					GuardOn();
-					playerMove.moveSpeedMultiplier = speed * 0.55f;
 				} else if (Input.GetButtonUp("LB")) {
 					GuardOff();
 				}
@@ -458,13 +460,13 @@ public class Robot : NetworkBehaviour {
 		health = newHealth;
 	}
 	public void UpdateHealth(float variation, bool isHeavy = false) {
-		if (!animator.GetBool("LB") || isHeavy) {
-			float newHealth = health + variation;
-			CmdUpdateHealthValue(newHealth);
-			if (newHealth <= 0) {
-				RpcRespawn();
-			}
+		//if (!animator.GetBool("LB") || isHeavy) {
+		float newHealth = health + variation;
+		CmdUpdateHealthValue(newHealth);
+		if (newHealth <= 0) {
+			RpcRespawn();
 		}
+		//}
 	}
 
 	public enum BodyPartCollider {
@@ -553,7 +555,7 @@ public class Robot : NetworkBehaviour {
 		Robot hitter = hitterGO.GetComponent<Robot>();
 		Debug.Log(hitter.name + " hits " + name + " " + hitter.pushBack);
 		if (MatchManager.singleton.bossRound) {
-			// avoid "friendly fire"
+			// avoid "friendly fire" in boss round
 			if (player.roundWinner < 2 && hitter.player.roundWinner < 2) {
 				return;
 			}
@@ -581,7 +583,7 @@ public class Robot : NetworkBehaviour {
 			}
 			UpdateHealth(-damage);
 			hitter.player.scraps += 3;
-			Debug.Log(hitter.player.name + " Current combo score: " + hitter.comboScore);
+			Debug.Log(hitter.player.name + " current combo score: " + hitter.comboScore);
 			hitter.player.score += (int)hitter.comboScore;
 			hitter.roundScore += (int)hitter.comboScore;
 			GuardOff();
@@ -669,9 +671,9 @@ public class Robot : NetworkBehaviour {
 					leftParticle.transform.SetParent(leftHand.transform);
 					rightParticle.transform.SetParent(rightHand.transform);
 
-					leftParticle.transform.localPosition = leftHand.transform.localPosition;
+					leftParticle.transform.localPosition = Vector3.zero;
 					leftParticle.transform.localScale = scale;
-					rightParticle.transform.localPosition = rightFoot.transform.localPosition;
+					rightParticle.transform.localPosition = Vector3.zero;
 					rightParticle.transform.localScale = scale;
 				}
 				break;
@@ -692,9 +694,9 @@ public class Robot : NetworkBehaviour {
 					leftParticle.transform.SetParent(leftFoot.transform);
 					rightParticle.transform.SetParent(rightFoot.transform);
 
-					leftParticle.transform.localPosition = leftFoot.transform.localPosition;
+					leftParticle.transform.localPosition = Vector3.zero;
 					leftParticle.transform.localScale = scale;
-					rightParticle.transform.localPosition = rightFoot.transform.localPosition;
+					rightParticle.transform.localPosition = Vector3.zero;
 					rightParticle.transform.localScale = scale;
 				}
 				break;
@@ -706,9 +708,9 @@ public class Robot : NetworkBehaviour {
 
 					bodyParticles = Instantiate(particle);
 
-					bodyParticles.transform.SetParent(body.transform);
+					bodyParticles.transform.SetParent(body.transform.GetChild(0));
 
-					bodyParticles.transform.localPosition = body.transform.localPosition;
+					bodyParticles.transform.localPosition = Vector3.zero;
 					bodyParticles.transform.localScale = scale * 1.5f;
 				}
 				break;

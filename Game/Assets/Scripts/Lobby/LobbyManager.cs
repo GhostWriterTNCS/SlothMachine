@@ -138,7 +138,7 @@ namespace Prototype.NetworkLobby {
 				FindObjectOfType<EventSystem>().SetSelectedGameObject(lobbyPanelFirstButton);
 			}
 
-			//buttonTips.SetActive(newPanel != null);
+			buttonTips.SetActive(newPanel != null);
 		}
 
 		public void DisplayIsConnecting() {

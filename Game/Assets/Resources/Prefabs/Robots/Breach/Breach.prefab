@@ -89,7 +89,7 @@ MonoBehaviour:
   leftFoot: {fileID: 8313954484649421459}
   rightFoot: {fileID: 7939256571718097946}
   head: {fileID: 4791200385991324913}
-  body: {fileID: 6081456240516774322}
+  body: {fileID: 8576912938818665637}
 --- !u!1 &6549406954245145096
 GameObject:
   m_ObjectHideFlags: 0
@@ -265,8 +265,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6549406954245513056}
-  - component: {fileID: 6081456240516774322}
-  - component: {fileID: 4616656242594926611}
   m_Layer: 0
   m_Name: mixamorig:Spine2
   m_TagString: Untagged
@@ -291,33 +289,6 @@ Transform:
   m_Father: {fileID: 6549406954245513058}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &6081456240516774322
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6549406954245145216}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.37
-  m_Height: 1.7
-  m_Direction: 1
-  m_Center: {x: 0, y: -0.08, z: 0.02}
---- !u!114 &4616656242594926611
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6549406954245145216}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dac069dcd38102645aa34772586fe000, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  robot: {fileID: 0}
 --- !u!1 &6549406954245145218
 GameObject:
   m_ObjectHideFlags: 0
@@ -593,6 +564,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6549406954245513068}
+  - component: {fileID: 8576912938818665637}
+  - component: {fileID: 5766553593963061242}
   m_Layer: 0
   m_Name: mixamorig:Spine
   m_TagString: Untagged
@@ -615,6 +588,33 @@ Transform:
   m_Father: {fileID: 6549406954245512964}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &8576912938818665637
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6549406954245145228}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.44
+  m_Height: 1.91
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.09, z: -0.02}
+--- !u!114 &5766553593963061242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6549406954245145228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dac069dcd38102645aa34772586fe000, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  robot: {fileID: 0}
 --- !u!1 &6549406954245145230
 GameObject:
   m_ObjectHideFlags: 0
