@@ -1,11 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Networking;
 
-public class SkipToBossArena : MonoBehaviour {
+public class Shortcuts : MonoBehaviour {
 	void Update() {
-		if (Input.GetKeyDown(KeyCode.F6)) {
+		if (Input.GetKeyDown(KeyCode.F5)) {
+			NetworkManager.singleton.ServerChangeScene(SceneManager.GetActiveScene().name);
+		} else if (Input.GetKeyDown(KeyCode.F6)) {
+			NetworkManager.singleton.ServerChangeScene(GameScenes.Arena);
+		} else if (Input.GetKeyDown(KeyCode.F7)) {
 			int scoreMax = -1;
 			Player roundWinner = null;
 			foreach (Player p in FindObjectsOfType<Player>()) {

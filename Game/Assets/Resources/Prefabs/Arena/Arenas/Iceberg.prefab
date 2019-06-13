@@ -384,7 +384,7 @@ GameObject:
   - component: {fileID: 3123708274585024230}
   - component: {fileID: 1073669317304288554}
   m_Layer: 0
-  m_Name: Span Position (2)
+  m_Name: Span Position (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -402,7 +402,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8411238131285222537}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 45, z: 0}
 --- !u!114 &1073669317304288554
 MonoBehaviour:
@@ -470,7 +470,7 @@ GameObject:
   - component: {fileID: 1873608309061223470}
   - component: {fileID: 3410472467709333271}
   m_Layer: 0
-  m_Name: Span Position (3)
+  m_Name: Span Position (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -488,7 +488,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8411238131285222537}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 225, z: 0}
 --- !u!114 &3410472467709333271
 MonoBehaviour:
@@ -535,8 +535,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4363739177393214761}
-  - {fileID: 3123708274585024230}
   - {fileID: 1873608309061223470}
+  - {fileID: 3123708274585024230}
   - {fileID: 7346003919536423637}
   - {fileID: 1628749029811772637}
   - {fileID: 5113156664295169802}

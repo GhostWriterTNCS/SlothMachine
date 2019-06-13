@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class MyAnimation : StateMachineBehaviour {
 	public bool enableLeftHand;
@@ -8,6 +9,7 @@ public class MyAnimation : StateMachineBehaviour {
 	public bool enableHead;
 	public bool breakGuard;
 	public bool pushBack;
+	public float hitDelay;
 
 	Robot robot;
 
@@ -17,6 +19,16 @@ public class MyAnimation : StateMachineBehaviour {
 		robot.CmdIncreaseComboScore();
 		foreach (BodyPartHitter h in robot.GetComponentsInChildren<BodyPartHitter>()) {
 			h.hitters.Clear();
+		}
+		robot.StartCoroutine(EnableCollider());
+		robot.breakGuard = breakGuard;
+		robot.pushBack = pushBack;
+		robot.GetComponent<PlayerMove>().isAttacking = true;
+	}
+
+	IEnumerator EnableCollider() {
+		if (hitDelay > 0) {
+			yield return new WaitForSeconds(hitDelay);
 		}
 		if (enableLeftHand) {
 			robot.ActivateBodyPart(Robot.BodyPartCollider.leftHand, true);
@@ -33,9 +45,6 @@ public class MyAnimation : StateMachineBehaviour {
 		if (enableHead) {
 			robot.ActivateBodyPart(Robot.BodyPartCollider.head, true);
 		}
-		robot.breakGuard = breakGuard;
-		robot.pushBack = pushBack;
-		robot.GetComponent<PlayerMove>().isAttacking = true;
 	}
 
 	// OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

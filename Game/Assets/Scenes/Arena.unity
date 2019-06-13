@@ -3298,7 +3298,6 @@ GameObject:
   - component: {fileID: 1385231239}
   - component: {fileID: 1385231240}
   - component: {fileID: 1385231241}
-  - component: {fileID: 1385231242}
   m_Layer: 0
   m_Name: Arena Manager
   m_TagString: Untagged
@@ -3368,18 +3367,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 699d2f77040d3ce4f9e65fcd79bc84da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1385231242
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1385231238}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f870f4ff26eecfc4e8f9a6c0995f4fe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1441819848
