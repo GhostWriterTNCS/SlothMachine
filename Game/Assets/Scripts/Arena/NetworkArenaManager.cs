@@ -39,7 +39,6 @@ public class NetworkArenaManager : NetworkBehaviour {
 		RpcUpdateTitle(title);
 		yield return new WaitForSeconds(2);
 		if (MatchManager.singleton.bossRound) {
-			Debug.Log("Boss phrase");
 			arenaManager.title.text = arenaManager.finalRoundOthers;
 			RpcUpdateTitle(arenaManager.finalRoundOthers);
 			yield return new WaitForSeconds(2);

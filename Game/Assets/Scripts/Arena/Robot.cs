@@ -560,7 +560,7 @@ public class Robot : NetworkBehaviour {
 				return;
 			}
 		}
-		if (!isGuardOn || hitter.breakGuard ||
+		if (!isGuardOn || hitter.breakGuard || hitter.player.roundWinner >= 2 ||
 			ionParticle.GetComponent<Renderer>().material.name.StartsWith(ionNull.name) && !hitter.ionParticle.GetComponent<Renderer>().material.name.StartsWith(ionNull.name) ||
 			ionParticle.GetComponent<Renderer>().material.name.StartsWith(ionPlus.name) && hitter.ionParticle.GetComponent<Renderer>().material.name.StartsWith(ionMinus.name) ||
 			ionParticle.GetComponent<Renderer>().material.name.StartsWith(ionMinus.name) && hitter.ionParticle.GetComponent<Renderer>().material.name.StartsWith(ionPlus.name)) {

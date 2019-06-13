@@ -93,8 +93,6 @@ MonoBehaviour:
     type: 3}
   arenaPrefab: {fileID: 398361175911409946, guid: 1ba252de51f3be54fb409fe3d37b6971,
     type: 3}
-  minimapPrefa: {fileID: 2944472875829436888, guid: e3c42267cbef48a458a97073fbaaa9f0,
-    type: 3}
   networkArenaManager: {fileID: 8073506518977825839, guid: b320e8da3b3fbec40b9c2cca50d9a1cd,
     type: 3}
   matchResultPrefab: {fileID: 916769700366191920, guid: 495091cae3b06b240b5e534aac2a9bf6,
