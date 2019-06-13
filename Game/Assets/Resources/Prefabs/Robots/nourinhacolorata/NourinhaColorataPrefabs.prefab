@@ -83,7 +83,7 @@ MonoBehaviour:
   defense: 3
   speed: 3
   animatorController: {fileID: 9100000, guid: 452691a976c817a4c955544342d6fab0, type: 2}
-  avatar: {fileID: 0}
+  avatar: {fileID: 9000000, guid: bd360d81519a1154b92eb192b8d91c1e, type: 3}
   leftHand: {fileID: 0}
   rightHand: {fileID: 0}
   leftFoot: {fileID: 0}
