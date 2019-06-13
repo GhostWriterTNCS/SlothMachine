@@ -4794,7 +4794,8 @@ MonoBehaviour:
   pushBackPower: 360
   evadeDuration: 0.1
   evadeDistance: 0.75
-  evadeCountdown: 1
+  evadeCooldown: 1
+  evadeSound: {fileID: 8300000, guid: 1d668d78e02d8d844a793613944fe0b6, type: 3}
   keepOnRespawn: {fileID: 5529818024574986447}
   healthBonus: 0
   attackBonus: 0
@@ -4829,6 +4830,7 @@ MonoBehaviour:
   speed: 0
   roundScore: 0
   paused: 0
+  lockCameraRobot: {fileID: 0}
 --- !u!114 &4381043123533344500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4843,6 +4845,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 7.7
   moveSpeedMultiplier: 1
+  moveSpeedAdjust: 3
   turnSpeed: 3
   canMove: 1
   canRotateCamera: 1
