@@ -101,7 +101,6 @@ public class Robot : NetworkBehaviour {
 	PlayerMove playerMove;
 	Rigidbody rigidbody;
 	float initialComboScore = 2;
-	Text scrapsCounter;
 
 	UpgradeWheel upgradeWheel;
 	ArenaManager arenaManager;
@@ -121,7 +120,6 @@ public class Robot : NetworkBehaviour {
 		arenaManager = FindObjectOfType<ArenaManager>();
 		if (isLocalPlayer) {
 			nameText.text = "";
-			scrapsCounter = arenaManager.scrapsCounter;
 			arenaManager.pauseMenu.robot = this;
 		} else {
 			nameText.text = player.name;
@@ -294,7 +292,8 @@ public class Robot : NetworkBehaviour {
 				if (evadeCooldownTime > 0) {
 					evadeCooldownTime -= Time.deltaTime;
 				}
-				scrapsCounter.text = player.scraps.ToString();
+				arenaManager.bottomBar.SetActive(true);
+				arenaManager.scrapsCounter.text = player.scraps.ToString();
 				holdButton += Time.deltaTime;
 				// Actions
 				if (Input.GetButtonUp("Menu")) {

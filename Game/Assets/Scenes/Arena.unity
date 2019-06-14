@@ -3338,6 +3338,7 @@ MonoBehaviour:
   arenaBoxPrefab: {fileID: 8461475249229986270, guid: cb8aaea42a98ce245acf6a94fefbba5b,
     type: 3}
   canvas: {fileID: 1235703676}
+  bottomBar: {fileID: 1719047414}
   scrapsCounter: {fileID: 255872097}
   pauseMenu: {fileID: 1005323250}
   minimap: {fileID: 1930429813}

@@ -8,6 +8,7 @@ public class ArenaManager : MonoBehaviour {
 	public UpgradeWheel upgradeWheel;
 	public GameObject arenaBoxPrefab;
 	public Canvas canvas;
+	public GameObject bottomBar;
 	public Text scrapsCounter;
 	public PauseMenu pauseMenu;
 	public Transform minimap;
@@ -31,6 +32,6 @@ public class ArenaManager : MonoBehaviour {
 	public void Start() {
 		arenaReady = false;
 		countdown.text = "";
-		scrapsCounter.text = "";
+		bottomBar.SetActive(false);
 	}
 }

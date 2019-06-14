@@ -24,7 +24,6 @@ ExportedObj/
 *.svd
 *.pdb
 *.opendb
-*Terrain.asset
 
 # Unity3D generated meta files
 *.pidb.meta
