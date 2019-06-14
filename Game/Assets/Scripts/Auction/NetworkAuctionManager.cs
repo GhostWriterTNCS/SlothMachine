@@ -166,6 +166,8 @@ public class NetworkAuctionManager : NetworkBehaviour {
 		}
 		RpcCountdownFinished();
 
+		maxBid = -1;
+		auctionWinner = null;
 		foreach (AuctionPlayer pb in FindObjectsOfType<AuctionPlayer>()) {
 			while (!pb.bidRegistered && !pb.player.upgradeAssigned) {
 				Debug.Log("Waiting for players to send values");
@@ -201,8 +203,6 @@ public class NetworkAuctionManager : NetworkBehaviour {
 			pb.bidRegistered = false;
 		}
 		currentUpgrade++;
-		maxBid = -1;
-		auctionWinner = null;
 		for (int i = 0; i < upgrades.Count; i++) {
 			upgrades[i].selected = (i == currentUpgrade);
 			upgrades[i].isUpdated = true;
