@@ -65,11 +65,6 @@ public class NetworkAuctionManager : NetworkBehaviour {
 
 	[Command]
 	public void CmdLoad() {
-#if UNITY_EDITOR
-		if (FindObjectsOfType<Player>().Length == 1) {
-			NetworkManager.singleton.ServerChangeScene(GameScenes.Arena);
-		}
-#endif
 		for (int i = 0; i < FindObjectsOfType<Player>().Length; i++) {
 			GameObject newPlayer = Instantiate(upgradeBoxPrefab);
 			NetworkServer.Spawn(newPlayer);

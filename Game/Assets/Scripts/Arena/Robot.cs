@@ -205,6 +205,7 @@ public class Robot : NetworkBehaviour {
 		transform.position = spawn.position;
 		transform.rotation = spawn.rotation;
 		rigidbody.velocity = Vector3.zero;
+		GetComponent<NetworkAnimator>().SetParameterAutoSend(0, true);
 	}
 
 	[Command]
@@ -693,7 +694,7 @@ public class Robot : NetworkBehaviour {
 	List<GameObject> feetParticles = new List<GameObject>();
 	GameObject bodyParticles;
 	public void SetUpgradeParticle(GameObject particle, BodyPart bodyPart) {
-		Debug.Log("Set particle " + particle.name + " for " + bodyPart);
+		Debug.Log(player.name + " set particle " + particle.name + " for " + bodyPart);
 		Vector3 scale = new Vector3(1 / transform.localScale.x, 1 / transform.localScale.y, 1 / transform.localScale.z);
 		switch (bodyPart) {
 			case BodyPart.Hands:
