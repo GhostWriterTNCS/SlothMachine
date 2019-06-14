@@ -224,9 +224,9 @@ public class Robot : NetworkBehaviour {
 		attack = robotModel.attack + attackBonus;
 		defense = robotModel.defense + defenseBonus;
 		if (robotModel.speed + speedBonus - 5 > 0) {
-			speed = 1 + Mathf.Abs(robotModel.speed + speedBonus - 5) / 2;
+			speed = 1 + Mathf.Abs(robotModel.speed + speedBonus - 5) / 4f;
 		} else if (robotModel.speed + speedBonus - 5 < 0) {
-			speed = 1 - Mathf.Abs(robotModel.speed + speedBonus - 5) / 4;
+			speed = 1 - Mathf.Abs(robotModel.speed + speedBonus - 5) / 8f;
 		} else {
 			speed = 1;
 		}
@@ -234,6 +234,7 @@ public class Robot : NetworkBehaviour {
 			healthMax *= 2;
 			defense *= 2;
 		}
+		Debug.Log("Stats updated");
 	}
 
 	[Command]
