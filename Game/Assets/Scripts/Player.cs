@@ -66,7 +66,9 @@ public class Player : NetworkBehaviour {
 			robot.roundScore = 0;
 			if (!isAgent) {
 				NetworkServer.ReplacePlayerForConnection(conn, newPlayer, 0);
-				FindObjectOfType<ArenaManager>().upgradeWheel.player = this;
+				if (isLocalPlayer) {
+					FindObjectOfType<ArenaManager>().upgradeWheel.player = this;
+				}
 			}
 
 			if (!FindObjectOfType<NetworkArenaManager>()) {

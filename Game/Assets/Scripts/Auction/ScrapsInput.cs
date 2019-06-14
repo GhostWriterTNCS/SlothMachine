@@ -47,25 +47,25 @@ public class ScrapsInput : NetworkBehaviour {
 	public void SetPlayerBox(AuctionPlayer playerBox) {
 		this.playerBox = playerBox;
 		player = playerBox.player;
-		UpdateText();
+		//UpdateText();
 	}
 
 	public void Increase() {
 		if (value < player.scraps) {
 			value++;
-			UpdateText();
+			//UpdateText();
 		}
 	}
 	public void Decrease() {
 		if (value > 0) {
 			value--;
-			UpdateText();
+			//UpdateText();
 		}
 	}
 
 	public void ResetValue() {
 		value = 0;
-		UpdateText();
+		//UpdateText();
 	}
 
 	public void SendBidValue() {

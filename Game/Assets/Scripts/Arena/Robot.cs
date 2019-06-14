@@ -205,9 +205,9 @@ public class Robot : NetworkBehaviour {
 		transform.position = spawn.position;
 		transform.rotation = spawn.rotation;
 		rigidbody.velocity = Vector3.zero;
-		for (int i = 0; i < GetComponent<NetworkAnimator>().animator.parameterCount; i++) {
+		/*for (int i = 0; i < GetComponent<NetworkAnimator>().animator.parameterCount; i++) {
 			GetComponent<NetworkAnimator>().SetParameterAutoSend(i, true);
-		}
+		}*/
 	}
 
 	[Command]
@@ -247,11 +247,11 @@ public class Robot : NetworkBehaviour {
 		foreach (Pair p in player.upgrades) {
 			GameObject prefab = Resources.Load<GameObject>("Prefabs/Robots/" + player.robotName + "/Upgrades/" + p.value1 + "_" + p.value2);
 			if (prefab) {
-				Prototype.NetworkLobby.LobbyManager.s_Singleton.spawnPrefabs.Add(prefab);
 				MountUpgrade upgrade = Instantiate(prefab).GetComponent<MountUpgrade>();
 				upgrade.type = p.value1;
 				upgrade.ID = p.value2;
 				upgrade.robotGO = gameObject;
+				//ClientScene.RegisterPrefab(upgrade.gameObject);
 				NetworkServer.Spawn(upgrade.gameObject);
 			} else {
 				Debug.LogWarning("Missing prefab: Prefabs/Robots/" + player.robotName + "/Upgrades/" + p.value1 + "_" + p.value2);
@@ -261,7 +261,7 @@ public class Robot : NetworkBehaviour {
 
 	float holdButton = 0;
 	//[SyncVar]
-	float holdDuration = 0;
+	//float holdDuration = 0;
 
 	Vector3 evadeDirection;
 	float evadeTime = 0;
@@ -324,16 +324,19 @@ public class Robot : NetworkBehaviour {
 				} else if (Input.GetButtonDown("X")) {
 					holdButton = 0;
 				} else if (Input.GetButtonUp("X")) {
-					holdDuration = holdButton;
+					//holdDuration = holdButton;
 					//Debug.Log(holdDuration + " " + (holdDuration >= holdMinDuration));
 					SetTrigger("X");
 				} else if (Input.GetButtonDown("Y")) {
 					holdButton = 0;
 				} else if (Input.GetButtonUp("Y")) {
-					holdDuration = holdButton;
+					//holdDuration = holdButton;
 					//Debug.Log(holdDuration + " " + (holdDuration >= holdMinDuration));
 					SetTrigger("Y");
 				}
+
+				CmdSetFloat("WalkH", playerMove.walkH);
+				CmdSetFloat("WalkV", playerMove.walkV);
 
 				if (Input.GetButtonDown("LB")) {
 					GuardOn();
@@ -393,7 +396,7 @@ public class Robot : NetworkBehaviour {
 			}
 		}
 	}
-	void OnDrawGizmos() {
+	/*void OnDrawGizmos() {
 		Gizmos.color = Color.red;
 
 		//Check if there has been a hit yet
@@ -410,7 +413,7 @@ public class Robot : NetworkBehaviour {
 			//Draw a cube at the maximum distance
 			Gizmos.DrawWireCube(transform.position + transform.forward * m_MaxDistance, new Vector3(7, 7, 7));
 		}
-	}
+	}*/
 
 	public void DisableLockCamera() {
 		if (lockCameraRobot) {
@@ -422,12 +425,12 @@ public class Robot : NetworkBehaviour {
 	}
 
 	void GuardOn() {
-		animator.SetBool("LB", true);
+		CmdSetBool("LB", true);
 		isGuardOn = true;
 		playerMove.moveSpeedMultiplier = 0.55f;
 	}
 	void GuardOff() {
-		animator.SetBool("LB", false);
+		CmdSetBool("LB", false);
 		isGuardOn = false;
 		playerMove.moveSpeedMultiplier = 1;
 	}
@@ -453,6 +456,26 @@ public class Robot : NetworkBehaviour {
 		if (triggers[trigger] == 0) {
 			networkAnimator.animator.ResetTrigger(trigger);
 		}
+	}
+
+	[Command]
+	public void CmdSetFloat(string id, float value) {
+		animator.SetFloat(id, value);
+		RpcSetFloat(gameObject, id, value);
+	}
+	[ClientRpc]
+	public void RpcSetFloat(GameObject animatorGO, string id, float value) {
+		animator.SetFloat(id, value);
+	}
+
+	[Command]
+	public void CmdSetBool(string id, bool value) {
+		animator.SetBool(id, value);
+		RpcSetBool(gameObject, id, value);
+	}
+	[ClientRpc]
+	public void RpcSetBool(GameObject animatorGO, string id, bool value) {
+		animator.SetBool(id, value);
 	}
 
 	[SyncVar]

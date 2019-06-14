@@ -100,25 +100,6 @@ public class NetworkAuctionManager : NetworkBehaviour {
 		StartCoroutine(AuctionCoroutine());
 	}
 
-	IEnumerator AuctionWinnerCoroutine() {
-		foreach (AuctionPlayer pb in FindObjectsOfType<AuctionPlayer>()) {
-			while (!pb.bidRegistered && !pb.player.upgradeAssigned) {
-				yield return 0;
-			}
-			if (pb.bid > pb.player.scraps) {
-				pb.bid = pb.player.scraps;
-			}
-			if (pb.bid > maxBid) {
-				maxBid = pb.bid;
-				auctionWinner = pb.gameObject;
-			}
-		}
-		if (auctionWinner) {
-			AuctionPlayer playerBox = auctionWinner.GetComponent<AuctionPlayer>();
-			playerBox.player.scraps -= playerBox.bid;
-		}
-	}
-
 	[ClientRpc]
 	public void RpcSetHeader(string s) {
 		FindObjectOfType<AuctionManager>().header.text = s;
@@ -137,9 +118,7 @@ public class NetworkAuctionManager : NetworkBehaviour {
 
 	[ClientRpc]
 	public void RpcCountdownFinished() {
-		if (FindObjectOfType<ScrapsInput>()) {
-			FindObjectOfType<ScrapsInput>().SendBidValue();
-		}
+		FindObjectOfType<AuctionManager>().scrapsInput.GetComponent<ScrapsInput>().SendBidValue();
 		FindObjectOfType<AuctionManager>().scrapsInput.SetActive(false);
 		FindObjectOfType<AuctionManager>().scrapsWait.SetActive(true);
 		FindObjectOfType<AuctionManager>().CalculateAgentsBids();
@@ -186,7 +165,26 @@ public class NetworkAuctionManager : NetworkBehaviour {
 			yield return 0;
 		}
 		RpcCountdownFinished();
-		StartCoroutine(AuctionWinnerCoroutine());
+
+		foreach (AuctionPlayer pb in FindObjectsOfType<AuctionPlayer>()) {
+			while (!pb.bidRegistered && !pb.player.upgradeAssigned) {
+				Debug.Log("Waiting for players to send values");
+				yield return 0;
+			}
+			if (pb.bid > pb.player.scraps) {
+				pb.bid = pb.player.scraps;
+			}
+			if (pb.bid > maxBid) {
+				maxBid = pb.bid;
+				auctionWinner = pb.gameObject;
+			}
+		}
+		Debug.Log("HERE");
+		if (auctionWinner) {
+			AuctionPlayer playerBox = auctionWinner.GetComponent<AuctionPlayer>();
+			playerBox.player.scraps -= playerBox.bid;
+		}
+
 		RpcUpdateResults();
 		while (auctionWinner == null) {
 			yield return 0;
@@ -197,18 +195,20 @@ public class NetworkAuctionManager : NetworkBehaviour {
 			currentPause -= Time.deltaTime;
 			yield return 0;
 		}
+
 		foreach (AuctionPlayer pb in FindObjectsOfType<AuctionPlayer>()) {
 			pb.bid = 0;
 			pb.bidRegistered = false;
 		}
 		currentUpgrade++;
-		maxBid = 0;
+		maxBid = -1;
 		auctionWinner = null;
 		for (int i = 0; i < upgrades.Count; i++) {
 			upgrades[i].selected = (i == currentUpgrade);
 			upgrades[i].isUpdated = true;
 		}
 		RpcPauseFinished();
+
 		countdownDuration--;
 		currentCountdown = countdownDuration;
 		currentPause = pauseDuration;
