@@ -187,6 +187,9 @@ public class Robot : NetworkBehaviour {
 			upgradeWheel.gameObject.SetActive(false);
 
 		minimapCursor.color = player.color;
+		if (isLocalPlayer) {
+			minimapCursor.transform.localScale *= 1.5f;
+		}
 
 		while (!arenaManager.arenaReady) {
 			yield return 0;
@@ -262,6 +265,9 @@ public class Robot : NetworkBehaviour {
 	Vector3 evadeDirection;
 	float evadeTime = 0;
 	float evadeCooldownTime = 0;
+	float m_MaxDistance = 20;
+	RaycastHit hit;
+	bool m_HitDetect;
 	public Robot lockCameraRobot;
 	void Update() {
 		if (paused) {
@@ -341,8 +347,8 @@ public class Robot : NetworkBehaviour {
 					if (lockCameraRobot) {
 						DisableLockCamera();
 					} else {
-						RaycastHit hit;
-						if (Physics.BoxCast(transform.position, new Vector3(7, 7, 0.1f), transform.TransformDirection(Vector3.forward), out hit, Quaternion.identity, 20, 9)) {
+						if (Physics.BoxCast(transform.position, new Vector3(7, 7, 7), transform.forward, out hit, Quaternion.identity, m_MaxDistance, 9)) {
+							m_HitDetect = true;
 							lockCameraRobot = hit.transform.gameObject.GetComponent<Robot>();
 							// in the boss round, you can lock only the boss
 							if (lockCameraRobot && lockCameraRobot.health > 0 && (!MatchManager.singleton.bossRound || lockCameraRobot.player.roundWinner >= 2)) {
@@ -350,12 +356,14 @@ public class Robot : NetworkBehaviour {
 							} else {
 								lockCameraRobot = null;
 							}
+						} else {
+							m_HitDetect = false;
 						}
 					}
 				}
 
 				if (lockCameraRobot) {
-					if (Vector3.Distance(transform.position, lockCameraRobot.transform.position) > 20) {
+					if (Vector3.Distance(transform.position, lockCameraRobot.transform.position) > m_MaxDistance) {
 						DisableLockCamera();
 					} else {
 						transform.LookAt(lockCameraRobot.transform);
@@ -381,6 +389,24 @@ public class Robot : NetworkBehaviour {
 					ionParticle.GetComponent<Renderer>().material = ionNull;
 				}
 			}
+		}
+	}
+	void OnDrawGizmos() {
+		Gizmos.color = Color.red;
+
+		//Check if there has been a hit yet
+		if (m_HitDetect) {
+			//Draw a Ray forward from GameObject toward the hit
+			Gizmos.DrawRay(transform.position, transform.forward * hit.distance);
+			//Draw a cube that extends to where the hit exists
+			Gizmos.DrawWireCube(transform.position + transform.forward * hit.distance, new Vector3(7, 7, 7));
+		}
+		//If there hasn't been a hit yet, draw the ray at the maximum distance
+		else {
+			//Draw a Ray forward from GameObject toward the maximum distance
+			Gizmos.DrawRay(transform.position, transform.forward * m_MaxDistance);
+			//Draw a cube at the maximum distance
+			Gizmos.DrawWireCube(transform.position + transform.forward * m_MaxDistance, new Vector3(7, 7, 7));
 		}
 	}
 
