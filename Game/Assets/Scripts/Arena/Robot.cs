@@ -205,9 +205,9 @@ public class Robot : NetworkBehaviour {
 		transform.position = spawn.position;
 		transform.rotation = spawn.rotation;
 		rigidbody.velocity = Vector3.zero;
-		/*for (int i = 5; i <= 7; i++) {
+		for (int i = 0; i < GetComponent<NetworkAnimator>().animator.parameterCount; i++) {
 			GetComponent<NetworkAnimator>().SetParameterAutoSend(i, true);
-		}*/
+		}
 	}
 
 	[Command]
