@@ -578,7 +578,7 @@ MonoBehaviour:
   icePlatformSide:
   - {fileID: 6682358061273526598, guid: 2524d3b23d7fd124fa7ba1b2ab66d3a5, type: 3}
   icePlatformAngle:
-  - {fileID: 2684098141423692786, guid: a9f501380a1ca8d45b541c5bb4c13675, type: 3}
+  - {fileID: 5854019560889777233, guid: b6d22ab5db4f0bb4c8928fc54355eb08, type: 3}
 --- !u!114 &4792160116941772105
 MonoBehaviour:
   m_ObjectHideFlags: 0
