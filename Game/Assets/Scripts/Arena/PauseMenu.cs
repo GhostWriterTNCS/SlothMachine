@@ -30,15 +30,23 @@ public class PauseMenu : MonoBehaviour {
 	}
 
 	public void Leave() {
-		StartCoroutine(LeaveCoroutine());
+		try {
+			Prototype.NetworkLobby.LobbyManager.s_Singleton.StopClientClbk();
+			Prototype.NetworkLobby.LobbyManager.s_Singleton.StopHostClbk();
+		} catch (Exception e) {
+			Debug.LogError(e);
+		}
+		SceneManager.LoadScene(GameScenes.StartScreen);
+		//StartCoroutine(LeaveCoroutine());
 	}
 
 	IEnumerator LeaveCoroutine() {
 		while (FindObjectOfType<Prototype.NetworkLobby.LobbyManager>()) {
 			try {
+				Prototype.NetworkLobby.LobbyManager.s_Singleton.StopClientClbk();
 				Prototype.NetworkLobby.LobbyManager.s_Singleton.StopHostClbk();
 				SceneManager.LoadScene(GameScenes.StartScreen);
-				Destroy(FindObjectOfType<Prototype.NetworkLobby.LobbyManager>().gameObject);
+				//Destroy(FindObjectOfType<Prototype.NetworkLobby.LobbyManager>().gameObject);
 			} catch (Exception e) {
 				//Debug.LogError(e);
 			}

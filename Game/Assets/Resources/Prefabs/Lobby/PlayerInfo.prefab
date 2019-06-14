@@ -341,6 +341,7 @@ MonoBehaviour:
   type: 0
   useCustomColor: 1
   noShadow: 0
+  useCustomShadow: 0
 --- !u!114 &114253484130859416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -393,8 +394,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 85, y: 0}
-  m_SizeDelta: {x: -493.3, y: 45}
+  m_AnchoredPosition: {x: 40, y: 0}
+  m_SizeDelta: {x: -490, y: 45}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &22273042
 CanvasRenderer:
@@ -893,7 +894,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &22436984
 RectTransform:
   m_ObjectHideFlags: 0
@@ -910,8 +911,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 200, y: 0}
-  m_SizeDelta: {x: 76.8, y: 46.5}
+  m_AnchoredPosition: {x: 300, y: 0}
+  m_SizeDelta: {x: 75, y: 46.5}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &22247868
 CanvasRenderer:
@@ -1140,7 +1141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowLobbyGUI: 0
-  colorButton: {fileID: 0}
+  colorButton: {fileID: 11488840}
   nameInput: {fileID: 11487112}
   readyButton: {fileID: 11413860}
   waitingPlayerButton: {fileID: 11405868}
@@ -1410,7 +1411,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 1095a0e719efde449a524acf7f9c37ad, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d3e0cc2ed284c6c4aac3178a957af957, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

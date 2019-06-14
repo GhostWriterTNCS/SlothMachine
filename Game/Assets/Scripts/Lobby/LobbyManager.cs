@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -159,9 +160,13 @@ namespace Prototype.NetworkLobby {
 		public void GoBackButton() {
 			_playerNumber = 0;
 			PlayerController[] list = ClientScene.localPlayers.ToArray();
-			foreach (PlayerController p in list) {
-				if (p != null && p.playerControllerId != -1)
-					ClientScene.RemovePlayer(p.playerControllerId);
+			try {
+				foreach (PlayerController p in list) {
+					if (p != null && p.playerControllerId > -1)
+						ClientScene.RemovePlayer(p.playerControllerId);
+				}
+			} catch (Exception e) {
+				Debug.Log(e);
 			}
 			backDelegate();
 			topPanel.isInGame = false;
