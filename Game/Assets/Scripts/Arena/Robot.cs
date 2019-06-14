@@ -223,13 +223,14 @@ public class Robot : NetworkBehaviour {
 		healthMax = (robotModel.health + healthBonus) * 30;
 		attack = robotModel.attack + attackBonus;
 		defense = robotModel.defense + defenseBonus;
-		if (robotModel.speed + speedBonus - 5 > 0) {
-			speed = 1 + Mathf.Abs(robotModel.speed + speedBonus - 5) / 4f;
+		speed = 1 + (robotModel.speed + speedBonus - 5) / 8f;
+		/*if (robotModel.speed + speedBonus - 5 > 0) {
+			speed = 1 + Mathf.Abs(robotModel.speed + speedBonus - 5) / 8f;
 		} else if (robotModel.speed + speedBonus - 5 < 0) {
 			speed = 1 - Mathf.Abs(robotModel.speed + speedBonus - 5) / 8f;
 		} else {
 			speed = 1;
-		}
+		}*/
 		if (player.roundWinner >= 2) {
 			healthMax *= 2;
 			defense *= 2;
@@ -395,12 +396,12 @@ public class Robot : NetworkBehaviour {
 	void GuardOn() {
 		animator.SetBool("LB", true);
 		isGuardOn = true;
-		playerMove.moveSpeedMultiplier = speed * 0.55f;
+		playerMove.moveSpeedMultiplier = 0.55f;
 	}
 	void GuardOff() {
 		animator.SetBool("LB", false);
 		isGuardOn = false;
-		playerMove.moveSpeedMultiplier = speed;
+		playerMove.moveSpeedMultiplier = 1;
 	}
 
 	Dictionary<string, int> triggers = new Dictionary<string, int>();
