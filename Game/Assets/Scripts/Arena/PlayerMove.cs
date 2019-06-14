@@ -24,7 +24,7 @@ public class PlayerMove : NetworkBehaviour {
 	void Update() {
 		if (isLocalPlayer && canMove) {
 			// Move player
-			if (!isAttacking) {
+			//if (!isAttacking) {
 				float adjustSpeed = 1;
 				if (robot.lockCameraRobot) {
 					float dist = Vector3.Distance(transform.position, robot.lockCameraRobot.transform.position) / moveSpeedAdjust;
@@ -32,13 +32,24 @@ public class PlayerMove : NetworkBehaviour {
 						adjustSpeed = dist;
 					}
 				}
+                if(isAttacking)
+            {
+                adjustSpeed *= 0.2f;
+            }
 				rigidbody.MovePosition(rigidbody.position + (transform.forward * Input.GetAxis("Vertical") + transform.right * Input.GetAxis("Horizontal")) * Time.deltaTime * moveSpeed * moveSpeedMultiplier * adjustSpeed);
-				animator.SetFloat("WalkH", Input.GetAxis("Horizontal"));
+            if (isAttacking)
+            {
+                animator.SetFloat("WalkH", 0);
+                animator.SetFloat("WalkV", 0);
+            }else
+            {
+                animator.SetFloat("WalkH", Input.GetAxis("Horizontal"));
 				animator.SetFloat("WalkV", Input.GetAxis("Vertical"));
-			} else {
+            }
+			/*} else {
 				animator.SetFloat("WalkH", 0);
 				animator.SetFloat("WalkV", 0);
-			}
+			}*/
 			// Rotate camera
 			if (canRotateCamera) {
 				rigidbody.MoveRotation(rigidbody.rotation * Quaternion.Euler(Vector3.up * Input.GetAxis("Camera Horizontal") * turnSpeed));
