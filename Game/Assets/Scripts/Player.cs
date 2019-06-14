@@ -64,7 +64,7 @@ public class Player : NetworkBehaviour {
 			Robot robot = newPlayer.GetComponent<Robot>();
 			robot.playerGO = gameObject;
 			robot.roundScore = 0;
-			if (isLocalPlayer && !isAgent) {
+			if (!isAgent) {
 				NetworkServer.ReplacePlayerForConnection(conn, newPlayer, 0);
 				FindObjectOfType<ArenaManager>().upgradeWheel.player = this;
 			}
