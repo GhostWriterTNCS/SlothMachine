@@ -89,6 +89,7 @@ MonoBehaviour:
   enableHead: 0
   breakGuard: 0
   pushBack: 0
+  hitDelay: 0
 --- !u!114 &114068815287734350
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -108,6 +109,7 @@ MonoBehaviour:
   enableHead: 0
   breakGuard: 0
   pushBack: 0
+  hitDelay: 0
 --- !u!114 &114070867078254616
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -127,6 +129,7 @@ MonoBehaviour:
   enableHead: 0
   breakGuard: 0
   pushBack: 0
+  hitDelay: 0
 --- !u!114 &114177269390280144
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -146,6 +149,7 @@ MonoBehaviour:
   enableHead: 0
   breakGuard: 0
   pushBack: 0
+  hitDelay: 0
 --- !u!114 &114224098504614620
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -165,6 +169,7 @@ MonoBehaviour:
   enableHead: 0
   breakGuard: 0
   pushBack: 0
+  hitDelay: 0
 --- !u!114 &114437564001429488
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -184,6 +189,7 @@ MonoBehaviour:
   enableHead: 0
   breakGuard: 0
   pushBack: 0
+  hitDelay: 0
 --- !u!114 &114598047865053974
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -203,6 +209,7 @@ MonoBehaviour:
   enableHead: 0
   breakGuard: 1
   pushBack: 1
+  hitDelay: 0.95
 --- !u!114 &114695532405840842
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -222,6 +229,7 @@ MonoBehaviour:
   enableHead: 0
   breakGuard: 0
   pushBack: 0
+  hitDelay: 0
 --- !u!114 &114766489305500510
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -241,6 +249,7 @@ MonoBehaviour:
   enableHead: 0
   breakGuard: 0
   pushBack: 0
+  hitDelay: 0
 --- !u!114 &114923043740180642
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -260,6 +269,7 @@ MonoBehaviour:
   enableHead: 0
   breakGuard: 0
   pushBack: 0
+  hitDelay: 0
 --- !u!114 &114935844133805982
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -279,6 +289,7 @@ MonoBehaviour:
   enableHead: 1
   breakGuard: 1
   pushBack: 1
+  hitDelay: 0
 --- !u!114 &114984943061567780
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -298,6 +309,7 @@ MonoBehaviour:
   enableHead: 0
   breakGuard: 0
   pushBack: 0
+  hitDelay: 0
 --- !u!114 &114989439631996470
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -317,6 +329,7 @@ MonoBehaviour:
   enableHead: 0
   breakGuard: 0
   pushBack: 0
+  hitDelay: 0
 --- !u!1101 &1101000652534035528
 AnimatorStateTransition:
   m_ObjectHideFlags: 3

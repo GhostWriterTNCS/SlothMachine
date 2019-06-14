@@ -4773,7 +4773,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitEffect: {fileID: 1743301284569550, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
-  hitSound: {fileID: 8300000, guid: 9ddb5fe8f47480541902181e12233555, type: 3}
   fireParticle: {fileID: 5164135998390545375, guid: 892f4acb1608d9b459723facca094745,
     type: 3}
   lightningParticle: {fileID: 9138153940207548372, guid: 81ee345aa73f7e8498396d0f562ef0c4,
@@ -4797,6 +4796,12 @@ MonoBehaviour:
   evadeCooldown: 1
   evadeSound: {fileID: 8300000, guid: 1d668d78e02d8d844a793613944fe0b6, type: 3}
   keepOnRespawn: {fileID: 5529818024574986447}
+  hitSound: {fileID: 8300000, guid: 9ddb5fe8f47480541902181e12233555, type: 3}
+  fireSound: {fileID: 8300000, guid: c2ce84a39505020439ba5e3b2d9ac882, type: 3}
+  lightningSound: {fileID: 8300000, guid: fe3ccd6a22345b54396730b13bb7af8b, type: 3}
+  iceSound: {fileID: 8300000, guid: 91058c71cbe466042bf40bf81adb3be2, type: 3}
+  sonicSound: {fileID: 8300000, guid: 89cdf3aca91b30e438adbc799c4b25f2, type: 3}
+  destroyedSound: {fileID: 8300000, guid: f3392180452e5e14db887098bc342168, type: 3}
   healthBonus: 0
   attackBonus: 0
   defenseBonus: 0

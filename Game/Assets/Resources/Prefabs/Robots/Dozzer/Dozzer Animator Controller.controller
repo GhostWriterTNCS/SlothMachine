@@ -125,11 +125,11 @@ MonoBehaviour:
   enableLeftHand: 0
   enableRightHand: 0
   enableLeftFoot: 0
-  enableRightFoot: 1
-  enableHead: 0
+  enableRightFoot: 0
+  enableHead: 1
   breakGuard: 1
   pushBack: 1
-  hitDelay: 0.3
+  hitDelay: 0.83
 --- !u!114 &114238496191195042
 MonoBehaviour:
   m_ObjectHideFlags: 1

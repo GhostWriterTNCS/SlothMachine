@@ -5,6 +5,7 @@ using UnityEngine;
 public class BodyPartHitter : MonoBehaviour {
 	public Robot robot;
 	public List<Collider> hitters = new List<Collider>();
+	public GameObject particle;
 	List<Collider> siblings = new List<Collider>();
 
 	void Start() {
@@ -22,7 +23,7 @@ public class BodyPartHitter : MonoBehaviour {
 		if (other.GetComponent<BodyPartTarget>()) {
 			if (!siblings.Contains(other) && !hitters.Contains(other) && other.isTrigger) {
 				hitters.Add(other);
-				GetRobot(other.transform).CmdGetHitted(robot.gameObject, transform.position);
+				GetRobot(other.transform).CmdGetHitted(robot.gameObject, transform.position, particle);
 			}
 		}
 	}

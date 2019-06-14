@@ -10,15 +10,10 @@ using UnityEngine.UI;
 public class Robot : NetworkBehaviour {
 	[Header("Generic settings")]
 	public GameObject hitEffect;
-	public AudioClip hitSound;
 	public GameObject fireParticle;
-	//public AudioClip fireSound;
 	public GameObject lightningParticle;
-	//public AudioClip lightningSound;
 	public GameObject iceParticle;
-	//public AudioClip iceSound;
 	public GameObject sonicParticle;
-	//public AudioClip sonicSound;
 	public SpriteRenderer minimapCursor;
 	[Space]
 	public Material ionPlus;
@@ -37,6 +32,13 @@ public class Robot : NetworkBehaviour {
 	public AudioClip evadeSound;
 	[Space]
 	public GameObject keepOnRespawn;
+	[Header("Sounds")]
+	public AudioClip hitSound;
+	public AudioClip fireSound;
+	public AudioClip lightningSound;
+	public AudioClip iceSound;
+	public AudioClip sonicSound;
+	public AudioClip destroyedSound;
 
 	[Header("Bonus")]
 	[SyncVar]
@@ -381,10 +383,12 @@ public class Robot : NetworkBehaviour {
 	}
 
 	public void DisableLockCamera() {
-		lockCameraRobot.marker.enabled = false;
-		lockCameraRobot = null;
-		rigidbody.angularVelocity = Vector3.zero;
-		transform.localRotation = Quaternion.Euler(0, transform.localRotation.eulerAngles.y, 0);
+		if (lockCameraRobot) {
+			lockCameraRobot.marker.enabled = false;
+			lockCameraRobot = null;
+			rigidbody.angularVelocity = Vector3.zero;
+			transform.localRotation = Quaternion.Euler(0, transform.localRotation.eulerAngles.y, 0);
+		}
 	}
 
 	void GuardOn() {
@@ -461,6 +465,8 @@ public class Robot : NetworkBehaviour {
 		float newHealth = health + variation;
 		CmdUpdateHealthValue(newHealth);
 		if (newHealth <= 0) {
+			AudioManager.singleton.PlayClip(destroyedSound);
+			DisableLockCamera();
 			RpcRespawn();
 		}
 		//}
@@ -548,7 +554,7 @@ public class Robot : NetworkBehaviour {
 	}
 
 	[Command]
-	public void CmdGetHitted(GameObject hitterGO, Vector3 position) {
+	public void CmdGetHitted(GameObject hitterGO, Vector3 position, GameObject particle) {
 		Robot hitter = hitterGO.GetComponent<Robot>();
 		Debug.Log(hitter.name + " hits " + name + " " + hitter.pushBack);
 		if (MatchManager.singleton.bossRound) {
@@ -562,11 +568,23 @@ public class Robot : NetworkBehaviour {
 			ionParticle.GetComponent<Renderer>().material.name.StartsWith(ionPlus.name) && hitter.ionParticle.GetComponent<Renderer>().material.name.StartsWith(ionMinus.name) ||
 			ionParticle.GetComponent<Renderer>().material.name.StartsWith(ionMinus.name) && hitter.ionParticle.GetComponent<Renderer>().material.name.StartsWith(ionPlus.name)) {
 			GameObject effect = Instantiate(hitter.hitEffect);
-			AudioManager.singleton.PlayClip(hitSound);
 			effect.transform.position = position;
 			effect.transform.localScale = Vector3.one;
 			NetworkServer.Spawn(effect);
 			animator.SetTrigger("Reaction");
+			if (!particle) {
+				AudioManager.singleton.PlayClip(hitSound);
+			} else if (particle.name == fireParticle.name) {
+				AudioManager.singleton.PlayClip(fireSound);
+			} else if (particle.name == iceParticle.name) {
+				AudioManager.singleton.PlayClip(iceSound);
+			} else if (particle.name == lightningParticle.name) {
+				AudioManager.singleton.PlayClip(lightningSound);
+			} else if (particle.name == sonicParticle.name) {
+				AudioManager.singleton.PlayClip(sonicSound);
+			} else {
+				Debug.LogError("Sound not found for " + particle.name);
+			}
 			float damage = hitter.attack * 2 * (1 - (defense * 5) / 100);
 			if (health - damage <= 0) {
 				hitter.UpdateHealth(hitter.healthMax / 3);
@@ -672,6 +690,9 @@ public class Robot : NetworkBehaviour {
 					leftParticle.transform.localScale = scale;
 					rightParticle.transform.localPosition = Vector3.zero;
 					rightParticle.transform.localScale = scale;
+
+					leftHand.GetComponent<BodyPartHitter>().particle = particle;
+					rightHand.GetComponent<BodyPartHitter>().particle = particle;
 				}
 				break;
 			case BodyPart.Feet:
@@ -695,6 +716,9 @@ public class Robot : NetworkBehaviour {
 					leftParticle.transform.localScale = scale;
 					rightParticle.transform.localPosition = Vector3.zero;
 					rightParticle.transform.localScale = scale;
+
+					leftFoot.GetComponent<BodyPartHitter>().particle = particle;
+					rightFoot.GetComponent<BodyPartHitter>().particle = particle;
 				}
 				break;
 			default:
@@ -709,9 +733,19 @@ public class Robot : NetworkBehaviour {
 
 					bodyParticles.transform.localPosition = Vector3.zero;
 					bodyParticles.transform.localScale = scale * 1.5f;
+
+					head.GetComponent<BodyPartHitter>().particle = particle;
 				}
 				break;
 		}
-
+		if (particle.name == fireParticle.name) {
+			AudioManager.singleton.PlayClip(fireSound);
+		} else if (particle.name == iceParticle.name) {
+			AudioManager.singleton.PlayClip(iceSound);
+		} else if (particle.name == lightningParticle.name) {
+			AudioManager.singleton.PlayClip(lightningSound);
+		} else if (particle.name == sonicParticle.name) {
+			AudioManager.singleton.PlayClip(sonicSound);
+		}
 	}
 }
