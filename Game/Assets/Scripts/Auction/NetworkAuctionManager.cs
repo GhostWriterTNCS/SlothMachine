@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Prototype.NetworkLobby;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -65,7 +66,7 @@ public class NetworkAuctionManager : NetworkBehaviour {
 
 	[Command]
 	public void CmdLoad() {
-		for (int i = 0; i < FindObjectsOfType<Player>().Length; i++) {
+		for (int i = 0; i < LobbyPlayerList._instance.playerListContentTransform.childCount - 1; i++) {
 			GameObject newPlayer = Instantiate(upgradeBoxPrefab);
 			NetworkServer.Spawn(newPlayer);
 			UpgradeBox ub = newPlayer.GetComponent<UpgradeBox>();
