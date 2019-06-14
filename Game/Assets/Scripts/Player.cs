@@ -39,6 +39,9 @@ public class Player : NetworkBehaviour {
 
 	void Start() {
 		name = "Player " + playerID + (isAgent ? " (bot)" : "");
+		if (isLocalPlayer && !isAgent) {
+			name = "<b>" + name + "</b>";
+		}
 		score = 0;
 		scraps = 100;
 		roundWinner = 0;
