@@ -544,7 +544,6 @@ public class Robot : NetworkBehaviour {
 		}
 		if (newHealth <= 0) {
 			player.deathCount++;
-			RpcRespawn();
 		}
 		health = newHealth;
 	}
@@ -555,6 +554,7 @@ public class Robot : NetworkBehaviour {
 			CmdPlayClip(gameObject, 1);
 			//AudioManager.singleton.PlayClip(destroyedSound);
 			DisableLockCamera();
+			RpcRespawn();
 		}
 	}
 
@@ -639,11 +639,39 @@ public class Robot : NetworkBehaviour {
 		}
 	}
 
-	//[Command]
-	public void GetHitted(GameObject hitterGO, Vector3 position, GameObject particle) {
-		if (!isLocalPlayer && !player.isAgent) {
-			return;
+	[Command]
+	public void CmdEnableCollider(GameObject robotGO, bool enableLeftHand, bool enableRightHand, bool enableLeftFoot, bool enableRightFoot, bool enableHead, float hitDelay) {
+		StartCoroutine(EnableCollider(robotGO, enableLeftHand, enableRightHand, enableLeftFoot, enableRightFoot, enableHead, hitDelay));
+	}
+	IEnumerator EnableCollider(GameObject robotGO, bool enableLeftHand, bool enableRightHand, bool enableLeftFoot, bool enableRightFoot, bool enableHead, float hitDelay) {
+		Robot robot = robotGO.GetComponent<Robot>();
+		if (hitDelay > 0) {
+			yield return new WaitForSeconds(hitDelay);
 		}
+		if (enableLeftHand) {
+			robot.ActivateBodyPart(Robot.BodyPartCollider.leftHand, true);
+			robot.leftHand.GetComponent<BodyPartHitter>().hitters.Clear();
+		}
+		if (enableRightHand) {
+			robot.ActivateBodyPart(Robot.BodyPartCollider.rightHand, true);
+			robot.rightHand.GetComponent<BodyPartHitter>().hitters.Clear();
+		}
+		if (enableLeftFoot) {
+			robot.ActivateBodyPart(Robot.BodyPartCollider.leftFoot, true);
+			robot.leftFoot.GetComponent<BodyPartHitter>().hitters.Clear();
+		}
+		if (enableRightFoot) {
+			robot.ActivateBodyPart(Robot.BodyPartCollider.rightFoot, true);
+			robot.rightFoot.GetComponent<BodyPartHitter>().hitters.Clear();
+		}
+		if (enableHead) {
+			robot.ActivateBodyPart(Robot.BodyPartCollider.head, true);
+			robot.head.GetComponent<BodyPartHitter>().hitters.Clear();
+		}
+	}
+
+	[Command]
+	public void CmdGetHitted(GameObject hitterGO, Vector3 position, GameObject particle) {
 		Robot hitter = hitterGO.GetComponent<Robot>();
 		Debug.Log(hitter.name + " hits " + name + " " + hitter.pushBack);
 		if (MatchManager.singleton.bossRound) {
@@ -667,7 +695,7 @@ public class Robot : NetworkBehaviour {
 			} else if (particle.name == fireParticle.name) {
 				CmdPlayClip(gameObject, 3);
 				//AudioManager.singleton.PlayClip(fireSound);
-			} else if (particle.name == iceSound.name) {
+			} else if (particle.name == iceParticle.name) {
 				CmdPlayClip(gameObject, 4);
 				//AudioManager.singleton.PlayClip(iceSound);
 			} else if (particle.name == lightningParticle.name) {
@@ -892,7 +920,7 @@ public class Robot : NetworkBehaviour {
 	[ClientRpc]
 	public void RpcPlayClip(GameObject robotGO, int clipIndex) {
 		if (clips.Length > clipIndex) {
-			robotGO.GetComponent<AudioSource>().clip = clips[clipIndex];
+			robotGO.GetComponent<AudioSource>().clip = robotGO.GetComponent<Robot>().clips[clipIndex];
 			robotGO.GetComponent<AudioSource>().Play();
 		}
 	}

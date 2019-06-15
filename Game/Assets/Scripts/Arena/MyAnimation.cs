@@ -20,7 +20,13 @@ public class MyAnimation : StateMachineBehaviour {
 		/*foreach (BodyPartHitter h in robot.GetComponentsInChildren<BodyPartHitter>()) {
 			h.hitters.Clear();
 		}*/
-		robot.StartCoroutine(EnableCollider());
+		//if (!robot.isServer || robot.isLocalPlayer) {
+		//if (robot.isLocalPlayer) {
+		robot.CmdEnableCollider(robot.gameObject, enableLeftHand, enableRightHand, enableLeftFoot, enableRightFoot, enableHead, hitDelay);
+		/*	Debug.Log(robot.player.name + " is local player");
+		} else {
+			Debug.Log(robot.player.name + " is not local player");
+		}*/
 		robot.breakGuard = breakGuard;
 		robot.pushBack = pushBack;
 		robot.GetComponent<PlayerMove>().isAttacking = true;
