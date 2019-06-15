@@ -418,7 +418,7 @@ public class Robot : NetworkBehaviour {
 
 	[Command]
 	public void CmdSetIon(short ion) {
-		SetIon(ion);
+		//SetIon(ion);
 		RpcSetIon(ion);
 	}
 	[ClientRpc]
@@ -462,7 +462,7 @@ public class Robot : NetworkBehaviour {
 	Dictionary<string, int> triggers = new Dictionary<string, int>();
 	[Command]
 	public void CmdSetTrigger(string trigger) {
-		SetTrigger(trigger);
+		//SetTrigger(trigger);
 		RpcSetTrigger(trigger);
 	}
 	[ClientRpc]
@@ -490,7 +490,7 @@ public class Robot : NetworkBehaviour {
 
 	[Command]
 	public void CmdSetFloat(string id, float value) {
-		animator.SetFloat(id, value);
+		//animator.SetFloat(id, value);
 		RpcSetFloat(id, value);
 	}
 	[ClientRpc]
@@ -500,7 +500,7 @@ public class Robot : NetworkBehaviour {
 
 	[Command]
 	public void CmdSetBool(string id, bool value) {
-		animator.SetBool(id, value);
+		//animator.SetBool(id, value);
 		RpcSetBool(id, value);
 	}
 	[ClientRpc]
@@ -749,7 +749,7 @@ public class Robot : NetworkBehaviour {
 		Upgrade u = Upgrades.temporary[ID];
 		if (u.price <= player.scraps) {
 			player.scraps -= u.price;
-			u.OnAdd(GetComponentInChildren<Robot>());
+			//u.OnAdd(GetComponentInChildren<Robot>());
 			RpcAddTemporaryUpgrade(ID);
 			Debug.Log("Upgrade " + u.name + " mounted!");
 		} else {

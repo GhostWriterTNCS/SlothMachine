@@ -17,9 +17,9 @@ public class MyAnimation : StateMachineBehaviour {
 	override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
 		robot = animator.GetComponent<Robot>();
 		robot.CmdIncreaseComboScore();
-		foreach (BodyPartHitter h in robot.GetComponentsInChildren<BodyPartHitter>()) {
+		/*foreach (BodyPartHitter h in robot.GetComponentsInChildren<BodyPartHitter>()) {
 			h.hitters.Clear();
-		}
+		}*/
 		robot.StartCoroutine(EnableCollider());
 		robot.breakGuard = breakGuard;
 		robot.pushBack = pushBack;
@@ -32,18 +32,23 @@ public class MyAnimation : StateMachineBehaviour {
 		}
 		if (enableLeftHand) {
 			robot.ActivateBodyPart(Robot.BodyPartCollider.leftHand, true);
+			robot.leftHand.GetComponent<BodyPartHitter>().hitters.Clear();
 		}
 		if (enableRightHand) {
 			robot.ActivateBodyPart(Robot.BodyPartCollider.rightHand, true);
+			robot.rightHand.GetComponent<BodyPartHitter>().hitters.Clear();
 		}
 		if (enableLeftFoot) {
 			robot.ActivateBodyPart(Robot.BodyPartCollider.leftFoot, true);
+			robot.leftFoot.GetComponent<BodyPartHitter>().hitters.Clear();
 		}
 		if (enableRightFoot) {
 			robot.ActivateBodyPart(Robot.BodyPartCollider.rightFoot, true);
+			robot.rightFoot.GetComponent<BodyPartHitter>().hitters.Clear();
 		}
 		if (enableHead) {
 			robot.ActivateBodyPart(Robot.BodyPartCollider.head, true);
+			robot.head.GetComponent<BodyPartHitter>().hitters.Clear();
 		}
 	}
 
