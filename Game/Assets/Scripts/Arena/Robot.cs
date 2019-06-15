@@ -74,14 +74,9 @@ public class Robot : NetworkBehaviour {
 	public Slider healthSlider;
 	public Image marker;
 	[Space]
-	//[SyncVar]
 	public GameObject handsParticle;
-	//[SyncVar]
 	public GameObject feetParticle;
-	//[SyncVar]
 	public GameObject bodyParticle;
-	//[SyncVar]
-	//public int bodyPartParticleUpdated = -1;
 	public bool isGuardOn;
 
 	[SyncVar(hook = "UpdateHealthSlider")]
@@ -101,7 +96,7 @@ public class Robot : NetworkBehaviour {
 
 	RobotModel robotModel;
 	Animator animator;
-	NetworkAnimator networkAnimator;
+	//NetworkAnimator networkAnimator;
 	PlayerCamera playerCamera;
 	PlayerMove playerMove;
 	Rigidbody rigidbody;
@@ -166,7 +161,7 @@ public class Robot : NetworkBehaviour {
 		animator = GetComponent<Animator>();
 		animator.runtimeAnimatorController = robotModel.animatorController;
 		animator.avatar = robotModel.avatar;
-		networkAnimator = GetComponent<NetworkAnimator>();
+		//networkAnimator = GetComponent<NetworkAnimator>();
 		playerCamera = GetComponent<PlayerCamera>();
 		playerMove = GetComponent<PlayerMove>();
 		rigidbody = GetComponent<Rigidbody>();
@@ -234,13 +229,6 @@ public class Robot : NetworkBehaviour {
 		attack = robotModel.attack + attackBonus;
 		defense = robotModel.defense + defenseBonus;
 		speed = 1 + (robotModel.speed + speedBonus - 5) / 8f;
-		/*if (robotModel.speed + speedBonus - 5 > 0) {
-			speed = 1 + Mathf.Abs(robotModel.speed + speedBonus - 5) / 8f;
-		} else if (robotModel.speed + speedBonus - 5 < 0) {
-			speed = 1 - Mathf.Abs(robotModel.speed + speedBonus - 5) / 8f;
-		} else {
-			speed = 1;
-		}*/
 		if (player.roundWinner >= 2) {
 			healthMax *= 2;
 			defense *= 2;
@@ -309,7 +297,7 @@ public class Robot : NetworkBehaviour {
 				} else if (Input.GetButtonDown("A")) {
 					holdButton = 0;
 				} else if (Input.GetButtonUp("A") && Input.GetAxis("Triggers") >= -0.01f) {
-					SetTrigger("A");
+					CmdSetTrigger("A");
 				} else if (Input.GetButtonDown("B")) {
 					holdButton = 0;
 				} else if (Input.GetButtonUp("B") && evadeCooldownTime <= 0) {
@@ -325,19 +313,19 @@ public class Robot : NetworkBehaviour {
 					AudioManager.singleton.PlayClip(evadeSound);
 					evadeTime = evadeDuration;
 					evadeCooldownTime = evadeCooldown;
-					SetTrigger("B");
+					CmdSetTrigger("B");
 				} else if (Input.GetButtonDown("X")) {
 					holdButton = 0;
 				} else if (Input.GetButtonUp("X")) {
 					//holdDuration = holdButton;
 					//Debug.Log(holdDuration + " " + (holdDuration >= holdMinDuration));
-					SetTrigger("X");
+					CmdSetTrigger("X");
 				} else if (Input.GetButtonDown("Y")) {
 					holdButton = 0;
 				} else if (Input.GetButtonUp("Y")) {
 					//holdDuration = holdButton;
 					//Debug.Log(holdDuration + " " + (holdDuration >= holdMinDuration));
-					SetTrigger("Y");
+					CmdSetTrigger("Y");
 				}
 
 				CmdSetFloat("WalkH", playerMove.walkH);
@@ -377,15 +365,9 @@ public class Robot : NetworkBehaviour {
 						DisableLockCamera();
 					} else {
 						transform.LookAt(lockCameraRobot.transform);
-
-						// Final position of marker above GO in world space
-						//Vector3 offsetPos = new Vector3(lockCameraRobot.transform.position.x, lockCameraRobot.transform.position.y + 1.5f, lockCameraRobot.transform.position.z);
-						// Calculate *screen* position (note, not a canvas/recttransform position)
 						Vector2 screenPoint = Camera.main.WorldToScreenPoint(lockCameraRobot.transform.position + new Vector3(0, 1, 0));
-						// Convert screen position to Canvas / RectTransform space <- leave camera null if Screen Space Overlay
 						Vector2 canvasPos;
 						RectTransformUtility.ScreenPointToLocalPointInRectangle(arenaManager.canvas.GetComponent<RectTransform>(), screenPoint, null, out canvasPos);
-						// Set
 						lockCameraRobot.GetComponent<Robot>().marker.transform.localPosition = canvasPos;
 					}
 				}
@@ -400,10 +382,6 @@ public class Robot : NetworkBehaviour {
 				}
 			}
 		}
-
-		/*if (bodyPartParticleUpdated > -1) {
-			RefreshUpgradeParticle();
-		}*/
 	}
 	/*void OnDrawGizmos() {
 		Gizmos.color = Color.red;
@@ -445,13 +423,31 @@ public class Robot : NetworkBehaviour {
 	}
 
 	Dictionary<string, int> triggers = new Dictionary<string, int>();
-	protected void SetTrigger(string trigger) {
+	[Command]
+	public void CmdSetTrigger(string trigger) {
 		if (trigger != "B")
 			playerMove.isAttacking = true;
-		networkAnimator.SetTrigger(trigger);
-		if (isServer) {
+		animator.SetTrigger(trigger);
+		/*if (isServer) {
 			networkAnimator.animator.ResetTrigger(trigger);
+		}*/
+		string triggerID = trigger;
+		if (!triggers.ContainsKey(trigger)) {
+			triggers.Add(trigger, 1);
+		} else {
+			triggers[trigger] += 1;
 		}
+		StartCoroutine(DelayCall(() => ResetTrigger(triggerID), comboDelay));
+		RpcSetTrigger(trigger);
+	}
+	[ClientRpc]
+	public void RpcSetTrigger(string trigger) {
+		if (trigger != "B")
+			playerMove.isAttacking = true;
+		animator.SetTrigger(trigger);
+		/*if (isServer) {
+			networkAnimator.animator.ResetTrigger(trigger);
+		}*/
 		string triggerID = trigger;
 		if (!triggers.ContainsKey(trigger)) {
 			triggers.Add(trigger, 1);
@@ -463,27 +459,27 @@ public class Robot : NetworkBehaviour {
 	void ResetTrigger(string trigger) {
 		triggers[trigger] -= 1;
 		if (triggers[trigger] == 0) {
-			networkAnimator.animator.ResetTrigger(trigger);
+			animator.ResetTrigger(trigger);
 		}
 	}
 
 	[Command]
 	public void CmdSetFloat(string id, float value) {
 		animator.SetFloat(id, value);
-		RpcSetFloat(gameObject, id, value);
+		RpcSetFloat(id, value);
 	}
 	[ClientRpc]
-	public void RpcSetFloat(GameObject animatorGO, string id, float value) {
+	public void RpcSetFloat(string id, float value) {
 		animator.SetFloat(id, value);
 	}
 
 	[Command]
 	public void CmdSetBool(string id, bool value) {
 		animator.SetBool(id, value);
-		RpcSetBool(gameObject, id, value);
+		RpcSetBool(id, value);
 	}
 	[ClientRpc]
-	public void RpcSetBool(GameObject animatorGO, string id, bool value) {
+	public void RpcSetBool(string id, bool value) {
 		animator.SetBool(id, value);
 	}
 
@@ -523,7 +519,6 @@ public class Robot : NetworkBehaviour {
 		health = newHealth;
 	}
 	public void UpdateHealth(float variation, bool isHeavy = false) {
-		//if (!animator.GetBool("LB") || isHeavy) {
 		float newHealth = health + variation;
 		CmdUpdateHealthValue(newHealth);
 		if (newHealth <= 0) {
@@ -531,7 +526,6 @@ public class Robot : NetworkBehaviour {
 			DisableLockCamera();
 			RpcRespawn();
 		}
-		//}
 	}
 
 	public enum BodyPartCollider {
@@ -633,7 +627,7 @@ public class Robot : NetworkBehaviour {
 			effect.transform.position = position;
 			effect.transform.localScale = Vector3.one;
 			NetworkServer.Spawn(effect);
-			animator.SetTrigger("Reaction");
+			CmdSetTrigger("Reaction");
 			if (!particle) {
 				AudioManager.singleton.PlayClip(hitSound);
 			} else if (particle.name == fireParticle.name) {
@@ -744,17 +738,6 @@ public class Robot : NetworkBehaviour {
 		u.OnAdd(GetComponentInChildren<Robot>());
 		Debug.Log("Upgrade " + u.name + " mounted!");
 	}
-	/*[Command]
-	public void CmdSetUpgradeParticle(UpgradeElements element, BodyPart bodyPart) {
-		Debug.Log("CmdSetUpgradeParticle");
-		RefreshUpgradeParticle(element, bodyPart);
-		RpcSetUpgradeParticle(element, bodyPart);
-	}
-	[ClientRpc]
-	public void RpcSetUpgradeParticle(UpgradeElements element, BodyPart bodyPart) {
-		Debug.Log("RpcSetUpgradeParticle");
-		RefreshUpgradeParticle(element, bodyPart);
-	}*/
 	List<GameObject> handsParticles = new List<GameObject>();
 	List<GameObject> feetParticles = new List<GameObject>();
 	GameObject bodyParticles;
@@ -858,6 +841,5 @@ public class Robot : NetworkBehaviour {
 		} else if (particle.name == sonicParticle.name) {
 			AudioManager.singleton.PlayClip(sonicSound);
 		}
-		//bodyPartParticleUpdated = -1;
 	}
 }
