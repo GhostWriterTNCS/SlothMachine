@@ -576,9 +576,9 @@ MonoBehaviour:
   waterPlatformTiles:
   - {fileID: 2295693121361046663, guid: 41c6aacc407717a45a5e375c25989055, type: 3}
   icePlatformSide:
-  - {fileID: 6682358061273526598, guid: 2524d3b23d7fd124fa7ba1b2ab66d3a5, type: 3}
+  - {fileID: 7773115720750958718, guid: 7305311c18cd1d240ac34379f3ffb730, type: 3}
   icePlatformAngle:
-  - {fileID: 5926010119159946650, guid: 3913ea16645741b43b5773d598804718, type: 3}
+  - {fileID: 5272856888239101593, guid: 25fba517a4a1ef44eb22578c23e5a31a, type: 3}
 --- !u!114 &4792160116941772105
 MonoBehaviour:
   m_ObjectHideFlags: 0

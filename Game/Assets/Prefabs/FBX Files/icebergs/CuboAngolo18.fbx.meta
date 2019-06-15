@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6d86dbc7a358d2041a21158382a8e544
+guid: 169980f6054ac3543bfe5da1f07b13aa
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -17,6 +17,7 @@ ModelImporter:
     3300000: Cube
     4300000: Cube
     10800000: Lamp
+    2186277476908879412: ImportLogs
   externalObjects: {}
   materials:
     importMaterials: 1
