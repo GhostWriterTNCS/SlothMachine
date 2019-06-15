@@ -94,7 +94,7 @@ public class UpgradeWheel : MonoBehaviour {
 		upgradePrice.text = u.price + " scraps";
 		if (u.price <= player.scraps) {
 			upgradeBuy.interactable = true;
-			currentAction = () => { player.CmdAddTemporaryUpgrade(ID); upgrades[position] = 0; AddNew(position); };
+			currentAction = () => { player.robot.CmdAddTemporaryUpgrade(ID); upgrades[position] = 0; AddNew(position); };
 		} else {
 			upgradeBuy.interactable = false;
 			currentAction = () => { };

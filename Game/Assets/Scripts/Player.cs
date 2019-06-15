@@ -66,9 +66,6 @@ public class Player : NetworkBehaviour {
 			robot.roundScore = 0;
 			if (!isAgent) {
 				NetworkServer.ReplacePlayerForConnection(conn, newPlayer, 0);
-				if (isLocalPlayer) {
-					FindObjectOfType<ArenaManager>().upgradeWheel.player = this;
-				}
 			}
 
 			if (!FindObjectOfType<NetworkArenaManager>()) {
@@ -103,21 +100,19 @@ public class Player : NetworkBehaviour {
 		}
 	}
 
+	/*int temporaryUpgradeToMount = -1;
+	void Update() {
+		if (temporaryUpgradeToMount >= 0) {
+			Debug.Log("temporaryUpgradeToMount: " + temporaryUpgradeToMount);
+			CmdAddTemporaryUpgrade(temporaryUpgradeToMount);
+			temporaryUpgradeToMount = -1;
+		}
+	}*/
+
 	[Command]
 	public void CmdAddPermanentUpgrade(int level, int ID) {
 		upgradeAssigned = true;
 		RpcAddPermanentUpgrade(level, ID);
-	}
-	[Command]
-	public void CmdAddTemporaryUpgrade(int ID) {
-		Upgrade u = Upgrades.temporary[ID];
-		if (u.price <= scraps) {
-			scraps -= u.price;
-			u.OnAdd(GetComponentInChildren<Robot>());
-			Debug.Log("Upgrade " + u.name + " mounted!");
-		} else {
-			Debug.Log("Not enough scraps!");
-		}
 	}
 	[ClientRpc]
 	public void RpcAddPermanentUpgrade(int level, int ID) {
@@ -126,6 +121,30 @@ public class Player : NetworkBehaviour {
 			pb.ShowUpgrade(upgrades.Count - 1);
 		}
 	}
+	/*public void AddTemporaryUpgrade(int ID) {
+		Debug.Log("AddTemporaryUpgrade");
+		temporaryUpgradeToMount = ID;
+	}
+	[Command]
+	public void CmdAddTemporaryUpgrade(int ID) {
+		Debug.Log("CmdAddTemporaryUpgrade");
+		Upgrade u = Upgrades.temporary[ID];
+		if (u.price <= scraps) {
+			scraps -= u.price;
+			u.OnAdd(GetComponentInChildren<Robot>());
+			RpcAddTemporaryUpgrade(ID);
+			Debug.Log("Upgrade " + u.name + " mounted!");
+		} else {
+			Debug.Log("Not enough scraps!");
+		}
+	}
+	[ClientRpc]
+	public void RpcAddTemporaryUpgrade(int ID) {
+		Debug.Log("RpcAddTemporaryUpgrade");
+		Upgrade u = Upgrades.temporary[ID];
+		u.OnAdd(GetComponentInChildren<Robot>());
+		Debug.Log("Upgrade " + u.name + " mounted!");
+	}*/
 
 	[Command]
 	public void CmdRemoveUpgrade(int level, int ID) {

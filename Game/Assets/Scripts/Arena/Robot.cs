@@ -74,9 +74,14 @@ public class Robot : NetworkBehaviour {
 	public Slider healthSlider;
 	public Image marker;
 	[Space]
+	//[SyncVar]
 	public GameObject handsParticle;
+	//[SyncVar]
 	public GameObject feetParticle;
+	//[SyncVar]
 	public GameObject bodyParticle;
+	//[SyncVar]
+	//public int bodyPartParticleUpdated = -1;
 	public bool isGuardOn;
 
 	[SyncVar(hook = "UpdateHealthSlider")]
@@ -205,9 +210,10 @@ public class Robot : NetworkBehaviour {
 		transform.position = spawn.position;
 		transform.rotation = spawn.rotation;
 		rigidbody.velocity = Vector3.zero;
-		/*for (int i = 0; i < GetComponent<NetworkAnimator>().animator.parameterCount; i++) {
-			GetComponent<NetworkAnimator>().SetParameterAutoSend(i, true);
-		}*/
+
+		if (isLocalPlayer) {
+			FindObjectOfType<ArenaManager>().upgradeWheel.player = player;
+		}
 	}
 
 	[Command]
@@ -251,7 +257,6 @@ public class Robot : NetworkBehaviour {
 				upgrade.type = p.value1;
 				upgrade.ID = p.value2;
 				upgrade.robotGO = gameObject;
-				//ClientScene.RegisterPrefab(upgrade.gameObject);
 				NetworkServer.Spawn(upgrade.gameObject);
 			} else {
 				Debug.LogWarning("Missing prefab: Prefabs/Robots/" + player.robotName + "/Upgrades/" + p.value1 + "_" + p.value2);
@@ -395,6 +400,10 @@ public class Robot : NetworkBehaviour {
 				}
 			}
 		}
+
+		/*if (bodyPartParticleUpdated > -1) {
+			RefreshUpgradeParticle();
+		}*/
 	}
 	/*void OnDrawGizmos() {
 		Gizmos.color = Color.red;
@@ -715,80 +724,129 @@ public class Robot : NetworkBehaviour {
 		Feet,
 		Body
 	}
+	[Command]
+	public void CmdAddTemporaryUpgrade(int ID) {
+		Debug.Log("CmdAddTemporaryUpgrade");
+		Upgrade u = Upgrades.temporary[ID];
+		if (u.price <= player.scraps) {
+			player.scraps -= u.price;
+			u.OnAdd(GetComponentInChildren<Robot>());
+			RpcAddTemporaryUpgrade(ID);
+			Debug.Log("Upgrade " + u.name + " mounted!");
+		} else {
+			Debug.Log("Not enough scraps!");
+		}
+	}
+	[ClientRpc]
+	public void RpcAddTemporaryUpgrade(int ID) {
+		Debug.Log("RpcAddTemporaryUpgrade");
+		Upgrade u = Upgrades.temporary[ID];
+		u.OnAdd(GetComponentInChildren<Robot>());
+		Debug.Log("Upgrade " + u.name + " mounted!");
+	}
+	/*[Command]
+	public void CmdSetUpgradeParticle(UpgradeElements element, BodyPart bodyPart) {
+		Debug.Log("CmdSetUpgradeParticle");
+		RefreshUpgradeParticle(element, bodyPart);
+		RpcSetUpgradeParticle(element, bodyPart);
+	}
+	[ClientRpc]
+	public void RpcSetUpgradeParticle(UpgradeElements element, BodyPart bodyPart) {
+		Debug.Log("RpcSetUpgradeParticle");
+		RefreshUpgradeParticle(element, bodyPart);
+	}*/
 	List<GameObject> handsParticles = new List<GameObject>();
 	List<GameObject> feetParticles = new List<GameObject>();
 	GameObject bodyParticles;
-	public void SetUpgradeParticle(GameObject particle, BodyPart bodyPart) {
-		Debug.Log(player.name + " set particle " + particle.name + " for " + bodyPart);
+	public void RefreshUpgradeParticle(UpgradeElements element, BodyPart bodyPart) {
+		GameObject particle = null;
+		switch (element) {
+			case UpgradeElements.Fire:
+				particle = fireParticle;
+				break;
+			case UpgradeElements.Ice:
+				particle = iceParticle;
+				break;
+			case UpgradeElements.Lightning:
+				particle = lightningParticle;
+				break;
+			case UpgradeElements.Sonic:
+				particle = sonicParticle;
+				break;
+			default:
+				Debug.LogError("Unrecognized element: " + element);
+				break;
+		}
+		Debug.Log(player.name + " mounts " + particle.name + " on " + bodyPart);
 		Vector3 scale = new Vector3(1 / transform.localScale.x, 1 / transform.localScale.y, 1 / transform.localScale.z);
 		switch (bodyPart) {
 			case BodyPart.Hands:
 				if (particle != handsParticle) {
 					handsParticle = particle;
-					// Remove existing particles.
-					for (int i = 0; i < handsParticles.Count; i++) {
-						Destroy(handsParticles[i]);
-					}
-					handsParticles.Clear();
-
-					GameObject leftParticle = Instantiate(particle);
-					GameObject rightParticle = Instantiate(particle);
-					handsParticles.Add(leftParticle);
-					handsParticles.Add(rightParticle);
-
-					leftParticle.transform.SetParent(leftHand.transform);
-					rightParticle.transform.SetParent(rightHand.transform);
-
-					leftParticle.transform.localPosition = Vector3.zero;
-					leftParticle.transform.localScale = scale;
-					rightParticle.transform.localPosition = Vector3.zero;
-					rightParticle.transform.localScale = scale;
-
-					leftHand.GetComponent<BodyPartHitter>().particle = particle;
-					rightHand.GetComponent<BodyPartHitter>().particle = particle;
 				}
+				// Remove existing particles.
+				for (int i = 0; i < handsParticles.Count; i++) {
+					Destroy(handsParticles[i]);
+				}
+				handsParticles.Clear();
+
+				GameObject leftParticle = Instantiate(handsParticle);
+				GameObject rightParticle = Instantiate(handsParticle);
+				handsParticles.Add(leftParticle);
+				handsParticles.Add(rightParticle);
+
+				leftParticle.transform.SetParent(leftHand.transform);
+				rightParticle.transform.SetParent(rightHand.transform);
+
+				leftParticle.transform.localPosition = Vector3.zero;
+				leftParticle.transform.localScale = scale;
+				rightParticle.transform.localPosition = Vector3.zero;
+				rightParticle.transform.localScale = scale;
+
+				leftHand.GetComponent<BodyPartHitter>().particle = handsParticle;
+				rightHand.GetComponent<BodyPartHitter>().particle = handsParticle;
 				break;
 			case BodyPart.Feet:
 				if (particle != feetParticle) {
 					feetParticle = particle;
-					// Remove existing particles.
-					for (int i = 0; i < feetParticles.Count; i++) {
-						Destroy(feetParticles[i]);
-					}
-					feetParticles.Clear();
-
-					GameObject leftParticle = Instantiate(particle);
-					GameObject rightParticle = Instantiate(particle);
-					feetParticles.Add(leftParticle);
-					feetParticles.Add(rightParticle);
-
-					leftParticle.transform.SetParent(leftFoot.transform);
-					rightParticle.transform.SetParent(rightFoot.transform);
-
-					leftParticle.transform.localPosition = Vector3.zero;
-					leftParticle.transform.localScale = scale;
-					rightParticle.transform.localPosition = Vector3.zero;
-					rightParticle.transform.localScale = scale;
-
-					leftFoot.GetComponent<BodyPartHitter>().particle = particle;
-					rightFoot.GetComponent<BodyPartHitter>().particle = particle;
 				}
+				// Remove existing particles.
+				for (int i = 0; i < feetParticles.Count; i++) {
+					Destroy(feetParticles[i]);
+				}
+				feetParticles.Clear();
+
+				leftParticle = Instantiate(feetParticle);
+				rightParticle = Instantiate(feetParticle);
+				feetParticles.Add(leftParticle);
+				feetParticles.Add(rightParticle);
+
+				leftParticle.transform.SetParent(leftFoot.transform);
+				rightParticle.transform.SetParent(rightFoot.transform);
+
+				leftParticle.transform.localPosition = Vector3.zero;
+				leftParticle.transform.localScale = scale;
+				rightParticle.transform.localPosition = Vector3.zero;
+				rightParticle.transform.localScale = scale;
+
+				leftFoot.GetComponent<BodyPartHitter>().particle = feetParticle;
+				rightFoot.GetComponent<BodyPartHitter>().particle = feetParticle;
 				break;
 			default:
 				if (particle != bodyParticle) {
 					bodyParticle = particle;
-					// Remove existing particles.
-					Destroy(bodyParticles);
-
-					bodyParticles = Instantiate(particle);
-
-					bodyParticles.transform.SetParent(body.transform.GetChild(0));
-
-					bodyParticles.transform.localPosition = Vector3.zero;
-					bodyParticles.transform.localScale = scale * 1.5f;
-
-					head.GetComponent<BodyPartHitter>().particle = particle;
 				}
+				// Remove existing particles.
+				Destroy(bodyParticles);
+
+				bodyParticles = Instantiate(bodyParticle);
+
+				bodyParticles.transform.SetParent(body.transform.GetChild(0));
+
+				bodyParticles.transform.localPosition = Vector3.zero;
+				bodyParticles.transform.localScale = scale * 1.5f;
+
+				head.GetComponent<BodyPartHitter>().particle = bodyParticle;
 				break;
 		}
 		if (particle.name == fireParticle.name) {
@@ -800,5 +858,6 @@ public class Robot : NetworkBehaviour {
 		} else if (particle.name == sonicParticle.name) {
 			AudioManager.singleton.PlayClip(sonicSound);
 		}
+		//bodyPartParticleUpdated = -1;
 	}
 }
