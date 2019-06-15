@@ -971,7 +971,6 @@ GameObject:
   - component: {fileID: 215163411}
   - component: {fileID: 215163410}
   - component: {fileID: 215163409}
-  - component: {fileID: 215163408}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -998,36 +997,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -40, y: -40}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &215163408
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 215163406}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9f6ecb928c2f054b8bf1a9825c25bee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  seconds: 25
-  showMinutes: 1
-  onFinish:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1385231240}
-        m_MethodName: RoundOver
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
 --- !u!114 &215163409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2721,7 +2690,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0.8654326, g: 0.9438342, b: 0.9811321, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2732,7 +2701,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 14
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 10
     m_MaxSize: 40
     m_Alignment: 4
@@ -2741,7 +2710,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: '#'
 --- !u!222 &1103730321
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3356,7 +3325,6 @@ MonoBehaviour:
   - {fileID: 6473611815099381824, guid: d9d91acb7b7c69841bff621d0527426a, type: 3}
   bossArena: {fileID: 3134559228210685050, guid: 3cef1836587cc0c41aaaa7ff2cd14a5a,
     type: 3}
-  networkArenaManager: {fileID: 0}
   arenaReady: 0
 --- !u!114 &1385231241
 MonoBehaviour:

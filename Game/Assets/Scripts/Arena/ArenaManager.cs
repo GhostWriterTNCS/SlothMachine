@@ -26,12 +26,14 @@ public class ArenaManager : MonoBehaviour {
 	public GameObject[] arenaPrefabs;
 	public GameObject bossArena;
 	[Space]
-	public NetworkArenaManager networkArenaManager;
+	//public NetworkArenaManager networkArenaManager;
 	public bool arenaReady;
 
 	public void Start() {
 		arenaReady = false;
 		countdown.text = "";
 		bottomBar.SetActive(false);
+		title.gameObject.SetActive(true);
+		title.text = "";
 	}
 }

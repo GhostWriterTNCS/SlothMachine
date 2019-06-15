@@ -34,16 +34,18 @@ public class NetworkArenaManager : NetworkBehaviour {
 		if (!MatchManager.singleton.bossRound) {
 			title = arenaManager.roundX.Replace("#", MatchManager.singleton.roundCounter.ToString());
 		}
-		arenaManager.title.gameObject.SetActive(true);
-		arenaManager.title.text = title;
+		Debug.Log(title);
+		//UpdateTitle(title);
+		yield return new WaitForSeconds(1);
 		RpcUpdateTitle(title);
 		yield return new WaitForSeconds(2);
 		if (MatchManager.singleton.bossRound) {
-			arenaManager.title.text = arenaManager.finalRoundOthers;
+			//UpdateTitle(arenaManager.finalRoundOthers);
 			RpcUpdateTitle(arenaManager.finalRoundOthers);
 			yield return new WaitForSeconds(2);
 		}
-		RpcTitleSetActive(false);
+		//UpdateTitle("");
+		RpcUpdateTitle("");
 		Robot boss = null;
 		List<Robot> otherRobots = new List<Robot>();
 		foreach (Robot r in FindObjectsOfType<Robot>()) {
@@ -72,6 +74,7 @@ public class NetworkArenaManager : NetworkBehaviour {
 				}
 				yield return 0;
 			}
+			//UpdateTitle(arenaManager.matchOver);
 			RpcUpdateTitle(arenaManager.matchOver);
 			yield return new WaitForSeconds(5);
 			NetworkManager.singleton.ServerChangeScene(GameScenes.MatchResult);
@@ -94,6 +97,7 @@ public class NetworkArenaManager : NetworkBehaviour {
 		}
 		roundWinner.roundWinner++;
 		RpcUpdateCountdown("");
+		//UpdateTitle(arenaManager.roundWinnerIs.Replace("\\n", "\n").Replace("#", roundWinner.name));
 		RpcUpdateTitle(arenaManager.roundWinnerIs.Replace("\\n", "\n").Replace("#", roundWinner.name));
 		yield return new WaitForSeconds(5);
 		string scene = GameScenes.Auction;
@@ -109,25 +113,52 @@ public class NetworkArenaManager : NetworkBehaviour {
 		MatchManager.singleton.bossRound = true;
 	}
 
-	[ClientRpc]
-	public void RpcUpdateTitle(string s) {
-		FindObjectOfType<ArenaManager>().title.gameObject.SetActive(true);
-		if (s == FindObjectOfType<ArenaManager>().finalRoundOthers) {
+	/*public void UpdateTitle(string s) {
+		ArenaManager arenaManager = FindObjectOfType<ArenaManager>();
+		if (s == "") {
+			arenaManager.title.gameObject.SetActive(false);
+			return;
+		} else {
+			arenaManager.title.gameObject.SetActive(true);
+		}
+		if (s == arenaManager.finalRoundOthers) {
 			foreach (Player player in FindObjectsOfType<Player>()) {
 				if (player.robot.isLocalPlayer) {
 					if (player.roundWinner >= 2) {
-						s = FindObjectOfType<ArenaManager>().finalRoundBoss;
+						s = arenaManager.finalRoundBoss;
 					}
 					break;
 				}
 			}
 		}
-		FindObjectOfType<ArenaManager>().title.text = s;
-	}
+		arenaManager.title.text = s;
+	}*/
 	[ClientRpc]
+	public void RpcUpdateTitle(string s) {
+		Debug.Log("Title: " + s);
+		ArenaManager arenaManager = FindObjectOfType<ArenaManager>();
+		/*if (s == "") {
+			arenaManager.title.gameObject.SetActive(false);
+			return;
+		} else {
+			arenaManager.title.gameObject.SetActive(true);
+		}*/
+		if (s == arenaManager.finalRoundOthers) {
+			foreach (Player player in FindObjectsOfType<Player>()) {
+				if (player.robot.isLocalPlayer) {
+					if (player.roundWinner >= 2) {
+						s = arenaManager.finalRoundBoss;
+					}
+					break;
+				}
+			}
+		}
+		arenaManager.title.text = s;
+	}
+	/*[ClientRpc]
 	public void RpcTitleSetActive(bool value) {
 		FindObjectOfType<ArenaManager>().title.gameObject.SetActive(value);
-	}
+	}*/
 	[ClientRpc]
 	public void RpcUpdateCountdown(string s) {
 		FindObjectOfType<ArenaManager>().countdown.text = s;
