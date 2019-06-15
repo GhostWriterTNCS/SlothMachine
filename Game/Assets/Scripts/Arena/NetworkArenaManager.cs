@@ -34,7 +34,6 @@ public class NetworkArenaManager : NetworkBehaviour {
 		if (!MatchManager.singleton.bossRound) {
 			title = arenaManager.roundX.Replace("#", MatchManager.singleton.roundCounter.ToString());
 		}
-		Debug.Log(title);
 		//UpdateTitle(title);
 		yield return new WaitForSeconds(1);
 		RpcUpdateTitle(title);
@@ -135,7 +134,6 @@ public class NetworkArenaManager : NetworkBehaviour {
 	}*/
 	[ClientRpc]
 	public void RpcUpdateTitle(string s) {
-		Debug.Log("Title: " + s);
 		ArenaManager arenaManager = FindObjectOfType<ArenaManager>();
 		/*if (s == "") {
 			arenaManager.title.gameObject.SetActive(false);

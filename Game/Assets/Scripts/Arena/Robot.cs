@@ -236,17 +236,30 @@ public class Robot : NetworkBehaviour {
 
 	[Command]
 	public void CmdMountUpgrades() {
+		Debug.Log(player.name + " has " + player.upgrades.Count + " upgrades.");
 		foreach (Pair p in player.upgrades) {
-			GameObject prefab = Resources.Load<GameObject>("Prefabs/Robots/" + player.robotName + "/Upgrades/" + p.value1 + "_" + p.value2);
-			if (prefab) {
-				MountUpgrade upgrade = Instantiate(prefab).GetComponent<MountUpgrade>();
-				upgrade.type = p.value1;
-				upgrade.ID = p.value2;
-				upgrade.robotGO = gameObject;
-				NetworkServer.Spawn(upgrade.gameObject);
-			} else {
-				Debug.LogWarning("Missing prefab: Prefabs/Robots/" + player.robotName + "/Upgrades/" + p.value1 + "_" + p.value2);
+			MountUpgrade(p.value1, p.value2);
+			RpcMountUpgrade(p.value1, p.value2);
+		}
+	}
+	[ClientRpc]
+	public void RpcMountUpgrade(int value1, int value2) {
+		MountUpgrade(value1, value2);
+	}
+	public void MountUpgrade(int value1, int value2) {
+		Debug.Log(player.name + " mounts " + value1 + "_" + value2);
+		GameObject prefab = Resources.Load<GameObject>("Prefabs/Robots/" + player.robotName + "/Upgrades/" + value1 + "_" + value2);
+		if (prefab) {
+			GameObject upgradeGO = Instantiate(prefab);
+			MountUpgrade upgrade = upgradeGO.GetComponent<MountUpgrade>();
+			if (!upgrade) {
+				upgrade = upgradeGO.AddComponent<MountUpgrade>();
 			}
+			upgrade.type = value1;
+			upgrade.ID = value2;
+			upgrade.robotGO = gameObject;
+		} else {
+			Debug.LogWarning("Missing prefab: Prefabs/Robots/" + player.robotName + "/Upgrades/" + value1 + "_" + value2);
 		}
 	}
 
@@ -262,6 +275,9 @@ public class Robot : NetworkBehaviour {
 	bool m_HitDetect;
 	public Robot lockCameraRobot;
 	void Update() {
+		if (!player || !playerMove) {
+			return;
+		}
 		if (paused) {
 			playerMove.canMove = false;
 			return;

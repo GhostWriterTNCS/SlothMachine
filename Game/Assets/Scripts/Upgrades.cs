@@ -45,9 +45,9 @@ public class Upgrades {
 		},
 		new Upgrade[] {
 			new Upgrade("", UpgradeTypes.Core, 0, "", null, null), // Upgrade IDs start from 1.
-			new Upgrade("Spike armor", UpgradeTypes.Armor, 0, "A spiked armor.", (Robot r) => {r.defenseBonus += 5; }, (Robot r) => { r.defenseBonus -= 5;}),
+			new Upgrade("Spike armor", UpgradeTypes.Armor, 0, "A spiked armor that increases the defense.", (Robot r) => {r.defenseBonus += 5; }, (Robot r) => { r.defenseBonus -= 5;}),
 			new Upgrade("Advanced core Mk II", UpgradeTypes.Core, 0, "A more powerful core that increases the maximum health.", (Robot r) => { r.healthBonus += 4; }, (Robot r) => {r.healthBonus -= 4; }),
-			new Upgrade("Drill", UpgradeTypes.Hands, 0, "A sharp drill.", (Robot r) => { r.attackBonus += 5; }, (Robot r) => {r.healthBonus -= 5; }),
+			new Upgrade("Drill", UpgradeTypes.Hands, 0, "A sharp drill that increases the attack.", (Robot r) => { r.attackBonus += 5; }, (Robot r) => {r.healthBonus -= 5; }),
 			new Upgrade("Advanced engine Mk II", UpgradeTypes.Core, 0, "A more powerful engine that increases the attack.", (Robot r) => {r.attackBonus += 4; }, (Robot r) => {r.attackBonus -= 4; }),
 			new Upgrade("Advanced armor Mk II", UpgradeTypes.Core, 0, "A more resistent material for the armor that increases the defense.", (Robot r) => {r.defenseBonus += 4; }, (Robot r) => {r.defenseBonus -= 4; }),
 			new Upgrade("Advanced connectors Mk II", UpgradeTypes.Core, 0, "More efficient connectors that increase the speed.", (Robot r) => {r.speedBonus += 4; }, (Robot r) => {r.speedBonus -= 4; }),
