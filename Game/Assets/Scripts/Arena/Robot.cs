@@ -96,7 +96,6 @@ public class Robot : NetworkBehaviour {
 
 	RobotModel robotModel;
 	Animator animator;
-	//NetworkAnimator networkAnimator;
 	PlayerCamera playerCamera;
 	PlayerMove playerMove;
 	Rigidbody rigidbody;
@@ -161,7 +160,6 @@ public class Robot : NetworkBehaviour {
 		animator = GetComponent<Animator>();
 		animator.runtimeAnimatorController = robotModel.animatorController;
 		animator.avatar = robotModel.avatar;
-		//networkAnimator = GetComponent<NetworkAnimator>();
 		playerCamera = GetComponent<PlayerCamera>();
 		playerMove = GetComponent<PlayerMove>();
 		rigidbody = GetComponent<Rigidbody>();
@@ -374,11 +372,11 @@ public class Robot : NetworkBehaviour {
 
 				// Ion particles
 				if (Input.GetButton("RB") && Input.GetAxis("Triggers") <= 0.01f) {
-					ionParticle.GetComponent<Renderer>().material = ionPlus;
+					CmdSetIon(1);
 				} else if (Input.GetAxis("Triggers") > 0.01f && !Input.GetButton("RB")) {
-					ionParticle.GetComponent<Renderer>().material = ionMinus;
+					CmdSetIon(-1);
 				} else {
-					ionParticle.GetComponent<Renderer>().material = ionNull;
+					CmdSetIon(0);
 				}
 			}
 		}
@@ -401,6 +399,29 @@ public class Robot : NetworkBehaviour {
 			Gizmos.DrawWireCube(transform.position + transform.forward * m_MaxDistance, new Vector3(7, 7, 7));
 		}
 	}*/
+
+	[Command]
+	public void CmdSetIon(short ion) {
+		SetIon(ion);
+		RpcSetIon(ion);
+	}
+	[ClientRpc]
+	public void RpcSetIon(short ion) {
+		SetIon(ion);
+	}
+	public void SetIon(short ion) {
+		switch (ion) {
+			case 1:
+				ionParticle.GetComponent<Renderer>().material = ionPlus;
+				break;
+			case -1:
+				ionParticle.GetComponent<Renderer>().material = ionMinus;
+				break;
+			default:
+				ionParticle.GetComponent<Renderer>().material = ionNull;
+				break;
+		}
+	}
 
 	public void DisableLockCamera() {
 		if (lockCameraRobot) {
@@ -425,29 +446,17 @@ public class Robot : NetworkBehaviour {
 	Dictionary<string, int> triggers = new Dictionary<string, int>();
 	[Command]
 	public void CmdSetTrigger(string trigger) {
-		if (trigger != "B")
-			playerMove.isAttacking = true;
-		animator.SetTrigger(trigger);
-		/*if (isServer) {
-			networkAnimator.animator.ResetTrigger(trigger);
-		}*/
-		string triggerID = trigger;
-		if (!triggers.ContainsKey(trigger)) {
-			triggers.Add(trigger, 1);
-		} else {
-			triggers[trigger] += 1;
-		}
-		StartCoroutine(DelayCall(() => ResetTrigger(triggerID), comboDelay));
+		SetTrigger(trigger);
 		RpcSetTrigger(trigger);
 	}
 	[ClientRpc]
 	public void RpcSetTrigger(string trigger) {
+		SetTrigger(trigger);
+	}
+	void SetTrigger(string trigger) {
 		if (trigger != "B")
 			playerMove.isAttacking = true;
 		animator.SetTrigger(trigger);
-		/*if (isServer) {
-			networkAnimator.animator.ResetTrigger(trigger);
-		}*/
 		string triggerID = trigger;
 		if (!triggers.ContainsKey(trigger)) {
 			triggers.Add(trigger, 1);
