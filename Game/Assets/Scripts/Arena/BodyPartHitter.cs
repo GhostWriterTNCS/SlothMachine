@@ -23,7 +23,7 @@ public class BodyPartHitter : MonoBehaviour {
 		if (other.GetComponent<BodyPartTarget>()) {
 			if (!siblings.Contains(other) && !hitters.Contains(other) && other.isTrigger) {
 				hitters.Add(other);
-				GetRobot(other.transform).CmdGetHitted(robot.gameObject, transform.position, particle);
+				GetRobot(other.transform).GetHitted(robot.gameObject, transform.position, particle);
 			}
 		}
 	}

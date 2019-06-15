@@ -39,6 +39,7 @@ public class Robot : NetworkBehaviour {
 	public AudioClip iceSound;
 	public AudioClip sonicSound;
 	public AudioClip destroyedSound;
+	public AudioClip[] clips;
 
 	[Header("Bonus")]
 	[SyncVar]
@@ -99,6 +100,7 @@ public class Robot : NetworkBehaviour {
 	PlayerCamera playerCamera;
 	PlayerMove playerMove;
 	Rigidbody rigidbody;
+	//AudioSource audioSource;
 	float initialComboScore = 2;
 
 	UpgradeWheel upgradeWheel;
@@ -163,6 +165,7 @@ public class Robot : NetworkBehaviour {
 		playerCamera = GetComponent<PlayerCamera>();
 		playerMove = GetComponent<PlayerMove>();
 		rigidbody = GetComponent<Rigidbody>();
+		//audioSource = GetComponent<AudioSource>();
 
 		leftHand.enabled = false;
 		rightHand.enabled = false;
@@ -324,7 +327,8 @@ public class Robot : NetworkBehaviour {
 					} else {
 						evadeDirection = transform.forward * -1;
 					}
-					AudioManager.singleton.PlayClip(evadeSound);
+					CmdPlayClip(gameObject, 0);
+					//AudioManager.singleton.PlayClip(evadeSound);
 					evadeTime = evadeDuration;
 					evadeCooldownTime = evadeCooldown;
 					CmdSetTrigger("B");
@@ -540,6 +544,7 @@ public class Robot : NetworkBehaviour {
 		}
 		if (newHealth <= 0) {
 			player.deathCount++;
+			RpcRespawn();
 		}
 		health = newHealth;
 	}
@@ -547,9 +552,9 @@ public class Robot : NetworkBehaviour {
 		float newHealth = health + variation;
 		CmdUpdateHealthValue(newHealth);
 		if (newHealth <= 0) {
-			AudioManager.singleton.PlayClip(destroyedSound);
+			CmdPlayClip(gameObject, 1);
+			//AudioManager.singleton.PlayClip(destroyedSound);
 			DisableLockCamera();
-			RpcRespawn();
 		}
 	}
 
@@ -634,8 +639,11 @@ public class Robot : NetworkBehaviour {
 		}
 	}
 
-	[Command]
-	public void CmdGetHitted(GameObject hitterGO, Vector3 position, GameObject particle) {
+	//[Command]
+	public void GetHitted(GameObject hitterGO, Vector3 position, GameObject particle) {
+		if (!isLocalPlayer && !player.isAgent) {
+			return;
+		}
 		Robot hitter = hitterGO.GetComponent<Robot>();
 		Debug.Log(hitter.name + " hits " + name + " " + hitter.pushBack);
 		if (MatchManager.singleton.bossRound) {
@@ -654,15 +662,20 @@ public class Robot : NetworkBehaviour {
 			NetworkServer.Spawn(effect);
 			CmdSetTrigger("Reaction");
 			if (!particle) {
-				AudioManager.singleton.PlayClip(hitSound);
+				CmdPlayClip(gameObject, 2);
+				//AudioManager.singleton.PlayClip(hitSound);
 			} else if (particle.name == fireParticle.name) {
-				AudioManager.singleton.PlayClip(fireSound);
-			} else if (particle.name == iceParticle.name) {
-				AudioManager.singleton.PlayClip(iceSound);
+				CmdPlayClip(gameObject, 3);
+				//AudioManager.singleton.PlayClip(fireSound);
+			} else if (particle.name == iceSound.name) {
+				CmdPlayClip(gameObject, 4);
+				//AudioManager.singleton.PlayClip(iceSound);
 			} else if (particle.name == lightningParticle.name) {
-				AudioManager.singleton.PlayClip(lightningSound);
+				CmdPlayClip(gameObject, 5);
+				//AudioManager.singleton.PlayClip(lightningSound);
 			} else if (particle.name == sonicParticle.name) {
-				AudioManager.singleton.PlayClip(sonicSound);
+				CmdPlayClip(gameObject, 6);
+				//AudioManager.singleton.PlayClip(sonicSound);
 			} else {
 				Debug.LogError("Sound not found for " + particle.name);
 			}
@@ -858,13 +871,29 @@ public class Robot : NetworkBehaviour {
 				break;
 		}
 		if (particle.name == fireParticle.name) {
-			AudioManager.singleton.PlayClip(fireSound);
+			CmdPlayClip(gameObject, 3);
+			//AudioManager.singleton.PlayClip(fireSound);
 		} else if (particle.name == iceParticle.name) {
-			AudioManager.singleton.PlayClip(iceSound);
+			CmdPlayClip(gameObject, 4);
+			//AudioManager.singleton.PlayClip(iceSound);
 		} else if (particle.name == lightningParticle.name) {
-			AudioManager.singleton.PlayClip(lightningSound);
+			CmdPlayClip(gameObject, 5);
+			//AudioManager.singleton.PlayClip(lightningSound);
 		} else if (particle.name == sonicParticle.name) {
-			AudioManager.singleton.PlayClip(sonicSound);
+			CmdPlayClip(gameObject, 6);
+			//AudioManager.singleton.PlayClip(sonicSound);
+		}
+	}
+
+	[Command]
+	public void CmdPlayClip(GameObject robotGO, int clipIndex) {
+		RpcPlayClip(robotGO, clipIndex);
+	}
+	[ClientRpc]
+	public void RpcPlayClip(GameObject robotGO, int clipIndex) {
+		if (clips.Length > clipIndex) {
+			robotGO.GetComponent<AudioSource>().clip = clips[clipIndex];
+			robotGO.GetComponent<AudioSource>().Play();
 		}
 	}
 }

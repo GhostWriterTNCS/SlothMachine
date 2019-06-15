@@ -38,7 +38,7 @@ public class Player : NetworkBehaviour {
 	}
 
 	void Start() {
-		name = "Player " + playerID + (isAgent ? " (bot)" : "");
+		name = "Player " + playerID;// + (isAgent ? " (bot)" : "");
 		if (isLocalPlayer && !isAgent) {
 			name = "<b>" + name + "</b>";
 		}
