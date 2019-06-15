@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class MatchManager : NetworkBehaviour {
 	public static MatchManager singleton;
-	//[SyncVar]
+	public int playerCount;
 	public int roundCounter;
 	public bool bossRound;
 	bool handlerAdded;
@@ -19,6 +19,7 @@ public class MatchManager : NetworkBehaviour {
 	}
 
 	void Start() {
+		playerCount = 0;
 		roundCounter = 0;
 		bossRound = false;
 	}

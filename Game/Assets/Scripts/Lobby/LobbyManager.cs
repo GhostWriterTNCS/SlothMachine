@@ -265,6 +265,8 @@ namespace Prototype.NetworkLobby {
 				localPlayerCount += (p == null || p.playerControllerId == -1) ? 0 : 1;
 
 			// show button only on server
+			Debug.Log(localPlayerCount + " " + _playerNumber);
+			MatchManager.singleton.playerCount = _playerNumber;
 			addPlayerButton.SetActive(NetworkServer.active && localPlayerCount < maxPlayersPerConnection && _playerNumber < maxPlayers);
 		}
 

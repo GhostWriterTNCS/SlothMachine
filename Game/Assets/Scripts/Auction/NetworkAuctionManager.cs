@@ -66,15 +66,15 @@ public class NetworkAuctionManager : NetworkBehaviour {
 
 	[Command]
 	public void CmdLoad() {
-		for (int i = 0; i < LobbyPlayerList._instance.playerListContentTransform.childCount - 1; i++) {
+		for (int i = 0; i < MatchManager.singleton.playerCount; i++) {
 			GameObject newPlayer = Instantiate(upgradeBoxPrefab);
 			NetworkServer.Spawn(newPlayer);
 			UpgradeBox ub = newPlayer.GetComponent<UpgradeBox>();
 			int upgrade, level;
-			if (i < 2) {
-				level = 2;
+			if (i < MatchManager.singleton.playerCount / 2) {
+				level = MatchManager.singleton.roundCounter < 2 ? 2 : 3;
 			} else {
-				level = 1;
+				level = MatchManager.singleton.roundCounter < 2 ? 1 : 2;
 			}
 			do {
 				upgrade = Random.Range(1, Upgrades.permanent[level].Length);
@@ -181,7 +181,6 @@ public class NetworkAuctionManager : NetworkBehaviour {
 				auctionWinner = pb.gameObject;
 			}
 		}
-		Debug.Log("HERE");
 		if (auctionWinner) {
 			AuctionPlayer playerBox = auctionWinner.GetComponent<AuctionPlayer>();
 			playerBox.player.scraps -= playerBox.bid;
