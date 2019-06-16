@@ -19,46 +19,9 @@ public class MyAnimation : StateMachineBehaviour {
 	override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
 		robot = animator.GetComponent<Robot>();
 		robot.CmdIncreaseComboScore();
-		/*foreach (BodyPartHitter h in robot.GetComponentsInChildren<BodyPartHitter>()) {
-			h.hitters.Clear();
-		}*/
-		//if (!robot.isServer || robot.isLocalPlayer) {
-		//if (robot.isLocalPlayer) {
 		robot.CmdEnableCollider(robot.gameObject, enableLeftHand, enableRightHand, enableLeftFoot, enableRightFoot, enableHead, breakGuard, pushBack, hitDelay);
-		/*	Debug.Log(robot.player.name + " is local player");
-		} else {
-			Debug.Log(robot.player.name + " is not local player");
-		}*/
 		robot.GetComponent<PlayerMove>().isAttacking = true;
 	}
-
-	/*IEnumerator EnableCollider() {
-		if (hitDelay > 0) {
-			yield return new WaitForSeconds(hitDelay);
-		}
-		robot.breakGuard = breakGuard;
-		robot.pushBack = pushBack;
-		if (enableLeftHand) {
-			robot.ActivateBodyPart(Robot.BodyPartCollider.leftHand, true);
-			robot.leftHand.GetComponent<BodyPartHitter>().hitters.Clear();
-		}
-		if (enableRightHand) {
-			robot.ActivateBodyPart(Robot.BodyPartCollider.rightHand, true);
-			robot.rightHand.GetComponent<BodyPartHitter>().hitters.Clear();
-		}
-		if (enableLeftFoot) {
-			robot.ActivateBodyPart(Robot.BodyPartCollider.leftFoot, true);
-			robot.leftFoot.GetComponent<BodyPartHitter>().hitters.Clear();
-		}
-		if (enableRightFoot) {
-			robot.ActivateBodyPart(Robot.BodyPartCollider.rightFoot, true);
-			robot.rightFoot.GetComponent<BodyPartHitter>().hitters.Clear();
-		}
-		if (enableHead) {
-			robot.ActivateBodyPart(Robot.BodyPartCollider.head, true);
-			robot.head.GetComponent<BodyPartHitter>().hitters.Clear();
-		}
-	}*/
 
 	// OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
 	//override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -68,7 +31,8 @@ public class MyAnimation : StateMachineBehaviour {
 
 	// OnStateExit is called when a transition ends and the state machine finishes evaluating this state
 	override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-		if (enableLeftHand) {
+		robot.CmdDisableCollider(robot.gameObject, enableLeftHand, enableRightHand, enableLeftFoot, enableRightFoot, enableHead, resetDirection);
+		/*if (enableLeftHand) {
 			robot.ActivateBodyPart(Robot.BodyPartCollider.leftHand, false);
 		}
 		if (enableRightHand) {
@@ -87,10 +51,10 @@ public class MyAnimation : StateMachineBehaviour {
 		/*foreach (BodyPartHitter h in robot.GetComponentsInChildren<BodyPartHitter>()) {
 			h.hitters.Clear();
 		}*/
-		robot.GetComponent<PlayerMove>().isAttacking = false;
+		/*robot.GetComponent<PlayerMove>().isAttacking = false;
 		if (resetDirection) {
 			robot.GetComponentInChildren<RobotModel>().transform.localRotation = Quaternion.identity;
-		}
+		}*/
 	}
 
 	// OnStateMove is called right after Animator.OnAnimatorMove()

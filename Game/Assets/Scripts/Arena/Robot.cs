@@ -689,6 +689,33 @@ public class Robot : NetworkBehaviour {
 		}
 	}
 
+	public void CmdDisableCollider(GameObject robotGO, bool enableLeftHand, bool enableRightHand, bool enableLeftFoot, bool enableRightFoot, bool enableHead, bool resetDirection) {
+		Robot robot = robotGO.GetComponent<Robot>();
+		if (enableLeftHand) {
+			robot.ActivateBodyPart(Robot.BodyPartCollider.leftHand, false);
+		}
+		if (enableRightHand) {
+			robot.ActivateBodyPart(Robot.BodyPartCollider.rightHand, false);
+		}
+		if (enableLeftFoot) {
+			robot.ActivateBodyPart(Robot.BodyPartCollider.leftFoot, false);
+		}
+		if (enableRightFoot) {
+			robot.ActivateBodyPart(Robot.BodyPartCollider.rightFoot, false);
+		}
+		if (enableHead) {
+			robot.ActivateBodyPart(Robot.BodyPartCollider.head, false);
+		}
+
+		/*foreach (BodyPartHitter h in robot.GetComponentsInChildren<BodyPartHitter>()) {
+			h.hitters.Clear();
+		}*/
+		robot.GetComponent<PlayerMove>().isAttacking = false;
+		if (resetDirection) {
+			robot.GetComponentInChildren<RobotModel>().transform.localRotation = Quaternion.identity;
+		}
+	}
+
 	[Command]
 	public void CmdGetHitted(GameObject hitterGO, Vector3 position, GameObject particle) {
 		Robot hitter = hitterGO.GetComponent<Robot>();
