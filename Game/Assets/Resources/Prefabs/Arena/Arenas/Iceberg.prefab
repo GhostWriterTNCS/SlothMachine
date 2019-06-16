@@ -284,7 +284,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 15
-  count: 20
+  count: 7
   penguin: {fileID: 3348497873896043762, guid: 00d05be7253fc8242bd48892e5513b54, type: 3}
 --- !u!114 &5347687494385789782
 MonoBehaviour:
@@ -351,7 +351,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 15
-  count: 20
+  count: 8
   penguin: {fileID: 3348497873896043762, guid: 00d05be7253fc8242bd48892e5513b54, type: 3}
 --- !u!114 &9201174885818781789
 MonoBehaviour:
@@ -697,7 +697,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 15
-  count: 20
+  count: 8
   penguin: {fileID: 3348497873896043762, guid: 00d05be7253fc8242bd48892e5513b54, type: 3}
 --- !u!114 &6903867135741684080
 MonoBehaviour:
@@ -764,7 +764,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 15
-  count: 20
+  count: 7
   penguin: {fileID: 3348497873896043762, guid: 00d05be7253fc8242bd48892e5513b54, type: 3}
 --- !u!114 &1341523246402105278
 MonoBehaviour:
