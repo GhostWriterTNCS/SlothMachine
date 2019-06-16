@@ -6,12 +6,13 @@ using UnityEngine.Networking;
 public class SyncTransform : NetworkBehaviour {
 	public float transitionSpeed = 0.1f;
 	[SyncVar]
-	Vector3 position;
+	public Vector3 position;
 	[SyncVar]
-	Quaternion rotation;
+	public Quaternion rotation;
 
 	void Update() {
 		if (isLocalPlayer) {
+			Debug.Log("My position is " + transform.position);
 			CmdSendValues(transform.position, transform.rotation);
 		} else {
 			transform.position = Vector3.Lerp(transform.position, position, Time.deltaTime * transitionSpeed);
@@ -19,7 +20,9 @@ public class SyncTransform : NetworkBehaviour {
 		}
 	}
 
+	[Command]
 	void CmdSendValues(Vector3 newPos, Quaternion newRot) {
+		//SyncTransform ST = GO.GetComponent<SyncTransform>();
 		position = newPos;
 		rotation = newRot;
 	}
