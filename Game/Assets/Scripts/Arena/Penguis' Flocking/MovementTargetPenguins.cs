@@ -12,7 +12,7 @@ public class MovementTargetPenguins : MonoBehaviour {
 		destination = new Vector3(20, 0, 20);
 	}
 	// Update is called once per frame
-	void FixedUpdate() {
+	void Update() {
 		if (destination != transform.position) {
 			float step = moveSpeed * Time.deltaTime;
 			transform.position = Vector3.MoveTowards(transform.position, destination, step);
