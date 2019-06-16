@@ -26,6 +26,7 @@ public class Robot : NetworkBehaviour {
 	public float comboDelay = 1;
 	public float holdMinDuration = 0.76f;
 	public float pushBackPower = 360;
+	public float baseMass = 50;
 	[Space]
 	public float evadeDuration = 0.1f;
 	public float evadeDistance = 0.3f;
@@ -232,7 +233,8 @@ public class Robot : NetworkBehaviour {
 		healthMax = (robotModel.health + healthBonus) * 30;
 		attack = robotModel.attack + attackBonus;
 		defense = robotModel.defense + defenseBonus;
-		speed = 1 + (robotModel.speed + speedBonus - 5) / 8f;
+		speed = 1 + (robotModel.speed + speedBonus - 5) / 16f;
+		rigidbody.mass = baseMass / speed;
 		if (player.roundWinner >= 2) {
 			healthMax *= 2;
 			defense *= 2;
@@ -729,7 +731,7 @@ public class Robot : NetworkBehaviour {
 			}
 			if (hitter.pushBack) {
 				Debug.Log("Push");
-				rigidbody.AddForce(hitter.transform.forward * 8.5f, ForceMode.Impulse);
+				rigidbody.AddForce(hitter.transform.forward * 8.5f * 50, ForceMode.Impulse);
 			}
 			UpdateHealth(-damage);
 			hitter.player.scraps += 3;
