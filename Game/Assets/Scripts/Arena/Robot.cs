@@ -26,6 +26,7 @@ public class Robot : NetworkBehaviour {
 	public float comboDelay = 1;
 	public float holdMinDuration = 0.76f;
 	public float pushBackPower = 360;
+	[Space]
 	public float evadeDuration = 0.1f;
 	public float evadeDistance = 0.3f;
 	public float evadeCooldown = 1;
@@ -102,6 +103,7 @@ public class Robot : NetworkBehaviour {
 	Rigidbody rigidbody;
 	//AudioSource audioSource;
 	float initialComboScore = 2;
+	float evadeDelay;
 
 	UpgradeWheel upgradeWheel;
 	ArenaManager arenaManager;
@@ -189,6 +191,7 @@ public class Robot : NetworkBehaviour {
 		if (isLocalPlayer) {
 			minimapCursor.transform.localScale *= 1.5f;
 		}
+		evadeDelay = GetComponentInChildren<RobotModel>().evadeDelay;
 
 		while (!arenaManager.arenaReady) {
 			yield return 0;
@@ -271,6 +274,7 @@ public class Robot : NetworkBehaviour {
 	//float holdDuration = 0;
 
 	Vector3 evadeDirection;
+	float evadeDelayTime = 0;
 	float evadeTime = 0;
 	float evadeCooldownTime = 0;
 	float m_MaxDistance = 20;
@@ -296,7 +300,10 @@ public class Robot : NetworkBehaviour {
 				CmdResetComboScore();
 			}
 		}
-		if (evadeTime > 0) {
+		if (evadeDelayTime > 0) {
+			playerMove.canMove = false;
+			evadeDelayTime -= Time.deltaTime;
+		} else if (evadeTime > 0) {
 			playerMove.canMove = false;
 			rigidbody.MovePosition(rigidbody.position + (evadeDirection * evadeDistance));
 			evadeTime -= Time.deltaTime;
@@ -334,6 +341,7 @@ public class Robot : NetworkBehaviour {
 					GetComponentInChildren<RobotModel>().transform.localRotation = Quaternion.LookRotation(evadeDirection * -1);
 					CmdPlayClip(gameObject, 0);
 					//AudioManager.singleton.PlayClip(evadeSound);
+					evadeDelayTime = evadeDelay;
 					evadeTime = evadeDuration;
 					evadeCooldownTime = evadeCooldown;
 					CmdSetTrigger("B");

@@ -10,6 +10,8 @@ public class RobotModel : NetworkBehaviour {
 	public int defense = 3;
 	[Range(1, 9)]
 	public int speed = 3;
+	[Space]
+	public float evadeDelay = 0.12f;
 
 	[Space]
 	public RuntimeAnimatorController animatorController;
