@@ -12,15 +12,15 @@ public class SyncTransform : NetworkBehaviour {
 
 	void Update() {
 		if (isLocalPlayer) {
-			CmdSendValues();
+			CmdSendValues(transform.position, transform.rotation);
 		} else {
 			transform.position = Vector3.Lerp(transform.position, position, Time.deltaTime * transitionSpeed);
-			transform.rotation = Quaternion.Slerp(transform.rotation, rotation, transitionSpeed);
+			transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * transitionSpeed);
 		}
 	}
 
-	void CmdSendValues() {
-		position = transform.position;
-		rotation = transform.rotation;
+	void CmdSendValues(Vector3 newPos, Quaternion newRot) {
+		position = newPos;
+		rotation = newRot;
 	}
 }

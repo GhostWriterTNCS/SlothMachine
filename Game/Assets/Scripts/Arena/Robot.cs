@@ -662,6 +662,7 @@ public class Robot : NetworkBehaviour {
 	}
 	IEnumerator EnableCollider(GameObject robotGO, bool enableLeftHand, bool enableRightHand, bool enableLeftFoot, bool enableRightFoot, bool enableHead, bool breakGuard, bool pushBack, float hitDelay) {
 		Robot robot = robotGO.GetComponent<Robot>();
+		Debug.Log(robot.player.name + " has enabled a collider.");
 		if (hitDelay > 0) {
 			yield return new WaitForSeconds(hitDelay);
 		}
@@ -689,8 +690,9 @@ public class Robot : NetworkBehaviour {
 		}
 	}
 
-	public void CmdDisableCollider(GameObject robotGO, bool enableLeftHand, bool enableRightHand, bool enableLeftFoot, bool enableRightFoot, bool enableHead, bool resetDirection) {
+	public void CmdDisableCollider(GameObject robotGO, bool enableLeftHand, bool enableRightHand, bool enableLeftFoot, bool enableRightFoot, bool enableHead) {
 		Robot robot = robotGO.GetComponent<Robot>();
+		Debug.Log(robot.player.name + " has disabled a collider.");
 		if (enableLeftHand) {
 			robot.ActivateBodyPart(Robot.BodyPartCollider.leftHand, false);
 		}
