@@ -318,15 +318,20 @@ public class Robot : NetworkBehaviour {
 				} else if (Input.GetButtonDown("B")) {
 					holdButton = 0;
 				} else if (Input.GetButtonUp("B") && evadeCooldownTime <= 0) {
-					if (Input.GetAxis("Horizontal") > 0.1) {
+					evadeDirection = transform.right * Input.GetAxis("Horizontal") + transform.forward * Input.GetAxis("Vertical");
+					/*if (Input.GetAxis("Horizontal") > 0.1) {
 						evadeDirection = transform.right;
 					} else if (Input.GetAxis("Horizontal") < -0.1) {
 						evadeDirection = transform.right * -1;
-					} else if (Input.GetAxis("Vertical") > 0.1) {
+					} else if (Input.GetAxis("") > 0.1) {
 						evadeDirection = transform.forward;
 					} else {
 						evadeDirection = transform.forward * -1;
+					}*/
+					if (evadeDirection.magnitude < 0.2f) {
+						evadeDirection = transform.forward * -1;
 					}
+					GetComponentInChildren<RobotModel>().transform.localRotation = Quaternion.LookRotation(evadeDirection * -1);
 					CmdPlayClip(gameObject, 0);
 					//AudioManager.singleton.PlayClip(evadeSound);
 					evadeTime = evadeDuration;

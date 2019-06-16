@@ -11,6 +11,7 @@ public class MyAnimation : StateMachineBehaviour {
 	public bool breakGuard;
 	public bool pushBack;
 	public float hitDelay;
+	public bool resetDirection;
 
 	Robot robot;
 
@@ -87,6 +88,9 @@ public class MyAnimation : StateMachineBehaviour {
 			h.hitters.Clear();
 		}*/
 		robot.GetComponent<PlayerMove>().isAttacking = false;
+		if (resetDirection) {
+			robot.GetComponentInChildren<RobotModel>().transform.localRotation = Quaternion.identity;
+		}
 	}
 
 	// OnStateMove is called right after Animator.OnAnimatorMove()

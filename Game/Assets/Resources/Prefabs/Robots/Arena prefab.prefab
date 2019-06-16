@@ -4792,8 +4792,8 @@ MonoBehaviour:
   comboDelay: 1
   holdMinDuration: 0.76
   pushBackPower: 360
-  evadeDuration: 0.2
-  evadeDistance: 0.67
+  evadeDuration: 0.61
+  evadeDistance: 0.48
   evadeCooldown: 3
   evadeSound: {fileID: 8300000, guid: 1d668d78e02d8d844a793613944fe0b6, type: 3}
   keepOnRespawn: {fileID: 5529818024574986447}
