@@ -9,6 +9,7 @@ public class AuctionPlayer : NetworkBehaviour {
 	public Player player;
 
 	public Image robotImage;
+	public Image robotFrame;
 	public Text nameText;
 	public Image roundWinnerImage;
 	public Text scoreText;
@@ -40,6 +41,7 @@ public class AuctionPlayer : NetworkBehaviour {
 		Debug.Log("Load player " + playerGO.name);
 		player = playerGO.GetComponent<Player>();
 		if (player) {
+			robotFrame.color = player.color;
 			robotImage.sprite = Resources.Load<Sprite>("UI/Robots/" + player.robotName);
 			nameText.text = player.name;
 			if (player.roundWinner == 0) {

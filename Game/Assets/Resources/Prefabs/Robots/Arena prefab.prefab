@@ -4792,17 +4792,11 @@ MonoBehaviour:
   comboDelay: 1
   holdMinDuration: 0.76
   pushBackPower: 360
+  baseMass: 50
   evadeDuration: 0.61
   evadeDistance: 0.48
   evadeCooldown: 3
-  evadeSound: {fileID: 8300000, guid: 1d668d78e02d8d844a793613944fe0b6, type: 3}
   keepOnRespawn: {fileID: 5529818024574986447}
-  hitSound: {fileID: 8300000, guid: 9ddb5fe8f47480541902181e12233555, type: 3}
-  fireSound: {fileID: 8300000, guid: c2ce84a39505020439ba5e3b2d9ac882, type: 3}
-  lightningSound: {fileID: 8300000, guid: fe3ccd6a22345b54396730b13bb7af8b, type: 3}
-  iceSound: {fileID: 8300000, guid: 91058c71cbe466042bf40bf81adb3be2, type: 3}
-  sonicSound: {fileID: 8300000, guid: 89cdf3aca91b30e438adbc799c4b25f2, type: 3}
-  destroyedSound: {fileID: 8300000, guid: f3392180452e5e14db887098bc342168, type: 3}
   clips:
   - {fileID: 8300000, guid: 1d668d78e02d8d844a793613944fe0b6, type: 3}
   - {fileID: 8300000, guid: f3392180452e5e14db887098bc342168, type: 3}
@@ -10342,8 +10336,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7323570581365782689}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 5, z: 0}
-  m_LocalScale: {x: 40, y: 40, z: 1}
+  m_LocalPosition: {x: 0, y: 5, z: -3.74}
+  m_LocalScale: {x: 4, y: 4, z: 1}
   m_Children: []
   m_Father: {fileID: 5440669819455017412}
   m_RootOrder: 3

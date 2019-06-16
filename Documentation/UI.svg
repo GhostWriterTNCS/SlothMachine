@@ -15,7 +15,7 @@
    viewBox="0 0 1920 1080"
    version="1.1"
    id="svg8"
-   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
    sodipodi:docname="UI.svg">
   <defs
      id="defs2">
@@ -321,9 +321,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.5"
-     inkscape:cx="1521.7915"
-     inkscape:cy="499.77314"
+     inkscape:zoom="4"
+     inkscape:cx="373.24175"
+     inkscape:cy="777.77475"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -603,13 +603,13 @@
     </g>
     <path
        style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
-       d="m 302.3622,366.61415 9.44882,-28.34646 9.44882,28.34646 -9.44882,-5.44882 z"
+       d="m 292.91339,366.61415 28.34646,-85.03938 28.34646,85.03938 -28.34646,-16.34646 z"
        id="path69"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccc"
-       inkscape:export-filename="D:\Varie\SlothMachine\Game\Assets\Resources\UI\minimap player.png"
-       inkscape:export-xdpi="95"
-       inkscape:export-ydpi="95" />
+       inkscape:export-filename="D:\Varie\Sloth Machine\Game\Assets\Resources\UI\minimap player.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
     <g
        id="g913"
        inkscape:export-filename="D:\Varie\SlothMachine\Game\Assets\Resources\UI\slider background.png"
