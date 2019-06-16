@@ -412,5 +412,17 @@ namespace Prototype.NetworkLobby {
 			ChangeTo(mainMenuPanel);
 			infoPanel.Display("Client error : " + (errorCode == 6 ? "timeout" : errorCode.ToString()), "Close", null);
 		}
-	}
+
+        public virtual void OnServerDisconnect(NetworkConnection conn)
+        {
+            //NetworkServer.DestroyPlayersForConnection(conn);
+            if (conn.lastError != NetworkError.Ok)
+            {
+                if (LogFilter.logError)
+                {
+                    Debug.LogError("ServerDisconnected due to error: " + conn.lastError);
+                }
+            }
+        }
+    }
 }
