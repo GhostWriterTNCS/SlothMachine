@@ -11,7 +11,7 @@ public class SyncTransform : NetworkBehaviour {
 	public Quaternion rotation;
 
 	void Update() {
-		if (isLocalPlayer) {
+		if (isLocalPlayer || GetComponent<Robot>() != null && GetComponent<Robot>().player.isAgent) {
 			Debug.Log("My position is " + transform.position);
 			CmdSendValues(transform.position, transform.rotation);
 		} else {
@@ -22,7 +22,6 @@ public class SyncTransform : NetworkBehaviour {
 
 	[Command]
 	void CmdSendValues(Vector3 newPos, Quaternion newRot) {
-		//SyncTransform ST = GO.GetComponent<SyncTransform>();
 		position = newPos;
 		rotation = newRot;
 	}

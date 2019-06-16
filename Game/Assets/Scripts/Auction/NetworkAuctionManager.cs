@@ -173,6 +173,9 @@ public class NetworkAuctionManager : NetworkBehaviour {
 				Debug.Log("Waiting for players to send values");
 				yield return 0;
 			}
+			if (pb.player.upgradeAssigned) {
+				pb.bid = 0;
+			}
 			if (pb.bid > pb.player.scraps) {
 				pb.bid = pb.player.scraps;
 			}
