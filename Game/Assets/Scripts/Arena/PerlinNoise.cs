@@ -31,7 +31,7 @@ public class PerlinNoise : NetworkBehaviour {
 	public float scale;
 	private List<Vector3> gridPositions = new List<Vector3>(); //for position in the map
 	private Transform boardHolder;
-	public GameObject ArenaSphere;
+	public GameObject wormDustPrefab;
 
 	[SyncVar]
 	public int randomSeed = 0;
@@ -57,13 +57,14 @@ public class PerlinNoise : NetworkBehaviour {
 			pos.transform.position = new Vector3(v3.x, terrain.terrainData.GetHeight((int)v3.x, (int)v3.z) + 3.5f, v3.z);
 		}
 		FindObjectOfType<ArenaManager>().arenaReady = true;
-		CmdFixWormPosition();
-
+		CmdSpawnWormDust();
 	}
 
 	[Command]
-	public void CmdFixWormPosition() {
-		StartCoroutine(FindObjectOfType<WormDecisionTree>().RespawnCoroutine());
+	public void CmdSpawnWormDust() {
+		GameObject wormDust = Instantiate(wormDustPrefab);
+		NetworkServer.Spawn(wormDust);
+		StartCoroutine(wormDust.GetComponent<WormDecisionTree>().RespawnCoroutine());
 	}
 
 	TerrainData GenerateTerrain(TerrainData terrainData) {
@@ -124,8 +125,8 @@ public class PerlinNoise : NetworkBehaviour {
 	}
 
 
-	public void spawnArenaSphere() {
+	/*public void spawnArenaSphere() {
 		Instantiate(ArenaSphere, new Vector3(width / 2, GetComponent<Terrain>().terrainData.GetHeight(width / 2, height / 2), height / 2), Quaternion.identity);
-	}
+	}*/
 
 }
