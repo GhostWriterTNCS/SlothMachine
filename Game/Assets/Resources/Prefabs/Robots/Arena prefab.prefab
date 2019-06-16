@@ -4717,6 +4717,7 @@ GameObject:
   - component: {fileID: 3839373506520032606}
   - component: {fileID: 1511056818983966627}
   - component: {fileID: 6089679907606370360}
+  - component: {fileID: 1732286581252403015}
   m_Layer: 9
   m_Name: Arena prefab
   m_TagString: Untagged
@@ -4943,14 +4944,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 398361175911409946}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TransformSyncMode: 3
-  m_SendInterval: 0.033333335
-  m_SyncRotationAxis: 7
+  m_TransformSyncMode: 1
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 2
   m_RotationSyncCompression: 0
   m_SyncSpin: 0
   m_MovementTheshold: 0.001
@@ -5075,6 +5076,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1732286581252403015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 398361175911409946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d06775d5da456b54d9d4a3e1167ac72b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1539005498623338202
 GameObject:
   m_ObjectHideFlags: 0

@@ -51,10 +51,10 @@ public class MyAnimation : StateMachineBehaviour {
 		/*foreach (BodyPartHitter h in robot.GetComponentsInChildren<BodyPartHitter>()) {
 			h.hitters.Clear();
 		}*/
-		/*robot.GetComponent<PlayerMove>().isAttacking = false;
+		robot.GetComponent<PlayerMove>().isAttacking = false;
 		if (resetDirection) {
 			robot.GetComponentInChildren<RobotModel>().transform.localRotation = Quaternion.identity;
-		}*/
+		}
 	}
 
 	// OnStateMove is called right after Animator.OnAnimatorMove()

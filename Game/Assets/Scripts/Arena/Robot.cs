@@ -706,14 +706,6 @@ public class Robot : NetworkBehaviour {
 		if (enableHead) {
 			robot.ActivateBodyPart(Robot.BodyPartCollider.head, false);
 		}
-
-		/*foreach (BodyPartHitter h in robot.GetComponentsInChildren<BodyPartHitter>()) {
-			h.hitters.Clear();
-		}*/
-		robot.GetComponent<PlayerMove>().isAttacking = false;
-		if (resetDirection) {
-			robot.GetComponentInChildren<RobotModel>().transform.localRotation = Quaternion.identity;
-		}
 	}
 
 	[Command]
