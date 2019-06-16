@@ -105,12 +105,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enableLeftHand: 0
   enableRightHand: 0
-  enableLeftFoot: 0
-  enableRightFoot: 1
+  enableLeftFoot: 1
+  enableRightFoot: 0
   enableHead: 0
   breakGuard: 0
   pushBack: 0
-  hitDelay: 0
+  hitDelay: 0.2
   resetDirection: 0
 --- !u!114 &114070867078254616
 MonoBehaviour:
@@ -152,7 +152,7 @@ MonoBehaviour:
   enableHead: 0
   breakGuard: 1
   pushBack: 1
-  hitDelay: 0
+  hitDelay: 0.2
   resetDirection: 0
 --- !u!114 &114192834197281546
 MonoBehaviour:
@@ -210,12 +210,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enableLeftHand: 0
   enableRightHand: 0
-  enableLeftFoot: 0
-  enableRightFoot: 1
+  enableLeftFoot: 1
+  enableRightFoot: 0
   enableHead: 0
   breakGuard: 0
   pushBack: 0
-  hitDelay: 0
+  hitDelay: 0.5
   resetDirection: 0
 --- !u!114 &114473267234268470
 MonoBehaviour:
@@ -236,7 +236,7 @@ MonoBehaviour:
   enableHead: 0
   breakGuard: 0
   pushBack: 0
-  hitDelay: 0
+  hitDelay: 0.5
   resetDirection: 0
 --- !u!114 &114607140419832850
 MonoBehaviour:
@@ -278,7 +278,7 @@ MonoBehaviour:
   enableHead: 0
   breakGuard: 1
   pushBack: 1
-  hitDelay: 0
+  hitDelay: 0.2
   resetDirection: 0
 --- !u!114 &114692855842482572
 MonoBehaviour:
@@ -2623,7 +2623,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: X
-  m_Speed: 1
+  m_Speed: 2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101654399713926240}

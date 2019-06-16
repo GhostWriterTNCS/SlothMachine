@@ -31,16 +31,16 @@ public class Robot : NetworkBehaviour {
 	public float evadeDuration = 0.1f;
 	public float evadeDistance = 0.3f;
 	public float evadeCooldown = 1;
-	public AudioClip evadeSound;
+	//public AudioClip evadeSound;
 	[Space]
 	public GameObject keepOnRespawn;
 	[Header("Sounds")]
-	public AudioClip hitSound;
+	/*public AudioClip hitSound;
 	public AudioClip fireSound;
 	public AudioClip lightningSound;
 	public AudioClip iceSound;
 	public AudioClip sonicSound;
-	public AudioClip destroyedSound;
+	public AudioClip destroyedSound;*/
 	public AudioClip[] clips;
 
 	[Header("Bonus")]
@@ -194,6 +194,7 @@ public class Robot : NetworkBehaviour {
 		}
 		evadeDelay = GetComponentInChildren<RobotModel>().evadeDelay;
 
+		body.enabled = false;
 		while (!arenaManager.arenaReady) {
 			yield return 0;
 		}
@@ -206,10 +207,11 @@ public class Robot : NetworkBehaviour {
 			bossParticlePlus.gameObject.SetActive(true);
 			bossParticleMinus.gameObject.SetActive(true);
 		}
-		Debug.Log("Spawn player in " + spawn.position);
+		Debug.Log("Spawn " + player.name + " in " + spawn.position);
 		transform.position = spawn.position;
 		transform.rotation = spawn.rotation;
 		rigidbody.velocity = Vector3.zero;
+		body.enabled = true;
 
 		if (isLocalPlayer) {
 			FindObjectOfType<ArenaManager>().upgradeWheel.player = player;

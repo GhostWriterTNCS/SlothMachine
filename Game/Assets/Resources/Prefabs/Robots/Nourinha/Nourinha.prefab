@@ -82,6 +82,7 @@ MonoBehaviour:
   attack: 6
   defense: 3
   speed: 9
+  evadeDelay: 0.12
   animatorController: {fileID: 9100000, guid: 452691a976c817a4c955544342d6fab0, type: 2}
   avatar: {fileID: 9000000, guid: bd360d81519a1154b92eb192b8d91c1e, type: 3}
   leftHand: {fileID: 4218619596386065382}
@@ -4995,7 +4996,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.076
+  m_Radius: 0.152
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6585141548465339539
 MonoBehaviour:
@@ -5149,7 +5150,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.09
+  m_Radius: 0.16
   m_Height: 0.19
   m_Direction: 1
   m_Center: {x: 0, y: 0.04, z: 0.01}
@@ -5429,7 +5430,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.044
+  m_Radius: 0.088
   m_Center: {x: 0, y: 0.04, z: 0}
 --- !u!114 &1586193876197232326
 MonoBehaviour:
@@ -5891,7 +5892,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.044
+  m_Radius: 0.088
   m_Center: {x: 0, y: 0.04, z: 0}
 --- !u!114 &5576647809212945946
 MonoBehaviour:
@@ -5983,7 +5984,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.076
+  m_Radius: 0.152
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6509315890130317751
 MonoBehaviour:
@@ -6557,7 +6558,7 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.19
-  m_Height: 0.78
+  m_Height: 0.9
   m_Direction: 1
   m_Center: {x: 0, y: -0.09, z: 0}
 --- !u!114 &6967129693452431831

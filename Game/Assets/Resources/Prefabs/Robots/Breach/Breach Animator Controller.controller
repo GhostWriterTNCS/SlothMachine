@@ -2298,7 +2298,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Kicking
+  m_Name: Y
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -2327,7 +2327,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Uppercut
+  m_Name: YXX
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -2474,7 +2474,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Cross Punch
+  m_Name: XXX
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -2593,7 +2593,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Punching
+  m_Name: X
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -2623,7 +2623,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Knee
+  m_Name: YYY
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -2651,7 +2651,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Roundhouse Kick
+  m_Name: YY
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -2680,7 +2680,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Guard-Brake Punching
+  m_Name: XX
   m_Speed: 1.5
   m_CycleOffset: 0
   m_Transitions:
@@ -2740,7 +2740,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Rotate Kick
+  m_Name: XY
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:

@@ -82,6 +82,7 @@ MonoBehaviour:
   attack: 7
   defense: 3
   speed: 4
+  evadeDelay: 0.12
   animatorController: {fileID: 9100000, guid: d843936b158fd9742a155ce31e752bb0, type: 2}
   avatar: {fileID: 9000000, guid: 4ebcfd1bbddc78b4d9d409c005368905, type: 3}
   leftHand: {fileID: 2061048438845367662}
@@ -598,7 +599,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.44
+  m_Radius: 0.5
   m_Height: 2.44
   m_Direction: 1
   m_Center: {x: 0, y: 0.31, z: -0.02}
@@ -5340,7 +5341,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.3401505
+  m_Radius: 0.5102258
   m_Center: {x: 0, y: 0.26844636, z: 0.22166261}
 --- !u!114 &228002833979919531
 MonoBehaviour:
@@ -5802,7 +5803,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.25
+  m_Radius: 0.375
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1478760634029907041
 MonoBehaviour:
@@ -5896,7 +5897,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.17724317
+  m_Radius: 0.2658648
   m_Center: {x: -0.000000011170532, y: 0.15109822, z: 0.008133387}
 --- !u!114 &367925449341485236
 MonoBehaviour:
@@ -6296,7 +6297,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.25
+  m_Radius: 0.375
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5927727712194914866
 MonoBehaviour:
@@ -6636,7 +6637,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.17724317
+  m_Radius: 0.2658648
   m_Center: {x: -0.000000011170532, y: 0.15109822, z: 0.008133387}
 --- !u!114 &4301699302527323907
 MonoBehaviour:
