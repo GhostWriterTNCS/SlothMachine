@@ -24,20 +24,20 @@ public class MyAnimation : StateMachineBehaviour {
 		}*/
 		//if (!robot.isServer || robot.isLocalPlayer) {
 		//if (robot.isLocalPlayer) {
-		robot.CmdEnableCollider(robot.gameObject, enableLeftHand, enableRightHand, enableLeftFoot, enableRightFoot, enableHead, hitDelay);
+		robot.CmdEnableCollider(robot.gameObject, enableLeftHand, enableRightHand, enableLeftFoot, enableRightFoot, enableHead, breakGuard, pushBack, hitDelay);
 		/*	Debug.Log(robot.player.name + " is local player");
 		} else {
 			Debug.Log(robot.player.name + " is not local player");
 		}*/
-		robot.breakGuard = breakGuard;
-		robot.pushBack = pushBack;
 		robot.GetComponent<PlayerMove>().isAttacking = true;
 	}
 
-	IEnumerator EnableCollider() {
+	/*IEnumerator EnableCollider() {
 		if (hitDelay > 0) {
 			yield return new WaitForSeconds(hitDelay);
 		}
+		robot.breakGuard = breakGuard;
+		robot.pushBack = pushBack;
 		if (enableLeftHand) {
 			robot.ActivateBodyPart(Robot.BodyPartCollider.leftHand, true);
 			robot.leftHand.GetComponent<BodyPartHitter>().hitters.Clear();
@@ -58,7 +58,7 @@ public class MyAnimation : StateMachineBehaviour {
 			robot.ActivateBodyPart(Robot.BodyPartCollider.head, true);
 			robot.head.GetComponent<BodyPartHitter>().hitters.Clear();
 		}
-	}
+	}*/
 
 	// OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
 	//override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

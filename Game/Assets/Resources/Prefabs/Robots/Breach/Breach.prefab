@@ -599,7 +599,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.5
+  m_Radius: 0.6
   m_Height: 2.44
   m_Direction: 1
   m_Center: {x: 0, y: 0.31, z: -0.02}
@@ -5897,7 +5897,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.2658648
+  m_Radius: 0.34562424
   m_Center: {x: -0.000000011170532, y: 0.15109822, z: 0.008133387}
 --- !u!114 &367925449341485236
 MonoBehaviour:
@@ -6637,7 +6637,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.2658648
+  m_Radius: 0.3456242
   m_Center: {x: -0.000000011170532, y: 0.15109822, z: 0.008133387}
 --- !u!114 &4301699302527323907
 MonoBehaviour:

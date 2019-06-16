@@ -152,7 +152,7 @@ MonoBehaviour:
   enableHead: 0
   breakGuard: 1
   pushBack: 1
-  hitDelay: 0
+  hitDelay: 0.5
   resetDirection: 0
 --- !u!114 &114335663366700074
 MonoBehaviour:

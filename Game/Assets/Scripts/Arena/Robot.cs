@@ -180,9 +180,6 @@ public class Robot : NetworkBehaviour {
 		GameObject arenaBox = Instantiate(arenaManager.arenaBoxPrefab, arenaManager.leaderboard.transform);
 		arenaBox.GetComponent<ArenaBox>().player = player;
 
-		CmdCalculateBonus();
-		CmdUpdateHealthValue(healthMax);
-
 		CmdResetComboScore();
 		upgradeWheel = FindObjectOfType<ArenaManager>().upgradeWheel;
 		if (upgradeWheel)
@@ -198,6 +195,9 @@ public class Robot : NetworkBehaviour {
 		while (!arenaManager.arenaReady) {
 			yield return 0;
 		}
+		CmdCalculateBonus();
+		CmdUpdateHealthValue(healthMax);
+
 		Transform spawn = NetworkManager.singleton.GetStartPosition();
 		if (player.roundWinner >= 2) {
 			Debug.Log(player.name + " is Boss");
@@ -657,14 +657,16 @@ public class Robot : NetworkBehaviour {
 	}
 
 	[Command]
-	public void CmdEnableCollider(GameObject robotGO, bool enableLeftHand, bool enableRightHand, bool enableLeftFoot, bool enableRightFoot, bool enableHead, float hitDelay) {
-		StartCoroutine(EnableCollider(robotGO, enableLeftHand, enableRightHand, enableLeftFoot, enableRightFoot, enableHead, hitDelay));
+	public void CmdEnableCollider(GameObject robotGO, bool enableLeftHand, bool enableRightHand, bool enableLeftFoot, bool enableRightFoot, bool enableHead, bool breakGuard, bool pushBack, float hitDelay) {
+		StartCoroutine(EnableCollider(robotGO, enableLeftHand, enableRightHand, enableLeftFoot, enableRightFoot, enableHead, breakGuard, pushBack, hitDelay));
 	}
-	IEnumerator EnableCollider(GameObject robotGO, bool enableLeftHand, bool enableRightHand, bool enableLeftFoot, bool enableRightFoot, bool enableHead, float hitDelay) {
+	IEnumerator EnableCollider(GameObject robotGO, bool enableLeftHand, bool enableRightHand, bool enableLeftFoot, bool enableRightFoot, bool enableHead, bool breakGuard, bool pushBack, float hitDelay) {
 		Robot robot = robotGO.GetComponent<Robot>();
 		if (hitDelay > 0) {
 			yield return new WaitForSeconds(hitDelay);
 		}
+		robot.breakGuard = breakGuard;
+		robot.pushBack = pushBack;
 		if (enableLeftHand) {
 			robot.ActivateBodyPart(Robot.BodyPartCollider.leftHand, true);
 			robot.leftHand.GetComponent<BodyPartHitter>().hitters.Clear();
@@ -760,7 +762,9 @@ public class Robot : NetworkBehaviour {
 			arenaManager.title.gameObject.SetActive(true);
 		}
 		if (MatchManager.singleton.bossRound) {
-			arenaManager.title.text = arenaManager.youDefeated;
+			if (!player.isAgent) {
+				arenaManager.title.text = arenaManager.youDefeated;
+			}
 			yield break;
 		}
 		respawnWaiting = 3;

@@ -131,7 +131,7 @@ MonoBehaviour:
   enableHead: 0
   breakGuard: 1
   pushBack: 1
-  hitDelay: 0
+  hitDelay: 0.3
   resetDirection: 0
 --- !u!114 &114167339940531504
 MonoBehaviour:
@@ -152,7 +152,7 @@ MonoBehaviour:
   enableHead: 0
   breakGuard: 1
   pushBack: 1
-  hitDelay: 0
+  hitDelay: 0.2
   resetDirection: 0
 --- !u!114 &114253375169605098
 MonoBehaviour:
@@ -173,7 +173,7 @@ MonoBehaviour:
   enableHead: 0
   breakGuard: 1
   pushBack: 1
-  hitDelay: 0
+  hitDelay: 0.2
   resetDirection: 0
 --- !u!114 &114351800881808864
 MonoBehaviour:
@@ -257,7 +257,7 @@ MonoBehaviour:
   enableHead: 0
   breakGuard: 1
   pushBack: 0
-  hitDelay: 0
+  hitDelay: 0.2
   resetDirection: 0
 --- !u!114 &114715627609271284
 MonoBehaviour:
