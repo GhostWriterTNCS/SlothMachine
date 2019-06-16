@@ -90,6 +90,7 @@ MonoBehaviour:
   breakGuard: 0
   pushBack: 0
   hitDelay: 0
+  resetDirection: 0
 --- !u!114 &114068815287734350
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -110,6 +111,7 @@ MonoBehaviour:
   breakGuard: 0
   pushBack: 0
   hitDelay: 0
+  resetDirection: 0
 --- !u!114 &114070867078254616
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -130,6 +132,7 @@ MonoBehaviour:
   breakGuard: 0
   pushBack: 0
   hitDelay: 0
+  resetDirection: 0
 --- !u!114 &114177269390280144
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -150,6 +153,7 @@ MonoBehaviour:
   breakGuard: 0
   pushBack: 0
   hitDelay: 0
+  resetDirection: 0
 --- !u!114 &114224098504614620
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -170,6 +174,28 @@ MonoBehaviour:
   breakGuard: 0
   pushBack: 0
   hitDelay: 0
+  resetDirection: 0
+--- !u!114 &114276965631815806
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7a14a2ee753b9c4abd853b774972bf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableLeftHand: 0
+  enableRightHand: 0
+  enableLeftFoot: 0
+  enableRightFoot: 0
+  enableHead: 0
+  breakGuard: 0
+  pushBack: 0
+  hitDelay: 0
+  resetDirection: 1
 --- !u!114 &114437564001429488
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -190,6 +216,7 @@ MonoBehaviour:
   breakGuard: 0
   pushBack: 0
   hitDelay: 0
+  resetDirection: 0
 --- !u!114 &114598047865053974
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -210,6 +237,7 @@ MonoBehaviour:
   breakGuard: 1
   pushBack: 1
   hitDelay: 0.95
+  resetDirection: 0
 --- !u!114 &114695532405840842
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -230,6 +258,7 @@ MonoBehaviour:
   breakGuard: 0
   pushBack: 0
   hitDelay: 0
+  resetDirection: 0
 --- !u!114 &114766489305500510
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -250,6 +279,7 @@ MonoBehaviour:
   breakGuard: 0
   pushBack: 0
   hitDelay: 0
+  resetDirection: 0
 --- !u!114 &114923043740180642
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -270,6 +300,7 @@ MonoBehaviour:
   breakGuard: 0
   pushBack: 0
   hitDelay: 0
+  resetDirection: 0
 --- !u!114 &114935844133805982
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -290,6 +321,7 @@ MonoBehaviour:
   breakGuard: 1
   pushBack: 1
   hitDelay: 0.3
+  resetDirection: 0
 --- !u!114 &114984943061567780
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -310,6 +342,7 @@ MonoBehaviour:
   breakGuard: 0
   pushBack: 0
   hitDelay: 0
+  resetDirection: 0
 --- !u!114 &114989439631996470
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -330,6 +363,7 @@ MonoBehaviour:
   breakGuard: 0
   pushBack: 0
   hitDelay: 0
+  resetDirection: 0
 --- !u!1101 &1101000652534035528
 AnimatorStateTransition:
   m_ObjectHideFlags: 3
@@ -4699,7 +4733,8 @@ AnimatorState:
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101413880224503024}
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: 114276965631815806}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -4708,7 +4743,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 0}
+  m_Motion: {fileID: 7400000, guid: 1a3ac46a44c69494da348d0e21f709cd, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
