@@ -4792,9 +4792,9 @@ MonoBehaviour:
   comboDelay: 1
   holdMinDuration: 0.76
   pushBackPower: 360
-  evadeDuration: 0.1
-  evadeDistance: 0.75
-  evadeCooldown: 1
+  evadeDuration: 0.2
+  evadeDistance: 0.67
+  evadeCooldown: 3
   evadeSound: {fileID: 8300000, guid: 1d668d78e02d8d844a793613944fe0b6, type: 3}
   keepOnRespawn: {fileID: 5529818024574986447}
   hitSound: {fileID: 8300000, guid: 9ddb5fe8f47480541902181e12233555, type: 3}
@@ -4860,7 +4860,7 @@ MonoBehaviour:
   moveSpeed: 7.7
   moveSpeedMultiplier: 1
   moveSpeedAdjust: 3
-  turnSpeed: 3
+  turnSpeed: 5.4
   canMove: 1
   canRotateCamera: 1
   isAttacking: 0

@@ -7,6 +7,7 @@ public class MyAnimation : StateMachineBehaviour {
 	public bool enableLeftFoot;
 	public bool enableRightFoot;
 	public bool enableHead;
+	[Space]
 	public bool breakGuard;
 	public bool pushBack;
 	public float hitDelay;
