@@ -23,9 +23,6 @@ public class AuctionManager : MonoBehaviour {
 	}
 
 	public void UpdateResults() {
-		/*foreach (PlayerScraps ps in Resources.FindObjectsOfTypeAll<PlayerScraps>()) {
-			ps.UpdateResult();
-		}*/
 		StartCoroutine(UpdateResultsCoroutine());
 	}
 

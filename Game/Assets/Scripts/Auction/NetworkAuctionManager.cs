@@ -68,9 +68,8 @@ public class NetworkAuctionManager : NetworkBehaviour {
 	[Command]
 	public void CmdLoad() {
 		for (int i = 0; i < MatchManager.singleton.playerCount; i++) {
-			GameObject newPlayer = Instantiate(upgradeBoxPrefab);
-			NetworkServer.Spawn(newPlayer);
-			UpgradeBox ub = newPlayer.GetComponent<UpgradeBox>();
+			GameObject upgradeBox = Instantiate(upgradeBoxPrefab);
+			UpgradeBox ub = upgradeBox.GetComponent<UpgradeBox>();
 			int upgrade, level;
 			if (i < MatchManager.singleton.playerCount / 2) {
 				level = MatchManager.singleton.roundCounter < 2 ? 2 : 3;
@@ -84,19 +83,19 @@ public class NetworkAuctionManager : NetworkBehaviour {
 			ub.ID = upgrade;
 			ub.level = level;
 			ub.selected = (i == 0);
-			upgrades.Add(ub);
-			GameObject presUpgrade = Instantiate(upgradeBoxWithDescPrefab);
-			NetworkServer.Spawn(presUpgrade);
-			ub = presUpgrade.GetComponent<UpgradeBox>();
+			upgrades.Add(ub); NetworkServer.Spawn(upgradeBox);
+
+			GameObject upgradeBoxWithDesc = Instantiate(upgradeBoxWithDescPrefab);
+			ub = upgradeBoxWithDesc.GetComponent<UpgradeBox>();
 			ub.ID = upgrade;
 			ub.level = level;
 			ub.isIntro = true;
+			NetworkServer.Spawn(upgradeBoxWithDesc);
 		}
 
 		RpcSetHeader(introText);
 		currentIntro = introDuration;
 		currentCountdown = countdownDuration;
-		//RpcSetHeader(countdownText.Replace("#", ((int)currentCountdown).ToString()));
 		currentPause = pauseDuration;
 		StartCoroutine(AuctionCoroutine());
 	}
@@ -154,6 +153,13 @@ public class NetworkAuctionManager : NetworkBehaviour {
 	}
 
 	IEnumerator AuctionCoroutine() {
+		maxBid = -1;
+		auctionWinner = null;
+		foreach (AuctionPlayer pb in FindObjectsOfType<AuctionPlayer>()) {
+			pb.bid = 0;
+			pb.bidRegistered = false;
+		}
+
 		while (currentIntro > 0) {
 			currentIntro -= Time.deltaTime;
 			yield return 0;
@@ -167,8 +173,7 @@ public class NetworkAuctionManager : NetworkBehaviour {
 		}
 		RpcCountdownFinished();
 
-		maxBid = -1;
-		auctionWinner = null;
+		GameObject auctionWinnerTemp = null;
 		foreach (AuctionPlayer pb in FindObjectsOfType<AuctionPlayer>()) {
 			while (!pb.bidRegistered && !pb.player.upgradeAssigned) {
 				Debug.Log("Waiting for players to send values");
@@ -182,25 +187,22 @@ public class NetworkAuctionManager : NetworkBehaviour {
 			}
 			if (pb.bid > maxBid) {
 				maxBid = pb.bid;
-				auctionWinner = pb.gameObject;
+				auctionWinnerTemp = pb.gameObject;
 			}
 		}
+		auctionWinner = auctionWinnerTemp;
 		if (auctionWinner) {
 			AuctionPlayer playerBox = auctionWinner.GetComponent<AuctionPlayer>();
 			playerBox.player.scraps -= playerBox.bid;
 		}
-
 		RpcUpdateResults();
+
 		while (auctionWinner == null) {
 			yield return 0;
 		}
 		auctionWinner.GetComponent<AuctionPlayer>().player.CmdAddPermanentUpgrade(usedUpgrades[currentUpgrade].value1, usedUpgrades[currentUpgrade].value2);
 		RpcSetHeader(pauseText.Replace("#", auctionWinner.GetComponent<AuctionPlayer>().player.name));
 
-		foreach (AuctionPlayer pb in FindObjectsOfType<AuctionPlayer>()) {
-			pb.bid = 0;
-			pb.bidRegistered = false;
-		}
 		while (currentPause > 0) {
 			currentPause -= Time.deltaTime;
 			yield return 0;
