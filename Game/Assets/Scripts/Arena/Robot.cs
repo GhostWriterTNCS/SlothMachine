@@ -127,6 +127,9 @@ public class Robot : NetworkBehaviour {
 			arenaManager.pauseMenu.robot = this;
 		} else {
 			nameText.text = player.name;
+			if (player.isAgent) {
+				GetComponent<SyncTransform>().CmdEnable(true);
+			}
 		}
 
 		GameObject model = Instantiate(Resources.Load<GameObject>("Prefabs/Robots/" + player.robotName + "/" + player.robotName), transform);

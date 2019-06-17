@@ -49,6 +49,7 @@ public class NetworkAuctionManager : NetworkBehaviour {
 	[SyncVar]
 	public int maxBid;
 
+	[SyncVar]
 	int currentUpgrade = 0;
 	List<UpgradeBox> upgrades = new List<UpgradeBox>();
 	List<Pair> usedUpgrades = new List<Pair>();
@@ -147,6 +148,10 @@ public class NetworkAuctionManager : NetworkBehaviour {
 		if (si) {
 			si.ResetValue();
 		}
+		for (int i = 0; i < upgrades.Count; i++) {
+			upgrades[i].selected = (i == currentUpgrade);
+			upgrades[i].isUpdated = true;
+		}
 		foreach (UpgradeBox ub in FindObjectsOfType<UpgradeBox>()) {
 			ub.RefreshSelected();
 		}
@@ -205,10 +210,6 @@ public class NetworkAuctionManager : NetworkBehaviour {
 			pb.bidRegistered = false;
 		}
 		currentUpgrade++;
-		for (int i = 0; i < upgrades.Count; i++) {
-			upgrades[i].selected = (i == currentUpgrade);
-			upgrades[i].isUpdated = true;
-		}
 		RpcPauseFinished();
 
 		countdownDuration--;
