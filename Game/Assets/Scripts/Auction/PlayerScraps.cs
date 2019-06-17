@@ -7,12 +7,14 @@ public class PlayerScraps : NetworkBehaviour {
 	public Text playerName;
 	public Slider scrapsSlider;
 	public Text scrapsValue;
+	public Image backgroundImage;
 
 	[SyncVar]
 	public GameObject playerBoxGO;
-	public AuctionPlayer playerBox;
+	public AuctionPlayer auctionPlayer;
 
 	void Start() {
+		backgroundImage.gameObject.SetActive(false);
 		FindObjectOfType<AuctionManager>().StartCoroutine(LoadPlayer());
 	}
 
@@ -25,14 +27,18 @@ public class PlayerScraps : NetworkBehaviour {
 		}
 		transform.localScale = FindObjectOfType<Canvas>().transform.localScale;
 		transform.SetParent(FindObjectOfType<AuctionManager>().scrapsList.transform);
-		playerBox = playerBoxGO.GetComponent<AuctionPlayer>();
-		playerName.text = playerBox.player.name;
+		auctionPlayer = playerBoxGO.GetComponent<AuctionPlayer>();
+		playerName.text = auctionPlayer.player.name;
+		if (auctionPlayer.isLocalPlayer && !auctionPlayer.player.isAgent) {
+			backgroundImage.gameObject.SetActive(true);
+			backgroundImage.color = TextManager.backgroundHighlightedColor;
+		}
 	}
 
 	[Command]
 	public void CmdCalculateAgentsBids() {
-		playerBox.bid = Random.Range(0, playerBox.player.scraps + 1);
-		playerBox.bidRegistered = true;
+		auctionPlayer.bid = Random.Range(0, auctionPlayer.player.scraps + 1);
+		auctionPlayer.bidRegistered = true;
 	}
 
 	IEnumerator UpdateResultCoroutine() {
@@ -48,8 +54,8 @@ public class PlayerScraps : NetworkBehaviour {
 				ps.playerName.fontStyle = FontStyle.Normal;
 				ps.scrapsValue.fontStyle = FontStyle.Normal;
 			}
-			ps.scrapsSlider.value = ps.playerBox.bid / (float)NAM.maxBid;
-			ps.scrapsValue.text = ps.playerBox.bid.ToString();
+			ps.scrapsSlider.value = ps.auctionPlayer.bid / (float)NAM.maxBid;
+			ps.scrapsValue.text = ps.auctionPlayer.bid.ToString();
 		}
 	}
 }

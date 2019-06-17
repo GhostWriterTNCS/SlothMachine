@@ -8,6 +8,8 @@ public class TextManager : MonoBehaviour {
 	public static int fontSizeH;
 	public static int fontSizeSmall;
 	public static Color fontColor = new Color(0.8654326f, 0.9438342f, 0.9811321f);
+	public static Color highlightedColor = new Color(0.6630108f, 1, 0.2122642f);
+	public static Color backgroundHighlightedColor = new Color(1, 0.9555849f, 0.6367924f, 0.372549f);
 
 	void Awake() {
 		fontSize = 34; // Screen.height / 35;
@@ -54,7 +56,7 @@ public class TextManager : MonoBehaviour {
 
 		foreach (Button b in Resources.FindObjectsOfTypeAll<Button>()) {
 			ColorBlock cb = b.colors;
-			cb.highlightedColor = new Color(0.6630108f, 1, 0.2122642f);
+			cb.highlightedColor = highlightedColor;
 			b.colors = cb;
 		}
 	}

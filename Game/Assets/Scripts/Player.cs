@@ -60,10 +60,10 @@ public class Player : NetworkBehaviour {
 			transform.position = Vector3.zero;
 			transform.rotation = Quaternion.identity;
 			GameObject newPlayer = Instantiate(arenaPrefab);
-			NetworkServer.Spawn(newPlayer);
 			Robot robot = newPlayer.GetComponent<Robot>();
 			robot.playerGO = gameObject;
 			robot.roundScore = 0;
+			NetworkServer.Spawn(newPlayer);
 			if (!isAgent) {
 				NetworkServer.ReplacePlayerForConnection(conn, newPlayer, 0);
 			}
@@ -76,16 +76,16 @@ public class Player : NetworkBehaviour {
 			Debug.Log("Spawn in auction.");
 			upgradeAssigned = false;
 			GameObject newPlayer = Instantiate(auctionPrefab);
-			NetworkServer.Spawn(newPlayer);
 			AuctionPlayer pb = newPlayer.GetComponent<AuctionPlayer>();
 			pb.playerGO = gameObject;
+			NetworkServer.Spawn(newPlayer);
 			if (!isAgent)
 				NetworkServer.ReplacePlayerForConnection(conn, newPlayer, 0);
 
 			GameObject playerScraps = Instantiate(auctionPlayerScraps);
-			NetworkServer.Spawn(playerScraps);
 			PlayerScraps ps = playerScraps.GetComponent<PlayerScraps>();
 			ps.playerBoxGO = pb.gameObject;
+			NetworkServer.Spawn(playerScraps);
 
 			if (!FindObjectOfType<NetworkAuctionManager>()) {
 				GameObject NAM = Instantiate(networkAuctionManager);
@@ -94,20 +94,11 @@ public class Player : NetworkBehaviour {
 			}
 		} else if (SceneManager.GetActiveScene().name == GameScenes.MatchResult) {
 			GameObject newPlayer = Instantiate(matchResultPrefab);
-			NetworkServer.Spawn(newPlayer);
 			PlayerResult res = newPlayer.GetComponent<PlayerResult>();
 			res.playerGO = gameObject;
+			NetworkServer.Spawn(newPlayer);
 		}
 	}
-
-	/*int temporaryUpgradeToMount = -1;
-	void Update() {
-		if (temporaryUpgradeToMount >= 0) {
-			Debug.Log("temporaryUpgradeToMount: " + temporaryUpgradeToMount);
-			CmdAddTemporaryUpgrade(temporaryUpgradeToMount);
-			temporaryUpgradeToMount = -1;
-		}
-	}*/
 
 	[Command]
 	public void CmdAddPermanentUpgrade(int level, int ID) {
@@ -121,30 +112,6 @@ public class Player : NetworkBehaviour {
 			pb.ShowUpgrade(upgrades.Count - 1);
 		}
 	}
-	/*public void AddTemporaryUpgrade(int ID) {
-		Debug.Log("AddTemporaryUpgrade");
-		temporaryUpgradeToMount = ID;
-	}
-	[Command]
-	public void CmdAddTemporaryUpgrade(int ID) {
-		Debug.Log("CmdAddTemporaryUpgrade");
-		Upgrade u = Upgrades.temporary[ID];
-		if (u.price <= scraps) {
-			scraps -= u.price;
-			u.OnAdd(GetComponentInChildren<Robot>());
-			RpcAddTemporaryUpgrade(ID);
-			Debug.Log("Upgrade " + u.name + " mounted!");
-		} else {
-			Debug.Log("Not enough scraps!");
-		}
-	}
-	[ClientRpc]
-	public void RpcAddTemporaryUpgrade(int ID) {
-		Debug.Log("RpcAddTemporaryUpgrade");
-		Upgrade u = Upgrades.temporary[ID];
-		u.OnAdd(GetComponentInChildren<Robot>());
-		Debug.Log("Upgrade " + u.name + " mounted!");
-	}*/
 
 	[Command]
 	public void CmdRemoveUpgrade(int level, int ID) {

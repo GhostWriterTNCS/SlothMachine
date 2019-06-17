@@ -23,6 +23,9 @@ public class UpgradeBox : NetworkBehaviour {
 	public bool isIntro;
 
 	void Start() {
+		if (backgroundImage) {
+			backgroundImage.color = TextManager.backgroundHighlightedColor;
+		}
 		isUpdated = true;
 		FindObjectOfType<AuctionManager>().StartCoroutine(LoadUpgradeCoroutine());
 	}

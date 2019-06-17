@@ -15,6 +15,7 @@ public class AuctionPlayer : NetworkBehaviour {
 	public Text scoreText;
 	public Slider scoreSlider;
 	public Image[] upgrades;
+	public Image backgroundImage;
 
 	[SyncVar]
 	public bool bidRegistered = false;
@@ -22,6 +23,7 @@ public class AuctionPlayer : NetworkBehaviour {
 	public int bid;
 
 	void Start() {
+		backgroundImage.gameObject.SetActive(false);
 		StartCoroutine(LoadPlayer());
 	}
 
@@ -60,6 +62,8 @@ public class AuctionPlayer : NetworkBehaviour {
 			}
 			if (isLocalPlayer) {
 				FindObjectOfType<AuctionManager>().scrapsInput.GetComponent<ScrapsInput>().SetPlayerBox(this);
+				backgroundImage.gameObject.SetActive(true);
+				backgroundImage.color = TextManager.backgroundHighlightedColor;
 			}
 		}
 	}

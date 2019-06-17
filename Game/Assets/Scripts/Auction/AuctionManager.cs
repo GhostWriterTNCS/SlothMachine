@@ -16,7 +16,7 @@ public class AuctionManager : MonoBehaviour {
 
 	public void CalculateAgentsBids() {
 		foreach (PlayerScraps ps in Resources.FindObjectsOfTypeAll<PlayerScraps>()) {
-			if (ps.playerBox && ps.playerBox.player.isAgent && !ps.playerBox.player.upgradeAssigned) {
+			if (ps.auctionPlayer && ps.auctionPlayer.player.isAgent && !ps.auctionPlayer.player.upgradeAssigned) {
 				ps.CmdCalculateAgentsBids();
 			}
 		}
@@ -31,7 +31,7 @@ public class AuctionManager : MonoBehaviour {
 			yield return 0;
 		}
 		foreach (PlayerScraps ps in Resources.FindObjectsOfTypeAll<PlayerScraps>()) {
-			if (ps.playerBox) {
+			if (ps.auctionPlayer) {
 				if (ps.playerBoxGO == networkAuctionManager.auctionWinner) {
 					ps.playerName.fontStyle = FontStyle.Bold;
 					ps.scrapsValue.fontStyle = FontStyle.Bold;
@@ -39,8 +39,8 @@ public class AuctionManager : MonoBehaviour {
 					ps.playerName.fontStyle = FontStyle.Normal;
 					ps.scrapsValue.fontStyle = FontStyle.Normal;
 				}
-				ps.scrapsSlider.value = ps.playerBox.bid / (float)networkAuctionManager.maxBid;
-				ps.scrapsValue.text = ps.playerBox.bid.ToString();
+				ps.scrapsSlider.value = ps.auctionPlayer.bid / (float)networkAuctionManager.maxBid;
+				ps.scrapsValue.text = ps.auctionPlayer.bid.ToString();
 			}
 		}
 	}

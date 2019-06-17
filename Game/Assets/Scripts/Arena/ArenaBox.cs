@@ -12,8 +12,10 @@ public class ArenaBox : MonoBehaviour {
 	public Image roundWinnerImage2;
 	public Text scoreText;
 	public Slider scoreSlider;
+	public Image backgroundImage;
 
 	void Start() {
+		backgroundImage.gameObject.SetActive(false);
 		robotImage.sprite = Resources.Load<Sprite>("UI/Robots/" + player.robotName);
 		robotImageFrame.color = player.color;
 		nameText.text = player.name;
@@ -24,6 +26,10 @@ public class ArenaBox : MonoBehaviour {
 			}
 		}
 		robot = player.GetComponentInChildren<Robot>();
+		if (robot.isLocalPlayer && !robot.player.isAgent) {
+			backgroundImage.gameObject.SetActive(true);
+			backgroundImage.color = TextManager.backgroundHighlightedColor;
+		}
 	}
 
 	void Update() {
