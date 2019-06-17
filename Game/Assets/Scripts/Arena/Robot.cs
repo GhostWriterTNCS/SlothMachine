@@ -575,6 +575,7 @@ public class Robot : NetworkBehaviour {
 			CmdPlayClip(gameObject, 1);
 			//AudioManager.singleton.PlayClip(destroyedSound);
 			DisableLockCamera();
+			GetComponent<SyncTransform>().CmdSetValues(new Vector3(0, -100, 0), Quaternion.identity);
 			RpcRespawn();
 		}
 	}

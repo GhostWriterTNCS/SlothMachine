@@ -39,7 +39,7 @@ public class SyncTransform : NetworkBehaviour {
 	}
 
 	[Command]
-	void CmdSetValues(Vector3 newPos, Quaternion newRot) {
+	public void CmdSetValues(Vector3 newPos, Quaternion newRot) {
 		position = newPos;
 		rotation = newRot;
 	}
