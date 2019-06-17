@@ -781,12 +781,9 @@ public class Robot : NetworkBehaviour {
 			}
 		}
 		CmdSetPaused(gameObject, true);
-		if (isLocalPlayer) {
-			arenaManager.title.gameObject.SetActive(true);
-		}
 		if (MatchManager.singleton.bossRound) {
-			if (!player.isAgent) {
-				arenaManager.title.text = arenaManager.youDefeated;
+			if (isLocalPlayer && !player.isAgent) {
+				arenaManager.title.text = arenaManager.youDestroyed;
 			}
 			yield break;
 		}
@@ -799,7 +796,7 @@ public class Robot : NetworkBehaviour {
 			yield return 0;
 		}
 		if (isLocalPlayer) {
-			arenaManager.title.gameObject.SetActive(false);
+			arenaManager.title.text = "";
 		}
 		CmdUpdateHealthValue(healthMax);
 		CmdSetPaused(gameObject, false);

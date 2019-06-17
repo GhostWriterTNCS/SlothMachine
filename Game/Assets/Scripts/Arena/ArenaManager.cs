@@ -21,7 +21,10 @@ public class ArenaManager : MonoBehaviour {
 	public string roundWinnerIs;
 	public string matchOver;
 	public string respawnIn;
-	public string youDefeated;
+	public string youDestroyed;
+	public string youWin;
+	public string bossDefeated;
+	public string youLost;
 	[Space]
 	public GameObject[] arenaPrefabs;
 	public GameObject bossArena;
