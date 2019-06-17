@@ -4804,6 +4804,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 91058c71cbe466042bf40bf81adb3be2, type: 3}
   - {fileID: 8300000, guid: fe3ccd6a22345b54396730b13bb7af8b, type: 3}
   - {fileID: 8300000, guid: 89cdf3aca91b30e438adbc799c4b25f2, type: 3}
+  - {fileID: 8300000, guid: e816eefe16b339f4a90a961b71a26de3, type: 3}
   healthBonus: 0
   attackBonus: 0
   defenseBonus: 0

@@ -42,6 +42,16 @@ public class Robot : NetworkBehaviour {
 	public AudioClip sonicSound;
 	public AudioClip destroyedSound;*/
 	public AudioClip[] clips;
+	public enum AudioClips {
+		Dash,
+		Destroyed,
+		Hit,
+		Fire,
+		Ice,
+		Lightning,
+		Sonic,
+		Repair
+	}
 
 	[Header("Bonus")]
 	[SyncVar]
@@ -572,7 +582,7 @@ public class Robot : NetworkBehaviour {
 		float newHealth = health + variation;
 		CmdUpdateHealthValue(newHealth);
 		if (newHealth <= 0) {
-			CmdPlayClip(gameObject, 1);
+			CmdPlayClip(gameObject, AudioClips.Destroyed);
 			//AudioManager.singleton.PlayClip(destroyedSound);
 			DisableLockCamera();
 			GetComponent<SyncTransform>().CmdSetValues(new Vector3(0, -100, 0), Quaternion.identity);
@@ -587,7 +597,6 @@ public class Robot : NetworkBehaviour {
 		rightFoot,
 		head
 	}
-
 	public void ActivateBodyPart(BodyPartCollider part, bool value) {
 		switch (part) {
 			case BodyPartCollider.leftHand:
@@ -734,20 +743,15 @@ public class Robot : NetworkBehaviour {
 			NetworkServer.Spawn(effect);
 			CmdSetTrigger("Reaction");
 			if (!particle) {
-				CmdPlayClip(gameObject, 2);
-				//AudioManager.singleton.PlayClip(hitSound);
+				CmdPlayClip(gameObject, AudioClips.Hit);
 			} else if (particle.name == fireParticle.name) {
-				CmdPlayClip(gameObject, 3);
-				//AudioManager.singleton.PlayClip(fireSound);
+				CmdPlayClip(gameObject, AudioClips.Fire);
 			} else if (particle.name == iceParticle.name) {
-				CmdPlayClip(gameObject, 4);
-				//AudioManager.singleton.PlayClip(iceSound);
+				CmdPlayClip(gameObject, AudioClips.Ice);
 			} else if (particle.name == lightningParticle.name) {
-				CmdPlayClip(gameObject, 5);
-				//AudioManager.singleton.PlayClip(lightningSound);
+				CmdPlayClip(gameObject, AudioClips.Lightning);
 			} else if (particle.name == sonicParticle.name) {
-				CmdPlayClip(gameObject, 6);
-				//AudioManager.singleton.PlayClip(sonicSound);
+				CmdPlayClip(gameObject, AudioClips.Sonic);
 			} else {
 				Debug.LogError("Sound not found for " + particle.name);
 			}
@@ -942,28 +946,24 @@ public class Robot : NetworkBehaviour {
 				break;
 		}
 		if (particle.name == fireParticle.name) {
-			CmdPlayClip(gameObject, 3);
-			//AudioManager.singleton.PlayClip(fireSound);
+			CmdPlayClip(gameObject, AudioClips.Fire);
 		} else if (particle.name == iceParticle.name) {
-			CmdPlayClip(gameObject, 4);
-			//AudioManager.singleton.PlayClip(iceSound);
+			CmdPlayClip(gameObject, AudioClips.Ice);
 		} else if (particle.name == lightningParticle.name) {
-			CmdPlayClip(gameObject, 5);
-			//AudioManager.singleton.PlayClip(lightningSound);
+			CmdPlayClip(gameObject, AudioClips.Lightning);
 		} else if (particle.name == sonicParticle.name) {
-			CmdPlayClip(gameObject, 6);
-			//AudioManager.singleton.PlayClip(sonicSound);
+			CmdPlayClip(gameObject, AudioClips.Sonic);
 		}
 	}
 
 	[Command]
-	public void CmdPlayClip(GameObject robotGO, int clipIndex) {
+	public void CmdPlayClip(GameObject robotGO, AudioClips clipIndex) {
 		RpcPlayClip(robotGO, clipIndex);
 	}
 	[ClientRpc]
-	public void RpcPlayClip(GameObject robotGO, int clipIndex) {
-		if (clips.Length > clipIndex) {
-			robotGO.GetComponent<AudioSource>().clip = robotGO.GetComponent<Robot>().clips[clipIndex];
+	public void RpcPlayClip(GameObject robotGO, AudioClips clipIndex) {
+		if (clips.Length > (int)clipIndex) {
+			robotGO.GetComponent<AudioSource>().clip = robotGO.GetComponent<Robot>().clips[(int)clipIndex];
 			robotGO.GetComponent<AudioSource>().Play();
 		}
 	}
