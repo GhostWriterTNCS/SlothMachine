@@ -657,56 +657,55 @@ public class Robot : NetworkBehaviour {
 	}
 
 	[Command]
-	public void CmdEnableCollider(GameObject robotGO, bool enableLeftHand, bool enableRightHand, bool enableLeftFoot, bool enableRightFoot, bool enableHead, bool breakGuard, bool pushBack, float hitDelay) {
-		StartCoroutine(EnableCollider(robotGO, enableLeftHand, enableRightHand, enableLeftFoot, enableRightFoot, enableHead, breakGuard, pushBack, hitDelay));
+	public void CmdEnableCollider(bool enableLeftHand, bool enableRightHand, bool enableLeftFoot, bool enableRightFoot, bool enableHead, bool breakGuard, bool pushBack, float hitDelay) {
+		StartCoroutine(EnableCollider(enableLeftHand, enableRightHand, enableLeftFoot, enableRightFoot, enableHead, breakGuard, pushBack, hitDelay));
 	}
-	IEnumerator EnableCollider(GameObject robotGO, bool enableLeftHand, bool enableRightHand, bool enableLeftFoot, bool enableRightFoot, bool enableHead, bool breakGuard, bool pushBack, float hitDelay) {
-		Robot robot = robotGO.GetComponent<Robot>();
-		Debug.Log(robot.player.name + " has enabled a collider.");
+	IEnumerator EnableCollider(bool enableLeftHand, bool enableRightHand, bool enableLeftFoot, bool enableRightFoot, bool enableHead, bool breakGuard, bool pushBack, float hitDelay) {
+		Debug.Log(player.name + " has enabled a collider.");
 		if (hitDelay > 0) {
 			yield return new WaitForSeconds(hitDelay);
 		}
-		robot.breakGuard = breakGuard;
-		robot.pushBack = pushBack;
+		this.breakGuard = breakGuard;
+		this.pushBack = pushBack;
 		if (enableLeftHand) {
-			robot.ActivateBodyPart(Robot.BodyPartCollider.leftHand, true);
-			robot.leftHand.GetComponent<BodyPartHitter>().hitters.Clear();
+			ActivateBodyPart(BodyPartCollider.leftHand, true);
+			leftHand.GetComponent<BodyPartHitter>().hitters.Clear();
 		}
 		if (enableRightHand) {
-			robot.ActivateBodyPart(Robot.BodyPartCollider.rightHand, true);
-			robot.rightHand.GetComponent<BodyPartHitter>().hitters.Clear();
+			ActivateBodyPart(BodyPartCollider.rightHand, true);
+			rightHand.GetComponent<BodyPartHitter>().hitters.Clear();
 		}
 		if (enableLeftFoot) {
-			robot.ActivateBodyPart(Robot.BodyPartCollider.leftFoot, true);
-			robot.leftFoot.GetComponent<BodyPartHitter>().hitters.Clear();
+			ActivateBodyPart(BodyPartCollider.leftFoot, true);
+			leftFoot.GetComponent<BodyPartHitter>().hitters.Clear();
 		}
 		if (enableRightFoot) {
-			robot.ActivateBodyPart(Robot.BodyPartCollider.rightFoot, true);
-			robot.rightFoot.GetComponent<BodyPartHitter>().hitters.Clear();
+			ActivateBodyPart(BodyPartCollider.rightFoot, true);
+			rightFoot.GetComponent<BodyPartHitter>().hitters.Clear();
 		}
 		if (enableHead) {
-			robot.ActivateBodyPart(Robot.BodyPartCollider.head, true);
-			robot.head.GetComponent<BodyPartHitter>().hitters.Clear();
+			ActivateBodyPart(BodyPartCollider.head, true);
+			head.GetComponent<BodyPartHitter>().hitters.Clear();
 		}
 	}
 
-	public void CmdDisableCollider(GameObject robotGO, bool enableLeftHand, bool enableRightHand, bool enableLeftFoot, bool enableRightFoot, bool enableHead) {
-		Robot robot = robotGO.GetComponent<Robot>();
-		Debug.Log(robot.player.name + " has disabled a collider.");
+	[Command]
+	public void CmdDisableCollider(bool enableLeftHand, bool enableRightHand, bool enableLeftFoot, bool enableRightFoot, bool enableHead) {
+		Debug.Log(player.name + " has disabled a collider.");
 		if (enableLeftHand) {
-			robot.ActivateBodyPart(Robot.BodyPartCollider.leftHand, false);
+			ActivateBodyPart(BodyPartCollider.leftHand, false);
 		}
 		if (enableRightHand) {
-			robot.ActivateBodyPart(Robot.BodyPartCollider.rightHand, false);
+			ActivateBodyPart(BodyPartCollider.rightHand, false);
 		}
 		if (enableLeftFoot) {
-			robot.ActivateBodyPart(Robot.BodyPartCollider.leftFoot, false);
+			ActivateBodyPart(BodyPartCollider.leftFoot, false);
 		}
 		if (enableRightFoot) {
-			robot.ActivateBodyPart(Robot.BodyPartCollider.rightFoot, false);
+			ActivateBodyPart(BodyPartCollider.rightFoot, false);
 		}
 		if (enableHead) {
-			robot.ActivateBodyPart(Robot.BodyPartCollider.head, false);
+			ActivateBodyPart(BodyPartCollider.head, false);
 		}
 	}
 

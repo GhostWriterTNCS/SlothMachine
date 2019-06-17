@@ -1074,6 +1074,31 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!1101 &1101184109827929744
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: Y
+    m_EventTreshold: 0
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: 1102129579534157804}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0.25
+  m_TransitionOffset: 0
+  m_ExitTime: 0.8863636
+  m_HasExitTime: 0
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
 --- !u!1101 &1101186570214415474
 AnimatorStateTransition:
   m_ObjectHideFlags: 3
@@ -3381,6 +3406,31 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!1101 &1101805753259925502
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: X
+    m_EventTreshold: 0
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: 1102648308152970880}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0.25
+  m_TransitionOffset: 0
+  m_ExitTime: 0.8863636
+  m_HasExitTime: 0
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
 --- !u!1101 &1101817939384295130
 AnimatorStateTransition:
   m_ObjectHideFlags: 3
@@ -4169,7 +4219,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Kicking
+  m_Name: Y
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -4229,7 +4279,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Headbutt
+  m_Name: XYX
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -4257,7 +4307,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Drop kick
+  m_Name: YYY
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -4613,6 +4663,8 @@ AnimatorState:
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
+  - {fileID: 1101805753259925502}
+  - {fileID: 1101184109827929744}
   - {fileID: 1101479031954234490}
   - {fileID: 1101370983535807020}
   - {fileID: 1101161230327614214}
@@ -4641,7 +4693,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Punching
+  m_Name: X
   m_Speed: 2
   m_CycleOffset: 0
   m_Transitions:
@@ -4671,7 +4723,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Kicking (pre headbutt)
+  m_Name: XY
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -4878,7 +4930,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Double kicking
+  m_Name: YY
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -4907,7 +4959,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Quick Punching
+  m_Name: XX
   m_Speed: 1.5
   m_CycleOffset: 0
   m_Transitions:
@@ -5140,7 +5192,7 @@ AnimatorStateMachine:
     m_Position: {x: 348, y: 84, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102582782828375084}
-    m_Position: {x: 108, y: 192, z: 0}
+    m_Position: {x: 12, y: 192, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102483076053423720}
     m_Position: {x: 876, y: 132, z: 0}

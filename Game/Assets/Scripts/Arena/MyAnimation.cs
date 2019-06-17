@@ -19,7 +19,7 @@ public class MyAnimation : StateMachineBehaviour {
 	override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
 		robot = animator.GetComponent<Robot>();
 		robot.CmdIncreaseComboScore();
-		robot.CmdEnableCollider(robot.gameObject, enableLeftHand, enableRightHand, enableLeftFoot, enableRightFoot, enableHead, breakGuard, pushBack, hitDelay);
+		robot.CmdEnableCollider(enableLeftHand, enableRightHand, enableLeftFoot, enableRightFoot, enableHead, breakGuard, pushBack, hitDelay);
 		robot.GetComponent<PlayerMove>().isAttacking = true;
 	}
 
@@ -31,7 +31,7 @@ public class MyAnimation : StateMachineBehaviour {
 
 	// OnStateExit is called when a transition ends and the state machine finishes evaluating this state
 	override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-		robot.CmdDisableCollider(robot.gameObject, enableLeftHand, enableRightHand, enableLeftFoot, enableRightFoot, enableHead);
+		robot.CmdDisableCollider(enableLeftHand, enableRightHand, enableLeftFoot, enableRightFoot, enableHead);
 		/*if (enableLeftHand) {
 			robot.ActivateBodyPart(Robot.BodyPartCollider.leftHand, false);
 		}
