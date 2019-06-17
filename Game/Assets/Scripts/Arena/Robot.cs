@@ -242,6 +242,7 @@ public class Robot : NetworkBehaviour {
 		rigidbody.mass = baseMass / speed;
 		if (player.roundWinner >= 2) {
 			healthMax *= 2;
+			attack *= 1.25f;
 			defense *= 2;
 		}
 		Debug.Log("Stats updated");

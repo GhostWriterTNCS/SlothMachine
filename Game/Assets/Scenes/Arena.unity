@@ -2979,7 +2979,10 @@ MonoBehaviour:
   roundWinnerIs: The round winner is\n#
   matchOver: Match is over
   respawnIn: 'Respawn in #...'
-  youDefeated: You have been destroyed
+  youDestroyed: You have been destroyed
+  youWin: You win!
+  bossDefeated: Boss defeated!
+  youLost: You lost...
   arenaPrefabs:
   - {fileID: 6140, guid: f0acee9b10c335f46891396b92b88d00, type: 3}
   - {fileID: 6473611815099381824, guid: d9d91acb7b7c69841bff621d0527426a, type: 3}
