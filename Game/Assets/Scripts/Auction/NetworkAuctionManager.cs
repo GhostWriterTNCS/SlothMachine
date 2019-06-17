@@ -148,10 +148,6 @@ public class NetworkAuctionManager : NetworkBehaviour {
 		if (si) {
 			si.ResetValue();
 		}
-		for (int i = 0; i < upgrades.Count; i++) {
-			upgrades[i].selected = (i == currentUpgrade);
-			upgrades[i].isUpdated = true;
-		}
 		foreach (UpgradeBox ub in FindObjectsOfType<UpgradeBox>()) {
 			ub.RefreshSelected();
 		}
@@ -200,16 +196,20 @@ public class NetworkAuctionManager : NetworkBehaviour {
 		}
 		auctionWinner.GetComponent<AuctionPlayer>().player.CmdAddPermanentUpgrade(usedUpgrades[currentUpgrade].value1, usedUpgrades[currentUpgrade].value2);
 		RpcSetHeader(pauseText.Replace("#", auctionWinner.GetComponent<AuctionPlayer>().player.name));
-		while (currentPause > 0) {
-			currentPause -= Time.deltaTime;
-			yield return 0;
-		}
 
 		foreach (AuctionPlayer pb in FindObjectsOfType<AuctionPlayer>()) {
 			pb.bid = 0;
 			pb.bidRegistered = false;
 		}
+		while (currentPause > 0) {
+			currentPause -= Time.deltaTime;
+			yield return 0;
+		}
 		currentUpgrade++;
+		for (int i = 0; i < upgrades.Count; i++) {
+			upgrades[i].selected = (i == currentUpgrade);
+			upgrades[i].isUpdated = true;
+		}
 		RpcPauseFinished();
 
 		countdownDuration--;
