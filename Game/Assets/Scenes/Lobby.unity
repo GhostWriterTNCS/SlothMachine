@@ -10731,6 +10731,7 @@ MonoBehaviour:
   - {fileID: 6897922031240775810, guid: 89ac1ff807569514896c01843adc6a84, type: 3}
   - {fileID: 6800637653821773375, guid: bb611050639dde44eaa506cf35b7c93a, type: 3}
   - {fileID: 8073506518977825839, guid: b320e8da3b3fbec40b9c2cca50d9a1cd, type: 3}
+  - {fileID: 1025285306637258, guid: d8f0099df63275647a8bcf646df1ca00, type: 3}
   - {fileID: 1743301284569550, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
   - {fileID: 5164135998390545375, guid: 892f4acb1608d9b459723facca094745, type: 3}
   - {fileID: 9138153940207548372, guid: 81ee345aa73f7e8498396d0f562ef0c4, type: 3}
@@ -10738,10 +10739,9 @@ MonoBehaviour:
   - {fileID: 326423524251672623, guid: 4b63752b071610744b2ea1bc1260d79c, type: 3}
   - {fileID: 6140, guid: f0acee9b10c335f46891396b92b88d00, type: 3}
   - {fileID: 8850630859050497243, guid: fc31cd5dc6c697d4cac9f4b5faf77f56, type: 3}
-  - {fileID: 2693847180005864626, guid: 0a1522fe245c8214ba35cdfaba019c8e, type: 3}
+  - {fileID: 2693847180005864626, guid: f01d2ffb62ee62f4ca831151710644fe, type: 3}
   - {fileID: 6473611815099381824, guid: d9d91acb7b7c69841bff621d0527426a, type: 3}
   - {fileID: 3134559228210685050, guid: 3cef1836587cc0c41aaaa7ff2cd14a5a, type: 3}
-  - {fileID: 1025285306637258, guid: d8f0099df63275647a8bcf646df1ca00, type: 3}
   m_CustomConfig: 1
   m_MaxConnections: 4
   m_ConnectionConfig:
@@ -10789,7 +10789,7 @@ MonoBehaviour:
   m_UseSimulator: 0
   m_SimulatedLatency: 1
   m_PacketLossPercentage: 0
-  m_MaxBufferedPackets: 64
+  m_MaxBufferedPackets: 32
   m_AllowFragmentation: 1
   m_MatchHost: mm.unet.unity3d.com
   m_MatchPort: 443
