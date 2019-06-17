@@ -40,17 +40,21 @@ public class NetworkAuctionManager : NetworkBehaviour {
 	[Space]
 	public int pauseDuration = 5;
 	public string pauseText;
+	public string upgradeLost;
 	[SyncVar]
 	float currentPause;
 
 	[Space]
 	[SyncVar]
+	public int maxBid;
+	[SyncVar]
 	public GameObject auctionWinner;
 	[SyncVar]
-	public int maxBid;
+	public bool auctionRegistered;
 
 	[SyncVar]
 	int currentUpgrade = 0;
+	bool isUpgradeLost;
 	List<UpgradeBox> upgrades = new List<UpgradeBox>();
 	List<Pair> usedUpgrades = new List<Pair>();
 	AuctionManager auctionManager;
@@ -153,8 +157,9 @@ public class NetworkAuctionManager : NetworkBehaviour {
 	}
 
 	IEnumerator AuctionCoroutine() {
-		maxBid = -1;
+		maxBid = 0;
 		auctionWinner = null;
+		auctionRegistered = false;
 		foreach (AuctionPlayer pb in FindObjectsOfType<AuctionPlayer>()) {
 			pb.bid = 0;
 			pb.bidRegistered = false;
@@ -173,7 +178,6 @@ public class NetworkAuctionManager : NetworkBehaviour {
 		}
 		RpcCountdownFinished();
 
-		GameObject auctionWinnerTemp = null;
 		foreach (AuctionPlayer pb in FindObjectsOfType<AuctionPlayer>()) {
 			while (!pb.bidRegistered && !pb.player.upgradeAssigned) {
 				Debug.Log("Waiting for players to send values");
@@ -187,21 +191,24 @@ public class NetworkAuctionManager : NetworkBehaviour {
 			}
 			if (pb.bid > maxBid) {
 				maxBid = pb.bid;
-				auctionWinnerTemp = pb.gameObject;
+				auctionWinner = pb.gameObject;
 			}
 		}
-		auctionWinner = auctionWinnerTemp;
+		auctionRegistered = true;
+		RpcUpdateResults();
 		if (auctionWinner) {
 			AuctionPlayer playerBox = auctionWinner.GetComponent<AuctionPlayer>();
 			playerBox.player.scraps -= playerBox.bid;
+			auctionWinner.GetComponent<AuctionPlayer>().player.CmdAddPermanentUpgrade(usedUpgrades[currentUpgrade].value1, usedUpgrades[currentUpgrade].value2);
+			RpcSetHeader(pauseText.Replace("#", auctionWinner.GetComponent<AuctionPlayer>().player.name));
+		} else {
+			isUpgradeLost = true;
+			RpcSetHeader(upgradeLost);
 		}
-		RpcUpdateResults();
 
-		while (auctionWinner == null) {
+		/*while (auctionWinner == null) {
 			yield return 0;
-		}
-		auctionWinner.GetComponent<AuctionPlayer>().player.CmdAddPermanentUpgrade(usedUpgrades[currentUpgrade].value1, usedUpgrades[currentUpgrade].value2);
-		RpcSetHeader(pauseText.Replace("#", auctionWinner.GetComponent<AuctionPlayer>().player.name));
+		}*/
 
 		while (currentPause > 0) {
 			currentPause -= Time.deltaTime;
@@ -218,7 +225,7 @@ public class NetworkAuctionManager : NetworkBehaviour {
 		currentCountdown = countdownDuration;
 		currentPause = pauseDuration;
 		int size = upgrades.Count - 1;
-		if (currentUpgrade < size) {
+		if (currentUpgrade < size || currentUpgrade < upgrades.Count && isUpgradeLost) {
 			StartCoroutine(AuctionCoroutine());
 		} else {
 			foreach (Player p in FindObjectsOfType<Player>()) {

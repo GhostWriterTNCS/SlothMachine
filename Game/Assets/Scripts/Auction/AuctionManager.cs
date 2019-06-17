@@ -27,7 +27,7 @@ public class AuctionManager : MonoBehaviour {
 	}
 
 	IEnumerator UpdateResultsCoroutine() {
-		while (networkAuctionManager.auctionWinner == null) {
+		while (!networkAuctionManager.auctionRegistered) {
 			yield return 0;
 		}
 		foreach (PlayerScraps ps in Resources.FindObjectsOfTypeAll<PlayerScraps>()) {

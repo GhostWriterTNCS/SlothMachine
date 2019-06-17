@@ -43,7 +43,7 @@ public class PlayerScraps : NetworkBehaviour {
 
 	IEnumerator UpdateResultCoroutine() {
 		NetworkAuctionManager NAM = FindObjectOfType<NetworkAuctionManager>();
-		while (NAM.auctionWinner == null) {
+		while (!NAM.auctionRegistered) {
 			yield return 0;
 		}
 		foreach (PlayerScraps ps in FindObjectsOfType<PlayerScraps>()) {
