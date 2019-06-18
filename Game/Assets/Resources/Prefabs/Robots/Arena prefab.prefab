@@ -4792,8 +4792,8 @@ MonoBehaviour:
   holdMinDuration: 0.76
   pushBackPower: 360
   baseMass: 50
-  evadeDuration: 0.61
-  evadeDistance: 0.21
+  evadeDuration: 0.9
+  evadeDistance: 0.5
   evadeCooldown: 3
   keepOnRespawn: {fileID: 5529818024574986447}
   clips:
