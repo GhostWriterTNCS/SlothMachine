@@ -202,7 +202,6 @@ public class Robot : NetworkBehaviour {
 			yield return 0;
 		}
 		CmdCalculateBonus();
-		CmdUpdateHealthValue(healthMax);
 
 		Transform spawn = NetworkManager.singleton.GetStartPosition();
 		if (player.roundWinner >= 2) {
@@ -222,6 +221,7 @@ public class Robot : NetworkBehaviour {
 		if (isLocalPlayer) {
 			arenaManager.upgradeWheel.player = player;
 		}
+		CmdUpdateHealthValue(healthMax);
 	}
 
 	[Command]
@@ -378,7 +378,6 @@ public class Robot : NetworkBehaviour {
 						if (!upgradeWheelActive) {
 							upgradeWheel.gameObject.SetActive(true);
 							upgradeWheelActive = true;
-							Debug.Log("Activade UW");
 						}
 					} else {
 						upgradeWheel.gameObject.SetActive(false);
@@ -391,8 +390,7 @@ public class Robot : NetworkBehaviour {
 					if (lockCameraRobot) {
 						DisableLockCamera();
 					} else {
-						if (Physics.BoxCast(transform.position, new Vector3(7, 7, 7), transform.forward, out hit, Quaternion.identity, lockCameraMaxDistance, 9)) {
-							//m_HitDetect = true;
+						if (Physics.BoxCast(transform.position, new Vector3(7, 7, 0.1f), transform.forward, out hit, Quaternion.identity, lockCameraMaxDistance, LayerMask.GetMask("Players"))) {
 							lockCameraRobot = hit.transform.gameObject.GetComponent<Robot>();
 							// in the boss round, you can lock only the boss
 							if (lockCameraRobot && lockCameraRobot.health > 0 && (!MatchManager.singleton.bossRound || lockCameraRobot.player.roundWinner >= 2)) {
@@ -400,8 +398,14 @@ public class Robot : NetworkBehaviour {
 							} else {
 								lockCameraRobot = null;
 							}
-							/*} else {
-								m_HitDetect = false;*/
+						} else if (Physics.BoxCast(transform.position, new Vector3(0.1f, 7, 7), transform.forward, out hit, Quaternion.identity, lockCameraMaxDistance, LayerMask.GetMask("Players"))) {
+							lockCameraRobot = hit.transform.gameObject.GetComponent<Robot>();
+							// in the boss round, you can lock only the boss
+							if (lockCameraRobot && lockCameraRobot.health > 0 && (!MatchManager.singleton.bossRound || lockCameraRobot.player.roundWinner >= 2)) {
+								lockCameraRobot.marker.enabled = true;
+							} else {
+								lockCameraRobot = null;
+							}
 						}
 					}
 				}
@@ -429,24 +433,24 @@ public class Robot : NetworkBehaviour {
 			}
 		}
 	}
-	/*void OnDrawGizmos() {
+	void OnDrawGizmos() {
 		Gizmos.color = Color.red;
 
 		//Check if there has been a hit yet
-		if (m_HitDetect) {
+		/*if (m_HitDetect) {
 			//Draw a Ray forward from GameObject toward the hit
 			Gizmos.DrawRay(transform.position, transform.forward * hit.distance);
 			//Draw a cube that extends to where the hit exists
 			Gizmos.DrawWireCube(transform.position + transform.forward * hit.distance, new Vector3(7, 7, 7));
 		}
 		//If there hasn't been a hit yet, draw the ray at the maximum distance
-		else {
-			//Draw a Ray forward from GameObject toward the maximum distance
-			Gizmos.DrawRay(transform.position, transform.forward * m_MaxDistance);
-			//Draw a cube at the maximum distance
-			Gizmos.DrawWireCube(transform.position + transform.forward * m_MaxDistance, new Vector3(7, 7, 7));
-		}
-	}*/
+		else {*/
+		//Draw a Ray forward from GameObject toward the maximum distance
+		Gizmos.DrawRay(transform.position, transform.forward * lockCameraMaxDistance);
+		//Draw a cube at the maximum distance
+		Gizmos.DrawWireSphere(transform.position + transform.forward * lockCameraMaxDistance, 5);
+		//}
+	}
 
 	[Command]
 	public void CmdSetIon(short ion) {
