@@ -81,6 +81,7 @@ public class Robot : NetworkBehaviour {
 	public GameObject handsParticle;
 	public GameObject feetParticle;
 	public GameObject bodyParticle;
+	public int[] upgrades;
 	public bool isGuardOn;
 
 	[SyncVar(hook = "UpdateHealthSlider")]
@@ -111,6 +112,7 @@ public class Robot : NetworkBehaviour {
 	ArenaManager arenaManager;
 
 	void Start() {
+		upgrades = new int[4];
 		StartCoroutine(SetupCoroutine());
 	}
 	IEnumerator SetupCoroutine() {
@@ -286,9 +288,10 @@ public class Robot : NetworkBehaviour {
 	float evadeDelayTime = 0;
 	float evadeTime = 0;
 	float evadeCooldownTime = 0;
-	float m_MaxDistance = 20;
+	float lockCameraMaxDistance = 20;
 	RaycastHit hit;
-	bool m_HitDetect;
+	//bool m_HitDetect;
+	bool upgradeWheelActive;
 	public Robot lockCameraRobot;
 	void Update() {
 		if (!player || !playerMove) {
@@ -370,16 +373,26 @@ public class Robot : NetworkBehaviour {
 					GuardOff();
 				}
 
-				if (upgradeWheel)
-					upgradeWheel.gameObject.SetActive(Input.GetAxis("Triggers") < -0.01f);
+				if (upgradeWheel) {
+					if (Input.GetAxis("Triggers") < -0.01f) {
+						if (!upgradeWheelActive) {
+							upgradeWheel.gameObject.SetActive(true);
+							upgradeWheelActive = true;
+							Debug.Log("Activade UW");
+						}
+					} else {
+						upgradeWheel.gameObject.SetActive(false);
+						upgradeWheelActive = false;
+					}
+				}
 				playerMove.canRotateCamera = Input.GetAxis("Triggers") >= -0.01f;
 
 				if (Input.GetButtonDown("RS")) {
 					if (lockCameraRobot) {
 						DisableLockCamera();
 					} else {
-						if (Physics.BoxCast(transform.position, new Vector3(7, 7, 7), transform.forward, out hit, Quaternion.identity, m_MaxDistance, 9)) {
-							m_HitDetect = true;
+						if (Physics.BoxCast(transform.position, new Vector3(7, 7, 7), transform.forward, out hit, Quaternion.identity, lockCameraMaxDistance, 9)) {
+							//m_HitDetect = true;
 							lockCameraRobot = hit.transform.gameObject.GetComponent<Robot>();
 							// in the boss round, you can lock only the boss
 							if (lockCameraRobot && lockCameraRobot.health > 0 && (!MatchManager.singleton.bossRound || lockCameraRobot.player.roundWinner >= 2)) {
@@ -387,14 +400,14 @@ public class Robot : NetworkBehaviour {
 							} else {
 								lockCameraRobot = null;
 							}
-						} else {
-							m_HitDetect = false;
+							/*} else {
+								m_HitDetect = false;*/
 						}
 					}
 				}
 
 				if (lockCameraRobot) {
-					if (Vector3.Distance(transform.position, lockCameraRobot.transform.position) > m_MaxDistance) {
+					if (Vector3.Distance(transform.position, lockCameraRobot.transform.position) > lockCameraMaxDistance || lockCameraRobot.health <= 0) {
 						DisableLockCamera();
 					} else {
 						transform.LookAt(lockCameraRobot.transform);
@@ -821,7 +834,6 @@ public class Robot : NetworkBehaviour {
 		Upgrade u = Upgrades.temporary[ID];
 		if (u.price <= player.scraps) {
 			player.scraps -= u.price;
-			//u.OnAdd(GetComponentInChildren<Robot>());
 			RpcAddTemporaryUpgrade(ID);
 			Debug.Log("Upgrade " + u.name + " mounted!");
 		} else {
@@ -832,7 +844,14 @@ public class Robot : NetworkBehaviour {
 	public void RpcAddTemporaryUpgrade(int ID) {
 		Debug.Log("RpcAddTemporaryUpgrade");
 		Upgrade u = Upgrades.temporary[ID];
-		u.OnAdd(GetComponentInChildren<Robot>());
+		int index = (int)u.type;
+		if (index < upgrades.Length) {
+			if (upgrades[index] != 0) {
+				Upgrades.temporary[upgrades[index]].OnRemove(this);
+			}
+			upgrades[index] = ID;
+		}
+		u.OnAdd(this);
 		Debug.Log("Upgrade " + u.name + " mounted!");
 	}
 	List<GameObject> handsParticles = new List<GameObject>();

@@ -4788,13 +4788,13 @@ MonoBehaviour:
   ionParticle: {fileID: 7762058598854749126}
   bossParticlePlus: {fileID: 1796495378074180104}
   bossParticleMinus: {fileID: 3406177597587871575}
+  evadeDuration: 0.7
+  evadeDistance: 0.25
+  evadeCooldown: 3
   comboDelay: 1
   holdMinDuration: 0.76
   pushBackPower: 360
   baseMass: 50
-  evadeDuration: 0.9
-  evadeDistance: 0.25
-  evadeCooldown: 3
   keepOnRespawn: {fileID: 5529818024574986447}
   clips:
   - {fileID: 8300000, guid: 1d668d78e02d8d844a793613944fe0b6, type: 3}
@@ -4830,6 +4830,7 @@ MonoBehaviour:
   handsParticle: {fileID: 0}
   feetParticle: {fileID: 0}
   bodyParticle: {fileID: 0}
+  upgrades: 
   isGuardOn: 0
   health: 0
   healthMax: 0

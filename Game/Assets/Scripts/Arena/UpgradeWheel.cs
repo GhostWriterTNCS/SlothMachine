@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System.Linq;
 
 public class UpgradeWheel : MonoBehaviour {
 	public Button up;
@@ -60,7 +61,7 @@ public class UpgradeWheel : MonoBehaviour {
 		}
 		if (Input.GetButtonDown("A")) {
 			currentAction();
-			//gameObject.SetActive(false);
+			gameObject.SetActive(false);
 		}
 	}
 
@@ -75,7 +76,7 @@ public class UpgradeWheel : MonoBehaviour {
 		int u = 0;
 		do {
 			u = Random.Range(1, Upgrades.temporary.Length);
-		} while (upgrades.Contains(u));
+		} while (upgrades.Contains(u) || player && player.robot.upgrades.Contains(u));
 		if (upgrades.Count > position) {
 			upgrades[position] = u;
 		} else {
