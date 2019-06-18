@@ -3385,9 +3385,8 @@ GameObject:
   m_Component:
   - component: {fileID: 650431577}
   - component: {fileID: 650431576}
-  - component: {fileID: 650431575}
-  - component: {fileID: 650431574}
   - component: {fileID: 650431573}
+  - component: {fileID: 650431574}
   - component: {fileID: 650431579}
   - component: {fileID: 650431578}
   m_Layer: 5
@@ -3436,28 +3435,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &650431575
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 650431572}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
-  m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
-  m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
-  m_PhysicalUnit: 3
-  m_FallbackScreenDPI: 96
-  m_DefaultSpriteDPI: 96
-  m_DynamicPixelsPerUnit: 1
 --- !u!223 &650431576
 Canvas:
   m_ObjectHideFlags: 0
@@ -10742,6 +10719,7 @@ MonoBehaviour:
   - {fileID: 2693847180005864626, guid: f01d2ffb62ee62f4ca831151710644fe, type: 3}
   - {fileID: 6473611815099381824, guid: d9d91acb7b7c69841bff621d0527426a, type: 3}
   - {fileID: 3134559228210685050, guid: 3cef1836587cc0c41aaaa7ff2cd14a5a, type: 3}
+  - {fileID: 916769700366191920, guid: 495091cae3b06b240b5e534aac2a9bf6, type: 3}
   m_CustomConfig: 1
   m_MaxConnections: 4
   m_ConnectionConfig:
