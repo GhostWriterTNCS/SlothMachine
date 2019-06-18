@@ -356,7 +356,7 @@ public class Robot : NetworkBehaviour {
 					if (evadeDirection.magnitude < 0.2f) {
 						evadeDirection = transform.forward * -1;
 					}
-					GetComponentInChildren<RobotModel>().transform.localRotation = Quaternion.LookRotation(evadeDirection * -1);
+					GetComponentInChildren<RobotModel>().transform.rotation = Quaternion.LookRotation(evadeDirection);
 					CmdPlayClip(gameObject, 0);
 					//AudioManager.singleton.PlayClip(evadeSound);
 					evadeDelayTime = evadeDelay;
