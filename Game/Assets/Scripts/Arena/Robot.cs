@@ -99,7 +99,7 @@ public class Robot : NetworkBehaviour {
 	[SyncVar]
 	public bool paused;
 
-	RobotModel robotModel;
+	public RobotModel robotModel;
 	Animator animator;
 	PlayerCamera playerCamera;
 	PlayerMove playerMove;
@@ -195,7 +195,7 @@ public class Robot : NetworkBehaviour {
 		if (isLocalPlayer) {
 			minimapCursor.transform.localScale *= 1.5f;
 		}
-		evadeDelay = GetComponentInChildren<RobotModel>().evadeDelay;
+		evadeDelay = robotModel.evadeDelay;
 
 		body.enabled = false;
 		while (!arenaManager.arenaReady) {
@@ -220,9 +220,6 @@ public class Robot : NetworkBehaviour {
 
 		if (isLocalPlayer) {
 			arenaManager.upgradeWheel.player = player;
-		}
-		while (healthMax == 0) {
-			yield return 0;
 		}
 		CmdUpdateHealthValue(healthMax);
 	}
@@ -345,7 +342,7 @@ public class Robot : NetworkBehaviour {
 					if (evadeDirection.magnitude < 0.2f) {
 						evadeDirection = transform.forward * -1;
 					}
-					GetComponentInChildren<RobotModel>().transform.rotation = Quaternion.LookRotation(evadeDirection);
+					robotModel.transform.rotation = Quaternion.LookRotation(evadeDirection);
 					CmdPlayClip(gameObject, 0);
 					//AudioManager.singleton.PlayClip(evadeSound);
 					evadeDelayTime = evadeDelay;
@@ -574,24 +571,30 @@ public class Robot : NetworkBehaviour {
 	}
 	[Command]
 	public void CmdUpdateHealthValue(float newHealth) {
+		StartCoroutine(UpdateHealthValueCoroutine(newHealth));
+	}
+	IEnumerator UpdateHealthValueCoroutine(float newHealth) {
+		while (healthMax == 0) {
+			yield return 0;
+		}
 		if (newHealth > healthMax) {
 			newHealth = healthMax;
 		}
 		if (newHealth <= 0) {
 			player.deathCount++;
+			CmdPlayClip(gameObject, AudioClips.Destroyed);
+			//AudioManager.singleton.PlayClip(destroyedSound);
+			GetComponent<SyncTransform>().CmdSetValues(new Vector3(0, -100, 0), Quaternion.identity);
+			RpcRespawn();
 		}
 		health = newHealth;
 	}
 	public void UpdateHealth(float variation, bool isHeavy = false) {
 		float newHealth = health + variation;
-		CmdUpdateHealthValue(newHealth);
 		if (newHealth <= 0) {
-			CmdPlayClip(gameObject, AudioClips.Destroyed);
-			//AudioManager.singleton.PlayClip(destroyedSound);
 			DisableLockCamera();
-			GetComponent<SyncTransform>().CmdSetValues(new Vector3(0, -100, 0), Quaternion.identity);
-			RpcRespawn();
 		}
+		CmdUpdateHealthValue(newHealth);
 	}
 
 	public enum BodyPartCollider {
@@ -814,7 +817,6 @@ public class Robot : NetworkBehaviour {
 		transform.position = spawn.position;
 		transform.rotation = spawn.rotation;
 		rigidbody.velocity = Vector3.zero;
-		GetComponent<SyncTransform>().CmdSetValues(spawn.position, spawn.rotation);
 		for (int i = 0; i < transform.childCount; i++) {
 			transform.GetChild(i).gameObject.SetActive(true);
 		}

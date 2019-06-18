@@ -210,10 +210,6 @@ public class NetworkAuctionManager : NetworkBehaviour {
 			RpcSetHeader(upgradeLost);
 		}
 
-		/*while (auctionWinner == null) {
-			yield return 0;
-		}*/
-
 		currentUpgrade++;
 		for (int i = 0; i < upgrades.Count; i++) {
 			upgrades[i].selected = (i == currentUpgrade);

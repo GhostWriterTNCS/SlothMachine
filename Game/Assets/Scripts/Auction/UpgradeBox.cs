@@ -44,7 +44,6 @@ public class UpgradeBox : NetworkBehaviour {
 	}
 
 	IEnumerator RefreshSelectedCoroutine() {
-		Debug.Log("Start refresh " + name);
 		/*if (isIntro) {
 			yield break;
 		}*/

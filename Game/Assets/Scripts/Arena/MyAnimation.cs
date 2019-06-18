@@ -53,7 +53,7 @@ public class MyAnimation : StateMachineBehaviour {
 		}*/
 		robot.GetComponent<PlayerMove>().isAttacking = false;
 		if (resetDirection) {
-			robot.GetComponentInChildren<RobotModel>().transform.localRotation = Quaternion.identity;
+			robot.robotModel.transform.localRotation = Quaternion.identity;
 		}
 	}
 
