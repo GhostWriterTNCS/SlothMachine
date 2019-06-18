@@ -344,15 +344,6 @@ public class Robot : NetworkBehaviour {
 					holdButton = 0;
 				} else if (Input.GetButtonUp("B") && evadeCooldownTime <= 0) {
 					evadeDirection = transform.right * Input.GetAxis("Horizontal") + transform.forward * Input.GetAxis("Vertical");
-					/*if (Input.GetAxis("Horizontal") > 0.1) {
-						evadeDirection = transform.right;
-					} else if (Input.GetAxis("Horizontal") < -0.1) {
-						evadeDirection = transform.right * -1;
-					} else if (Input.GetAxis("") > 0.1) {
-						evadeDirection = transform.forward;
-					} else {
-						evadeDirection = transform.forward * -1;
-					}*/
 					if (evadeDirection.magnitude < 0.2f) {
 						evadeDirection = transform.forward * -1;
 					}
