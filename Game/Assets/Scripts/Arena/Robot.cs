@@ -551,8 +551,8 @@ public class Robot : NetworkBehaviour {
 	[Command]
 	public void CmdIncreaseComboScore() {
 		comboScore *= 1.5f;
-		if (comboScore > 20) {
-			comboScore = 20;
+		if (comboScore > 10) {
+			comboScore = 10;
 		}
 		comboScoreDuration = 1;
 	}
