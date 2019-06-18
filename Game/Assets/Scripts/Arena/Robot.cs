@@ -15,32 +15,23 @@ public class Robot : NetworkBehaviour {
 	public GameObject iceParticle;
 	public GameObject sonicParticle;
 	public SpriteRenderer minimapCursor;
-	[Space]
+	[Header("Ion")]
 	public Material ionPlus;
 	public Material ionMinus;
 	public Material ionNull;
 	public ParticleSystem ionParticle;
 	public ParticleSystem bossParticlePlus;
 	public ParticleSystem bossParticleMinus;
-	[Space]
+	[Header("Evade")]
+	public float evadeDuration = 0.1f;
+	public float evadeDistance = 0.3f;
+	public float evadeCooldown = 1;
+	[Header("Others")]
 	public float comboDelay = 1;
 	public float holdMinDuration = 0.76f;
 	public float pushBackPower = 360;
 	public float baseMass = 50;
-	[Space]
-	public float evadeDuration = 0.1f;
-	public float evadeDistance = 0.3f;
-	public float evadeCooldown = 1;
-	//public AudioClip evadeSound;
-	[Space]
 	public GameObject keepOnRespawn;
-	[Header("Sounds")]
-	/*public AudioClip hitSound;
-	public AudioClip fireSound;
-	public AudioClip lightningSound;
-	public AudioClip iceSound;
-	public AudioClip sonicSound;
-	public AudioClip destroyedSound;*/
 	public AudioClip[] clips;
 	public enum AudioClips {
 		Dash,
@@ -194,7 +185,7 @@ public class Robot : NetworkBehaviour {
 		arenaBox.GetComponent<ArenaBox>().player = player;
 
 		CmdResetComboScore();
-		upgradeWheel = FindObjectOfType<ArenaManager>().upgradeWheel;
+		upgradeWheel = arenaManager.upgradeWheel;
 		if (upgradeWheel)
 			upgradeWheel.gameObject.SetActive(false);
 
@@ -227,7 +218,7 @@ public class Robot : NetworkBehaviour {
 		body.enabled = true;
 
 		if (isLocalPlayer) {
-			FindObjectOfType<ArenaManager>().upgradeWheel.player = player;
+			arenaManager.upgradeWheel.player = player;
 		}
 	}
 
@@ -329,6 +320,7 @@ public class Robot : NetworkBehaviour {
 			if (isLocalPlayer) {
 				if (evadeCooldownTime > 0) {
 					evadeCooldownTime -= Time.deltaTime;
+					arenaManager.evadeCooldown.fillAmount = 1 - (evadeCooldownTime / evadeCooldown);
 				}
 				arenaManager.bottomBar.SetActive(true);
 				arenaManager.scrapsCounter.text = player.scraps.ToString();
@@ -353,6 +345,7 @@ public class Robot : NetworkBehaviour {
 					evadeDelayTime = evadeDelay;
 					evadeTime = evadeDuration;
 					evadeCooldownTime = evadeCooldown;
+					arenaManager.evadeCooldown.fillAmount = 0;
 					CmdSetTrigger("B");
 				} else if (Input.GetButtonDown("X")) {
 					holdButton = 0;

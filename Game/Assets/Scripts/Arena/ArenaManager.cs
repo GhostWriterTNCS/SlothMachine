@@ -12,6 +12,7 @@ public class ArenaManager : MonoBehaviour {
 	public Text scrapsCounter;
 	public PauseMenu pauseMenu;
 	public Transform minimap;
+	public Image evadeCooldown;
 	[Space]
 	public Text title;
 	public string roundX;
