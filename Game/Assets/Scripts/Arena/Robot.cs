@@ -221,6 +221,9 @@ public class Robot : NetworkBehaviour {
 		if (isLocalPlayer) {
 			arenaManager.upgradeWheel.player = player;
 		}
+		while (healthMax == 0) {
+			yield return 0;
+		}
 		CmdUpdateHealthValue(healthMax);
 	}
 
@@ -811,6 +814,7 @@ public class Robot : NetworkBehaviour {
 		transform.position = spawn.position;
 		transform.rotation = spawn.rotation;
 		rigidbody.velocity = Vector3.zero;
+		GetComponent<SyncTransform>().CmdSetValues(spawn.position, spawn.rotation);
 		for (int i = 0; i < transform.childCount; i++) {
 			transform.GetChild(i).gameObject.SetActive(true);
 		}

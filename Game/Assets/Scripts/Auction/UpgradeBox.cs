@@ -26,7 +26,6 @@ public class UpgradeBox : NetworkBehaviour {
 		if (backgroundImage) {
 			backgroundImage.color = TextManager.backgroundHighlightedColor;
 		}
-		isUpdated = true;
 		FindObjectOfType<AuctionManager>().StartCoroutine(LoadUpgradeCoroutine());
 	}
 
@@ -45,7 +44,11 @@ public class UpgradeBox : NetworkBehaviour {
 	}
 
 	IEnumerator RefreshSelectedCoroutine() {
-		while (!isUpdated || isIntro) {
+		Debug.Log("Start refresh " + name);
+		/*if (isIntro) {
+			yield break;
+		}*/
+		while (!isUpdated) {
 			yield return 0;
 		}
 		if (backgroundImage) {
@@ -57,7 +60,7 @@ public class UpgradeBox : NetworkBehaviour {
 			current.level = level;
 			current.Refresh();
 		}
-		isUpdated = false;
+		Debug.Log(name + " refreshed.");
 	}
 
 	IEnumerator LoadUpgradeCoroutine() {
@@ -81,6 +84,7 @@ public class UpgradeBox : NetworkBehaviour {
 				transform.SetParent(auctionManager.upgradesList.transform);
 			}
 		}
+		isUpdated = true;
 		Refresh();
 		RefreshSelected();
 	}

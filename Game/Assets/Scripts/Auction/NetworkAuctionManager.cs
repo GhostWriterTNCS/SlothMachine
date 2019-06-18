@@ -56,8 +56,9 @@ public class NetworkAuctionManager : NetworkBehaviour {
 	int currentUpgrade = 0;
 	bool isUpgradeLost;
 	List<UpgradeBox> upgrades = new List<UpgradeBox>();
-	List<Pair> usedUpgrades = new List<Pair>();
+	List<Pair> usedUpgradesTemp = new List<Pair>();
 	AuctionManager auctionManager;
+	SyncListInt usedUpgrades = new SyncListInt();
 
 	void Start() {
 		auctionManager = FindObjectOfType<AuctionManager>();
@@ -82,8 +83,10 @@ public class NetworkAuctionManager : NetworkBehaviour {
 			}
 			do {
 				upgrade = Random.Range(1, Upgrades.permanent[level].Length);
-			} while (usedUpgrades.Contains(new Pair(level, upgrade)));
-			usedUpgrades.Add(new Pair(level, upgrade));
+			} while (usedUpgradesTemp.Contains(new Pair(level, upgrade)));
+			usedUpgradesTemp.Add(new Pair(level, upgrade));
+			usedUpgrades.Add(level);
+			usedUpgrades.Add(upgrade);
 			ub.ID = upgrade;
 			ub.level = level;
 			ub.selected = (i == 0);
@@ -151,6 +154,7 @@ public class NetworkAuctionManager : NetworkBehaviour {
 		if (si) {
 			si.ResetValue();
 		}
+		Debug.Log("Upgrades: " + FindObjectsOfType<UpgradeBox>().Length);
 		foreach (UpgradeBox ub in FindObjectsOfType<UpgradeBox>()) {
 			ub.RefreshSelected();
 		}
@@ -199,7 +203,7 @@ public class NetworkAuctionManager : NetworkBehaviour {
 		if (auctionWinner) {
 			AuctionPlayer playerBox = auctionWinner.GetComponent<AuctionPlayer>();
 			playerBox.player.scraps -= playerBox.bid;
-			auctionWinner.GetComponent<AuctionPlayer>().player.CmdAddPermanentUpgrade(usedUpgrades[currentUpgrade].value1, usedUpgrades[currentUpgrade].value2);
+			auctionWinner.GetComponent<AuctionPlayer>().player.CmdAddPermanentUpgrade(usedUpgrades[currentUpgrade * 2], usedUpgrades[currentUpgrade * 2 + 1]);
 			RpcSetHeader(pauseText.Replace("#", auctionWinner.GetComponent<AuctionPlayer>().player.name));
 		} else {
 			isUpgradeLost = true;
@@ -210,14 +214,14 @@ public class NetworkAuctionManager : NetworkBehaviour {
 			yield return 0;
 		}*/
 
-		while (currentPause > 0) {
-			currentPause -= Time.deltaTime;
-			yield return 0;
-		}
 		currentUpgrade++;
 		for (int i = 0; i < upgrades.Count; i++) {
 			upgrades[i].selected = (i == currentUpgrade);
 			upgrades[i].isUpdated = true;
+		}
+		while (currentPause > 0) {
+			currentPause -= Time.deltaTime;
+			yield return 0;
 		}
 		RpcPauseFinished();
 
