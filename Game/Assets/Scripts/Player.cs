@@ -46,7 +46,9 @@ public class Player : NetworkBehaviour {
 		scraps = 100;
 		roundWinner = 0;
 		deathCount = 0;
-		CmdRespawn(gameObject);
+		if (isLocalPlayer) {
+			CmdRespawn(gameObject);
+		}
 	}
 
 	[Command]
@@ -136,6 +138,8 @@ public class Player : NetworkBehaviour {
 			Debug.Log("Destroy child");
 			Destroy(transform.GetChild(0).gameObject);
 		}
-		CmdRespawn(gameObject);
+		if (isLocalPlayer) {
+			CmdRespawn(gameObject);
+		}
 	}
 }
