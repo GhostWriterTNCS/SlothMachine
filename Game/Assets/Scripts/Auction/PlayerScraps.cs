@@ -28,6 +28,9 @@ public class PlayerScraps : NetworkBehaviour {
 		transform.localScale = FindObjectOfType<Canvas>().transform.localScale;
 		transform.SetParent(FindObjectOfType<AuctionManager>().scrapsList.transform);
 		auctionPlayer = playerBoxGO.GetComponent<AuctionPlayer>();
+		while (!auctionPlayer.player) {
+			yield return 0;
+		}
 		playerName.text = auctionPlayer.player.name;
 		if (auctionPlayer.isLocalPlayer && !auctionPlayer.player.isAgent) {
 			backgroundImage.gameObject.SetActive(true);

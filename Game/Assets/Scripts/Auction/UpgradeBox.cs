@@ -59,7 +59,7 @@ public class UpgradeBox : NetworkBehaviour {
 			current.level = level;
 			current.Refresh();
 		}
-		Debug.Log(name + " refreshed.");
+		//Debug.Log(name + " refreshed.");
 	}
 
 	IEnumerator LoadUpgradeCoroutine() {
