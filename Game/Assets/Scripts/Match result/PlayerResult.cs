@@ -22,6 +22,10 @@ public class PlayerResult : MonoBehaviour {
 	}
 
 	public IEnumerator LoadPlayer() {
+		while (FindObjectOfType<Canvas>().transform.localScale.x < 0.1f) {
+			yield return 0;
+		}
+		transform.localScale = Vector3.one; // FindObjectOfType<Canvas>().transform.localScale;
 		while (!playerGO) {
 			yield return 0;
 		}
