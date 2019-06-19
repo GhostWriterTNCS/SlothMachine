@@ -544,7 +544,9 @@ public class Robot : NetworkBehaviour {
 	}
 	[ClientRpc]
 	public void RpcSetBool(string id, bool value) {
-		animator.SetBool(id, value);
+		if (animator) {
+			animator.SetBool(id, value);
+		}
 	}
 
 	[SyncVar]
