@@ -4839,6 +4839,7 @@ MonoBehaviour:
   speed: 0
   roundScore: 0
   paused: 0
+  robotModel: {fileID: 0}
   lockCameraRobot: {fileID: 0}
 --- !u!114 &4381043123533344500
 MonoBehaviour:
@@ -4852,15 +4853,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 054b0b69d570fe04caa30009694c7c01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 7.7
-  moveSpeedMultiplier: 1
-  moveSpeedAdjust: 3
+  moveSpeed: 9.3
+  inCombatRange: 9
+  inCombatSpeedAdjust: 0.4
+  lockCameraRangeAdjust: 9
+  attackingSpeedAdjust: 0.2
   turnSpeed: 5.4
+  moveSpeedMultiplier: 1
+  walkH: 0
+  walkV: 0
   canMove: 1
   canRotateCamera: 1
   isAttacking: 0
-  walkH: 0
-  walkV: 0
 --- !u!114 &5134306811947782759
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -12,11 +12,13 @@ public class SyncTransform : NetworkBehaviour {
 	public Quaternion rotation;
 
 	bool cmdEnabled = false;
+	PlayerMove playerMove;
 
 	void Start() {
 		if (isLocalPlayer) {
 			cmdEnabled = true;
 		}
+		playerMove = GetComponent<PlayerMove>();
 	}
 
 	[Command]
@@ -32,9 +34,9 @@ public class SyncTransform : NetworkBehaviour {
 			if (Vector3.Distance(transform.position, position) > snapThreshold) {
 				transform.position = position;
 			} else {
-				transform.position = Vector3.Lerp(transform.position, position, Time.deltaTime * transitionSpeed);
+				transform.position = Vector3.Lerp(transform.position, position, Time.deltaTime * playerMove.moveSpeed);
 			}
-			transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * transitionSpeed);
+			transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * playerMove.moveSpeed);
 		}
 	}
 

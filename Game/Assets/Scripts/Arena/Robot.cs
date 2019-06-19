@@ -166,6 +166,7 @@ public class Robot : NetworkBehaviour {
 		if (!body.GetComponent<BodyPartTarget>()) {
 			body.gameObject.AddComponent<BodyPartTarget>();
 		}
+		robotModel.shield.SetActive(false);
 		CmdMountUpgrades();
 
 		animator = GetComponent<Animator>();
@@ -485,14 +486,16 @@ public class Robot : NetworkBehaviour {
 	}
 
 	void GuardOn() {
-		CmdSetBool("LB", true);
+		//CmdSetBool("LB", true);
 		isGuardOn = true;
-		playerMove.moveSpeedMultiplier = 0.55f;
+		//playerMove.moveSpeedMultiplier = 0.55f;
+		robotModel.shield.SetActive(true);
 	}
 	void GuardOff() {
-		CmdSetBool("LB", false);
+		//CmdSetBool("LB", false);
 		isGuardOn = false;
-		playerMove.moveSpeedMultiplier = 1;
+		//playerMove.moveSpeedMultiplier = 1;
+		robotModel.shield.SetActive(false);
 	}
 
 	Dictionary<string, int> triggers = new Dictionary<string, int>();
@@ -779,6 +782,7 @@ public class Robot : NetworkBehaviour {
 			hitter.player.score += (int)hitter.comboScore;
 			hitter.roundScore += (int)hitter.comboScore;
 			GuardOff();
+			CmdDisableCollider(true, true, true, true, true);
 		}
 	}
 
