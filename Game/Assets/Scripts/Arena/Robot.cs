@@ -213,6 +213,7 @@ public class Robot : NetworkBehaviour {
 			Transform spawn = FindObjectOfType<BossArena>().bossSpawnPosition;
 			transform.position = spawn.position;
 			transform.rotation = spawn.rotation;
+			rigidbody.velocity = Vector3.zero;
 			syncTransform.CmdSetValues(transform.position, transform.rotation);
 
 			transform.localScale = new Vector3(2, 2, 2);
