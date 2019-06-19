@@ -872,13 +872,12 @@ public class Robot : NetworkBehaviour {
 	void CmdSpawn() {
 		List<SpawnPoint> spawns = FindObjectsOfType<SpawnPoint>().OrderBy(a => Guid.NewGuid()).ToList();
 		for (int i = 0; i < spawns.Count; i++) {
-			if (!spawns[i].busy || i == spawns.Count - 1) {
+			if (!spawns[i].IsFree() || i == spawns.Count - 1) {
 				transform.position = spawns[i].transform.position;
 				transform.rotation = spawns[i].transform.rotation;
 				rigidbody.velocity = Vector3.zero;
 				GetComponent<SyncTransform>().CmdSetValues(transform.position, transform.rotation);
-				spawns[i].busy = true;
-				Debug.Log(player.name + " spawn at " + transform.position);// + " (" + spawns[i].holders + ")");
+				Debug.Log(player.name + " spawn at " + transform.position);
 				break;
 			}
 		}
