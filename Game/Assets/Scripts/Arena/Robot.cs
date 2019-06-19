@@ -303,7 +303,7 @@ public class Robot : NetworkBehaviour {
 			return;
 		}
 		if (player.isAgent && Input.GetKeyDown(KeyCode.G)) {
-			GuardOn();
+			CmdGuardOn();
 		}
 		playerMove.canMove = true;
 		if (comboScoreDuration > 0) {
@@ -369,9 +369,9 @@ public class Robot : NetworkBehaviour {
 				CmdSetFloat("WalkV", playerMove.walkV);
 
 				if (Input.GetButtonDown("LB")) {
-					GuardOn();
+					CmdGuardOn();
 				} else if (Input.GetButtonUp("LB")) {
-					GuardOff();
+					CmdGuardOff();
 				}
 
 				if (upgradeWheel) {
@@ -485,13 +485,23 @@ public class Robot : NetworkBehaviour {
 		}
 	}
 
-	void GuardOn() {
+	[Command]
+	void CmdGuardOn() {
+		RpcGuardOn();
+	}
+	[ClientRpc]
+	void RpcGuardOn() {
 		//CmdSetBool("LB", true);
 		isGuardOn = true;
 		//playerMove.moveSpeedMultiplier = 0.55f;
 		robotModel.shield.SetActive(true);
 	}
-	void GuardOff() {
+	[Command]
+	void CmdGuardOff() {
+		RpcGuardOff();
+	}
+	[ClientRpc]
+	void RpcGuardOff() {
 		//CmdSetBool("LB", false);
 		isGuardOn = false;
 		//playerMove.moveSpeedMultiplier = 1;
@@ -783,7 +793,7 @@ public class Robot : NetworkBehaviour {
 			Debug.Log(hitter.player.name + " current combo score: " + hitter.comboScore);
 			hitter.player.score += (int)hitter.comboScore;
 			hitter.roundScore += (int)hitter.comboScore;
-			GuardOff();
+			CmdGuardOff();
 			CmdDisableCollider(true, true, true, true, true);
 		}
 	}
