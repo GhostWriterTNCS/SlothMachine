@@ -53,6 +53,7 @@ public class PlayerMove : NetworkBehaviour {
 			if (isAttacking) {
 				adjustSpeed *= attackingSpeedAdjust;
 			}
+			Debug.Log(moveSpeedMultiplier + " " + adjustSpeed);
 			rigidbody.MovePosition(rigidbody.position + (transform.forward * Input.GetAxis("Vertical") + transform.right * Input.GetAxis("Horizontal")) * Time.deltaTime * moveSpeed * moveSpeedMultiplier * adjustSpeed);
 			if (isAttacking) {
 				walkH = 0;
@@ -60,8 +61,8 @@ public class PlayerMove : NetworkBehaviour {
 				//robot.SetFloat("WalkH", 0);
 				//robot.SetFloat("WalkV", 0);
 			} else {
-				walkH = Input.GetAxis("Horizontal") * adjustSpeed;
-				walkV = Input.GetAxis("Vertical") * adjustSpeed;
+				walkH = Input.GetAxis("Horizontal");
+				walkV = Input.GetAxis("Vertical");
 				//robot.SetFloat("WalkH", Input.GetAxis("Horizontal"));
 				//robot.SetFloat("WalkV", Input.GetAxis("Vertical"));
 			}

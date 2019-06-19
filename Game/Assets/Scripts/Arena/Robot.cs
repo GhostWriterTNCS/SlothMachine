@@ -511,14 +511,10 @@ public class Robot : NetworkBehaviour {
 	Dictionary<string, int> triggers = new Dictionary<string, int>();
 	[Command]
 	public void CmdSetTrigger(string trigger) {
-		//SetTrigger(trigger);
 		RpcSetTrigger(trigger);
 	}
 	[ClientRpc]
 	public void RpcSetTrigger(string trigger) {
-		SetTrigger(trigger);
-	}
-	void SetTrigger(string trigger) {
 		if (trigger != "B")
 			playerMove.isAttacking = true;
 		animator.SetTrigger(trigger);
@@ -539,7 +535,6 @@ public class Robot : NetworkBehaviour {
 
 	[Command]
 	public void CmdSetFloat(string id, float value) {
-		//animator.SetFloat(id, value);
 		RpcSetFloat(id, value);
 	}
 	[ClientRpc]
@@ -549,7 +544,6 @@ public class Robot : NetworkBehaviour {
 
 	[Command]
 	public void CmdSetBool(string id, bool value) {
-		//animator.SetBool(id, value);
 		RpcSetBool(id, value);
 	}
 	[ClientRpc]
@@ -802,7 +796,7 @@ public class Robot : NetworkBehaviour {
 			}
 			if (hitter.pushBack) {
 				Debug.Log("Push");
-				rigidbody.AddForce(hitter.transform.forward * 8.5f * 50, ForceMode.Impulse);
+				RpcAddForce(hitter.transform.forward * 8.5f * 50, ForceMode.Impulse);
 			}
 			UpdateHealth(-damage);
 			hitter.player.scraps += 3;
@@ -811,6 +805,13 @@ public class Robot : NetworkBehaviour {
 			hitter.roundScore += (int)hitter.comboScore;
 			CmdGuardOff();
 			CmdDisableCollider(true, true, true, true, true);
+		}
+	}
+
+	[ClientRpc]
+	void RpcAddForce(Vector3 force, ForceMode mode) {
+		if (isLocalPlayer) {
+			rigidbody.AddForce(force, mode);
 		}
 	}
 

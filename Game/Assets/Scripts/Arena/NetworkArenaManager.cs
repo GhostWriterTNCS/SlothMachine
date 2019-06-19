@@ -89,6 +89,8 @@ public class NetworkArenaManager : NetworkBehaviour {
 		Player roundWinner = null;
 		foreach (Player p in FindObjectsOfType<Player>()) {
 			p.robot.paused = true;
+			p.robot.CmdSetFloat("WalkH", 0);
+			p.robot.CmdSetFloat("WalkV", 0);
 			if (p.robot.roundScore > scoreMax) {
 				scoreMax = p.robot.roundScore;
 				roundWinner = p;
