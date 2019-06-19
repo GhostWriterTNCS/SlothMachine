@@ -52,9 +52,9 @@ public class PerlinNoise : NetworkBehaviour {
 
 		//spawnArenaSphere();
 
-		foreach (NetworkStartPosition pos in FindObjectsOfType<NetworkStartPosition>()) {
+		foreach (SpawnPoint pos in FindObjectsOfType<SpawnPoint>()) {
 			Vector3 v3 = pos.transform.position;
-			pos.transform.position = new Vector3(v3.x, terrain.terrainData.GetHeight((int)v3.x, (int)v3.z) + 3.5f, v3.z);
+			pos.transform.position = new Vector3(v3.x, terrain.terrainData.GetHeight((int)v3.x, (int)v3.z) + 3, v3.z);
 		}
 		FindObjectOfType<ArenaManager>().arenaReady = true;
 		CmdSpawnWormDust();

@@ -7,7 +7,7 @@ using UnityEngine.Networking;
 public class Shortcuts : MonoBehaviour {
 	void Update() {
 		if (Input.GetKeyDown(KeyCode.F5)) {
-			NetworkManager.singleton.ServerChangeScene(SceneManager.GetActiveScene().name);
+			NetworkManager.singleton.ServerChangeScene(GameScenes.Auction);
 		} else if (Input.GetKeyDown(KeyCode.F6)) {
 			NetworkManager.singleton.ServerChangeScene(GameScenes.Arena);
 		} else if (Input.GetKeyDown(KeyCode.F7)) {

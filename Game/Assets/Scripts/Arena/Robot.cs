@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
@@ -204,19 +205,25 @@ public class Robot : NetworkBehaviour {
 		}
 		CmdCalculateBonus();
 
-		Transform spawn = NetworkManager.singleton.GetStartPosition();
+		//Transform spawn = NetworkManager.singleton.GetStartPosition();
 		if (player.roundWinner >= 2) {
 			Debug.Log(player.name + " is Boss");
-			spawn = FindObjectOfType<BossArena>().bossSpawnPosition;
+			Transform spawn = FindObjectOfType<BossArena>().bossSpawnPosition;
+			transform.position = spawn.position;
+			transform.rotation = spawn.rotation;
+			GetComponent<SyncTransform>().CmdSetValues(transform.position, transform.rotation);
+
 			transform.localScale = new Vector3(2, 2, 2);
 			ionParticle.gameObject.SetActive(false);
 			bossParticlePlus.gameObject.SetActive(true);
 			bossParticleMinus.gameObject.SetActive(true);
+		} else {
+			CmdSpawn();
 		}
-		Debug.Log("Spawn " + player.name + " in " + spawn.position);
-		transform.position = spawn.position;
+		//Debug.Log("Spawn " + player.name + " in " + spawn.position);
+		/*transform.position = spawn.position;
 		transform.rotation = spawn.rotation;
-		rigidbody.velocity = Vector3.zero;
+		rigidbody.velocity = Vector3.zero;*/
 		body.enabled = true;
 
 		if (isLocalPlayer) {
@@ -715,23 +722,22 @@ public class Robot : NetworkBehaviour {
 		if (enableLeftHand) {
 			ActivateBodyPart(BodyPartCollider.leftHand, true);
 			leftHand.GetComponent<BodyPartHitter>().hitters.Clear();
-		} else if (enableRightHand) {
+		}
+		if (enableRightHand) {
 			ActivateBodyPart(BodyPartCollider.rightHand, true);
 			rightHand.GetComponent<BodyPartHitter>().hitters.Clear();
-		} else
+		}
 		if (enableLeftFoot) {
 			ActivateBodyPart(BodyPartCollider.leftFoot, true);
 			leftFoot.GetComponent<BodyPartHitter>().hitters.Clear();
-		} else
+		}
 		if (enableRightFoot) {
 			ActivateBodyPart(BodyPartCollider.rightFoot, true);
 			rightFoot.GetComponent<BodyPartHitter>().hitters.Clear();
-		} else
+		}
 		if (enableHead) {
 			ActivateBodyPart(BodyPartCollider.head, true);
 			head.GetComponent<BodyPartHitter>().hitters.Clear();
-		} else {
-			Debug.Log("ERROR: No collider enabled for " + player.name);
 		}
 	}
 
@@ -846,10 +852,12 @@ public class Robot : NetworkBehaviour {
 		}
 		CmdUpdateHealthValue(healthMax);
 		CmdSetPaused(gameObject, false);
-		Transform spawn = NetworkManager.singleton.GetStartPosition();
+
+		CmdSpawn();
+		/*Transform spawn = NetworkManager.singleton.GetStartPosition();
 		transform.position = spawn.position;
 		transform.rotation = spawn.rotation;
-		rigidbody.velocity = Vector3.zero;
+		rigidbody.velocity = Vector3.zero;*/
 		for (int i = 0; i < transform.childCount; i++) {
 			transform.GetChild(i).gameObject.SetActive(true);
 		}
@@ -858,6 +866,21 @@ public class Robot : NetworkBehaviour {
 		} else {
 			bossParticlePlus.gameObject.SetActive(false);
 			bossParticleMinus.gameObject.SetActive(false);
+		}
+	}
+	[Command]
+	void CmdSpawn() {
+		List<SpawnPoint> spawns = FindObjectsOfType<SpawnPoint>().OrderBy(a => Guid.NewGuid()).ToList();
+		for (int i = 0; i < spawns.Count; i++) {
+			if (!spawns[i].busy || i == spawns.Count - 1) {
+				transform.position = spawns[i].transform.position;
+				transform.rotation = spawns[i].transform.rotation;
+				rigidbody.velocity = Vector3.zero;
+				GetComponent<SyncTransform>().CmdSetValues(transform.position, transform.rotation);
+				spawns[i].busy = true;
+				Debug.Log(player.name + " spawn at " + transform.position);// + " (" + spawns[i].holders + ")");
+				break;
+			}
 		}
 	}
 

@@ -53,7 +53,7 @@ public class PlayerMove : NetworkBehaviour {
 			if (isAttacking) {
 				adjustSpeed *= attackingSpeedAdjust;
 			}
-			Debug.Log(moveSpeedMultiplier + " " + adjustSpeed);
+			//Debug.Log(moveSpeedMultiplier + " " + adjustSpeed);
 			rigidbody.MovePosition(rigidbody.position + (transform.forward * Input.GetAxis("Vertical") + transform.right * Input.GetAxis("Horizontal")) * Time.deltaTime * moveSpeed * moveSpeedMultiplier * adjustSpeed);
 			if (isAttacking) {
 				walkH = 0;
