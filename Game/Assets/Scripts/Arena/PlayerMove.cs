@@ -29,19 +29,19 @@ public class PlayerMove : NetworkBehaviour {
 
 	void Update() {
 		float adjustSpeed = 1;
+		foreach (Robot r in FindObjectsOfType<Robot>()) {
+			if (r == robot) {
+				continue;
+			}
+			if (Vector3.Distance(robot.transform.position, r.transform.position) < inCombatRange) {
+				robot.CmdSetBool("LB", true);
+				adjustSpeed = inCombatSpeedAdjust;
+			}
+		}
+		if (adjustSpeed == 1) {
+			robot.CmdSetBool("LB", false);
+		}
 		if (isLocalPlayer && canMove) {
-			foreach (Robot r in FindObjectsOfType<Robot>()) {
-				if (r == robot) {
-					continue;
-				}
-				if (Vector3.Distance(robot.transform.position, r.transform.position) < inCombatRange) {
-					robot.CmdSetBool("LB", true);
-					adjustSpeed = inCombatSpeedAdjust;
-				}
-			}
-			if (adjustSpeed == 1) {
-				robot.CmdSetBool("LB", false);
-			}
 			// Move player
 			//if (!isAttacking) {
 			if (robot.lockCameraRobot) {
