@@ -872,7 +872,7 @@ public class Robot : NetworkBehaviour {
 	void CmdSpawn() {
 		List<SpawnPoint> spawns = FindObjectsOfType<SpawnPoint>().OrderBy(a => Guid.NewGuid()).ToList();
 		for (int i = 0; i < spawns.Count; i++) {
-			if (!spawns[i].IsFree() || i == spawns.Count - 1) {
+			if (spawns[i].IsFree() || i == spawns.Count - 1) {
 				transform.position = spawns[i].transform.position;
 				transform.rotation = spawns[i].transform.rotation;
 				rigidbody.velocity = Vector3.zero;
