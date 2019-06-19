@@ -627,6 +627,9 @@ public class Robot : NetworkBehaviour {
 				} else {
 					leftHandCounter -= 1;
 				}
+				if (leftHandCounter < 0) {
+					leftHandCounter = 0;
+				}
 				if (leftHandCounter > 0) {
 					leftHand.enabled = true;
 				} else {
@@ -639,6 +642,9 @@ public class Robot : NetworkBehaviour {
 					rightHandCounter += 1;
 				} else {
 					rightHandCounter -= 1;
+				}
+				if (rightHandCounter < 0) {
+					rightHandCounter = 0;
 				}
 				if (rightHandCounter > 0) {
 					rightHand.enabled = true;
@@ -653,6 +659,9 @@ public class Robot : NetworkBehaviour {
 				} else {
 					leftFootCounter -= 1;
 				}
+				if (leftFootCounter < 0) {
+					leftFootCounter = 0;
+				}
 				if (leftFootCounter > 0) {
 					leftFoot.enabled = true;
 				} else {
@@ -666,6 +675,9 @@ public class Robot : NetworkBehaviour {
 				} else {
 					rightFootCounter -= 1;
 				}
+				if (rightFootCounter < 0) {
+					rightFootCounter = 0;
+				}
 				if (rightFootCounter > 0) {
 					rightFoot.enabled = true;
 				} else {
@@ -678,6 +690,9 @@ public class Robot : NetworkBehaviour {
 					headCounter += 1;
 				} else {
 					headCounter -= 1;
+				}
+				if (headCounter < 0) {
+					headCounter = 0;
 				}
 				if (headCounter > 0) {
 					head.enabled = true;
@@ -697,31 +712,32 @@ public class Robot : NetworkBehaviour {
 		StartCoroutine(EnableCollider(enableLeftHand, enableRightHand, enableLeftFoot, enableRightFoot, enableHead, breakGuard, pushBack, hitDelay));
 	}
 	IEnumerator EnableCollider(bool enableLeftHand, bool enableRightHand, bool enableLeftFoot, bool enableRightFoot, bool enableHead, bool breakGuard, bool pushBack, float hitDelay) {
-		Debug.Log(player.name + " has enabled a collider.");
 		if (hitDelay > 0) {
 			yield return new WaitForSeconds(hitDelay);
 		}
+		Debug.Log(player.name + " has enabled a collider.");
 		this.breakGuard = breakGuard;
 		this.pushBack = pushBack;
 		if (enableLeftHand) {
 			ActivateBodyPart(BodyPartCollider.leftHand, true);
 			leftHand.GetComponent<BodyPartHitter>().hitters.Clear();
-		}
-		if (enableRightHand) {
+		} else if (enableRightHand) {
 			ActivateBodyPart(BodyPartCollider.rightHand, true);
 			rightHand.GetComponent<BodyPartHitter>().hitters.Clear();
-		}
+		} else
 		if (enableLeftFoot) {
 			ActivateBodyPart(BodyPartCollider.leftFoot, true);
 			leftFoot.GetComponent<BodyPartHitter>().hitters.Clear();
-		}
+		} else
 		if (enableRightFoot) {
 			ActivateBodyPart(BodyPartCollider.rightFoot, true);
 			rightFoot.GetComponent<BodyPartHitter>().hitters.Clear();
-		}
+		} else
 		if (enableHead) {
 			ActivateBodyPart(BodyPartCollider.head, true);
 			head.GetComponent<BodyPartHitter>().hitters.Clear();
+		} else {
+			Debug.Log("ERROR: No collider enabled for " + player.name);
 		}
 	}
 
