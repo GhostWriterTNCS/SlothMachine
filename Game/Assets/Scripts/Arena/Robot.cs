@@ -111,6 +111,7 @@ public class Robot : NetworkBehaviour {
 
 	UpgradeWheel upgradeWheel;
 	ArenaManager arenaManager;
+	SyncTransform syncTransform;
 
 	void Start() {
 		upgrades = new int[4];
@@ -126,13 +127,14 @@ public class Robot : NetworkBehaviour {
 		player.robot = this;
 		transform.SetParent(player.transform);
 		arenaManager = FindObjectOfType<ArenaManager>();
+		syncTransform = GetComponent<SyncTransform>();
 		if (isLocalPlayer) {
 			nameText.text = "";
 			arenaManager.pauseMenu.robot = this;
 		} else {
 			nameText.text = player.name;
 			if (player.isAgent) {
-				GetComponent<SyncTransform>().CmdEnable(true);
+				syncTransform.CmdEnable(true);
 			}
 		}
 
@@ -211,7 +213,7 @@ public class Robot : NetworkBehaviour {
 			Transform spawn = FindObjectOfType<BossArena>().bossSpawnPosition;
 			transform.position = spawn.position;
 			transform.rotation = spawn.rotation;
-			GetComponent<SyncTransform>().CmdSetValues(transform.position, transform.rotation);
+			syncTransform.CmdSetValues(transform.position, transform.rotation);
 
 			transform.localScale = new Vector3(2, 2, 2);
 			ionParticle.gameObject.SetActive(false);
@@ -375,9 +377,9 @@ public class Robot : NetworkBehaviour {
 				CmdSetFloat("WalkH", playerMove.walkH);
 				CmdSetFloat("WalkV", playerMove.walkV);
 
-				if (Input.GetButtonDown("LB")) {
+				if (Input.GetButton("LB") && !playerMove.isAttacking) {
 					CmdGuardOn();
-				} else if (Input.GetButtonUp("LB")) {
+				} else if (isGuardOn) {
 					CmdGuardOff();
 				}
 
@@ -522,8 +524,10 @@ public class Robot : NetworkBehaviour {
 	}
 	[ClientRpc]
 	public void RpcSetTrigger(string trigger) {
-		if (trigger != "B")
+		if (trigger != "B") {
 			playerMove.isAttacking = true;
+			CmdGuardOff();
+		}
 		animator.SetTrigger(trigger);
 		string triggerID = trigger;
 		if (!triggers.ContainsKey(trigger)) {
@@ -600,7 +604,7 @@ public class Robot : NetworkBehaviour {
 			player.deathCount++;
 			CmdPlayClip(gameObject, AudioClips.Destroyed);
 			//AudioManager.singleton.PlayClip(destroyedSound);
-			GetComponent<SyncTransform>().CmdSetValues(new Vector3(0, -100, 0), Quaternion.identity);
+			//syncTransform.CmdSetValues(new Vector3(0, -100, 0), Quaternion.identity);
 			RpcRespawn();
 		}
 		health = newHealth;
@@ -876,7 +880,7 @@ public class Robot : NetworkBehaviour {
 				transform.position = spawns[i].transform.position;
 				transform.rotation = spawns[i].transform.rotation;
 				rigidbody.velocity = Vector3.zero;
-				GetComponent<SyncTransform>().CmdSetValues(transform.position, transform.rotation);
+				syncTransform.CmdSetValues(transform.position, transform.rotation);
 				Debug.Log(player.name + " spawn at " + transform.position);
 				break;
 			}

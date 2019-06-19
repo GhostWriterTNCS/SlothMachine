@@ -13,14 +13,12 @@ public class SyncTransform : NetworkBehaviour {
 
 	bool cmdEnabled = false;
 	PlayerMove playerMove;
-	//Rigidbody rigidbody;
 
 	void Start() {
 		if (isLocalPlayer) {
 			cmdEnabled = true;
 		}
 		playerMove = GetComponent<PlayerMove>();
-		//rigidbody = GetComponent<Rigidbody>();
 	}
 
 	[Command]
