@@ -10725,10 +10725,10 @@ MonoBehaviour:
     m_PacketSize: 1500
     m_FragmentSize: 500
     m_ResendTimeout: 1200
-    m_DisconnectTimeout: 20000
+    m_DisconnectTimeout: 10000
     m_ConnectTimeout: 10000
-    m_MinUpdateTimeout: 10
-    m_PingTimeout: 500
+    m_MinUpdateTimeout: 100
+    m_PingTimeout: 2500
     m_ReducedPingTimeout: 100
     m_AllCostTimeout: 20
     m_NetworkDropThreshold: 5

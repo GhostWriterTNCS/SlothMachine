@@ -21,29 +21,33 @@ public class SyncAnimator : NetworkBehaviour {
     [ClientRpc]
     public void RpcSetTrigger(string trigger)
     {
-        if (trigger != "B")
+        if (robot)
         {
-            robot.playerMove.isAttacking = true;
-            robot.CmdGuardOff();
+            if (trigger != "B")
+            {
+                robot.playerMove.isAttacking = true;
+                robot.CmdGuardOff();
+            }
+            robot.animator.SetTrigger(trigger);
+            string triggerID = trigger;
+            if (!triggers.ContainsKey(trigger))
+            {
+                triggers.Add(trigger, 1);
+            }
+            else
+            {
+                triggers[trigger] += 1;
+            }
+            StartCoroutine(robot.DelayCall(() => ResetTrigger(triggerID), robot.comboDelay));
         }
-        robot.animator.SetTrigger(trigger);
-        string triggerID = trigger;
-        if (!triggers.ContainsKey(trigger))
-        {
-            triggers.Add(trigger, 1);
-        }
-        else
-        {
-            triggers[trigger] += 1;
-        }
-        StartCoroutine(robot.DelayCall(() => ResetTrigger(triggerID), robot.comboDelay));
     }
     void ResetTrigger(string trigger)
     {
         triggers[trigger] -= 1;
         if (triggers[trigger] == 0)
         {
-            robot.animator.ResetTrigger(trigger);
+            if (robot)
+                robot.animator.ResetTrigger(trigger);
         }
     }
 
@@ -55,7 +59,8 @@ public class SyncAnimator : NetworkBehaviour {
     [ClientRpc]
     public void RpcSetFloat(string id, float value)
     {
-        robot.animator.SetFloat(id, value);
+        if (robot)
+            robot.animator.SetFloat(id, value);
     }
 
     [Command]
@@ -66,6 +71,7 @@ public class SyncAnimator : NetworkBehaviour {
     [ClientRpc]
     public void RpcSetBool(string id, bool value)
     {
-        robot.animator.SetBool(id, value);
+        if(robot)
+            robot.animator.SetBool(id, value);
     }
 }
