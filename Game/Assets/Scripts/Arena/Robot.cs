@@ -102,6 +102,7 @@ public class Robot : NetworkBehaviour {
 
 	public RobotModel robotModel;
 	Animator animator;
+    NetworkAnimator networkAnimator;
 	PlayerCamera playerCamera;
 	PlayerMove playerMove;
 	Rigidbody rigidbody;
@@ -176,7 +177,8 @@ public class Robot : NetworkBehaviour {
 		animator = GetComponent<Animator>();
 		animator.runtimeAnimatorController = robotModel.animatorController;
 		animator.avatar = robotModel.avatar;
-		playerCamera = GetComponent<PlayerCamera>();
+        networkAnimator = GetComponent<NetworkAnimator>();
+        playerCamera = GetComponent<PlayerCamera>();
 		playerMove = GetComponent<PlayerMove>();
 		rigidbody = GetComponent<Rigidbody>();
 		//audioSource = GetComponent<AudioSource>();
@@ -533,7 +535,8 @@ public class Robot : NetworkBehaviour {
 	Dictionary<string, int> triggers = new Dictionary<string, int>();
 	[Command]
 	public void CmdSetTrigger(string trigger) {
-		RpcSetTrigger(trigger);
+        //RpcSetTrigger(trigger);
+        animator.SetTrigger(trigger);
 	}
 	[ClientRpc]
 	public void RpcSetTrigger(string trigger) {
@@ -559,7 +562,8 @@ public class Robot : NetworkBehaviour {
 
 	[Command]
 	public void CmdSetFloat(string id, float value) {
-		RpcSetFloat(id, value);
+        //RpcSetFloat(id, value);
+        animator.SetFloat(id, value);
 	}
 	[ClientRpc]
 	public void RpcSetFloat(string id, float value) {
@@ -568,9 +572,10 @@ public class Robot : NetworkBehaviour {
 
 	[Command]
 	public void CmdSetBool(string id, bool value) {
-		RpcSetBool(id, value);
-	}
-	[ClientRpc]
+		//RpcSetBool(id, value);
+        animator.SetBool(id, value);
+    }
+    [ClientRpc]
 	public void RpcSetBool(string id, bool value) {
 		if (animator) {
 			animator.SetBool(id, value);
