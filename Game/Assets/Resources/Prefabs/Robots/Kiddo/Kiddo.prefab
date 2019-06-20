@@ -2062,7 +2062,7 @@ MonoBehaviour:
     i14: 0
     i15: 0
   m_ServerOnly: 0
-  m_LocalPlayerAuthority: 1
+  m_LocalPlayerAuthority: 0
 --- !u!114 &1791840002879483445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2101,8 +2101,8 @@ Animator:
   m_Avatar: {fileID: 9000000, guid: e4841ef8fac14764db877eeac24ebea9, type: 3}
   m_Controller: {fileID: 9100000, guid: 710104246f829474eba781e3189b1ce4, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 1
-  m_ApplyRootMotion: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
     are already bound by a Humanoid avatar. These transforms can only be changed by
