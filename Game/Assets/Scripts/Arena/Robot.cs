@@ -327,7 +327,10 @@ public class Robot : NetworkBehaviour {
 		if (!player || !playerMove) {
 			return;
 		}
-		if (paused) {
+        CmdSetFloat("WalkH", playerMove.walkH);
+        CmdSetFloat("WalkV", playerMove.walkV);
+
+        if (paused) {
 			playerMove.canMove = false;
 			return;
 		}
@@ -350,9 +353,6 @@ public class Robot : NetworkBehaviour {
 			rigidbody.MovePosition(rigidbody.position + (evadeDirection * evadeDistance));
 			evadeTime -= Time.deltaTime;
 		} else {
-            CmdSetFloat("WalkH", playerMove.walkH);
-            CmdSetFloat("WalkV", playerMove.walkV);
-
             if (isLocalPlayer) {
 				if (evadeCooldownTime > 0) {
 					evadeCooldownTime -= Time.deltaTime;
