@@ -569,7 +569,40 @@ public class Robot : NetworkBehaviour {
 	public void CmdSetFloat(string id, float value) {
         //RpcSetFloat(id, value);
         animator.SetFloat(id, value);
-	}
+        if(id == "WalkV")
+        {
+            if(value > 0.1f)
+            {
+                CmdSetBool("WalkForward", true);
+                CmdSetBool("WalkBackard", false);
+            } else if(value < 0.1f)
+            {
+                CmdSetBool("WalkForward", false);
+                CmdSetBool("WalkBackard", true);
+            } else
+            {
+                CmdSetBool("WalkForward", false);
+                CmdSetBool("WalkBackard", false);
+            }
+        } else if(id == "WalkH")
+        {
+            if (value > 0.1f)
+            {
+                CmdSetBool("WalkRight", true);
+                CmdSetBool("WalkLeft", false);
+            }
+            else if (value < 0.1f)
+            {
+                CmdSetBool("WalkRight", false);
+                CmdSetBool("WalkLeft", true);
+            }
+            else
+            {
+                CmdSetBool("WalkRight", false);
+                CmdSetBool("WalkLeft", false);
+            }
+        }
+    }
 	[ClientRpc]
 	public void RpcSetFloat(string id, float value) {
 		animator.SetFloat(id, value);
