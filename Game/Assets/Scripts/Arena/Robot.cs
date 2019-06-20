@@ -569,6 +569,7 @@ public class Robot : NetworkBehaviour {
 	public void CmdSetFloat(string id, float value) {
         //RpcSetFloat(id, value);
         //animator.SetFloat(id, value);
+        Debug.Log("ANIMATION: " + id + " " + value);
         if(id == "WalkV")
         {
             if(value > 0.1f)
@@ -613,7 +614,8 @@ public class Robot : NetworkBehaviour {
 
 	//[Command]
 	public void CmdSetBool(string id, bool value) {
-		//RpcSetBool(id, value);
+        //RpcSetBool(id, value);
+        Debug.Log("ANIMATION: " + id + " " + value);
         animator.SetBool(id, value);
     }
     [ClientRpc]
