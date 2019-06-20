@@ -29,9 +29,7 @@ public class SyncTransform : NetworkBehaviour {
 	void Update() {
 		if (cmdEnabled) {
 			//Debug.Log("My position is " + transform.position);
-			if (transform.position != position && transform.rotation != rotation) {
-				CmdSetValues(transform.position, transform.rotation);
-			}
+			CmdSetValues(transform.position, transform.rotation);
 		} else {
 			if (Vector3.Distance(transform.position, position) > snapThreshold) {
 				transform.position = position;
