@@ -922,9 +922,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5419007189310256054}
-  - component: {fileID: 8800283134988628035}
   - component: {fileID: 6212476783791934593}
-  - component: {fileID: 4841484676148664638}
   m_Layer: 0
   m_Name: mixamorig:Hips
   m_TagString: Untagged
@@ -949,25 +947,6 @@ Transform:
   m_Father: {fileID: 4856126879792176329}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &8800283134988628035
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1829625547643268620}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 1
-  m_ApplyRootMotion: 1
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &6212476783791934593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1001,26 +980,6 @@ MonoBehaviour:
     i15: 0
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
---- !u!114 &4841484676148664638
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1829625547643268620}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1590678366, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Animator: {fileID: 8800283134988628035}
-  m_ParameterSendBits: 0
-  param0: 
-  param1: 
-  param2: 
-  param3: 
-  param4: 
-  param5: 
 --- !u!1 &1853315410420773143
 GameObject:
   m_ObjectHideFlags: 0
@@ -2016,8 +1975,8 @@ GameObject:
   - component: {fileID: 4856126879792176329}
   - component: {fileID: 7390253744415844103}
   - component: {fileID: 1791840002879483445}
-  - component: {fileID: 682986922504454236}
-  - component: {fileID: 3089610042491054239}
+  - component: {fileID: 6125970295317397740}
+  - component: {fileID: 1046534166187370336}
   m_Layer: 0
   m_Name: Kiddo
   m_TagString: Untagged
@@ -2103,7 +2062,7 @@ MonoBehaviour:
     i14: 0
     i15: 0
   m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
+  m_LocalPlayerAuthority: 1
 --- !u!114 &1791840002879483445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2130,7 +2089,7 @@ MonoBehaviour:
   head: {fileID: 8213976084427667089}
   body: {fileID: 7804703094581739637}
   shield: {fileID: 2893382133511727404}
---- !u!95 &682986922504454236
+--- !u!95 &6125970295317397740
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
@@ -2138,31 +2097,41 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3180680916253263713}
-  m_Enabled: 0
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: e4841ef8fac14764db877eeac24ebea9, type: 3}
+  m_Controller: {fileID: 9100000, guid: 710104246f829474eba781e3189b1ce4, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 1
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
-  m_WarningMessage: 
+  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
+    are already bound by a Humanoid avatar. These transforms can only be changed by
+    Humanoid clips.\n\tTransform 'mixamorig:Hips'\n\tTransform 'mixamorig:LeftFoot'\n\tTransform
+    'mixamorig:LeftHandThumb2'\n\tTransform 'mixamorig:LeftHandIndex1'\n\tTransform
+    'mixamorig:Spine1'\n\tTransform 'mixamorig:LeftToeBase'\n\tTransform 'mixamorig:LeftHandThumb3'\n\tTransform
+    'mixamorig:RightArm'\n\tTransform 'mixamorig:LeftLeg'\n\tTransform 'mixamorig:LeftHandMiddle3'\n\tand
+    more ...\n\tFrom animation clip 'Kicking'\n\tFrom animation clip 'Punching (1)'\n\tFrom
+    animation clip 'Punching'\n\tFrom animation clip 'Reaction'\n\tFrom animation
+    clip 'Jumping (1)'\n\tFrom animation clip 'Illegal Headbutt'\n\tFrom animation
+    clip 'Kicking (1)'\n\tFrom animation clip 'Drop Kick'\n\tFrom animation clip 'Jump'\n\tFrom
+    animation clip 'mixamo.com'\n\tand more ..."
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &3089610042491054239
+--- !u!114 &1046534166187370336
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3180680916253263713}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 1590678366, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Animator: {fileID: 682986922504454236}
-  m_ParameterSendBits: 0
+  m_Animator: {fileID: 6125970295317397740}
+  m_ParameterSendBits: 4095
   param0: 
   param1: 
   param2: 
