@@ -612,11 +612,15 @@ public class Robot : NetworkBehaviour {
 		animator.SetFloat(id, value);
 	}
 
-	//[Command]
-	public void CmdSetBool(string id, bool value) {
+    //[Command]
+    public void CmdSetBool(string id, bool value)
+    {
         //RpcSetBool(id, value);
         //Debug.Log("ANIMATION: " + id + " " + value);
-        animator.SetBool(id, value);
+        if (isLocalPlayer)
+        {
+            animator.SetBool(id, value);
+        }
     }
     [ClientRpc]
 	public void RpcSetBool(string id, bool value) {
