@@ -575,14 +575,14 @@ public class Robot : NetworkBehaviour {
             {
                 CmdSetBool("WalkForward", true);
                 CmdSetBool("WalkBackard", false);
-            } else if(value < 0.1f)
+            } else if(value < -0.1f)
             {
                 CmdSetBool("WalkForward", false);
                 CmdSetBool("WalkBackard", true);
             } else
             {
-                CmdSetBool("WalkForward", false);
-                CmdSetBool("WalkBackard", false);
+                CmdSetBool("WalkForward", true);
+                CmdSetBool("WalkBackard", true);
             }
         } else if(id == "WalkH")
         {
@@ -591,16 +591,19 @@ public class Robot : NetworkBehaviour {
                 CmdSetBool("WalkRight", true);
                 CmdSetBool("WalkLeft", false);
             }
-            else if (value < 0.1f)
+            else if (value < -0.1f)
             {
                 CmdSetBool("WalkRight", false);
                 CmdSetBool("WalkLeft", true);
             }
             else
             {
-                CmdSetBool("WalkRight", false);
-                CmdSetBool("WalkLeft", false);
+                CmdSetBool("WalkRight", true);
+                CmdSetBool("WalkLeft", true);
             }
+        } else
+        {
+            Debug.Log("Animation: " + id);
         }
     }
 	[ClientRpc]
