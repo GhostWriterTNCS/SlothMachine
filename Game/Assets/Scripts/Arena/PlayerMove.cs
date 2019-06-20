@@ -77,8 +77,8 @@ public class PlayerMove : NetworkBehaviour {
 				rigidbody.MoveRotation(rigidbody.rotation * Quaternion.Euler(Vector3.up * Input.GetAxis("Camera Horizontal") * turnSpeed));
 			}
 		} else {
-            robot.CmdSetFloat("WalkH", 0);
-            robot.CmdSetFloat("WalkV", 0);
+            //robot.CmdSetFloat("WalkH", 0);
+            //robot.CmdSetFloat("WalkV", 0);
             //robot.SetFloat("WalkH", 0);
             //robot.SetFloat("WalkV", 0);
         }
