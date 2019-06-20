@@ -350,7 +350,10 @@ public class Robot : NetworkBehaviour {
 			rigidbody.MovePosition(rigidbody.position + (evadeDirection * evadeDistance));
 			evadeTime -= Time.deltaTime;
 		} else {
-			if (isLocalPlayer) {
+            CmdSetFloat("WalkH", playerMove.walkH);
+            CmdSetFloat("WalkV", playerMove.walkV);
+
+            if (isLocalPlayer) {
 				if (evadeCooldownTime > 0) {
 					evadeCooldownTime -= Time.deltaTime;
 					arenaManager.evadeCooldown.fillAmount = 1 - (evadeCooldownTime / evadeCooldown);
@@ -393,9 +396,6 @@ public class Robot : NetworkBehaviour {
 					//Debug.Log(holdDuration + " " + (holdDuration >= holdMinDuration));
 					CmdSetTrigger("Y");
 				}
-
-				CmdSetFloat("WalkH", playerMove.walkH);
-				CmdSetFloat("WalkV", playerMove.walkV);
 
 				if (Input.GetButton("LB") && !playerMove.isAttacking) {
 					CmdGuardOn();
