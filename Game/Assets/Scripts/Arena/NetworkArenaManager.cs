@@ -150,6 +150,7 @@ public class NetworkArenaManager : NetworkBehaviour {
 		//Debug.Log("Spawn worm");
 		RpcSpawnWorm(pos);
 	}
+	[ClientRpc]
 	void RpcSpawnWorm(Vector3 pos) {
 		StartCoroutine(SpawnWormCoroutine(pos));
 	}
