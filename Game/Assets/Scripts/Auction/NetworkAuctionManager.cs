@@ -41,8 +41,6 @@ public class NetworkAuctionManager : NetworkBehaviour {
 	public int pauseDuration = 5;
 	public string pauseText;
 	public string upgradeLost;
-	[SyncVar]
-	float currentPause;
 
 	[Space]
 	[SyncVar]
@@ -51,7 +49,11 @@ public class NetworkAuctionManager : NetworkBehaviour {
 	public GameObject auctionWinner;
 	[SyncVar]
 	public bool auctionRegistered;
+	[SyncVar]
+	public string currentTitle;
 
+	[SyncVar]
+	float currentPause;
 	[SyncVar]
 	byte currentUpgrade = 0;
 	bool isUpgradeLost;
@@ -105,17 +107,18 @@ public class NetworkAuctionManager : NetworkBehaviour {
 			NetworkServer.Spawn(upgradeBoxWithDesc);
 		}
 
-		RpcSetHeader(introText);
+		//RpcSetHeader(introText);
+		currentTitle = introText;
 		currentIntro = introDuration;
 		currentCountdown = countdownDuration;
 		currentPause = pauseDuration;
 		StartCoroutine(AuctionCoroutine());
 	}
 
-	[ClientRpc]
+	/*[ClientRpc]
 	public void RpcSetHeader(string s) {
 		FindObjectOfType<AuctionManager>().header.text = s;
-	}
+	}*/
 
 	[ClientRpc]
 	public void RpcShowAuctionPanel() {
@@ -179,10 +182,12 @@ public class NetworkAuctionManager : NetworkBehaviour {
 			yield return 0;
 		}
 		RpcShowAuctionPanel();
-		RpcSetHeader(countdownText.Replace("#", ((int)currentCountdown).ToString()));
+		//RpcSetHeader(countdownText.Replace("#", ((int)currentCountdown).ToString()));
+		currentTitle = countdownText.Replace("#", ((int)currentCountdown).ToString());
 		while (currentCountdown > 0) {
 			currentCountdown -= Time.deltaTime;
-			RpcSetHeader(countdownText.Replace("#", ((int)currentCountdown + 1).ToString()));
+			//RpcSetHeader(countdownText.Replace("#", ((int)currentCountdown + 1).ToString()));
+			currentTitle = countdownText.Replace("#", ((int)currentCountdown + 1).ToString());
 			yield return 0;
 		}
 		RpcCountdownFinished();
@@ -209,10 +214,12 @@ public class NetworkAuctionManager : NetworkBehaviour {
 			AuctionPlayer playerBox = auctionWinner.GetComponent<AuctionPlayer>();
 			playerBox.player.scraps -= playerBox.bid;
 			auctionWinner.GetComponent<AuctionPlayer>().player.CmdAddPermanentUpgrade(usedUpgrades[currentUpgrade * 2], usedUpgrades[currentUpgrade * 2 + 1]);
-			RpcSetHeader(pauseText.Replace("#", auctionWinner.GetComponent<AuctionPlayer>().player.name));
+			//RpcSetHeader(pauseText.Replace("#", auctionWinner.GetComponent<AuctionPlayer>().player.name));
+			currentTitle = pauseText.Replace("#", auctionWinner.GetComponent<AuctionPlayer>().player.name);
 		} else {
 			isUpgradeLost = true;
-			RpcSetHeader(upgradeLost);
+			//RpcSetHeader(upgradeLost);
+			currentTitle = upgradeLost;
 		}
 
 		currentUpgrade++;

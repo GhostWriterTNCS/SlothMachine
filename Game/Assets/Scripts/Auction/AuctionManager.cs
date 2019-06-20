@@ -14,6 +14,12 @@ public class AuctionManager : MonoBehaviour {
 	public UpgradeBox currentUpgrade;
 	public NetworkAuctionManager networkAuctionManager;
 
+	void Update() {
+		if (networkAuctionManager) {
+			header.text = networkAuctionManager.currentTitle;
+		}
+	}
+
 	public void CalculateAgentsBids() {
 		foreach (PlayerScraps ps in Resources.FindObjectsOfTypeAll<PlayerScraps>()) {
 			if (ps.auctionPlayer && ps.auctionPlayer.player.isAgent && !ps.auctionPlayer.player.upgradeAssigned) {
