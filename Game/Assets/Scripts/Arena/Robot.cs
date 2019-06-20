@@ -568,7 +568,7 @@ public class Robot : NetworkBehaviour {
 	//[Command]
 	public void CmdSetFloat(string id, float value) {
         //RpcSetFloat(id, value);
-        animator.SetFloat(id, value);
+        //animator.SetFloat(id, value);
         if(id == "WalkV")
         {
             if(value > 0.1f)
@@ -581,8 +581,8 @@ public class Robot : NetworkBehaviour {
                 CmdSetBool("WalkBackard", true);
             } else
             {
-                CmdSetBool("WalkForward", true);
-                CmdSetBool("WalkBackard", true);
+                CmdSetBool("WalkForward", false);
+                CmdSetBool("WalkBackard", false);
             }
         } else if(id == "WalkH")
         {
@@ -598,8 +598,8 @@ public class Robot : NetworkBehaviour {
             }
             else
             {
-                CmdSetBool("WalkRight", true);
-                CmdSetBool("WalkLeft", true);
+                CmdSetBool("WalkRight", false);
+                CmdSetBool("WalkLeft", false);
             }
         } else
         {
