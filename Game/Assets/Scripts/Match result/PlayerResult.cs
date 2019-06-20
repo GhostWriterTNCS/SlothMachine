@@ -44,7 +44,7 @@ public class PlayerResult : NetworkBehaviour {
 		if (finalScore < 0) {
 			finalScore = 0;
 		}
-		finalScoreText.text = stats.Replace("#", finalScore.ToString());
+		finalScoreText.text = finalScoreText.text.Replace("#", finalScore.ToString());
 		if (finalScore > maxFinalScore) {
 			maxFinalScore = finalScore;
 		}

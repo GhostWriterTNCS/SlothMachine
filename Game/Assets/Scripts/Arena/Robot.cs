@@ -223,7 +223,19 @@ public class Robot : NetworkBehaviour {
 			bossParticleMinus.gameObject.SetActive(true);
 		} else {
 			//CmdSpawn();
-			Transform spawn = FindObjectsOfType<SpawnPoint>()[player.playerID - 1].transform; //NetworkManager.singleton.GetStartPosition();
+			int bossID = 0;
+			foreach (Player p in FindObjectsOfType<Player>()) {
+				if (p.roundWinner >= 2) {
+					bossID = p.playerID;
+					break;
+				}
+			}
+			Transform spawn;
+			if (player.playerID > bossID) {
+				spawn = FindObjectsOfType<SpawnPoint>()[player.playerID - 2].transform;
+			} else {
+				spawn = FindObjectsOfType<SpawnPoint>()[player.playerID - 1].transform;
+			}
 			transform.position = spawn.position;
 			transform.rotation = spawn.rotation;
 			rigidbody.velocity = Vector3.zero;
