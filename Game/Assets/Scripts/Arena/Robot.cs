@@ -178,6 +178,9 @@ public class Robot : NetworkBehaviour {
 		animator.runtimeAnimatorController = robotModel.animatorController;
 		animator.avatar = robotModel.avatar;
         networkAnimator = GetComponentInChildren<NetworkAnimator>();
+        for(int i=0;i<networkAnimator.animator.parameterCount; i++) {
+            networkAnimator.SetParameterAutoSend(i, true);
+        }
         playerCamera = GetComponent<PlayerCamera>();
 		playerMove = GetComponent<PlayerMove>();
 		rigidbody = GetComponent<Rigidbody>();
