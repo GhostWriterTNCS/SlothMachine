@@ -30,14 +30,23 @@ public class ArenaManager : MonoBehaviour {
 	public GameObject[] arenaPrefabs;
 	public GameObject bossArena;
 	[Space]
-	//public NetworkArenaManager networkArenaManager;
 	public bool arenaReady;
 
-	public void Start() {
+	NetworkArenaManager networkArenaManager;
+
+	void Start() {
 		arenaReady = false;
 		countdown.text = "";
 		bottomBar.SetActive(false);
 		title.gameObject.SetActive(true);
 		title.text = "";
+	}
+
+	void Update() {
+		if (!networkArenaManager) {
+			networkArenaManager = FindObjectOfType<NetworkArenaManager>();
+		} else {
+			countdown.text = networkArenaManager.roundTime;
+		}
 	}
 }

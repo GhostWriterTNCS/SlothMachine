@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 
-public class PlayerResult : MonoBehaviour {
+public class PlayerResult : NetworkBehaviour {
 	public Slider scoreSlider;
 	public Text nameText;
 	public Image robotImage;
 	public Text statsText;
 	public Text finalScoreText;
 
+	[SyncVar]
 	public GameObject playerGO;
 	public Player player;
 
@@ -42,7 +44,7 @@ public class PlayerResult : MonoBehaviour {
 		if (finalScore < 0) {
 			finalScore = 0;
 		}
-		finalScoreText.text = finalScore.ToString();
+		finalScoreText.text = stats.Replace("#", finalScore.ToString());
 		if (finalScore > maxFinalScore) {
 			maxFinalScore = finalScore;
 		}

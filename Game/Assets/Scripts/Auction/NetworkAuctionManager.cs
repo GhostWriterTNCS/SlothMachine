@@ -62,6 +62,10 @@ public class NetworkAuctionManager : NetworkBehaviour {
 
 	void Start() {
 		auctionManager = FindObjectOfType<AuctionManager>();
+		if (auctionManager.networkAuctionManager) {
+			Destroy(gameObject);
+			return;
+		}
 		auctionManager.networkAuctionManager = this;
 		auctionManager.scrapsInput.SetActive(true);
 		auctionManager.scrapsWait.SetActive(false);
@@ -72,6 +76,7 @@ public class NetworkAuctionManager : NetworkBehaviour {
 
 	[Command]
 	public void CmdLoad() {
+		Debug.Log("Player count: " + MatchManager.singleton.playerCount);
 		for (int i = 0; i < MatchManager.singleton.playerCount; i++) {
 			GameObject upgradeBox = Instantiate(upgradeBoxPrefab);
 			UpgradeBox ub = upgradeBox.GetComponent<UpgradeBox>();

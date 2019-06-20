@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
+[NetworkSettings(channel = 2)]
 public class SyncTransform : NetworkBehaviour {
 	public float transitionSpeed = 5;
 	public float snapThreshold = 15;
@@ -10,6 +11,8 @@ public class SyncTransform : NetworkBehaviour {
 	public Vector3 position;
 	[SyncVar]
 	public Quaternion rotation;
+	/*[SyncVar]
+	public bool respawn;*/
 
 	bool cmdEnabled = false;
 	PlayerMove playerMove;
@@ -27,7 +30,7 @@ public class SyncTransform : NetworkBehaviour {
 	}
 
 	void Update() {
-		if (cmdEnabled) {
+		if (cmdEnabled /*&& !respawn*/) {
 			//Debug.Log("My position is " + transform.position);
 			CmdSetValues(transform.position, transform.rotation);
 		} else {
@@ -37,6 +40,7 @@ public class SyncTransform : NetworkBehaviour {
 				transform.position = Vector3.Lerp(transform.position, position, Time.deltaTime * playerMove.moveSpeed);
 			}
 			transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * playerMove.moveSpeed);
+			//respawn = false;
 		}
 	}
 

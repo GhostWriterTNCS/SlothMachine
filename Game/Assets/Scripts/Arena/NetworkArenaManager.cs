@@ -9,6 +9,8 @@ public class NetworkArenaManager : NetworkBehaviour {
 	ArenaManager arenaManager;
 	[SyncVar]
 	public float roundDuration;
+	[SyncVar]
+	public string roundTime;
 
 	void Start() {
 		CmdStartCoroutine();
@@ -58,7 +60,8 @@ public class NetworkArenaManager : NetworkBehaviour {
 
 		// Boss round
 		if (MatchManager.singleton.bossRound) {
-			RpcUpdateCountdown("");
+			//RpcUpdateCountdown("");
+			roundTime = "";
 			while (!boss || boss.health > 0) {
 				bool someLeft = false;
 				foreach (Robot r in otherRobots) {
@@ -83,7 +86,8 @@ public class NetworkArenaManager : NetworkBehaviour {
 		while (roundDuration >= 0) {
 			roundDuration -= Time.fixedDeltaTime;
 			TimeSpan time = TimeSpan.FromSeconds(roundDuration + 1);
-			RpcUpdateCountdown(time.ToString(@"mm\:ss"));
+			//RpcUpdateCountdown(time.ToString(@"mm\:ss"));
+			roundTime = time.ToString(@"mm\:ss");
 			yield return new WaitForFixedUpdate();
 		}
 		int scoreMax = -1;
@@ -98,7 +102,8 @@ public class NetworkArenaManager : NetworkBehaviour {
 			}
 		}
 		roundWinner.roundWinner++;
-		RpcUpdateCountdown("");
+		//RpcUpdateCountdown("");
+		roundTime = "";
 		RpcUpdateTitle(arenaManager.roundWinnerIs.Replace("\\n", "\n").Replace("#", roundWinner.name));
 		yield return new WaitForSeconds(5);
 		string scene = GameScenes.Auction;
@@ -140,18 +145,18 @@ public class NetworkArenaManager : NetworkBehaviour {
 		}
 		arenaManager.title.text = s;
 	}
-	[ClientRpc]
+	/*[ClientRpc]
 	public void RpcUpdateCountdown(string s) {
 		FindObjectOfType<ArenaManager>().countdown.text = s;
-	}
+	}*/
 
 	[Command]
 	public void CmdSpawnWorm(Vector3 pos) {
-		//Debug.Log("Spawn worm");
 		RpcSpawnWorm(pos);
 	}
 	[ClientRpc]
 	void RpcSpawnWorm(Vector3 pos) {
+		Debug.Log("Spawn worm");
 		StartCoroutine(SpawnWormCoroutine(pos));
 	}
 

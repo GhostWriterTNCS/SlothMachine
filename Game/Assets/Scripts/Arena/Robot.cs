@@ -7,7 +7,7 @@ using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(Animator)), NetworkSettings(channel = 3)]
 public class Robot : NetworkBehaviour {
 	[Header("Generic settings")]
 	public GameObject hitEffect;
@@ -115,6 +115,7 @@ public class Robot : NetworkBehaviour {
 
 	void Start() {
 		upgrades = new int[4];
+		transform.position = Vector3.one * 5;
 		StartCoroutine(SetupCoroutine());
 	}
 	IEnumerator SetupCoroutine() {
@@ -221,7 +222,11 @@ public class Robot : NetworkBehaviour {
 			bossParticlePlus.gameObject.SetActive(true);
 			bossParticleMinus.gameObject.SetActive(true);
 		} else {
-			CmdSpawn();
+			//CmdSpawn();
+			Transform spawn = FindObjectsOfType<SpawnPoint>()[player.playerID - 1].transform; //NetworkManager.singleton.GetStartPosition();
+			transform.position = spawn.position;
+			transform.rotation = spawn.rotation;
+			rigidbody.velocity = Vector3.zero;
 		}
 		//Debug.Log("Spawn " + player.name + " in " + spawn.position);
 		/*transform.position = spawn.position;
@@ -832,6 +837,7 @@ public class Robot : NetworkBehaviour {
 	float respawnWaiting;
 	[ClientRpc]
 	public void RpcRespawn() {
+		Debug.Log(player.name + " death position is " + transform.position);
 		StartCoroutine(RespawnCoroutine());
 	}
 	IEnumerator RespawnCoroutine() {
@@ -861,11 +867,12 @@ public class Robot : NetworkBehaviour {
 		CmdUpdateHealthValue(healthMax);
 		CmdSetPaused(gameObject, false);
 
-		CmdSpawn();
-		/*Transform spawn = NetworkManager.singleton.GetStartPosition();
+		//CmdSpawn();
+		Transform spawn = FindObjectsOfType<SpawnPoint>()[player.playerID - 1].transform; //NetworkManager.singleton.GetStartPosition();
 		transform.position = spawn.position;
 		transform.rotation = spawn.rotation;
-		rigidbody.velocity = Vector3.zero;*/
+		rigidbody.velocity = Vector3.zero;
+		Debug.Log(player.name + " spawn at " + transform.position);
 		for (int i = 0; i < transform.childCount; i++) {
 			transform.GetChild(i).gameObject.SetActive(true);
 		}
@@ -876,7 +883,7 @@ public class Robot : NetworkBehaviour {
 			bossParticleMinus.gameObject.SetActive(false);
 		}
 	}
-	[Command]
+	/*[Command]
 	void CmdSpawn() {
 		List<SpawnPoint> spawns = FindObjectsOfType<SpawnPoint>().OrderBy(a => Guid.NewGuid()).ToList();
 		for (int i = 0; i < spawns.Count; i++) {
@@ -885,11 +892,12 @@ public class Robot : NetworkBehaviour {
 				transform.rotation = spawns[i].transform.rotation;
 				rigidbody.velocity = Vector3.zero;
 				syncTransform.CmdSetValues(transform.position, transform.rotation);
+				syncTransform.respawn = true;
 				Debug.Log(player.name + " spawn at " + transform.position);
 				break;
 			}
 		}
-	}
+	}*/
 
 	[Command]
 	public void CmdSetPaused(GameObject robot, bool value) {

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
 
-public class RobotModel : NetworkBehaviour {
+public class RobotModel : MonoBehaviour {
 	[Range(1, 9)]
 	public int health = 3;
 	[Range(1, 9)]

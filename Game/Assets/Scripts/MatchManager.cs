@@ -2,7 +2,7 @@
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
-public class MatchManager : NetworkBehaviour {
+public class MatchManager : MonoBehaviour {
 	public static MatchManager singleton;
 	public int playerCount;
 	public int roundCounter;
