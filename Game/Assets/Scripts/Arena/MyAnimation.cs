@@ -17,10 +17,10 @@ public class MyAnimation : StateMachineBehaviour {
 
 	// OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
 	override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-		robot = animator.GetComponent<Robot>();
+		robot = animator.GetComponentInParent<Robot>();
 		robot.CmdIncreaseComboScore();
 		robot.CmdEnableCollider(enableLeftHand, enableRightHand, enableLeftFoot, enableRightFoot, enableHead, breakGuard, pushBack, hitDelay);
-		robot.GetComponent<PlayerMove>().isAttacking = true;
+		robot.GetComponentInParent<PlayerMove>().isAttacking = true;
 	}
 
 	// OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -51,7 +51,7 @@ public class MyAnimation : StateMachineBehaviour {
 		/*foreach (BodyPartHitter h in robot.GetComponentsInChildren<BodyPartHitter>()) {
 			h.hitters.Clear();
 		}*/
-		robot.GetComponent<PlayerMove>().isAttacking = false;
+		robot.GetComponentInParent<PlayerMove>().isAttacking = false;
 		if (resetDirection) {
 			robot.robotModel.transform.localRotation = Quaternion.identity;
 		}
