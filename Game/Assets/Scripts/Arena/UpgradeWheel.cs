@@ -59,7 +59,7 @@ public class UpgradeWheel : MonoBehaviour {
 			} else if (Input.GetAxis("Camera Horizontal") < -0.5f) { // left
 				eventSystem.SetSelectedGameObject(left.gameObject);*/
 		}
-		if (Input.GetButtonDown("A")) {
+		if (Input.GetButtonDown("A") && currentAction != null) {
 			currentAction();
 			gameObject.SetActive(false);
 		}

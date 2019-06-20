@@ -146,19 +146,22 @@ public class NetworkArenaManager : NetworkBehaviour {
 	}
 
 	[Command]
-	public void CmdSpawnWorm(GameObject prefab, Vector3 pos) {
+	public void CmdSpawnWorm(Vector3 pos) {
 		//Debug.Log("Spawn worm");
-		StartCoroutine(SpawnWormCoroutine(prefab, pos));
+		RpcSpawnWorm(pos);
+	}
+	void RpcSpawnWorm(Vector3 pos) {
+		StartCoroutine(SpawnWormCoroutine(pos));
 	}
 
-	IEnumerator SpawnWormCoroutine(GameObject prefab, Vector3 pos) {
+	IEnumerator SpawnWormCoroutine(Vector3 pos) {
 		yield return new WaitForSeconds(3);
 		// hide dust
 		//wormHitbox.position = new Vector3(0, -50, 0);
 
 		// spawn the worm
-		GameObject worm = Instantiate(prefab, pos, Quaternion.identity);
-		NetworkServer.Spawn(worm);
+		GameObject worm = Instantiate(FindObjectOfType<WormDecisionTree>().wormPrefab, pos, Quaternion.identity);
+		//NetworkServer.Spawn(worm);
 		worm.GetComponent<Rigidbody>().AddForce(0, 50, 0);
 		//yield return new WaitForSeconds(3);
 

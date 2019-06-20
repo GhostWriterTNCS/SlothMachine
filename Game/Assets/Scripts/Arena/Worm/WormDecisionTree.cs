@@ -185,7 +185,7 @@ public class WormDecisionTree : NetworkBehaviour {
 			//Debug.Log(timerArena);
 			if (timerArena <= spawnTime) {
 				Debug.Log("timerArena < " + spawnTime);
-				FindObjectOfType<NetworkArenaManager>().CmdSpawnWorm(wormPrefab, new Vector3(transform.position.x, transform.position.y - 10, transform.position.z));
+				FindObjectOfType<NetworkArenaManager>().CmdSpawnWorm(new Vector3(transform.position.x, transform.position.y - 10, transform.position.z));
 			} else {
 				other.GetComponent<Robot>().CmdAddForce(transform.forward * 9.5f * 50, ForceMode.Impulse); //forza era a 12.5
 			}
