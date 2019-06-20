@@ -615,7 +615,7 @@ public class Robot : NetworkBehaviour {
 	//[Command]
 	public void CmdSetBool(string id, bool value) {
         //RpcSetBool(id, value);
-        Debug.Log("ANIMATION: " + id + " " + value);
+        //Debug.Log("ANIMATION: " + id + " " + value);
         animator.SetBool(id, value);
     }
     [ClientRpc]
