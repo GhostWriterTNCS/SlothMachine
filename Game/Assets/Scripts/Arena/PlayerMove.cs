@@ -35,13 +35,11 @@ public class PlayerMove : NetworkBehaviour {
 			}
 			if (Vector3.Distance(robot.transform.position, r.transform.position) < inCombatRange) {
 				robot.CmdSetBool("LB", true);
-				robot.CmdSetBool("WalkForward", true);
 				adjustSpeed = inCombatSpeedAdjust;
 			}
 		}
 		if (adjustSpeed == 1) {
 			robot.CmdSetBool("LB", false);
-			robot.CmdSetBool("WalkForward", false);
 		}
 		if (isLocalPlayer && canMove) {
 			// Move player
