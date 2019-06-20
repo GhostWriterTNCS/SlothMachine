@@ -224,26 +224,22 @@ public class Robot : NetworkBehaviour {
 		} else {
 			//CmdSpawn();
 			int bossID = 0;
-			foreach (Player p in FindObjectsOfType<Player>()) {
-				if (p.roundWinner >= 2) {
-					bossID = p.playerID;
-					break;
+			if (MatchManager.singleton.bossRound) {
+				foreach (Player p in FindObjectsOfType<Player>()) {
+					if (p.roundWinner >= 2) {
+						bossID = p.playerID;
+						break;
+					}
 				}
 			}
-			Transform spawn;
-			if (player.playerID > bossID) {
+			Transform spawn = FindObjectsOfType<SpawnPoint>()[player.playerID - 1].transform;
+			if (bossID > 0 && player.playerID > bossID) {
 				spawn = FindObjectsOfType<SpawnPoint>()[player.playerID - 2].transform;
-			} else {
-				spawn = FindObjectsOfType<SpawnPoint>()[player.playerID - 1].transform;
 			}
 			transform.position = spawn.position;
 			transform.rotation = spawn.rotation;
 			rigidbody.velocity = Vector3.zero;
 		}
-		//Debug.Log("Spawn " + player.name + " in " + spawn.position);
-		/*transform.position = spawn.position;
-		transform.rotation = spawn.rotation;
-		rigidbody.velocity = Vector3.zero;*/
 		body.enabled = true;
 
 		if (isLocalPlayer) {
