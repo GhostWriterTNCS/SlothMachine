@@ -46,6 +46,7 @@ public class NetworkArenaManager : NetworkBehaviour {
 		List<Robot> otherRobots = new List<Robot>();
 		foreach (Robot r in FindObjectsOfType<Robot>()) {
 			r.paused = false;
+			r.player.score += r.roundScore;
 			if (MatchManager.singleton.bossRound) {
 				if (r.player.roundWinner >= 2) {
 					boss = r;

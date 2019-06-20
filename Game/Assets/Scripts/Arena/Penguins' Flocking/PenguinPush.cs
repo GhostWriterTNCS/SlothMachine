@@ -7,7 +7,7 @@ public class PenguinPush : MonoBehaviour {
 
 	public void OnTriggerEnter(Collider other) {
 		if (other.GetComponent<Robot>()) {
-			other.GetComponent<Rigidbody>().AddForce((transform.forward + (transform.up * 0.5f)) * pushForce, ForceMode.Impulse);
+			other.GetComponent<Robot>().CmdAddForce((transform.forward + (transform.up * 0.5f)) * pushForce, ForceMode.Impulse);
 		}
 	}
 }

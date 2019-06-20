@@ -26,7 +26,7 @@ namespace Prototype.NetworkLobby {
 		[SyncVar(hook = "OnMyColor")]
 		public Color playerColor = Color.white;
 		[SyncVar]
-		public int playerID = 0;
+		public byte playerID = 0;
 		[SyncVar]
 		public bool isAgent = false;
 
@@ -284,7 +284,7 @@ namespace Prototype.NetworkLobby {
 		}
 		[Command]
 		public void CmdIdChanged(int ID) {
-			playerID = ID;
+			playerID = (byte)ID;
 		}
 
 		//Cleanup thing when get destroy (which happen when client kick or disconnect)

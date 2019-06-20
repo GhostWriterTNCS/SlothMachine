@@ -47,13 +47,13 @@ public class Robot : NetworkBehaviour {
 
 	[Header("Bonus")]
 	[SyncVar]
-	public int healthBonus = 0;
+	public byte healthBonus = 0;
 	[SyncVar]
-	public int attackBonus = 0;
+	public byte attackBonus = 0;
 	[SyncVar]
-	public int defenseBonus = 0;
+	public byte defenseBonus = 0;
 	[SyncVar]
-	public int speedBonus = 0;
+	public byte speedBonus = 0;
 
 	[Header("Generated settings")]
 	[SyncVar]
@@ -86,17 +86,17 @@ public class Robot : NetworkBehaviour {
 	public bool isGuardOn;
 
 	[SyncVar(hook = "UpdateHealthSlider")]
-	public float health;
+	public short health;
 	[SyncVar]
-	public float healthMax;
+	public short healthMax;
 	[SyncVar]
-	public float attack;
+	public byte attack;
 	[SyncVar]
-	public float defense;
+	public byte defense;
 	[SyncVar]
-	public float speed;
+	public byte speed;
 	[SyncVar]
-	public int roundScore;
+	public short roundScore;
 	[SyncVar]
 	public bool paused;
 
@@ -106,7 +106,7 @@ public class Robot : NetworkBehaviour {
 	PlayerMove playerMove;
 	Rigidbody rigidbody;
 	//AudioSource audioSource;
-	float initialComboScore = 2;
+	short initialComboScore = 2;
 	float evadeDelay;
 
 	UpgradeWheel upgradeWheel;
@@ -249,14 +249,14 @@ public class Robot : NetworkBehaviour {
 
 	[Command]
 	public void CmdRefreshStats() {
-		healthMax = (robotModel.health + healthBonus) * 30;
-		attack = robotModel.attack + attackBonus;
-		defense = robotModel.defense + defenseBonus;
-		speed = 1 + (robotModel.speed + speedBonus - 5) / 16f;
+		healthMax = (short)((robotModel.health + healthBonus) * 30);
+		attack = (byte)(robotModel.attack + attackBonus);
+		defense = (byte)(robotModel.defense + defenseBonus);
+		speed = (byte)(1 + (robotModel.speed + speedBonus - 5) / 16f);
 		rigidbody.mass = baseMass / speed;
 		if (player.roundWinner >= 2) {
 			healthMax *= 2;
-			attack *= 1.25f;
+			attack = (byte)(attack * 1.25f);
 			defense *= 2;
 		}
 		Debug.Log("Stats updated");
@@ -283,8 +283,8 @@ public class Robot : NetworkBehaviour {
 			if (!upgrade) {
 				upgrade = upgradeGO.AddComponent<MountUpgrade>();
 			}
-			upgrade.type = value1;
-			upgrade.ID = value2;
+			upgrade.type = (byte)value1;
+			upgrade.ID = (byte)value2;
 			upgrade.robotGO = gameObject;
 		} else {
 			Debug.LogWarning("Missing prefab: Prefabs/Robots/" + player.robotName + "/Upgrades/" + value1 + "_" + value2);
@@ -292,7 +292,6 @@ public class Robot : NetworkBehaviour {
 	}
 
 	float holdButton = 0;
-	//[SyncVar]
 	//float holdDuration = 0;
 
 	Vector3 evadeDirection;
@@ -566,12 +565,12 @@ public class Robot : NetworkBehaviour {
 	}
 
 	[SyncVar]
-	float comboScore;
+	short comboScore;
 	[SyncVar]
 	float comboScoreDuration = 0;
 	[Command]
 	public void CmdIncreaseComboScore() {
-		comboScore *= 1.5f;
+		comboScore = (short)(comboScore * 1.5f);
 		if (comboScore > 10) {
 			comboScore = 10;
 		}
@@ -587,8 +586,8 @@ public class Robot : NetworkBehaviour {
 		action();
 	}
 
-	void UpdateHealthSlider(float value) {
-		healthSlider.value = value / healthMax;
+	void UpdateHealthSlider(short value) {
+		healthSlider.value = value / (float)healthMax;
 	}
 	[Command]
 	public void CmdUpdateHealthValue(float newHealth) {
@@ -608,7 +607,7 @@ public class Robot : NetworkBehaviour {
 			//syncTransform.CmdSetValues(new Vector3(0, -100, 0), Quaternion.identity);
 			RpcRespawn();
 		}
-		health = newHealth;
+		health = (short)newHealth;
 	}
 	public void UpdateHealth(float variation, bool isHeavy = false) {
 		float newHealth = health + variation;
@@ -812,13 +811,17 @@ public class Robot : NetworkBehaviour {
 			UpdateHealth(-damage);
 			hitter.player.scraps += 3;
 			Debug.Log(hitter.player.name + " current combo score: " + hitter.comboScore);
-			hitter.player.score += (int)hitter.comboScore;
-			hitter.roundScore += (int)hitter.comboScore;
+			//hitter.player.score += (short)hitter.comboScore;
+			hitter.roundScore += (short)hitter.comboScore;
 			CmdGuardOff();
 			CmdDisableCollider(true, true, true, true, true);
 		}
 	}
 
+	[Command]
+	public void CmdAddForce(Vector3 force, ForceMode mode) {
+		RpcAddForce(force, mode);
+	}
 	[ClientRpc]
 	void RpcAddForce(Vector3 force, ForceMode mode) {
 		if (isLocalPlayer) {
@@ -903,7 +906,7 @@ public class Robot : NetworkBehaviour {
 		Debug.Log("CmdAddTemporaryUpgrade");
 		Upgrade u = Upgrades.temporary[ID];
 		if (u.price <= player.scraps) {
-			player.scraps -= u.price;
+			player.scraps -= (short)u.price;
 			RpcAddTemporaryUpgrade(ID);
 			Debug.Log("Upgrade " + u.name + " mounted!");
 		} else {

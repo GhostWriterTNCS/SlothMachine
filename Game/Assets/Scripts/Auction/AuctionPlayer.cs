@@ -20,7 +20,7 @@ public class AuctionPlayer : NetworkBehaviour {
 	[SyncVar]
 	public bool bidRegistered = false;
 	[SyncVar]
-	public int bid;
+	public short bid;
 
 	void Start() {
 		backgroundImage.gameObject.SetActive(false);
@@ -70,7 +70,7 @@ public class AuctionPlayer : NetworkBehaviour {
 
 	[Command]
 	public void CmdSetBid(int value) {
-		bid = value;
+		bid = (short)value;
 		bidRegistered = true;
 	}
 

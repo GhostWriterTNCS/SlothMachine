@@ -5,17 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class Player : NetworkBehaviour {
 	[SyncVar]
-	public int playerID;
+	public byte playerID;
 	[SyncVar]
 	public string robotName;
 	[SyncVar]
-	public int score;
+	public short score;
 	[SyncVar]
-	public int scraps;
+	public short scraps;
 	[SyncVar]
-	public int roundWinner;
+	public byte roundWinner;
 	[SyncVar]
-	public int deathCount;
+	public byte deathCount;
 	[SyncVar]
 	public bool isAgent;
 	[SyncVar]

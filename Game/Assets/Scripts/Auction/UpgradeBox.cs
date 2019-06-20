@@ -12,9 +12,9 @@ public class UpgradeBox : NetworkBehaviour {
 	public Image backgroundImage;
 
 	[SyncVar]
-	public int ID;
+	public byte ID;
 	[SyncVar]
-	public int level;
+	public byte level;
 	[SyncVar]
 	public bool selected;
 	[SyncVar]

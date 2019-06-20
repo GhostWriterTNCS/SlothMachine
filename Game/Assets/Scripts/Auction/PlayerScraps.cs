@@ -40,7 +40,7 @@ public class PlayerScraps : NetworkBehaviour {
 
 	[Command]
 	public void CmdCalculateAgentsBids() {
-		auctionPlayer.bid = Random.Range(0, auctionPlayer.player.scraps + 1);
+		auctionPlayer.bid = (short)Random.Range(0, auctionPlayer.player.scraps + 1);
 		auctionPlayer.bidRegistered = true;
 	}
 

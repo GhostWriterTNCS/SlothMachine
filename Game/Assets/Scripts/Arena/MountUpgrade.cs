@@ -5,9 +5,9 @@ using UnityEngine.Networking;
 
 public class MountUpgrade : NetworkBehaviour {
 	[SyncVar]
-	public int type;
+	public byte type;
 	[SyncVar]
-	public int ID;
+	public byte ID;
 	[SyncVar]
 	public GameObject robotGO;
 	public Robot robot;

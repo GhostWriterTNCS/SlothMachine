@@ -46,14 +46,14 @@ public class NetworkAuctionManager : NetworkBehaviour {
 
 	[Space]
 	[SyncVar]
-	public int maxBid;
+	public short maxBid;
 	[SyncVar]
 	public GameObject auctionWinner;
 	[SyncVar]
 	public bool auctionRegistered;
 
 	[SyncVar]
-	int currentUpgrade = 0;
+	byte currentUpgrade = 0;
 	bool isUpgradeLost;
 	List<UpgradeBox> upgrades = new List<UpgradeBox>();
 	List<Pair> usedUpgradesTemp = new List<Pair>();
@@ -87,15 +87,15 @@ public class NetworkAuctionManager : NetworkBehaviour {
 			usedUpgradesTemp.Add(new Pair(level, upgrade));
 			usedUpgrades.Add(level);
 			usedUpgrades.Add(upgrade);
-			ub.ID = upgrade;
-			ub.level = level;
+			ub.ID = (byte)upgrade;
+			ub.level = (byte)level;
 			ub.selected = (i == 0);
 			upgrades.Add(ub); NetworkServer.Spawn(upgradeBox);
 
 			GameObject upgradeBoxWithDesc = Instantiate(upgradeBoxWithDescPrefab);
 			ub = upgradeBoxWithDesc.GetComponent<UpgradeBox>();
-			ub.ID = upgrade;
-			ub.level = level;
+			ub.ID = (byte)upgrade;
+			ub.level = (byte)level;
 			ub.isIntro = true;
 			NetworkServer.Spawn(upgradeBoxWithDesc);
 		}
