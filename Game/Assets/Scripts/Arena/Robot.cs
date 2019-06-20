@@ -850,7 +850,8 @@ public class Robot : NetworkBehaviour {
 	float respawnWaiting;
 	[ClientRpc]
 	public void RpcRespawn() {
-		Debug.Log(player.name + " death position is " + transform.position);
+        if(player)
+    		Debug.Log(player.name + " death position is " + transform.position);
 		StartCoroutine(RespawnCoroutine());
 	}
 	IEnumerator RespawnCoroutine() {
