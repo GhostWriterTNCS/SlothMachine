@@ -7,7 +7,7 @@ using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Animator)), NetworkSettings(channel = 3)]
+[/*RequireComponent(typeof(Animator)),*/ NetworkSettings(channel = 3)]
 public class Robot : NetworkBehaviour {
 	[Header("Generic settings")]
 	public GameObject hitEffect;
@@ -101,7 +101,7 @@ public class Robot : NetworkBehaviour {
 	public bool paused;
 
 	public RobotModel robotModel;
-	Animator animator;
+	public Animator animator;
     NetworkAnimator networkAnimator;
 	PlayerCamera playerCamera;
 	PlayerMove playerMove;
@@ -174,10 +174,10 @@ public class Robot : NetworkBehaviour {
 		robotModel.shield.SetActive(false);
 		CmdMountUpgrades();
 
-		animator = GetComponent<Animator>();
+		animator = GetComponentInChildren<Animator>();
 		animator.runtimeAnimatorController = robotModel.animatorController;
 		animator.avatar = robotModel.avatar;
-        networkAnimator = GetComponent<NetworkAnimator>();
+        networkAnimator = GetComponentInChildren<NetworkAnimator>();
         playerCamera = GetComponent<PlayerCamera>();
 		playerMove = GetComponent<PlayerMove>();
 		rigidbody = GetComponent<Rigidbody>();
