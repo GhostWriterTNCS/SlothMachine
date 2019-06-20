@@ -63,10 +63,10 @@ public class PlayerMove : NetworkBehaviour {
 				//robot.SetFloat("WalkH", 0);
 				//robot.SetFloat("WalkV", 0);
 			} else {
-				walkH = Input.GetAxis("Horizontal");
-				walkV = Input.GetAxis("Vertical");
-				//robot.SetFloat("WalkH", Input.GetAxis("Horizontal"));
-				//robot.SetFloat("WalkV", Input.GetAxis("Vertical"));
+				//walkH = Input.GetAxis("Horizontal");
+				//walkV = Input.GetAxis("Vertical");
+				robot.CmdSetFloat("WalkH", Input.GetAxis("Horizontal"));
+				robot.CmdSetFloat("WalkV", Input.GetAxis("Vertical"));
 			}
 			/*} else {
 				animator.SetFloat("WalkH", 0);
@@ -77,10 +77,10 @@ public class PlayerMove : NetworkBehaviour {
 				rigidbody.MoveRotation(rigidbody.rotation * Quaternion.Euler(Vector3.up * Input.GetAxis("Camera Horizontal") * turnSpeed));
 			}
 		} else {
-			walkH = 0;
-			walkV = 0;
-			//robot.SetFloat("WalkH", 0);
-			//robot.SetFloat("WalkV", 0);
-		}
-	}
+            robot.CmdSetFloat("WalkH", 0);
+            robot.CmdSetFloat("WalkV", 0);
+            //robot.SetFloat("WalkH", 0);
+            //robot.SetFloat("WalkV", 0);
+        }
+    }
 }

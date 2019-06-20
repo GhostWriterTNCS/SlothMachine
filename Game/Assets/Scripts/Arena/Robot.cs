@@ -327,8 +327,8 @@ public class Robot : NetworkBehaviour {
 		if (!player || !playerMove) {
 			return;
 		}
-        CmdSetFloat("WalkH", playerMove.walkH);
-        CmdSetFloat("WalkV", playerMove.walkV);
+        //CmdSetFloat("WalkH", playerMove.walkH);
+        //CmdSetFloat("WalkV", playerMove.walkV);
 
         if (paused) {
 			playerMove.canMove = false;
