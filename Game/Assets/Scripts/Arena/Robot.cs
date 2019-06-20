@@ -536,10 +536,10 @@ public class Robot : NetworkBehaviour {
 	}
 
 	Dictionary<string, int> triggers = new Dictionary<string, int>();
-	[Command]
+	//[Command]
 	public void CmdSetTrigger(string trigger) {
         //RpcSetTrigger(trigger);
-        animator.SetTrigger(trigger);
+        networkAnimator.SetTrigger(trigger);
 	}
 	[ClientRpc]
 	public void RpcSetTrigger(string trigger) {
@@ -563,7 +563,7 @@ public class Robot : NetworkBehaviour {
 		}
 	}
 
-	[Command]
+	//[Command]
 	public void CmdSetFloat(string id, float value) {
         //RpcSetFloat(id, value);
         animator.SetFloat(id, value);
@@ -573,7 +573,7 @@ public class Robot : NetworkBehaviour {
 		animator.SetFloat(id, value);
 	}
 
-	[Command]
+	//[Command]
 	public void CmdSetBool(string id, bool value) {
 		//RpcSetBool(id, value);
         animator.SetBool(id, value);
