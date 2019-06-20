@@ -101,9 +101,9 @@ public class Robot : NetworkBehaviour {
 	public bool paused;
 
 	public RobotModel robotModel;
-	Animator animator;
+	public Animator animator;
 	PlayerCamera playerCamera;
-	PlayerMove playerMove;
+	public PlayerMove playerMove;
 	Rigidbody rigidbody;
 	//AudioSource audioSource;
 	short initialComboScore = 2;
@@ -112,6 +112,7 @@ public class Robot : NetworkBehaviour {
 	UpgradeWheel upgradeWheel;
 	ArenaManager arenaManager;
 	SyncTransform syncTransform;
+    public SyncAnimator syncAnimator;
 
 	void Start() {
 		upgrades = new int[4];
@@ -129,6 +130,7 @@ public class Robot : NetworkBehaviour {
 		transform.SetParent(player.transform);
 		arenaManager = FindObjectOfType<ArenaManager>();
 		syncTransform = GetComponent<SyncTransform>();
+        syncAnimator = GetComponent<SyncAnimator>();
 		if (isLocalPlayer) {
 			nameText.text = "";
 			arenaManager.pauseMenu.robot = this;
@@ -357,7 +359,7 @@ public class Robot : NetworkBehaviour {
 				} else if (Input.GetButtonDown("A")) {
 					holdButton = 0;
 				} else if (Input.GetButtonUp("A") && Input.GetAxis("Triggers") >= -0.01f) {
-					CmdSetTrigger("A");
+                    syncAnimator.CmdSetTrigger("A");
 				} else if (Input.GetButtonDown("B")) {
 					holdButton = 0;
 				} else if (Input.GetButtonUp("B") && evadeCooldownTime <= 0) {
@@ -372,28 +374,28 @@ public class Robot : NetworkBehaviour {
 					evadeTime = evadeDuration;
 					evadeCooldownTime = evadeCooldown;
 					arenaManager.evadeCooldown.fillAmount = 0;
-					CmdSetTrigger("B");
+                    syncAnimator.CmdSetTrigger("B");
 				} else if (Input.GetButtonDown("X")) {
 					holdButton = 0;
 				} else if (Input.GetButtonUp("X")) {
-					//holdDuration = holdButton;
-					//Debug.Log(holdDuration + " " + (holdDuration >= holdMinDuration));
-					CmdSetTrigger("X");
+                    //holdDuration = holdButton;
+                    //Debug.Log(holdDuration + " " + (holdDuration >= holdMinDuration));
+                    syncAnimator.CmdSetTrigger("X");
 				} else if (Input.GetButtonDown("Y")) {
 					holdButton = 0;
 				} else if (Input.GetButtonUp("Y")) {
-					//holdDuration = holdButton;
-					//Debug.Log(holdDuration + " " + (holdDuration >= holdMinDuration));
-					CmdSetTrigger("Y");
+                    //holdDuration = holdButton;
+                    //Debug.Log(holdDuration + " " + (holdDuration >= holdMinDuration));
+                    syncAnimator.CmdSetTrigger("Y");
 				}
 
-				CmdSetFloat("WalkH", playerMove.walkH);
-				CmdSetFloat("WalkV", playerMove.walkV);
+                syncAnimator.CmdSetFloat("WalkH", playerMove.walkH);
+                syncAnimator.CmdSetFloat("WalkV", playerMove.walkV);
 
 				if (Input.GetButton("LB") && !playerMove.isAttacking) {
-					CmdGuardOn();
+                    CmdGuardOn();
 				} else if (isGuardOn) {
-					CmdGuardOff();
+                    CmdGuardOff();
 				}
 
 				if (upgradeWheel) {
@@ -508,7 +510,7 @@ public class Robot : NetworkBehaviour {
 	}
 
 	[Command]
-	void CmdGuardOn() {
+	public void CmdGuardOn() {
 		RpcGuardOn();
 	}
 	[ClientRpc]
@@ -519,7 +521,7 @@ public class Robot : NetworkBehaviour {
 		robotModel.shield.SetActive(true);
 	}
 	[Command]
-	void CmdGuardOff() {
+	public void CmdGuardOff() {
 		RpcGuardOff();
 	}
 	[ClientRpc]
@@ -530,7 +532,7 @@ public class Robot : NetworkBehaviour {
 		robotModel.shield.SetActive(false);
 	}
 
-	Dictionary<string, int> triggers = new Dictionary<string, int>();
+	/*Dictionary<string, int> triggers = new Dictionary<string, int>();
 	[Command]
 	public void CmdSetTrigger(string trigger) {
 		RpcSetTrigger(trigger);
@@ -575,7 +577,7 @@ public class Robot : NetworkBehaviour {
 		if (animator) {
 			animator.SetBool(id, value);
 		}
-	}
+	}*/
 
 	[SyncVar]
 	short comboScore;
@@ -594,7 +596,7 @@ public class Robot : NetworkBehaviour {
 		comboScore = initialComboScore;
 	}
 
-	IEnumerator DelayCall(Action action, float delayTime) {
+	public IEnumerator DelayCall(Action action, float delayTime) {
 		yield return new WaitForSeconds(delayTime);
 		action();
 	}
@@ -796,7 +798,7 @@ public class Robot : NetworkBehaviour {
 			effect.transform.position = position;
 			effect.transform.localScale = Vector3.one;
 			NetworkServer.Spawn(effect);
-			CmdSetTrigger("Reaction");
+            syncAnimator.CmdSetTrigger("Reaction");
 			if (!particle) {
 				CmdPlayClip(gameObject, AudioClips.Hit);
 			} else if (particle.name == fireParticle.name) {

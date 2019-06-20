@@ -34,12 +34,12 @@ public class PlayerMove : NetworkBehaviour {
 				continue;
 			}
 			if (Vector3.Distance(robot.transform.position, r.transform.position) < inCombatRange) {
-				robot.CmdSetBool("LB", true);
+				robot.syncAnimator.CmdSetBool("LB", true);
 				adjustSpeed = inCombatSpeedAdjust;
 			}
 		}
 		if (adjustSpeed == 1) {
-			robot.CmdSetBool("LB", false);
+			robot.syncAnimator.CmdSetBool("LB", false);
 		}
 		if (isLocalPlayer && canMove) {
 			// Move player

@@ -10761,7 +10761,7 @@ MonoBehaviour:
     m_MaxTimerTimeout: 12000
     m_MinNetSimulatorTimeout: 1
     m_MaxNetSimulatorTimeout: 12000
-  m_Channels: 05000000000000000600000005000000
+  m_Channels: 0500000000000000060000000500000000000000
   m_UseWebSockets: 0
   m_UseSimulator: 0
   m_SimulatedLatency: 1
@@ -10783,7 +10783,7 @@ MonoBehaviour:
   m_GamePlayerPrefab: {fileID: 5214476385118057602, guid: 5cd51795ac7b921419f14e6da773ccdd,
     type: 3}
   m_LobbyScene: Lobby
-  m_PlayScene: Auction
+  m_PlayScene: Arena
   lobbySlots: []
   prematchCountdown: 0
   topPanel: {fileID: 1709804829}
