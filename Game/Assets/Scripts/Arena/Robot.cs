@@ -112,7 +112,7 @@ public class Robot : NetworkBehaviour {
 	UpgradeWheel upgradeWheel;
 	ArenaManager arenaManager;
 	SyncTransform syncTransform;
-    public SyncAnimator syncAnimator;
+	public SyncAnimator syncAnimator;
 
 	void Start() {
 		upgrades = new int[4];
@@ -130,14 +130,14 @@ public class Robot : NetworkBehaviour {
 		transform.SetParent(player.transform);
 		arenaManager = FindObjectOfType<ArenaManager>();
 		syncTransform = GetComponent<SyncTransform>();
-        syncAnimator = GetComponent<SyncAnimator>();
+		syncAnimator = GetComponent<SyncAnimator>();
 		if (isLocalPlayer) {
 			nameText.text = "";
 			arenaManager.pauseMenu.robot = this;
 		} else {
 			nameText.text = player.name;
 			if (player.isAgent) {
-				syncTransform.CmdEnable(true);
+				syncTransform.EnableSetValues(true);
 			}
 		}
 
@@ -217,7 +217,8 @@ public class Robot : NetworkBehaviour {
 			transform.position = spawn.position;
 			transform.rotation = spawn.rotation;
 			rigidbody.velocity = Vector3.zero;
-			syncTransform.CmdSetValues(transform.position, transform.rotation);
+			syncTransform.CmdSetPosition(transform.position);
+			syncTransform.CmdSetRotation(transform.rotation);
 
 			transform.localScale = new Vector3(2, 2, 2);
 			ionParticle.gameObject.SetActive(false);
@@ -246,6 +247,9 @@ public class Robot : NetworkBehaviour {
 
 		if (isLocalPlayer) {
 			arenaManager.upgradeWheel.player = player;
+		}
+		while (healthMax == 0) {
+			yield return 0;
 		}
 		CmdUpdateHealthValue(healthMax);
 	}
@@ -359,7 +363,7 @@ public class Robot : NetworkBehaviour {
 				} else if (Input.GetButtonDown("A")) {
 					holdButton = 0;
 				} else if (Input.GetButtonUp("A") && Input.GetAxis("Triggers") >= -0.01f) {
-                    syncAnimator.CmdSetTrigger("A");
+					syncAnimator.SetTrigger("A");
 				} else if (Input.GetButtonDown("B")) {
 					holdButton = 0;
 				} else if (Input.GetButtonUp("B") && evadeCooldownTime <= 0) {
@@ -368,34 +372,34 @@ public class Robot : NetworkBehaviour {
 						evadeDirection = transform.forward * -1;
 					}
 					robotModel.transform.rotation = Quaternion.LookRotation(evadeDirection);
-					CmdPlayClip(gameObject, 0);
+					CmdPlayClip(AudioClips.Dash);
 					//AudioManager.singleton.PlayClip(evadeSound);
 					evadeDelayTime = evadeDelay;
 					evadeTime = evadeDuration;
 					evadeCooldownTime = evadeCooldown;
 					arenaManager.evadeCooldown.fillAmount = 0;
-                    syncAnimator.CmdSetTrigger("B");
+					syncAnimator.SetTrigger("B");
 				} else if (Input.GetButtonDown("X")) {
 					holdButton = 0;
 				} else if (Input.GetButtonUp("X")) {
-                    //holdDuration = holdButton;
-                    //Debug.Log(holdDuration + " " + (holdDuration >= holdMinDuration));
-                    syncAnimator.CmdSetTrigger("X");
+					//holdDuration = holdButton;
+					//Debug.Log(holdDuration + " " + (holdDuration >= holdMinDuration));
+					syncAnimator.SetTrigger("X");
 				} else if (Input.GetButtonDown("Y")) {
 					holdButton = 0;
 				} else if (Input.GetButtonUp("Y")) {
-                    //holdDuration = holdButton;
-                    //Debug.Log(holdDuration + " " + (holdDuration >= holdMinDuration));
-                    syncAnimator.CmdSetTrigger("Y");
+					//holdDuration = holdButton;
+					//Debug.Log(holdDuration + " " + (holdDuration >= holdMinDuration));
+					syncAnimator.SetTrigger("Y");
 				}
 
-                syncAnimator.CmdSetFloat("WalkH", playerMove.walkH);
-                syncAnimator.CmdSetFloat("WalkV", playerMove.walkV);
+				syncAnimator.SetFloat("WalkH", playerMove.walkH);
+				syncAnimator.SetFloat("WalkV", playerMove.walkV);
 
 				if (Input.GetButton("LB") && !playerMove.isAttacking) {
-                    CmdGuardOn();
+					CmdGuardOn();
 				} else if (isGuardOn) {
-                    CmdGuardOff();
+					CmdGuardOff();
 				}
 
 				if (upgradeWheel) {
@@ -417,20 +421,14 @@ public class Robot : NetworkBehaviour {
 					} else {
 						if (Physics.BoxCast(transform.position, new Vector3(7, 7, 0.1f), transform.forward, out hit, Quaternion.identity, lockCameraMaxDistance, LayerMask.GetMask("Players"))) {
 							lockCameraRobot = hit.transform.gameObject.GetComponent<Robot>();
-							// in the boss round, you can lock only the boss
-							if (lockCameraRobot && lockCameraRobot.health > 0 && (!MatchManager.singleton.bossRound || lockCameraRobot.player.roundWinner >= 2)) {
-								lockCameraRobot.marker.enabled = true;
-							} else {
-								lockCameraRobot = null;
-							}
 						} else if (Physics.BoxCast(transform.position, new Vector3(0.1f, 7, 7), transform.forward, out hit, Quaternion.identity, lockCameraMaxDistance, LayerMask.GetMask("Players"))) {
 							lockCameraRobot = hit.transform.gameObject.GetComponent<Robot>();
-							// in the boss round, you can lock only the boss
-							if (lockCameraRobot && lockCameraRobot.health > 0 && (!MatchManager.singleton.bossRound || lockCameraRobot.player.roundWinner >= 2)) {
-								lockCameraRobot.marker.enabled = true;
-							} else {
-								lockCameraRobot = null;
-							}
+						}
+						// in the boss round, you can lock only the boss
+						if (lockCameraRobot && lockCameraRobot.health > 0 && (!MatchManager.singleton.bossRound || player.roundWinner >= 2 || lockCameraRobot.player.roundWinner >= 2)) {
+							lockCameraRobot.marker.enabled = true;
+						} else {
+							lockCameraRobot = null;
 						}
 					}
 				}
@@ -449,11 +447,11 @@ public class Robot : NetworkBehaviour {
 
 				// Ion particles
 				if (Input.GetButton("RB") && Input.GetAxis("Triggers") <= 0.01f) {
-					CmdSetIon(1);
+					SetIon(1);
 				} else if (Input.GetAxis("Triggers") > 0.01f && !Input.GetButton("RB")) {
-					CmdSetIon(-1);
+					SetIon(-1);
 				} else {
-					CmdSetIon(0);
+					SetIon(0);
 				}
 			}
 		}
@@ -477,16 +475,19 @@ public class Robot : NetworkBehaviour {
 		//}
 	}
 
+	short currentIon;
+	public void SetIon(short ion) {
+		if (currentIon != ion) {
+			CmdSetIon(ion);
+			currentIon = ion;
+		}
+	}
 	[Command]
-	public void CmdSetIon(short ion) {
-		//SetIon(ion);
+	void CmdSetIon(short ion) {
 		RpcSetIon(ion);
 	}
 	[ClientRpc]
-	public void RpcSetIon(short ion) {
-		SetIon(ion);
-	}
-	public void SetIon(short ion) {
+	void RpcSetIon(short ion) {
 		switch (ion) {
 			case 1:
 				ionParticle.GetComponent<Renderer>().material = ionPlus;
@@ -596,28 +597,17 @@ public class Robot : NetworkBehaviour {
 		comboScore = initialComboScore;
 	}
 
-	public IEnumerator DelayCall(Action action, float delayTime) {
-		yield return new WaitForSeconds(delayTime);
-		action();
-	}
-
 	void UpdateHealthSlider(short value) {
 		healthSlider.value = value / (float)healthMax;
 	}
 	[Command]
 	public void CmdUpdateHealthValue(float newHealth) {
-		StartCoroutine(UpdateHealthValueCoroutine(newHealth));
-	}
-	IEnumerator UpdateHealthValueCoroutine(float newHealth) {
-		while (healthMax == 0) {
-			yield return 0;
-		}
 		if (newHealth > healthMax) {
 			newHealth = healthMax;
 		}
 		if (newHealth <= 0) {
 			player.deathCount++;
-			CmdPlayClip(gameObject, AudioClips.Destroyed);
+			CmdPlayClip(AudioClips.Destroyed);
 			//AudioManager.singleton.PlayClip(destroyedSound);
 			//syncTransform.CmdSetValues(new Vector3(0, -100, 0), Quaternion.identity);
 			RpcRespawn();
@@ -798,17 +788,17 @@ public class Robot : NetworkBehaviour {
 			effect.transform.position = position;
 			effect.transform.localScale = Vector3.one;
 			NetworkServer.Spawn(effect);
-            syncAnimator.CmdSetTrigger("Reaction");
+			syncAnimator.SetTrigger("Reaction");
 			if (!particle) {
-				CmdPlayClip(gameObject, AudioClips.Hit);
+				CmdPlayClip(AudioClips.Hit);
 			} else if (particle.name == fireParticle.name) {
-				CmdPlayClip(gameObject, AudioClips.Fire);
+				CmdPlayClip(AudioClips.Fire);
 			} else if (particle.name == iceParticle.name) {
-				CmdPlayClip(gameObject, AudioClips.Ice);
+				CmdPlayClip(AudioClips.Ice);
 			} else if (particle.name == lightningParticle.name) {
-				CmdPlayClip(gameObject, AudioClips.Lightning);
+				CmdPlayClip(AudioClips.Lightning);
 			} else if (particle.name == sonicParticle.name) {
-				CmdPlayClip(gameObject, AudioClips.Sonic);
+				CmdPlayClip(AudioClips.Sonic);
 			} else {
 				Debug.LogError("Sound not found for " + particle.name);
 			}
@@ -847,8 +837,10 @@ public class Robot : NetworkBehaviour {
 	float respawnWaiting;
 	[ClientRpc]
 	public void RpcRespawn() {
-		Debug.Log(player.name + " death position is " + transform.position);
-		StartCoroutine(RespawnCoroutine());
+		if (player) {
+			Debug.Log(player.name + " death position is " + transform.position);
+			StartCoroutine(RespawnCoroutine());
+		}
 	}
 	IEnumerator RespawnCoroutine() {
 		for (int i = 0; i < transform.childCount; i++) {
@@ -886,12 +878,12 @@ public class Robot : NetworkBehaviour {
 		for (int i = 0; i < transform.childCount; i++) {
 			transform.GetChild(i).gameObject.SetActive(true);
 		}
-		if (player.roundWinner >= 2) {
+		/*if (player.roundWinner >= 2) {
 			ionParticle.gameObject.SetActive(false);
 		} else {
 			bossParticlePlus.gameObject.SetActive(false);
 			bossParticleMinus.gameObject.SetActive(false);
-		}
+		}*/
 	}
 	/*[Command]
 	void CmdSpawn() {
@@ -1040,25 +1032,25 @@ public class Robot : NetworkBehaviour {
 				break;
 		}
 		if (particle.name == fireParticle.name) {
-			CmdPlayClip(gameObject, AudioClips.Fire);
+			CmdPlayClip(AudioClips.Fire);
 		} else if (particle.name == iceParticle.name) {
-			CmdPlayClip(gameObject, AudioClips.Ice);
+			CmdPlayClip(AudioClips.Ice);
 		} else if (particle.name == lightningParticle.name) {
-			CmdPlayClip(gameObject, AudioClips.Lightning);
+			CmdPlayClip(AudioClips.Lightning);
 		} else if (particle.name == sonicParticle.name) {
-			CmdPlayClip(gameObject, AudioClips.Sonic);
+			CmdPlayClip(AudioClips.Sonic);
 		}
 	}
 
 	[Command]
-	public void CmdPlayClip(GameObject robotGO, AudioClips clipIndex) {
-		RpcPlayClip(robotGO, clipIndex);
+	public void CmdPlayClip(AudioClips clipIndex) {
+		RpcPlayClip(clipIndex);
 	}
 	[ClientRpc]
-	public void RpcPlayClip(GameObject robotGO, AudioClips clipIndex) {
+	public void RpcPlayClip(AudioClips clipIndex) {
 		if (clips.Length > (int)clipIndex) {
-			robotGO.GetComponent<AudioSource>().clip = robotGO.GetComponent<Robot>().clips[(int)clipIndex];
-			robotGO.GetComponent<AudioSource>().Play();
+			GetComponent<AudioSource>().clip = clips[(int)clipIndex];
+			GetComponent<AudioSource>().Play();
 		}
 	}
 }

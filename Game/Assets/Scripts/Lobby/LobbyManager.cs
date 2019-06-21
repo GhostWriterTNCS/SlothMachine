@@ -265,8 +265,10 @@ namespace Prototype.NetworkLobby {
 				localPlayerCount += (p == null || p.playerControllerId == -1) ? 0 : 1;
 
 			// show button only on server
-			//Debug.Log(localPlayerCount + " " + _playerNumber);
-			MatchManager.singleton.playerCount = _playerNumber;
+			if (SceneManager.GetActiveScene().name == GameScenes.Lobby) {
+				Debug.Log("Player count: " + localPlayerCount + " " + _playerNumber);
+				MatchManager.singleton.playerCount = _playerNumber;
+			}
 			addPlayerButton.SetActive(NetworkServer.active && localPlayerCount < maxPlayersPerConnection && _playerNumber < maxPlayers);
 		}
 
@@ -413,16 +415,13 @@ namespace Prototype.NetworkLobby {
 			infoPanel.Display("Client error : " + (errorCode == 6 ? "timeout" : errorCode.ToString()), "Close", null);
 		}
 
-        public virtual void OnServerDisconnect(NetworkConnection conn)
-        {
-            //NetworkServer.DestroyPlayersForConnection(conn);
-            if (conn.lastError != NetworkError.Ok)
-            {
-                if (LogFilter.logError)
-                {
-                    Debug.LogError("ServerDisconnected due to error: " + conn.lastError);
-                }
-            }
-        }
-    }
+		public virtual void OnServerDisconnect(NetworkConnection conn) {
+			//NetworkServer.DestroyPlayersForConnection(conn);
+			if (conn.lastError != NetworkError.Ok) {
+				if (LogFilter.logError) {
+					Debug.LogError("ServerDisconnected due to error: " + conn.lastError);
+				}
+			}
+		}
+	}
 }
