@@ -235,9 +235,11 @@ public class Robot : NetworkBehaviour {
 					}
 				}
 			}
-			Transform spawn = FindObjectsOfType<SpawnPoint>()[player.playerID - 1].transform;
+			Transform spawn;
 			if (bossID > 0 && player.playerID > bossID) {
 				spawn = FindObjectsOfType<SpawnPoint>()[player.playerID - 2].transform;
+			} else {
+				spawn = FindObjectsOfType<SpawnPoint>()[player.playerID - 1].transform;
 			}
 			transform.position = spawn.position;
 			transform.rotation = spawn.rotation;
@@ -392,9 +394,6 @@ public class Robot : NetworkBehaviour {
 					syncAnimator.SetTrigger("Y");
 				}
 
-				syncAnimator.SetFloat("WalkH", playerMove.walkH);
-				syncAnimator.SetFloat("WalkV", playerMove.walkV);
-
 				if (Input.GetButton("LB") && !playerMove.isAttacking) {
 					SetShield(true);
 				} else if (robotModel.shield.activeSelf) {
@@ -453,6 +452,8 @@ public class Robot : NetworkBehaviour {
 					SetIon(0);
 				}
 			}
+			animator.SetFloat("WalkH", playerMove.walkH);
+			animator.SetFloat("WalkV", playerMove.walkV);
 		}
 	}
 	void OnDrawGizmos() {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-[NetworkSettings(channel = 2, sendInterval = 0.2f)]
+[NetworkSettings(channel = 2)]
 public class SyncTransform : NetworkBehaviour {
 	public float snapThreshold = 15;
 	public float sendRate = 0.2f;
