@@ -59,11 +59,10 @@ public class PlayerMove : NetworkBehaviour {
 					h = Input.GetAxis("Horizontal");
 					v = Input.GetAxis("Vertical");
 				}
-
-				// Rotate camera
-				if (canRotateCamera) {
-					rigidbody.MoveRotation(rigidbody.rotation * Quaternion.Euler(Vector3.up * Input.GetAxis("Camera Horizontal") * turnSpeed));
-				}
+			}
+			// Rotate camera
+			if (canRotateCamera) {
+				rigidbody.MoveRotation(rigidbody.rotation * Quaternion.Euler(Vector3.up * Input.GetAxis("Camera Horizontal") * turnSpeed));
 			}
 			if (h != walkH) {
 				CmdSetWalkH(h);
