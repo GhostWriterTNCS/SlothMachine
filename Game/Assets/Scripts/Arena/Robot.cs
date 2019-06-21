@@ -83,7 +83,7 @@ public class Robot : NetworkBehaviour {
 	public GameObject feetParticle;
 	public GameObject bodyParticle;
 	public int[] upgrades;
-	public bool isGuardOn;
+	//public bool isGuardOn;
 
 	[SyncVar(hook = "UpdateHealthSlider")]
 	public short health;
@@ -185,7 +185,7 @@ public class Robot : NetworkBehaviour {
 
 		leftHand.enabled = false;
 		rightHand.enabled = false;
-		isGuardOn = false;
+		robotModel.shield.SetActive(false);
 
 		marker = Instantiate(Resources.Load<GameObject>("Prefabs/Arena/Marker"), arenaManager.canvas.transform).GetComponent<Image>();
 		marker.enabled = false;
@@ -319,7 +319,6 @@ public class Robot : NetworkBehaviour {
 	float evadeCooldownTime = 0;
 	float lockCameraMaxDistance = 20;
 	RaycastHit hit;
-	//bool m_HitDetect;
 	bool upgradeWheelActive;
 	public Robot lockCameraRobot;
 	void Update() {
@@ -331,7 +330,7 @@ public class Robot : NetworkBehaviour {
 			return;
 		}
 		if (player.isAgent && Input.GetKeyDown(KeyCode.G)) {
-			CmdGuardOn();
+			SetShield(true);
 		}
 		playerMove.canMove = true;
 		if (comboScoreDuration > 0) {
@@ -397,9 +396,9 @@ public class Robot : NetworkBehaviour {
 				syncAnimator.SetFloat("WalkV", playerMove.walkV);
 
 				if (Input.GetButton("LB") && !playerMove.isAttacking) {
-					CmdGuardOn();
-				} else if (isGuardOn) {
-					CmdGuardOff();
+					SetShield(true);
+				} else if (robotModel.shield.activeSelf) {
+					SetShield(false);
 				}
 
 				if (upgradeWheel) {
@@ -458,21 +457,8 @@ public class Robot : NetworkBehaviour {
 	}
 	void OnDrawGizmos() {
 		Gizmos.color = Color.red;
-
-		//Check if there has been a hit yet
-		/*if (m_HitDetect) {
-			//Draw a Ray forward from GameObject toward the hit
-			Gizmos.DrawRay(transform.position, transform.forward * hit.distance);
-			//Draw a cube that extends to where the hit exists
-			Gizmos.DrawWireCube(transform.position + transform.forward * hit.distance, new Vector3(7, 7, 7));
-		}
-		//If there hasn't been a hit yet, draw the ray at the maximum distance
-		else {*/
-		//Draw a Ray forward from GameObject toward the maximum distance
 		Gizmos.DrawRay(transform.position, transform.forward * lockCameraMaxDistance);
-		//Draw a cube at the maximum distance
 		Gizmos.DrawWireSphere(transform.position + transform.forward * lockCameraMaxDistance, 5);
-		//}
 	}
 
 	short currentIon;
@@ -510,75 +496,20 @@ public class Robot : NetworkBehaviour {
 		}
 	}
 
-	[Command]
-	public void CmdGuardOn() {
-		RpcGuardOn();
-	}
-	[ClientRpc]
-	void RpcGuardOn() {
-		//CmdSetBool("LB", true);
-		isGuardOn = true;
-		//playerMove.moveSpeedMultiplier = 0.55f;
-		robotModel.shield.SetActive(true);
-	}
-	[Command]
-	public void CmdGuardOff() {
-		RpcGuardOff();
-	}
-	[ClientRpc]
-	void RpcGuardOff() {
-		//CmdSetBool("LB", false);
-		isGuardOn = false;
-		//playerMove.moveSpeedMultiplier = 1;
-		robotModel.shield.SetActive(false);
-	}
-
-	/*Dictionary<string, int> triggers = new Dictionary<string, int>();
-	[Command]
-	public void CmdSetTrigger(string trigger) {
-		RpcSetTrigger(trigger);
-	}
-	[ClientRpc]
-	public void RpcSetTrigger(string trigger) {
-		if (trigger != "B") {
-			playerMove.isAttacking = true;
-			CmdGuardOff();
-		}
-		animator.SetTrigger(trigger);
-		string triggerID = trigger;
-		if (!triggers.ContainsKey(trigger)) {
-			triggers.Add(trigger, 1);
-		} else {
-			triggers[trigger] += 1;
-		}
-		StartCoroutine(DelayCall(() => ResetTrigger(triggerID), comboDelay));
-	}
-	void ResetTrigger(string trigger) {
-		triggers[trigger] -= 1;
-		if (triggers[trigger] == 0) {
-			animator.ResetTrigger(trigger);
+	public void SetShield(bool value) {
+		if (robotModel.shield.activeSelf != value) {
+			CmdSetShield(value);
 		}
 	}
-
 	[Command]
-	public void CmdSetFloat(string id, float value) {
-		RpcSetFloat(id, value);
+	void CmdSetShield(bool value) {
+		RpcSetShield(value);
 	}
 	[ClientRpc]
-	public void RpcSetFloat(string id, float value) {
-		animator.SetFloat(id, value);
+	void RpcSetShield(bool value) {
+		//isGuardOn = value;
+		robotModel.shield.SetActive(value);
 	}
-
-	[Command]
-	public void CmdSetBool(string id, bool value) {
-		RpcSetBool(id, value);
-	}
-	[ClientRpc]
-	public void RpcSetBool(string id, bool value) {
-		if (animator) {
-			animator.SetBool(id, value);
-		}
-	}*/
 
 	[SyncVar]
 	short comboScore;
@@ -780,7 +711,7 @@ public class Robot : NetworkBehaviour {
 				return;
 			}
 		}
-		if (!isGuardOn || hitter.breakGuard || hitter.player.roundWinner >= 2 ||
+		if (!robotModel.shield.activeSelf || hitter.breakGuard || hitter.player.roundWinner >= 2 ||
 			ionParticle.GetComponent<Renderer>().material.name.StartsWith(ionNull.name) && !hitter.ionParticle.GetComponent<Renderer>().material.name.StartsWith(ionNull.name) ||
 			ionParticle.GetComponent<Renderer>().material.name.StartsWith(ionPlus.name) && hitter.ionParticle.GetComponent<Renderer>().material.name.StartsWith(ionMinus.name) ||
 			ionParticle.GetComponent<Renderer>().material.name.StartsWith(ionMinus.name) && hitter.ionParticle.GetComponent<Renderer>().material.name.StartsWith(ionPlus.name)) {
@@ -817,8 +748,8 @@ public class Robot : NetworkBehaviour {
 			hitter.player.scraps += 3;
 			Debug.Log(hitter.player.name + " current combo score: " + hitter.comboScore);
 			//hitter.player.score += (short)hitter.comboScore;
-			hitter.roundScore += (short)hitter.comboScore;
-			CmdGuardOff();
+			hitter.roundScore += hitter.comboScore;
+			SetShield(false);
 			CmdDisableCollider(true, true, true, true, true);
 		}
 	}
@@ -834,7 +765,6 @@ public class Robot : NetworkBehaviour {
 		}
 	}
 
-	float respawnWaiting;
 	[ClientRpc]
 	public void RpcRespawn() {
 		if (player) {
@@ -842,6 +772,7 @@ public class Robot : NetworkBehaviour {
 			StartCoroutine(RespawnCoroutine());
 		}
 	}
+	float respawnWaiting;
 	IEnumerator RespawnCoroutine() {
 		for (int i = 0; i < transform.childCount; i++) {
 			if (transform.GetChild(i).gameObject != keepOnRespawn) {

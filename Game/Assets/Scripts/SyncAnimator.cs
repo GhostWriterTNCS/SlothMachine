@@ -29,7 +29,7 @@ public class SyncAnimator : NetworkBehaviour {
 		if (robot) {
 			if (id != "B") {
 				robot.playerMove.isAttacking = true;
-				robot.CmdGuardOff();
+				robot.SetShield(false);
 			}
 			if (animator)
 				animator.SetTrigger(id);
