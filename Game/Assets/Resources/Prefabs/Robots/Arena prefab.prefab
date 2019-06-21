@@ -4832,7 +4832,6 @@ MonoBehaviour:
   feetParticle: {fileID: 0}
   bodyParticle: {fileID: 0}
   upgrades: 
-  isGuardOn: 0
   health: 0
   healthMax: 0
   attack: 0
@@ -4841,6 +4840,9 @@ MonoBehaviour:
   roundScore: 0
   paused: 0
   robotModel: {fileID: 0}
+  animator: {fileID: 0}
+  playerMove: {fileID: 0}
+  syncAnimator: {fileID: 0}
   lockCameraRobot: {fileID: 0}
 --- !u!114 &4381043123533344500
 MonoBehaviour:
@@ -5051,9 +5053,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d06775d5da456b54d9d4a3e1167ac72b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transitionSpeed: 5
   snapThreshold: 15
-  sendRate: 0.2
+  sendRate: 0.5
   position: {x: 0, y: 0, z: 0}
   rotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &4482524086478588986
