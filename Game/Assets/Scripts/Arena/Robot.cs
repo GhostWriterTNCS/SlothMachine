@@ -519,10 +519,10 @@ public class Robot : NetworkBehaviour {
 	[Command]
 	public void CmdIncreaseComboScore() {
 		comboScore = (short)(comboScore * 1.5f);
-		if (comboScore > 10) {
-			comboScore = 10;
+		if (comboScore > 6) {
+			comboScore = 6;
 		}
-		comboScoreDuration = 1;
+		comboScoreDuration = comboDelay;
 	}
 	[Command]
 	public void CmdResetComboScore() {

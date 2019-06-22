@@ -132,14 +132,25 @@ public class NetworkArenaManager : NetworkBehaviour {
 				}
 			}
 		} else if (s == arenaManager.youWin) {
+			Player boss = null;
 			foreach (Player player in FindObjectsOfType<Player>()) {
-				if (player.robot.isLocalPlayer) {
+				if (player.roundWinner >= 2) {
+					boss = player;
+				}
+				/*if (player.robot.isLocalPlayer && !player.isAgent) {
 					if (player.robot.health <= 0) {
 						s = arenaManager.youLost;
 					} else if (player.roundWinner < 2) {
 						s = arenaManager.bossDefeated;
 					}
 					break;
+				}*/
+			}
+			if (!boss.robot.isLocalPlayer) {
+				if (boss.robot.health >= 0) {
+					s = arenaManager.youLost;
+				} else {
+					s = arenaManager.bossDefeated;
 				}
 			}
 		}
@@ -162,19 +173,17 @@ public class NetworkArenaManager : NetworkBehaviour {
 
 	IEnumerator SpawnWormCoroutine(Vector3 pos) {
 		yield return new WaitForSeconds(2);
-        // hide dust
-        //wormHitbox.position = new Vector3(0, -50, 0);
+		// hide dust
+		//wormHitbox.position = new Vector3(0, -50, 0);
 
-        // spawn the worm
-        try
-        {
-            GameObject worm = Instantiate(Resources.Load<GameObject>("Prefabs/Arena/Worm") /*FindObjectOfType<WormDecisionTree>().wormPrefab*/, pos, Quaternion.identity);
-            //NetworkServer.Spawn(worm);
-            worm.GetComponent<Rigidbody>().AddForce(0, 50, 0);
-        } catch(Exception ex)
-        {
-            Debug.LogError(ex.Message);
-        }
+		// spawn the worm
+		try {
+			GameObject worm = Instantiate(Resources.Load<GameObject>("Prefabs/Arena/Worm") /*FindObjectOfType<WormDecisionTree>().wormPrefab*/, pos, Quaternion.identity);
+			//NetworkServer.Spawn(worm);
+			worm.GetComponent<Rigidbody>().AddForce(0, 50, 0);
+		} catch (Exception ex) {
+			Debug.LogError(ex.Message);
+		}
 		//yield return new WaitForSeconds(3);
 
 		// reposition the dust
