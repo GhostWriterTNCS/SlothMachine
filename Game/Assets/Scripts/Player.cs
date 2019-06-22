@@ -91,12 +91,12 @@ public class Player : NetworkBehaviour {
 				GameObject NAM = Instantiate(networkAuctionManager);
 				NetworkServer.Spawn(NAM);
 			}
-		} else if (SceneManager.GetActiveScene().name == GameScenes.MatchResult) {
+		} /*else if (SceneManager.GetActiveScene().name == GameScenes.MatchResult) {
 			GameObject newPlayer = Instantiate(matchResultPrefab);
 			PlayerResult res = newPlayer.GetComponent<PlayerResult>();
 			res.playerGO = gameObject;
 			NetworkServer.Spawn(newPlayer);
-		}
+		}*/
 	}
 
 	[Command]
