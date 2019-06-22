@@ -140,6 +140,7 @@ public class Robot : NetworkBehaviour {
 				syncTransform.EnableSetValues(true);
 			}
 		}
+		roundScore = 0;
 
 		GameObject model = Instantiate(Resources.Load<GameObject>("Prefabs/Robots/" + player.robotName + "/" + player.robotName), transform);
 		robotModel = model.GetComponent<RobotModel>();
