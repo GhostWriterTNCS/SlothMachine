@@ -2239,7 +2239,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: XXX
-  m_Speed: 1.2
+  m_Speed: 1.15
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101995672140326824}
@@ -2507,7 +2507,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: X
-  m_Speed: 1.4
+  m_Speed: 1.35
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101654399713926240}
@@ -2686,7 +2686,7 @@ AnimatorStateMachine:
     m_Position: {x: 996, y: 36, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102622116531274514}
-    m_Position: {x: 996, y: -60, z: 0}
+    m_Position: {x: 996, y: -72, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102318892108220264}
     m_Position: {x: -48, y: 36, z: 0}
