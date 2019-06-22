@@ -360,10 +360,10 @@ Transform:
   - {fileID: 553759486447433183}
   - {fileID: 8072995773751093882}
   - {fileID: 8739476596263985758}
-  - {fileID: 2579903962785189036}
-  - {fileID: 114277344689233244}
-  - {fileID: 9145014315278211479}
-  - {fileID: 4645804133020251976}
+  - {fileID: 2468945686151745113}
+  - {fileID: 7638697058131881}
+  - {fileID: 9180381030079847266}
+  - {fileID: 4753527175604827581}
   m_Father: {fileID: 8411238131285222537}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -393,7 +393,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2747792394393881844}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 54, y: 0, z: 95}
+  m_LocalPosition: {x: 40.8, y: 0, z: 108.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8411238131285222537}
@@ -411,9 +411,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4ebe22caea43f84f9c73bd201f384ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  penguin: {fileID: 3348497873896043762, guid: 00d05be7253fc8242bd48892e5513b54, type: 3}
   radius: 15
   count: 7
-  penguin: {fileID: 3348497873896043762, guid: 00d05be7253fc8242bd48892e5513b54, type: 3}
+  jumpForce: 460
 --- !u!114 &5347687494385789782
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -460,7 +461,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4329497109369489844}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 95, y: 0, z: 52}
+  m_LocalPosition: {x: 111.7, y: 0, z: 38.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8411238131285222537}
@@ -478,9 +479,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4ebe22caea43f84f9c73bd201f384ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  penguin: {fileID: 3348497873896043762, guid: 00d05be7253fc8242bd48892e5513b54, type: 3}
   radius: 15
   count: 8
-  penguin: {fileID: 3348497873896043762, guid: 00d05be7253fc8242bd48892e5513b54, type: 3}
+  jumpForce: 460
 --- !u!114 &9201174885818781789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -630,6 +632,63 @@ MonoBehaviour:
   m_Script: {fileID: -1050975500, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &6158391358323877096
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3427388504845626531}
+  - component: {fileID: 3756577344390886332}
+  - component: {fileID: 3275823546181727419}
+  m_Layer: 0
+  m_Name: Penguins destroyer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3427388504845626531
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6158391358323877096}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 78, y: -34.1, z: 76}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8411238131285222537}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &3756577344390886332
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6158391358323877096}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 300, y: 10, z: 300}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3275823546181727419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6158391358323877096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa98aab2f5ba0844e9b803c43d7c0019, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6473611815099381824
 GameObject:
   m_ObjectHideFlags: 0
@@ -663,7 +722,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1330381548836948878}
-  - {fileID: 1628749029811772637}
+  - {fileID: 186498342943006786}
   - {fileID: 5113156664295169802}
   - {fileID: 2798240787866736482}
   - {fileID: 7041104679690689142}
@@ -671,6 +730,7 @@ Transform:
   - {fileID: 2641500932200629891}
   - {fileID: 5841386608100035486}
   - {fileID: 2951708039128822912}
+  - {fileID: 3427388504845626531}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -763,6 +823,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78c96eca6e2e82843882f1b41ece5666, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnInterval: 20
   penguinsSpawner: []
 --- !u!114 &4934229935932162988
 MonoBehaviour:
@@ -846,7 +907,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8598758510786979907}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 98, y: 0, z: 77}
+  m_LocalPosition: {x: 123.1, y: 0, z: 71.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8411238131285222537}
@@ -864,9 +925,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4ebe22caea43f84f9c73bd201f384ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  penguin: {fileID: 3348497873896043762, guid: 00d05be7253fc8242bd48892e5513b54, type: 3}
   radius: 15
   count: 8
-  penguin: {fileID: 3348497873896043762, guid: 00d05be7253fc8242bd48892e5513b54, type: 3}
+  jumpForce: 460
 --- !u!114 &6903867135741684080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -956,7 +1018,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8874805016624188075}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 86, y: 0, z: 96}
+  m_LocalPosition: {x: 102.8, y: 0, z: 119.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8411238131285222537}
@@ -974,9 +1036,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4ebe22caea43f84f9c73bd201f384ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  penguin: {fileID: 3348497873896043762, guid: 00d05be7253fc8242bd48892e5513b54, type: 3}
   radius: 15
   count: 7
-  penguin: {fileID: 3348497873896043762, guid: 00d05be7253fc8242bd48892e5513b54, type: 3}
+  jumpForce: 460
 --- !u!114 &1341523246402105278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1066,7 +1129,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 892aa7c46aceddb40a92f9e9ef1a2c6c, type: 3}
---- !u!4 &114277344689233244 stripped
+--- !u!4 &7638697058131881 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 112271104271228248, guid: 892aa7c46aceddb40a92f9e9ef1a2c6c,
     type: 3}
@@ -1141,7 +1204,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3cbfc28cf6113564d8556798c206a7f5, type: 3}
---- !u!4 &1628749029811772637 stripped
+--- !u!4 &186498342943006786 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1444786719305103310, guid: 3cbfc28cf6113564d8556798c206a7f5,
     type: 3}
@@ -1216,7 +1279,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 892aa7c46aceddb40a92f9e9ef1a2c6c, type: 3}
---- !u!4 &2579903962785189036 stripped
+--- !u!4 &2468945686151745113 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 112271104271228248, guid: 892aa7c46aceddb40a92f9e9ef1a2c6c,
     type: 3}
@@ -1291,7 +1354,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 892aa7c46aceddb40a92f9e9ef1a2c6c, type: 3}
---- !u!4 &4645804133020251976 stripped
+--- !u!4 &4753527175604827581 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 112271104271228248, guid: 892aa7c46aceddb40a92f9e9ef1a2c6c,
     type: 3}
@@ -1366,7 +1429,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 892aa7c46aceddb40a92f9e9ef1a2c6c, type: 3}
---- !u!4 &9145014315278211479 stripped
+--- !u!4 &9180381030079847266 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 112271104271228248, guid: 892aa7c46aceddb40a92f9e9ef1a2c6c,
     type: 3}

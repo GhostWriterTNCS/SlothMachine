@@ -4,10 +4,11 @@ using UnityEngine;
 
 
 public class ActivePenguinsSpawners : MonoBehaviour {
-	private float timerArena;
-	private int spawnTime;
-	public List<PenguinsSpawner> penguinsSpawner;
-	// Start is called before the first frame update
+	public int spawnInterval = 20;
+
+	int spawnTime;
+	List<PenguinsSpawner> penguinsSpawner = new List<PenguinsSpawner>();
+
 	void Start() {
 		foreach (PenguinsSpawner ps in FindObjectsOfType<PenguinsSpawner>()) {
 			penguinsSpawner.Add(ps);
@@ -19,24 +20,13 @@ public class ActivePenguinsSpawners : MonoBehaviour {
 
 	}
 
-
-
-
-	// Update is called once per frame
 	IEnumerator TimeController() {
-#if UNITY_EDITOR
-		NetworkArenaManager NAM = FindObjectOfType<NetworkArenaManager>();
-		while (NAM.roundDuration >= spawnTime) {
-			yield return new WaitForSeconds(1);
-		}
-#else
-			yield return new WaitForSeconds(spawnTime);
-#endif
+		yield return new WaitForSeconds(spawnTime);
 		while (true) {
 			foreach (PenguinsSpawner ps in penguinsSpawner) {
 				ps.spwanPenguins();
 			}
-			yield return new WaitForSeconds(20);
+			yield return new WaitForSeconds(spawnInterval);
 		}
 
 	}
