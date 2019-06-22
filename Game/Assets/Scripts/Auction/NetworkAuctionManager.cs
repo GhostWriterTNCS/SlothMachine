@@ -57,31 +57,31 @@ public class NetworkAuctionManager : NetworkBehaviour {
 	[SyncVar]
 	byte currentUpgrade = 0;
 	bool isUpgradeLost;
-	List<UpgradeBox> upgrades = new List<UpgradeBox>();
 	List<Pair> usedUpgradesTemp = new List<Pair>();
+	public List<UpgradeBox> upgrades = new List<UpgradeBox>();
+	public SyncListInt auctionUpgrades = new SyncListInt();
+
 	AuctionManager auctionManager;
-	SyncListInt usedUpgrades = new SyncListInt();
 
 	void Start() {
 		auctionManager = FindObjectOfType<AuctionManager>();
-		if (auctionManager.networkAuctionManager) {
+		/*if (auctionManager.networkAuctionManager) {
 			Destroy(gameObject);
 			return;
-		}
+		}*/
 		auctionManager.networkAuctionManager = this;
-		auctionManager.scrapsInput.SetActive(true);
+		/*auctionManager.scrapsInput.SetActive(true);
 		auctionManager.scrapsWait.SetActive(false);
 		auctionManager.scrapsList.SetActive(false);
 		auctionManager.introPanel.SetActive(true);
-		auctionManager.auctionPanel.SetActive(false);
+		auctionManager.auctionPanel.SetActive(false);*/
+		CmdLoad();
 	}
 
 	[Command]
-	public void CmdLoad() {
+	void CmdLoad() {
 		Debug.Log("Player count: " + MatchManager.singleton.playerCount);
 		for (int i = 0; i < MatchManager.singleton.playerCount; i++) {
-			GameObject upgradeBox = Instantiate(upgradeBoxPrefab);
-			UpgradeBox ub = upgradeBox.GetComponent<UpgradeBox>();
 			int upgrade, level;
 			if (i < MatchManager.singleton.playerCount / 2) {
 				level = MatchManager.singleton.roundCounter < 2 ? 2 : 3;
@@ -92,20 +92,10 @@ public class NetworkAuctionManager : NetworkBehaviour {
 				upgrade = Random.Range(1, Upgrades.permanent[level].Length);
 			} while (usedUpgradesTemp.Contains(new Pair(level, upgrade)));
 			usedUpgradesTemp.Add(new Pair(level, upgrade));
-			usedUpgrades.Add(level);
-			usedUpgrades.Add(upgrade);
-			ub.ID = (byte)upgrade;
-			ub.level = (byte)level;
-			ub.selected = (i == 0);
-			upgrades.Add(ub); NetworkServer.Spawn(upgradeBox);
-
-			GameObject upgradeBoxWithDesc = Instantiate(upgradeBoxWithDescPrefab);
-			ub = upgradeBoxWithDesc.GetComponent<UpgradeBox>();
-			ub.ID = (byte)upgrade;
-			ub.level = (byte)level;
-			ub.isIntro = true;
-			NetworkServer.Spawn(upgradeBoxWithDesc);
+			auctionUpgrades.Add(level);
+			auctionUpgrades.Add(upgrade);
 		}
+		//RpcCreateUpgradeBoxes();
 
 		//RpcSetHeader(introText);
 		currentTitle = introText;
@@ -116,23 +106,52 @@ public class NetworkAuctionManager : NetworkBehaviour {
 	}
 
 	/*[ClientRpc]
+	void RpcCreateUpgradeBoxes() {
+		StartCoroutine(CreateUpgradeBoxesCoroutine());
+	}
+	IEnumerator CreateUpgradeBoxesCoroutine() {
+		while (auctionUpgrades.Count < MatchManager.singleton.playerCount * 2) {
+			yield return 0;
+		}
+		for (int i = 0; i < MatchManager.singleton.playerCount; i++) {
+			byte level = (byte)auctionUpgrades[i * 2];
+			byte upgrade = (byte)auctionUpgrades[i * 2 + 1];
+
+			GameObject upgradeBox = Instantiate(upgradeBoxPrefab);
+			UpgradeBox ub = upgradeBox.GetComponent<UpgradeBox>();
+			ub.level = level;
+			ub.ID = upgrade;
+			ub.selected = (i == 0);
+			if (isServer) {
+				upgrades.Add(ub);
+			}
+
+			GameObject upgradeBoxWithDesc = Instantiate(upgradeBoxWithDescPrefab);
+			ub = upgradeBoxWithDesc.GetComponent<UpgradeBox>();
+			ub.level = level;
+			ub.ID = upgrade;
+			ub.isIntro = true;
+		}
+	}*/
+
+	/*[ClientRpc]
 	public void RpcSetHeader(string s) {
 		FindObjectOfType<AuctionManager>().header.text = s;
 	}*/
 
 	[ClientRpc]
-	public void RpcShowAuctionPanel() {
+	void RpcShowAuctionPanel() {
 		FindObjectOfType<AuctionManager>().introPanel.SetActive(false);
 		FindObjectOfType<AuctionManager>().auctionPanel.SetActive(true);
 	}
 
 	[ClientRpc]
-	public void RpcUpgradeBoxSetParent(GameObject go) {
+	void RpcUpgradeBoxSetParent(GameObject go) {
 		go.transform.SetParent(FindObjectOfType<AuctionManager>().upgradesList.transform);
 	}
 
 	[ClientRpc]
-	public void RpcCountdownFinished() {
+	void RpcCountdownFinished() {
 		FindObjectOfType<AuctionManager>().scrapsInput.GetComponent<ScrapsInput>().SendBidValue();
 		FindObjectOfType<AuctionManager>().scrapsInput.SetActive(false);
 		FindObjectOfType<AuctionManager>().scrapsWait.SetActive(true);
@@ -140,14 +159,14 @@ public class NetworkAuctionManager : NetworkBehaviour {
 	}
 
 	[ClientRpc]
-	public void RpcUpdateResults() {
+	void RpcUpdateResults() {
 		FindObjectOfType<AuctionManager>().UpdateResults();
 		FindObjectOfType<AuctionManager>().scrapsWait.SetActive(false);
 		FindObjectOfType<AuctionManager>().scrapsList.SetActive(true);
 	}
 
 	[ClientRpc]
-	public void RpcPauseFinished() {
+	void RpcPauseFinished() {
 		Player player = null;
 		foreach (AuctionPlayer ap in FindObjectsOfType<AuctionPlayer>()) {
 			if (ap.GetComponent<NetworkIdentity>().isLocalPlayer) {
@@ -213,7 +232,7 @@ public class NetworkAuctionManager : NetworkBehaviour {
 		if (auctionWinner) {
 			AuctionPlayer playerBox = auctionWinner.GetComponent<AuctionPlayer>();
 			playerBox.player.scraps -= playerBox.bid;
-			auctionWinner.GetComponent<AuctionPlayer>().player.CmdAddPermanentUpgrade(usedUpgrades[currentUpgrade * 2], usedUpgrades[currentUpgrade * 2 + 1]);
+			auctionWinner.GetComponent<AuctionPlayer>().player.CmdAddPermanentUpgrade(auctionUpgrades[currentUpgrade * 2], auctionUpgrades[currentUpgrade * 2 + 1]);
 			//RpcSetHeader(pauseText.Replace("#", auctionWinner.GetComponent<AuctionPlayer>().player.name));
 			currentTitle = pauseText.Replace("#", auctionWinner.GetComponent<AuctionPlayer>().player.name);
 		} else {

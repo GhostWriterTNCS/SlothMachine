@@ -90,7 +90,6 @@ public class Player : NetworkBehaviour {
 			if (!FindObjectOfType<NetworkAuctionManager>()) {
 				GameObject NAM = Instantiate(networkAuctionManager);
 				NetworkServer.Spawn(NAM);
-				NAM.GetComponent<NetworkAuctionManager>().CmdLoad();
 			}
 		} else if (SceneManager.GetActiveScene().name == GameScenes.MatchResult) {
 			GameObject newPlayer = Instantiate(matchResultPrefab);

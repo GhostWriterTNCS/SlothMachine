@@ -14,6 +14,37 @@ public class AuctionManager : MonoBehaviour {
 	public UpgradeBox currentUpgrade;
 	public NetworkAuctionManager networkAuctionManager;
 
+	void Start() {
+		StartCoroutine(CreateUpgradeBoxesCoroutine());
+	}
+	IEnumerator CreateUpgradeBoxesCoroutine() {
+		while (!networkAuctionManager) {
+			yield return 0;
+		}
+		while (networkAuctionManager.auctionUpgrades.Count < MatchManager.singleton.playerCount * 2) {
+			yield return 0;
+		}
+		for (int i = 0; i < MatchManager.singleton.playerCount; i++) {
+			byte level = (byte)networkAuctionManager.auctionUpgrades[i * 2];
+			byte upgrade = (byte)networkAuctionManager.auctionUpgrades[i * 2 + 1];
+
+			GameObject upgradeBox = Instantiate(networkAuctionManager.upgradeBoxPrefab);
+			UpgradeBox ub = upgradeBox.GetComponent<UpgradeBox>();
+			ub.level = level;
+			ub.ID = upgrade;
+			ub.selected = (i == 0);
+			if (networkAuctionManager.isServer) {
+				networkAuctionManager.upgrades.Add(ub);
+			}
+
+			GameObject upgradeBoxWithDesc = Instantiate(networkAuctionManager.upgradeBoxWithDescPrefab);
+			ub = upgradeBoxWithDesc.GetComponent<UpgradeBox>();
+			ub.level = level;
+			ub.ID = upgrade;
+			ub.isIntro = true;
+		}
+	}
+
 	void Update() {
 		if (networkAuctionManager) {
 			header.text = networkAuctionManager.currentTitle;
