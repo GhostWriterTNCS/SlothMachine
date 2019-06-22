@@ -706,11 +706,9 @@ public class Robot : NetworkBehaviour {
 	public void CmdGetHitted(GameObject hitterGO, Vector3 position, GameObject particle) {
 		Robot hitter = hitterGO.GetComponent<Robot>();
 		Debug.Log(hitter.name + " hits " + name + " " + hitter.pushBack);
-		if (MatchManager.singleton.bossRound) {
-			// avoid "friendly fire" in boss round
-			if (player.roundWinner < 2 && hitter.player.roundWinner < 2) {
-				return;
-			}
+		// avoid "friendly fire" in boss round
+		if (MatchManager.singleton.bossRound && player.roundWinner < 2 && hitter.player.roundWinner < 2) {
+			return;
 		}
 		if (!robotModel.shield.activeSelf || hitter.breakGuard || hitter.player.roundWinner >= 2 ||
 			ionParticle.GetComponent<Renderer>().material.name.StartsWith(ionNull.name) && !hitter.ionParticle.GetComponent<Renderer>().material.name.StartsWith(ionNull.name) ||
