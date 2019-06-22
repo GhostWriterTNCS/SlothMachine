@@ -65,16 +65,7 @@ public class NetworkAuctionManager : NetworkBehaviour {
 
 	void Start() {
 		auctionManager = FindObjectOfType<AuctionManager>();
-		/*if (auctionManager.networkAuctionManager) {
-			Destroy(gameObject);
-			return;
-		}*/
 		auctionManager.networkAuctionManager = this;
-		/*auctionManager.scrapsInput.SetActive(true);
-		auctionManager.scrapsWait.SetActive(false);
-		auctionManager.scrapsList.SetActive(false);
-		auctionManager.introPanel.SetActive(true);
-		auctionManager.auctionPanel.SetActive(false);*/
 		CmdLoad();
 	}
 
