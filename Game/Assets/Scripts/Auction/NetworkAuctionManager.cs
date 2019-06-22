@@ -165,6 +165,10 @@ public class NetworkAuctionManager : NetworkBehaviour {
 				break;
 			}
 		}
+		for (int i = 0; i < upgrades.Count; i++) {
+			upgrades[i].selected = (i == currentUpgrade);
+			upgrades[i].isUpdated = true;
+		}
 		FindObjectOfType<AuctionManager>().scrapsInput.SetActive(!player.upgradeAssigned);
 		FindObjectOfType<AuctionManager>().scrapsWait.SetActive(player.upgradeAssigned);
 		FindObjectOfType<AuctionManager>().scrapsList.SetActive(false);
@@ -233,10 +237,6 @@ public class NetworkAuctionManager : NetworkBehaviour {
 		}
 
 		currentUpgrade++;
-		for (int i = 0; i < upgrades.Count; i++) {
-			upgrades[i].selected = (i == currentUpgrade);
-			upgrades[i].isUpdated = true;
-		}
 		while (currentPause > 0) {
 			currentPause -= Time.deltaTime;
 			yield return 0;

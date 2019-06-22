@@ -35,9 +35,7 @@ public class AuctionManager : MonoBehaviour {
 			ub.level = level;
 			ub.ID = upgrade;
 			ub.selected = (i == 0);
-			if (networkAuctionManager.isServer) {
-				networkAuctionManager.upgrades.Add(ub);
-			}
+			networkAuctionManager.upgrades.Add(ub);
 
 			GameObject upgradeBoxWithDesc = Instantiate(networkAuctionManager.upgradeBoxWithDescPrefab);
 			ub = upgradeBoxWithDesc.GetComponent<UpgradeBox>();
