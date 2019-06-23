@@ -121,9 +121,6 @@ public class Player : NetworkBehaviour {
 			Upgrades.permanent[upgrades[type].value1][upgrades[type].value2].OnRemove(robot);
 		}
 		upgrades[type] = null;
-		/*if (upgrades.Contains(new Pair(level, ID))) {
-			upgrades.Remove(new Pair(level, ID));
-		}*/
 	}
 
 	private void OnDisconnectedFromServer(NetworkIdentity info) {

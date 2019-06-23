@@ -4858,7 +4858,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 9.3
   inCombatRange: 9
-  inCombatSpeedAdjust: 0.4
+  inCombatSpeedAdjust: 0.5
   lockCameraRangeAdjust: 9
   attackingSpeedAdjust: 0.2
   turnSpeed: 5.4

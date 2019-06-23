@@ -128,6 +128,9 @@ public class Robot : NetworkBehaviour {
 		player = playerGO.GetComponent<Player>();
 		player.robot = this;
 		transform.SetParent(player.transform);
+		while (!FindObjectOfType<ArenaManager>()) {
+			yield return 0;
+		}
 		arenaManager = FindObjectOfType<ArenaManager>();
 		syncTransform = GetComponent<SyncTransform>();
 		syncAnimator = GetComponent<SyncAnimator>();
@@ -289,10 +292,14 @@ public class Robot : NetworkBehaviour {
 	[Command]
 	public void CmdMountUpgrades() {
 		Debug.Log(player.name + " has " + player.upgrades.Length + " upgrades.");
+		MountUpgrades();
 		RpcMountUpgrades();
 	}
 	[ClientRpc]
 	void RpcMountUpgrades() {
+		MountUpgrades();
+	}
+	void MountUpgrades() {
 		foreach (Pair p in player.upgrades) {
 			if (p) {
 				Debug.Log(player.name + " mounts " + p.value1 + "_" + p.value2);
@@ -809,28 +816,7 @@ public class Robot : NetworkBehaviour {
 		for (int i = 0; i < transform.childCount; i++) {
 			transform.GetChild(i).gameObject.SetActive(true);
 		}
-		/*if (player.roundWinner >= 2) {
-			ionParticle.gameObject.SetActive(false);
-		} else {
-			bossParticlePlus.gameObject.SetActive(false);
-			bossParticleMinus.gameObject.SetActive(false);
-		}*/
 	}
-	/*[Command]
-	void CmdSpawn() {
-		List<SpawnPoint> spawns = FindObjectsOfType<SpawnPoint>().OrderBy(a => Guid.NewGuid()).ToList();
-		for (int i = 0; i < spawns.Count; i++) {
-			if (spawns[i].IsFree() || i == spawns.Count - 1) {
-				transform.position = spawns[i].transform.position;
-				transform.rotation = spawns[i].transform.rotation;
-				rigidbody.velocity = Vector3.zero;
-				syncTransform.CmdSetValues(transform.position, transform.rotation);
-				syncTransform.respawn = true;
-				Debug.Log(player.name + " spawn at " + transform.position);
-				break;
-			}
-		}
-	}*/
 
 	[Command]
 	public void CmdSetPaused(GameObject robot, bool value) {
