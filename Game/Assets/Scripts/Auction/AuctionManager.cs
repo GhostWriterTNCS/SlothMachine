@@ -18,13 +18,15 @@ public class AuctionManager : MonoBehaviour {
 		StartCoroutine(CreateUpgradeBoxesCoroutine());
 	}
 	IEnumerator CreateUpgradeBoxesCoroutine() {
+		Debug.Log("There are " + MatchManager.singleton.playerCount + " players.");
 		while (!networkAuctionManager) {
 			yield return 0;
 		}
 		while (networkAuctionManager.auctionUpgrades.Count < MatchManager.singleton.playerCount * 2) {
+			Debug.Log("Waiting for upgrades: " + networkAuctionManager.auctionUpgrades.Count + "/" + MatchManager.singleton.playerCount * 2);
 			yield return 0;
 		}
-		for (int i = 0; i < MatchManager.singleton.playerCount; i++) {
+		for (int i = 0; i < networkAuctionManager.auctionUpgrades.Count / 2; i++) {
 			byte level = (byte)networkAuctionManager.auctionUpgrades[i * 2];
 			byte upgrade = (byte)networkAuctionManager.auctionUpgrades[i * 2 + 1];
 
@@ -33,9 +35,7 @@ public class AuctionManager : MonoBehaviour {
 			ub.level = level;
 			ub.ID = upgrade;
 			ub.selected = (i == 0);
-			if (networkAuctionManager.isServer) {
-				networkAuctionManager.upgrades.Add(ub);
-			}
+			networkAuctionManager.upgrades.Add(ub);
 
 			GameObject upgradeBoxWithDesc = Instantiate(networkAuctionManager.upgradeBoxWithDescPrefab);
 			ub = upgradeBoxWithDesc.GetComponent<UpgradeBox>();

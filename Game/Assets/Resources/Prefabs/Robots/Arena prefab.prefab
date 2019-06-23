@@ -4792,7 +4792,7 @@ MonoBehaviour:
   evadeDuration: 0.7
   evadeDistance: 0.25
   evadeCooldown: 3
-  comboDelay: 1
+  comboDelay: 1.5
   holdMinDuration: 0.76
   pushBackPower: 360
   baseMass: 50
@@ -5054,7 +5054,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   snapThreshold: 15
-  sendRate: 0.5
   position: {x: 0, y: 0, z: 0}
   rotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &4482524086478588986

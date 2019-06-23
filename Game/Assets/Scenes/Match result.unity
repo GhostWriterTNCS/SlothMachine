@@ -143,6 +143,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   container: {fileID: 872974896}
   backToStart: {fileID: 809250382}
+  matchResultPrefab: {fileID: 916769700366191920, guid: 495091cae3b06b240b5e534aac2a9bf6,
+    type: 3}
 --- !u!4 &119746473
 Transform:
   m_ObjectHideFlags: 0

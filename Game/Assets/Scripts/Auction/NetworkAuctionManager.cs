@@ -8,10 +8,6 @@ public class Pair {
 	public int value1;
 	public int value2;
 
-	public Pair() {
-		value1 = 0;
-		value2 = 0;
-	}
 	public Pair(int v1, int v2) {
 		value1 = v1;
 		value2 = v2;
@@ -73,16 +69,7 @@ public class NetworkAuctionManager : NetworkBehaviour {
 
 	void Start() {
 		auctionManager = FindObjectOfType<AuctionManager>();
-		/*if (auctionManager.networkAuctionManager) {
-			Destroy(gameObject);
-			return;
-		}*/
 		auctionManager.networkAuctionManager = this;
-		/*auctionManager.scrapsInput.SetActive(true);
-		auctionManager.scrapsWait.SetActive(false);
-		auctionManager.scrapsList.SetActive(false);
-		auctionManager.introPanel.SetActive(true);
-		auctionManager.auctionPanel.SetActive(false);*/
 		CmdLoad();
 	}
 
@@ -147,6 +134,10 @@ public class NetworkAuctionManager : NetworkBehaviour {
 				player = ap.player;
 				break;
 			}
+		}
+		for (int i = 0; i < upgrades.Count; i++) {
+			upgrades[i].selected = (i == currentUpgrade);
+			upgrades[i].isUpdated = true;
 		}
 		FindObjectOfType<AuctionManager>().scrapsInput.SetActive(!player.upgradeAssigned);
 		FindObjectOfType<AuctionManager>().scrapsWait.SetActive(player.upgradeAssigned);
@@ -216,10 +207,6 @@ public class NetworkAuctionManager : NetworkBehaviour {
 		}
 
 		currentUpgrade++;
-		for (int i = 0; i < upgrades.Count; i++) {
-			upgrades[i].selected = (i == currentUpgrade);
-			upgrades[i].isUpdated = true;
-		}
 		while (currentPause > 0) {
 			currentPause -= Time.deltaTime;
 			yield return 0;

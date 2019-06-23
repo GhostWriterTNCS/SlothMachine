@@ -140,6 +140,7 @@ public class Robot : NetworkBehaviour {
 				syncTransform.EnableSetValues(true);
 			}
 		}
+		roundScore = 0;
 
 		GameObject model = Instantiate(Resources.Load<GameObject>("Prefabs/Robots/" + player.robotName + "/" + player.robotName), transform);
 		robotModel = model.GetComponent<RobotModel>();
@@ -287,32 +288,28 @@ public class Robot : NetworkBehaviour {
 
 	[Command]
 	public void CmdMountUpgrades() {
-		//Debug.Log(player.name + " has " + player.upgrades.Count + " upgrades.");
-		foreach (Pair p in player.upgrades) {
-			if (p) {
-				MountUpgrade(p.value1, p.value2);
-				RpcMountUpgrade(p.value1, p.value2);
-			}
-		}
+		Debug.Log(player.name + " has " + player.upgrades.Length + " upgrades.");
+		RpcMountUpgrades();
 	}
 	[ClientRpc]
-	public void RpcMountUpgrade(int value1, int value2) {
-		MountUpgrade(value1, value2);
-	}
-	public void MountUpgrade(int value1, int value2) {
-		Debug.Log(player.name + " mounts " + value1 + "_" + value2);
-		GameObject prefab = Resources.Load<GameObject>("Prefabs/Robots/" + player.robotName + "/Upgrades/" + value1 + "_" + value2);
-		if (prefab) {
-			GameObject upgradeGO = Instantiate(prefab);
-			MountUpgrade upgrade = upgradeGO.GetComponent<MountUpgrade>();
-			if (!upgrade) {
-				upgrade = upgradeGO.AddComponent<MountUpgrade>();
+	void RpcMountUpgrades() {
+		foreach (Pair p in player.upgrades) {
+			if (p) {
+				Debug.Log(player.name + " mounts " + p.value1 + "_" + p.value2);
+				GameObject prefab = Resources.Load<GameObject>("Prefabs/Robots/" + player.robotName + "/Upgrades/" + p.value1 + "_" + p.value2);
+				if (prefab) {
+					GameObject upgradeGO = Instantiate(prefab);
+					MountUpgrade upgrade = upgradeGO.GetComponent<MountUpgrade>();
+					if (!upgrade) {
+						upgrade = upgradeGO.AddComponent<MountUpgrade>();
+					}
+					upgrade.type = (byte)p.value1;
+					upgrade.ID = (byte)p.value2;
+					upgrade.robotGO = gameObject;
+				} else {
+					Debug.LogWarning("Missing prefab: Prefabs/Robots/" + player.robotName + "/Upgrades/" + p.value1 + "_" + p.value2);
+				}
 			}
-			upgrade.type = (byte)value1;
-			upgrade.ID = (byte)value2;
-			upgrade.robotGO = gameObject;
-		} else {
-			Debug.LogWarning("Missing prefab: Prefabs/Robots/" + player.robotName + "/Upgrades/" + value1 + "_" + value2);
 		}
 	}
 
@@ -523,10 +520,10 @@ public class Robot : NetworkBehaviour {
 	[Command]
 	public void CmdIncreaseComboScore() {
 		comboScore = (short)(comboScore * 1.5f);
-		if (comboScore > 10) {
-			comboScore = 10;
+		if (comboScore > 6) {
+			comboScore = 6;
 		}
-		comboScoreDuration = 1;
+		comboScoreDuration = comboDelay;
 	}
 	[Command]
 	public void CmdResetComboScore() {
@@ -710,11 +707,9 @@ public class Robot : NetworkBehaviour {
 	public void CmdGetHitted(GameObject hitterGO, Vector3 position, GameObject particle) {
 		Robot hitter = hitterGO.GetComponent<Robot>();
 		Debug.Log(hitter.name + " hits " + name + " " + hitter.pushBack);
-		if (MatchManager.singleton.bossRound) {
-			// avoid "friendly fire" in boss round
-			if (player.roundWinner < 2 && hitter.player.roundWinner < 2) {
-				return;
-			}
+		// avoid "friendly fire" in boss round
+		if (MatchManager.singleton.bossRound && player.roundWinner < 2 && hitter.player.roundWinner < 2) {
+			return;
 		}
 		if (!robotModel.shield.activeSelf || hitter.breakGuard || hitter.player.roundWinner >= 2 ||
 			ionParticle.GetComponent<Renderer>().material.name.StartsWith(ionNull.name) && !hitter.ionParticle.GetComponent<Renderer>().material.name.StartsWith(ionNull.name) ||

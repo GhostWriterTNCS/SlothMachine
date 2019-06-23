@@ -30,7 +30,7 @@ public class PlayerMove : NetworkBehaviour {
 	void Update() {
 		float adjustSpeed = 1, h = 0, v = 0;
 		foreach (Robot r in FindObjectsOfType<Robot>()) {
-			if (r == robot) {
+			if (r == robot || MatchManager.singleton.bossRound && robot.player.roundWinner < 2 && r.player.roundWinner < 2) {
 				continue;
 			}
 			if (Vector3.Distance(robot.transform.position, r.transform.position) < inCombatRange) {

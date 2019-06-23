@@ -9,7 +9,8 @@ public class PenguinsSpawner : MonoBehaviour {
 	public int jumpForce = 600;
 
 	public void spwanPenguins() {
-		Random.InitState((int)FindObjectOfType<NetworkArenaManager>().roundDuration);
+		//Random.InitState((int)FindObjectOfType<NetworkArenaManager>().roundDuration);
+		Random.InitState(0);
 		if (penguin != null) {
 			for (int i = 0; i < count; i += 1) {
 				GameObject go = Instantiate(penguin, transform.position + Random.insideUnitSphere * radius, Quaternion.Euler(0, Random.Range(0, 359), 0));

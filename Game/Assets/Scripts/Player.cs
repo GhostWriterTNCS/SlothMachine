@@ -30,7 +30,7 @@ public class Player : NetworkBehaviour {
 	public GameObject matchResultPrefab;
 	public Robot robot;
 
-	public Pair[] upgrades = new Pair[4];
+	public Pair[] upgrades = new Pair[] { null, null, null, null };
 	[SyncVar]
 	public bool upgradeAssigned;
 
@@ -92,12 +92,12 @@ public class Player : NetworkBehaviour {
 				GameObject NAM = Instantiate(networkAuctionManager);
 				NetworkServer.Spawn(NAM);
 			}
-		} else if (SceneManager.GetActiveScene().name == GameScenes.MatchResult) {
+		} /*else if (SceneManager.GetActiveScene().name == GameScenes.MatchResult) {
 			GameObject newPlayer = Instantiate(matchResultPrefab);
 			PlayerResult res = newPlayer.GetComponent<PlayerResult>();
 			res.playerGO = gameObject;
 			NetworkServer.Spawn(newPlayer);
-		}
+		}*/
 	}
 
 	[Command]
@@ -107,7 +107,7 @@ public class Player : NetworkBehaviour {
 	}
 	[ClientRpc]
 	public void RpcAddPermanentUpgrade(int level, int ID) {
-		if (upgrades[(int)Upgrades.permanent[level][ID].type] != new Pair()) {
+		if (upgrades[(int)Upgrades.permanent[level][ID].type]) {
 			RemoveUpgrade((int)Upgrades.permanent[level][ID].type);
 		}
 		upgrades[(int)Upgrades.permanent[level][ID].type] = new Pair(level, ID);
