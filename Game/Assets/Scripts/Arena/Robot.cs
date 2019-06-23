@@ -286,6 +286,9 @@ public class Robot : NetworkBehaviour {
 			attack = (byte)(attack * 1.25f);
 			defense *= 2;
 		}
+		if (defense > 14) {
+			defense = 14;
+		}
 		Debug.Log("Stats updated");
 	}
 
@@ -743,7 +746,9 @@ public class Robot : NetworkBehaviour {
 			}
 			float damage = hitter.attack * 2 * (1 - (defense * 5) / 100);
 			if (health - damage <= 0) {
-				hitter.UpdateHealth(hitter.healthMax / 3);
+				if (!MatchManager.singleton.bossRound) {
+					hitter.UpdateHealth(hitter.healthMax / 3);
+				}
 				if (hitter.lockCameraRobot) {
 					hitter.DisableLockCamera();
 				}
