@@ -263,7 +263,9 @@ public class Robot : NetworkBehaviour {
 		defenseBonus = 0;
 		speedBonus = 0;
 		foreach (Pair upgrade in player.upgrades) {
-			Upgrades.permanent[upgrade.value1][upgrade.value2].OnAdd(this);
+			if (upgrade) {
+				Upgrades.permanent[upgrade.value1][upgrade.value2].OnAdd(this);
+			}
 		}
 		CmdRefreshStats();
 	}
@@ -285,10 +287,12 @@ public class Robot : NetworkBehaviour {
 
 	[Command]
 	public void CmdMountUpgrades() {
-		Debug.Log(player.name + " has " + player.upgrades.Count + " upgrades.");
+		//Debug.Log(player.name + " has " + player.upgrades.Count + " upgrades.");
 		foreach (Pair p in player.upgrades) {
-			MountUpgrade(p.value1, p.value2);
-			RpcMountUpgrade(p.value1, p.value2);
+			if (p) {
+				MountUpgrade(p.value1, p.value2);
+				RpcMountUpgrade(p.value1, p.value2);
+			}
 		}
 	}
 	[ClientRpc]

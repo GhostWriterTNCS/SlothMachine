@@ -4,10 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public struct Pair {
+public class Pair {
 	public int value1;
 	public int value2;
 
+	public Pair() {
+		value1 = 0;
+		value2 = 0;
+	}
 	public Pair(int v1, int v2) {
 		value1 = v1;
 		value2 = v2;
@@ -20,6 +24,10 @@ public struct Pair {
 
 		Pair p = (Pair)obj;
 		return (value1 == p.value1) && (value2 == p.value2);
+	}
+
+	public static implicit operator bool(Pair obj) {
+		return obj != null;
 	}
 }
 
@@ -104,40 +112,6 @@ public class NetworkAuctionManager : NetworkBehaviour {
 		currentPause = pauseDuration;
 		StartCoroutine(AuctionCoroutine());
 	}
-
-	/*[ClientRpc]
-	void RpcCreateUpgradeBoxes() {
-		StartCoroutine(CreateUpgradeBoxesCoroutine());
-	}
-	IEnumerator CreateUpgradeBoxesCoroutine() {
-		while (auctionUpgrades.Count < MatchManager.singleton.playerCount * 2) {
-			yield return 0;
-		}
-		for (int i = 0; i < MatchManager.singleton.playerCount; i++) {
-			byte level = (byte)auctionUpgrades[i * 2];
-			byte upgrade = (byte)auctionUpgrades[i * 2 + 1];
-
-			GameObject upgradeBox = Instantiate(upgradeBoxPrefab);
-			UpgradeBox ub = upgradeBox.GetComponent<UpgradeBox>();
-			ub.level = level;
-			ub.ID = upgrade;
-			ub.selected = (i == 0);
-			if (isServer) {
-				upgrades.Add(ub);
-			}
-
-			GameObject upgradeBoxWithDesc = Instantiate(upgradeBoxWithDescPrefab);
-			ub = upgradeBoxWithDesc.GetComponent<UpgradeBox>();
-			ub.level = level;
-			ub.ID = upgrade;
-			ub.isIntro = true;
-		}
-	}*/
-
-	/*[ClientRpc]
-	public void RpcSetHeader(string s) {
-		FindObjectOfType<AuctionManager>().header.text = s;
-	}*/
 
 	[ClientRpc]
 	void RpcShowAuctionPanel() {

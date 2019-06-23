@@ -57,8 +57,10 @@ public class AuctionPlayer : NetworkBehaviour {
 				}
 			}
 			scoreSlider.value = player.score / maxScore;
-			for (int i = 0; i < player.upgrades.Count; i++) {
-				ShowUpgrade(i);
+			for (int i = 0; i < player.upgrades.Length; i++) {
+				if (player.upgrades[i]) {
+					ShowUpgrade(i);
+				}
 			}
 			if (isLocalPlayer) {
 				FindObjectOfType<AuctionManager>().scrapsInput.GetComponent<ScrapsInput>().SetPlayerBox(this);
@@ -78,10 +80,11 @@ public class AuctionPlayer : NetworkBehaviour {
 		FindObjectOfType<AuctionManager>().StartCoroutine(ShowUpgradeCoroutine(index));
 	}
 	IEnumerator ShowUpgradeCoroutine(int index) {
-		while (player.upgrades.Count <= index) {
+		while (!player.upgrades[index]) {
 			yield return 0;
 		}
 		upgrades[index].sprite = Resources.Load<Sprite>("UI/Upgrades/Permanent/" + player.upgrades[index].value1 + "_" + player.upgrades[index].value2);
-		upgrades[index].enabled = true;
+		//upgrades[index].enabled = true;
+		upgrades[index].color = Color.white;
 	}
 }

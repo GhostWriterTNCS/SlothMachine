@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
@@ -29,7 +30,7 @@ public class Player : NetworkBehaviour {
 	public GameObject matchResultPrefab;
 	public Robot robot;
 
-	public List<Pair> upgrades = new List<Pair>();
+	public Pair[] upgrades = new Pair[4];
 	[SyncVar]
 	public bool upgradeAssigned;
 
@@ -106,17 +107,23 @@ public class Player : NetworkBehaviour {
 	}
 	[ClientRpc]
 	public void RpcAddPermanentUpgrade(int level, int ID) {
-		upgrades.Add(new Pair(level, ID));
+		if (upgrades[(int)Upgrades.permanent[level][ID].type] != new Pair()) {
+			RemoveUpgrade((int)Upgrades.permanent[level][ID].type);
+		}
+		upgrades[(int)Upgrades.permanent[level][ID].type] = new Pair(level, ID);
 		foreach (AuctionPlayer pb in FindObjectsOfType<AuctionPlayer>()) {
-			pb.ShowUpgrade(upgrades.Count - 1);
+			pb.ShowUpgrade((int)Upgrades.permanent[level][ID].type);
 		}
 	}
 
-	[Command]
-	public void CmdRemoveUpgrade(int level, int ID) {
-		if (upgrades.Contains(new Pair(level, ID))) {
-			upgrades.Remove(new Pair(level, ID));
+	void RemoveUpgrade(int type) {
+		if (robot) {
+			Upgrades.permanent[upgrades[type].value1][upgrades[type].value2].OnRemove(robot);
 		}
+		upgrades[type] = null;
+		/*if (upgrades.Contains(new Pair(level, ID))) {
+			upgrades.Remove(new Pair(level, ID));
+		}*/
 	}
 
 	private void OnDisconnectedFromServer(NetworkIdentity info) {
