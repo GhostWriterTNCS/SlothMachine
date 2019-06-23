@@ -13,7 +13,7 @@ public class MatchResultManager : MonoBehaviour {
 		foreach (Player p in FindObjectsOfType<Player>()) {
 			GameObject newPlayer = Instantiate(matchResultPrefab);
 			PlayerResult res = newPlayer.GetComponent<PlayerResult>();
-			res.playerGO = gameObject;
+			res.playerGO = p.gameObject;
 		}
 	}
 }

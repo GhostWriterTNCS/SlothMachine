@@ -538,6 +538,7 @@ public class Robot : NetworkBehaviour {
 	}
 
 	void UpdateHealthSlider(short value) {
+		health = value;
 		healthSlider.value = value / (float)healthMax;
 	}
 	[Command]
@@ -812,6 +813,8 @@ public class Robot : NetworkBehaviour {
 		transform.position = spawn.position;
 		transform.rotation = spawn.rotation;
 		rigidbody.velocity = Vector3.zero;
+		//syncTransform.CmdSetPosition(spawn.position);
+		//syncTransform.CmdSetRotation(spawn.rotation);
 		Debug.Log(player.name + " spawn at " + transform.position);
 		for (int i = 0; i < transform.childCount; i++) {
 			transform.GetChild(i).gameObject.SetActive(true);
