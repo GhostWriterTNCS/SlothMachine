@@ -103,10 +103,14 @@ public class Player : NetworkBehaviour {
 	[Command]
 	public void CmdAddPermanentUpgrade(int level, int ID) {
 		upgradeAssigned = true;
+		AddPermanentUpgrade(level, ID);
 		RpcAddPermanentUpgrade(level, ID);
 	}
 	[ClientRpc]
-	public void RpcAddPermanentUpgrade(int level, int ID) {
+	void RpcAddPermanentUpgrade(int level, int ID) {
+		AddPermanentUpgrade(level, ID);
+	}
+	void AddPermanentUpgrade(int level, int ID) {
 		if (upgrades[(int)Upgrades.permanent[level][ID].type]) {
 			RemoveUpgrade((int)Upgrades.permanent[level][ID].type);
 		}

@@ -782,6 +782,7 @@ public class Robot : NetworkBehaviour {
 	}
 	float respawnWaiting;
 	IEnumerator RespawnCoroutine() {
+		DisableLockCamera();
 		for (int i = 0; i < transform.childCount; i++) {
 			if (transform.GetChild(i).gameObject != keepOnRespawn) {
 				transform.GetChild(i).gameObject.SetActive(false);
