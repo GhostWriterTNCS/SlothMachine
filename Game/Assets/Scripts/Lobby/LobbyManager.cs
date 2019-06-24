@@ -32,6 +32,7 @@ namespace Prototype.NetworkLobby {
 		public GameObject addPlayerButton;
 		public GameObject mainPanelFirstButton;
 		public GameObject lobbyPanelFirstButton;
+		public GameObject selectRobotButton;
 
 		protected RectTransform currentPanel;
 
@@ -130,14 +131,19 @@ namespace Prototype.NetworkLobby {
 				backButton.gameObject.SetActive(true);
 				backToStartButton.gameObject.SetActive(false);
 			} else {
-				FindObjectOfType<EventSystem>().SetSelectedGameObject(mainPanelFirstButton);
+				if (FindObjectOfType<EventSystem>().currentSelectedGameObject != mainPanelFirstButton) {
+					FindObjectOfType<EventSystem>().SetSelectedGameObject(mainPanelFirstButton);
+				}
 				backButton.gameObject.SetActive(false);
 				backToStartButton.gameObject.SetActive(true);
 				SetServerInfo("Offline", "None");
 				_isMatchmaking = false;
 			}
+
+			selectRobotButton.SetActive(false);
 			if (currentPanel == lobbyPanel) {
 				FindObjectOfType<EventSystem>().SetSelectedGameObject(lobbyPanelFirstButton);
+				selectRobotButton.SetActive(true);
 			} else if (currentPanel == serverListPanel) {
 				StartCoroutine(SelectGO());
 			}

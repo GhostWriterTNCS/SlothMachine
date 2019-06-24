@@ -5,6 +5,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Image))]
 public class ButtonTip : MonoBehaviour {
 	public string button;
+	//public bool capture = true;
 	public static float inputInterval = 0.1f;
 	public static float threshold = 0.25f;
 	Image image;
