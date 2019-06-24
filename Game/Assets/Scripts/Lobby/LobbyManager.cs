@@ -144,6 +144,7 @@ namespace Prototype.NetworkLobby {
 			if (currentPanel == lobbyPanel) {
 				FindObjectOfType<EventSystem>().SetSelectedGameObject(lobbyPanelFirstButton);
 				selectRobotButton.SetActive(true);
+				_playerNumber = 0;
 			} else if (currentPanel == serverListPanel) {
 				StartCoroutine(SelectGO());
 			}
@@ -187,6 +188,7 @@ namespace Prototype.NetworkLobby {
 			}
 			backDelegate();
 			topPanel.isInGame = false;
+			SceneManager.LoadScene(GameScenes.StartScreen);
 		}
 
 		// ----------------- Server management

@@ -4,10 +4,9 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class LobbySelectButton : MonoBehaviour {
+public class LobbyStart : MonoBehaviour {
 	void Start() {
-		//FindObjectOfType<Prototype.NetworkLobby.LobbyManager>().mainPanelFirstButton.GetComponent<Button>().OnSelect(null);
-		//FindObjectOfType<EventSystem>().SetSelectedGameObject(FindObjectOfType<Prototype.NetworkLobby.LobbyManager>().mainPanelFirstButton);
+		MatchManager.singleton.playerCount = 0;
 		StartCoroutine(Select());
 	}
 
