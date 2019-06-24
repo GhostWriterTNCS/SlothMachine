@@ -15,21 +15,45 @@
    viewBox="0 0 1920 1080"
    version="1.1"
    id="svg8"
-   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
    sodipodi:docname="UI.svg">
   <defs
      id="defs2">
     <linearGradient
-       id="linearGradient4609"
+       id="linearGradient930"
        inkscape:collect="always">
       <stop
-         id="stop4605"
+         id="stop926"
          offset="0"
-         style="stop-color:#003356;stop-opacity:0.47058824" />
+         style="stop-color:#003356;stop-opacity:0.86274511" />
       <stop
-         id="stop4607"
+         id="stop928"
          offset="1"
-         style="stop-color:#003356;stop-opacity:0.78431374" />
+         style="stop-color:#003356;stop-opacity:0.627451" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient924"
+       inkscape:collect="always">
+      <stop
+         id="stop919"
+         offset="0"
+         style="stop-color:#003356;stop-opacity:0.3137255" />
+      <stop
+         id="stop922"
+         offset="1"
+         style="stop-color:#003356;stop-opacity:0.86274511" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient917">
+      <stop
+         style="stop-color:#003356;stop-opacity:0.627451"
+         offset="0"
+         id="stop913" />
+      <stop
+         style="stop-color:#003356;stop-opacity:0.86274511"
+         offset="1"
+         id="stop915" />
     </linearGradient>
     <linearGradient
        id="linearGradient904"
@@ -91,21 +115,9 @@
          offset="1"
          id="stop1022" />
     </linearGradient>
-    <linearGradient
-       inkscape:collect="always"
-       id="linearGradient950">
-      <stop
-         style="stop-color:#003356;stop-opacity:0.78431374"
-         offset="0"
-         id="stop946" />
-      <stop
-         style="stop-color:#003356;stop-opacity:0.47058824"
-         offset="1"
-         id="stop948" />
-    </linearGradient>
     <radialGradient
        inkscape:collect="always"
-       xlink:href="#linearGradient4609"
+       xlink:href="#linearGradient917"
        id="radialGradient1026"
        cx="98.849182"
        cy="300.47241"
@@ -138,7 +150,7 @@
        gradientUnits="userSpaceOnUse" />
     <radialGradient
        inkscape:collect="always"
-       xlink:href="#linearGradient4609"
+       xlink:href="#linearGradient917"
        id="radialGradient1026-2"
        cx="127.19563"
        cy="328.81885"
@@ -180,17 +192,6 @@
        r="37.795277"
        gradientTransform="matrix(65.147994,5.0287494e-12,0,0.25000027,-20124.887,296.22036)"
        gradientUnits="userSpaceOnUse" />
-    <radialGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient950"
-       id="radialGradient57"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(-3.0499974,1.1293214e-7,-3.5289906e-8,-0.70000004,918.42475,611.38714)"
-       cx="226.7717"
-       cy="255.18755"
-       fx="226.7717"
-       fy="255.18755"
-       r="188.97636" />
     <radialGradient
        inkscape:collect="always"
        xlink:href="#linearGradient1024"
@@ -281,7 +282,7 @@
        r="415.74802" />
     <radialGradient
        inkscape:collect="always"
-       xlink:href="#linearGradient4609"
+       xlink:href="#linearGradient917"
        id="radialGradient1026-0"
        cx="98.849182"
        cy="300.47241"
@@ -316,7 +317,7 @@
     </filter>
     <radialGradient
        inkscape:collect="always"
-       xlink:href="#linearGradient1024"
+       xlink:href="#linearGradient924"
        id="radialGradient904"
        cx="982.67773"
        cy="513.07031"
@@ -327,7 +328,7 @@
        gradientUnits="userSpaceOnUse" />
     <radialGradient
        inkscape:collect="always"
-       xlink:href="#linearGradient4609"
+       xlink:href="#linearGradient917"
        id="radialGradient1026-0-4"
        cx="98.849182"
        cy="300.47241"
@@ -336,6 +337,17 @@
        r="56.692913"
        gradientTransform="matrix(14.083335,1.3845013e-7,-5.9906334e-9,4.3333336,-957.48057,-1785.8267)"
        gradientUnits="userSpaceOnUse" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient930"
+       id="radialGradient911"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(-3.0499974,1.1293214e-7,-3.5289906e-8,-0.70000004,918.42475,611.38714)"
+       cx="226.7717"
+       cy="255.18755"
+       fx="226.7717"
+       fy="255.18755"
+       r="188.97636" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -344,9 +356,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.1767767"
-     inkscape:cx="-224.38554"
-     inkscape:cy="143.41118"
+     inkscape:zoom="1"
+     inkscape:cx="327.37053"
+     inkscape:cy="752.61348"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -406,7 +418,7 @@
        inkscape:export-xdpi="300"
        inkscape:export-ydpi="300" />
     <path
-       style="opacity:1;fill:url(#radialGradient1026);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-miterlimit:4.60298777;stroke-dasharray:none;stroke-opacity:0.78431373;paint-order:normal"
+       style="opacity:1;fill:url(#radialGradient1026);fill-opacity:1.0;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-miterlimit:4.60298777;stroke-dasharray:none;stroke-opacity:0.78431373;paint-order:normal"
        d="m 37.795279,300.47241 -3e-6,-37.79528 9.448818,-9.44882 H 179.52756 l 9.44882,9.44882 v 37.79528 l -9.44882,9.44882 H 47.244097 Z"
        id="path1006"
        inkscape:connector-curvature="0"
@@ -434,7 +446,7 @@
        inkscape:export-ydpi="300"
        inkscape:export-filename="D:\Varie\SlothMachine\Game\Assets\Resources\UI\window.png" />
     <path
-       style="opacity:1;fill:url(#radialGradient57);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.22628284;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.60298777;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       style="opacity:1;fill:url(#radialGradient911);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.22628284;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.60298777;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
        d="m 37.794926,408.96321 -1.8e-5,165.52495 H 415.74803 l 2e-5,-165.52495 -37.79493,-10e-4 -18.898,14.34484 H 94.488191 L 75.590555,408.96221 Z"
        id="rect48-1"
        inkscape:connector-curvature="0"
