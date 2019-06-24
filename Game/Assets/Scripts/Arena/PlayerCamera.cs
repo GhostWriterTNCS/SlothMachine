@@ -3,6 +3,8 @@ using UnityEngine.Networking;
 
 public class PlayerCamera : NetworkBehaviour {
 	public Camera playerCamera;
+	public int maxY = 315;
+	public int minY = 30;
 	Vector3 cameraOffset;
 	Quaternion cameraRotation;
 	PlayerMove playerMove;
@@ -19,12 +21,12 @@ public class PlayerCamera : NetworkBehaviour {
 
 	void Update() {
 		if (isLocalPlayer) {
-			if (playerMove.canMove && playerMove.canRotateCamera) {
+			if (playerMove.canRotateCamera) {
 				playerCamera.transform.parent.Rotate(Input.GetAxis("Camera Vertical") * playerMove.turnSpeed, 0, 0);
-				if (playerCamera.transform.parent.localRotation.eulerAngles.x > 30 && playerCamera.transform.parent.localRotation.eulerAngles.x < 180) {
-					playerCamera.transform.parent.localRotation = Quaternion.Euler(30, 0, 0);
-				} else if (playerCamera.transform.parent.localRotation.eulerAngles.x < 315 && playerCamera.transform.parent.localRotation.eulerAngles.x > 180) {
-					playerCamera.transform.parent.localRotation = Quaternion.Euler(-45, 0, 0);
+				if (playerCamera.transform.parent.localRotation.eulerAngles.x > minY && playerCamera.transform.parent.localRotation.eulerAngles.x < 180) {
+					playerCamera.transform.parent.localRotation = Quaternion.Euler(minY, 0, 0);
+				} else if (playerCamera.transform.parent.localRotation.eulerAngles.x < maxY && playerCamera.transform.parent.localRotation.eulerAngles.x > 180) {
+					playerCamera.transform.parent.localRotation = Quaternion.Euler(maxY, 0, 0);
 				}
 			}
 			// Adjust health sliders orientation

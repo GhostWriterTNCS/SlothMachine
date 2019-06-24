@@ -25,6 +25,7 @@ namespace Prototype.NetworkLobby {
 		public LobbyTopPanel topPanel;
 		public RectTransform mainMenuPanel;
 		public RectTransform lobbyPanel;
+		public RectTransform serverListPanel;
 
 		public LobbyInfoPanel infoPanel;
 		public LobbyCountdownPanel countdownPanel;
@@ -137,9 +138,19 @@ namespace Prototype.NetworkLobby {
 			}
 			if (currentPanel == lobbyPanel) {
 				FindObjectOfType<EventSystem>().SetSelectedGameObject(lobbyPanelFirstButton);
+			} else if (currentPanel == serverListPanel) {
+				StartCoroutine(SelectGO());
 			}
 
 			buttonTips.SetActive(newPanel != null);
+		}
+		IEnumerator SelectGO() {
+			while (serverListPanel.gameObject.activeSelf && !FindObjectOfType<LobbyServerEntry>()) {
+				yield return 0;
+			}
+			if (FindObjectOfType<LobbyServerEntry>()) {
+				FindObjectOfType<EventSystem>().SetSelectedGameObject(FindObjectOfType<LobbyServerEntry>().joinButton.gameObject);
+			}
 		}
 
 		public void DisplayIsConnecting() {

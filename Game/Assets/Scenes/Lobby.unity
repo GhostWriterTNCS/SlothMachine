@@ -6671,6 +6671,7 @@ MonoBehaviour:
   topPanel: {fileID: 0}
   mainMenuPanel: {fileID: 466531211}
   lobbyPanel: {fileID: 1474280535}
+  serverListPanel: {fileID: 0}
   infoPanel: {fileID: 1367616300}
   countdownPanel: {fileID: 0}
   addPlayerButton: {fileID: 1361627270}
@@ -10789,6 +10790,7 @@ MonoBehaviour:
   topPanel: {fileID: 1709804829}
   mainMenuPanel: {fileID: 1709806095}
   lobbyPanel: {fileID: 1474280535}
+  serverListPanel: {fileID: 1709806318}
   infoPanel: {fileID: 1709804809}
   countdownPanel: {fileID: 1709804833}
   addPlayerButton: {fileID: 1361612794}

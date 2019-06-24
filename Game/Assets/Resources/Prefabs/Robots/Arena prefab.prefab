@@ -4881,6 +4881,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 2467045719809375315}
+  maxY: 340
+  minY: 30
 --- !u!54 &3795118744872106157
 Rigidbody:
   m_ObjectHideFlags: 0
