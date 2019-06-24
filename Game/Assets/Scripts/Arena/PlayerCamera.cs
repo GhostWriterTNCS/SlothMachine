@@ -22,7 +22,7 @@ public class PlayerCamera : NetworkBehaviour {
 	void Update() {
 		if (isLocalPlayer) {
 			if (playerMove.canRotateCamera) {
-				playerCamera.transform.parent.Rotate(Input.GetAxis("Camera Vertical") * playerMove.turnSpeed, 0, 0);
+				playerCamera.transform.parent.Rotate(Input.GetAxis("Camera Vertical") * playerMove.turnSpeed * MatchManager.singleton.verticalAxisInverted, 0, 0);
 				if (playerCamera.transform.parent.localRotation.eulerAngles.x > minY && playerCamera.transform.parent.localRotation.eulerAngles.x < 180) {
 					playerCamera.transform.parent.localRotation = Quaternion.Euler(minY, 0, 0);
 				} else if (playerCamera.transform.parent.localRotation.eulerAngles.x < maxY && playerCamera.transform.parent.localRotation.eulerAngles.x > 180) {

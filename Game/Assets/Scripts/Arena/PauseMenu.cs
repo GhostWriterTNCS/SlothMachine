@@ -53,4 +53,8 @@ public class PauseMenu : MonoBehaviour {
 			yield return 0;
 		}
 	}
+
+	public void InvertVerticalAxis() {
+		MatchManager.singleton.verticalAxisInverted *= -1;
+	}
 }

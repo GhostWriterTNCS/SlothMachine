@@ -7,6 +7,7 @@ public class MatchManager : MonoBehaviour {
 	public int playerCount;
 	public int roundCounter;
 	public bool bossRound;
+	public int verticalAxisInverted = 1;
 	bool handlerAdded;
 
 	void Awake() {
