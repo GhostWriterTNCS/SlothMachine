@@ -10,7 +10,9 @@ public class WormDecisionTree : NetworkBehaviour {
 	[Range(0f, 10f)] public float moveSpeed = 3f;
 	public float reactionTime = 2f;
 	public float waitDuration = 10;
-	public ParticleSystem particle;
+	public ParticleSystem standardParticle;
+	public ParticleSystem aggressiveParticle;
+	public BoxCollider triggerCollider;
 	public GameObject wormPrefab;
 	private DecisionTree dt;
 	private Robot playerTarget;
@@ -43,13 +45,14 @@ public class WormDecisionTree : NetworkBehaviour {
 		// Setup my DecisionTree at the root node
 		dt = new DecisionTree(d1);
 		myRigidbody = GetComponent<Rigidbody>();
-		particle = GetComponent<ParticleSystem>();
+		aggressiveParticle.Stop();
 		StartCoroutine(Hunt());
 
 		spawnTime = FindObjectOfType<ArenaManager>().roundDuration / 2;
 	}
 
 	public IEnumerator RespawnCoroutine() {
+		yield return new WaitForSeconds(1);
 		transform.position = new Vector3(0, -100, 0);
 		yield return new WaitForSeconds(5);
 		float x = Random.Range(225f, 310f);
@@ -110,12 +113,16 @@ public class WormDecisionTree : NetworkBehaviour {
 		timerArena = FindObjectOfType<NetworkArenaManager>().roundDuration;
 
 		if (timerArena <= spawnTime) {
+			if (standardParticle.isPlaying) {
+				standardParticle.Stop();
+				aggressiveParticle.Play();
+				triggerCollider.size = new Vector3(2, 2, 2);
+			}
 			if (playerTarget) {
 				return true;
 			}
 			//Debug.Log("checkRobotAround");
 			GetComponent<Collider>().enabled = true;
-			particle.Play();
 			System.Random rnd = new System.Random();
 			Robot[] arr = FindObjectsOfType<Robot>().OrderBy(x => rnd.Next()).ToArray();
 			foreach (Robot robot in arr) {
@@ -168,7 +175,6 @@ public class WormDecisionTree : NetworkBehaviour {
 			return true;
 		}
 		GetComponent<Collider>().enabled = true;
-		particle.Play();
 		float x = Random.Range(225f, 310f);
 		float z = Random.Range(190f, 275f);
 		float y = FindObjectOfType<Terrain>().terrainData.GetHeight((int)x, (int)z);

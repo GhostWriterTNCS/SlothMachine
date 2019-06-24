@@ -86,15 +86,15 @@ public class Robot : NetworkBehaviour {
 	//public bool isGuardOn;
 
 	[SyncVar(hook = "UpdateHealthSlider")]
-	public short health;
+	public float health;
 	[SyncVar]
-	public short healthMax;
+	public float healthMax;
 	[SyncVar]
-	public byte attack;
+	public float attack;
 	[SyncVar]
-	public byte defense;
+	public float defense;
 	[SyncVar]
-	public byte speed;
+	public float speed;
 	[SyncVar]
 	public short roundScore;
 	[SyncVar]
@@ -276,10 +276,11 @@ public class Robot : NetworkBehaviour {
 
 	[Command]
 	public void CmdRefreshStats() {
-		healthMax = (short)((robotModel.health + healthBonus) * 30);
-		attack = (byte)(robotModel.attack + attackBonus);
-		defense = (byte)(robotModel.defense + defenseBonus);
-		speed = (byte)(1 + (robotModel.speed + speedBonus - 5) / 16f);
+		healthMax = (robotModel.health + healthBonus) * 30;
+		attack = robotModel.attack + attackBonus;
+		defense = robotModel.defense + defenseBonus;
+		speed = 1 + (robotModel.speed + speedBonus - 5) / 16f;
+		Debug.Log(robotModel.name + " speed is " + speed);
 		rigidbody.mass = baseMass / speed;
 		if (player.roundWinner >= 2) {
 			healthMax *= 2;
@@ -540,9 +541,9 @@ public class Robot : NetworkBehaviour {
 		comboScore = initialComboScore;
 	}
 
-	void UpdateHealthSlider(short value) {
+	void UpdateHealthSlider(float value) {
 		health = value;
-		healthSlider.value = value / (float)healthMax;
+		healthSlider.value = value / healthMax;
 	}
 	[Command]
 	public void CmdUpdateHealthValue(float newHealth) {
