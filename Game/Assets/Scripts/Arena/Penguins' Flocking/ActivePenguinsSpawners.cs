@@ -21,7 +21,13 @@ public class ActivePenguinsSpawners : MonoBehaviour {
 	}
 
 	IEnumerator TimeController() {
-		yield return new WaitForSeconds(spawnTime);
+		yield return new WaitForSeconds(5);
+		while (!FindObjectOfType<NetworkArenaManager>()) {
+			yield return 0;
+		}
+		while (FindObjectOfType<NetworkArenaManager>().roundDuration > spawnTime) {
+			yield return new WaitForSeconds(1);
+		}
 		while (true) {
 			foreach (PenguinsSpawner ps in penguinsSpawner) {
 				ps.spwanPenguins();
