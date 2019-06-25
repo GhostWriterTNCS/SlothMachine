@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-[NetworkSettings(channel = 4)]
+[NetworkSettings(channel = 4, sendInterval = 0.01f)]
 public class SyncAnimator : NetworkBehaviour {
 	Robot robot;
 	Animator animator;

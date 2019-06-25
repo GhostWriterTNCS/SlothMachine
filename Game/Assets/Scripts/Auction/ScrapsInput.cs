@@ -69,6 +69,9 @@ public class ScrapsInput : NetworkBehaviour {
 	}
 
 	public void SendBidValue() {
+		if (player.upgradeAssigned) {
+			value = 0;
+		}
 		playerBox.CmdSetBid(value);
 	}
 }

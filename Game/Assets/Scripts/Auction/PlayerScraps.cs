@@ -44,7 +44,7 @@ public class PlayerScraps : NetworkBehaviour {
 		auctionPlayer.bidRegistered = true;
 	}
 
-	IEnumerator UpdateResultCoroutine() {
+	/*IEnumerator UpdateResultCoroutine() {
 		NetworkAuctionManager NAM = FindObjectOfType<NetworkAuctionManager>();
 		while (!NAM.auctionRegistered) {
 			yield return 0;
@@ -60,5 +60,5 @@ public class PlayerScraps : NetworkBehaviour {
 			ps.scrapsSlider.value = ps.auctionPlayer.bid / (float)NAM.maxBid;
 			ps.scrapsValue.text = ps.auctionPlayer.bid.ToString();
 		}
-	}
+	}*/
 }

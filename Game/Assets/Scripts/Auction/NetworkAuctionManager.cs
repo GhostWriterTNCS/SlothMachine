@@ -142,10 +142,10 @@ public class NetworkAuctionManager : NetworkBehaviour {
 		FindObjectOfType<AuctionManager>().scrapsInput.SetActive(!player.upgradeAssigned);
 		FindObjectOfType<AuctionManager>().scrapsWait.SetActive(player.upgradeAssigned);
 		FindObjectOfType<AuctionManager>().scrapsList.SetActive(false);
-		ScrapsInput si = FindObjectOfType<ScrapsInput>();
+		/*ScrapsInput si = FindObjectOfType<ScrapsInput>();
 		if (si) {
 			si.ResetValue();
-		}
+		}*/
 		Debug.Log("Upgrades: " + FindObjectsOfType<UpgradeBox>().Length);
 		foreach (UpgradeBox ub in FindObjectsOfType<UpgradeBox>()) {
 			ub.RefreshSelected();
