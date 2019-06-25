@@ -55,9 +55,14 @@ public class TextManager : MonoBehaviour {
 		}
 
 		foreach (Button b in Resources.FindObjectsOfTypeAll<Button>()) {
-			ColorBlock cb = b.colors;
-			cb.highlightedColor = highlightedColor;
-			b.colors = cb;
+			if (b.image.sprite == Resources.Load<Sprite>("UI/button")) {
+				b.transition = Selectable.Transition.SpriteSwap;
+				SpriteState ss = new SpriteState();
+				ss.highlightedSprite = Resources.Load<Sprite>("UI/button-highlighted");
+				ss.pressedSprite = Resources.Load<Sprite>("UI/button-pressed");
+				ss.disabledSprite = Resources.Load<Sprite>("UI/button-disabled");
+				b.spriteState = ss;
+			}
 		}
 	}
 

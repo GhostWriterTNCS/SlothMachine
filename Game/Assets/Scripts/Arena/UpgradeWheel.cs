@@ -42,15 +42,15 @@ public class UpgradeWheel : MonoBehaviour {
 	}
 
 	void Update() {
-		if (Input.GetAxis("Camera Vertical") > 0.1f && Input.GetAxis("Camera Horizontal") > 0.5f) { // up right
+		if (Input.GetAxis("Camera Vertical") > 0.05f && Input.GetAxis("Camera Horizontal") > 0.5f) { // up right
 			eventSystem.SetSelectedGameObject(upRight.gameObject);
-		} else if (Input.GetAxis("Camera Vertical") > 0.1f && Input.GetAxis("Camera Horizontal") < -0.5f) { // up left
+		} else if (Input.GetAxis("Camera Vertical") > 0.05f && Input.GetAxis("Camera Horizontal") < -0.5f) { // up left
 			eventSystem.SetSelectedGameObject(upLeft.gameObject);
 		} else if (Input.GetAxis("Camera Vertical") > 0.6f) { // up
 			eventSystem.SetSelectedGameObject(up.gameObject);
-		} else if (Input.GetAxis("Camera Vertical") < -0.1f && Input.GetAxis("Camera Horizontal") > 0.5f) { // down right
+		} else if (Input.GetAxis("Camera Vertical") < -0.05f && Input.GetAxis("Camera Horizontal") > 0.5f) { // down right
 			eventSystem.SetSelectedGameObject(downRight.gameObject);
-		} else if (Input.GetAxis("Camera Vertical") < -0.1f && Input.GetAxis("Camera Horizontal") < -0.5f) { // down left
+		} else if (Input.GetAxis("Camera Vertical") < -0.05f && Input.GetAxis("Camera Horizontal") < -0.5f) { // down left
 			eventSystem.SetSelectedGameObject(downLeft.gameObject);
 		} else if (Input.GetAxis("Camera Vertical") < -0.6f) { // down
 			eventSystem.SetSelectedGameObject(down.gameObject);
