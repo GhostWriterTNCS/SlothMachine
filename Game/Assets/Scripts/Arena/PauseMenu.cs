@@ -12,7 +12,7 @@ public class PauseMenu : MonoBehaviour {
 	public Button focusButton;
 
 	void Update() {
-		if (Input.GetButtonUp("Menu")) {
+		if (Input.GetButtonUp("Menu") || robot && robot.paused && Input.GetButtonUp("B")) {
 			Pause();
 		}
 	}

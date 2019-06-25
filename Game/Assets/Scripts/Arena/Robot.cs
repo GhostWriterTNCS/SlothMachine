@@ -759,7 +759,9 @@ public class Robot : NetworkBehaviour {
 				RpcAddForce(hitter.transform.forward * 8.5f * 50, ForceMode.Impulse);
 			}
 			UpdateHealth(-damage);
-			hitter.player.scraps += 3;
+			if (!MatchManager.singleton.bossRound) {
+				hitter.player.scraps += 3;
+			}
 			Debug.Log(hitter.player.name + " current combo score: " + hitter.comboScore);
 			//hitter.player.score += (short)hitter.comboScore;
 			hitter.roundScore += hitter.comboScore;
