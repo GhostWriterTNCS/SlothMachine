@@ -46,5 +46,5 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Direction: {r: 0, g: 1, b: 0, a: 0}
-    - _MainColor: {r: 0.07208972, g: 0.5660378, b: 0.3919747, a: 1}
-    - _RimColor: {r: 0.28835887, g: 0.33478004, b: 0.754717, a: 1}
+    - _MainColor: {r: 0.509434, g: 0.509434, b: 0.509434, a: 1}
+    - _RimColor: {r: 1, g: 1, b: 1, a: 1}
