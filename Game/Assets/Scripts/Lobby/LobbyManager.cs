@@ -288,7 +288,11 @@ namespace Prototype.NetworkLobby {
 				Debug.Log("Player count: " + localPlayerCount + " " + _playerNumber);
 				MatchManager.singleton.playerCount = _playerNumber;
 			}
+#if UNITY_EDITOR
 			addPlayerButton.SetActive(NetworkServer.active && localPlayerCount < maxPlayersPerConnection && _playerNumber < maxPlayers);
+#else
+			addPlayerButton.SetActive(false);
+#endif
 		}
 
 		// ----------------- Server callbacks ------------------
