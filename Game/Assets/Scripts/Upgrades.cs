@@ -7,14 +7,16 @@ public struct Upgrade {
 	public string description;
 	public Action<Robot> OnAdd;
 	public Action<Robot> OnRemove;
+	public RobotStats robotStats;
 
-	public Upgrade(string name, UpgradeTypes type, int price, string description, Action<Robot> OnAdd, Action<Robot> OnRemove) {
+	public Upgrade(string name, UpgradeTypes type, int price, string description, Action<Robot> OnAdd, Action<Robot> OnRemove, RobotStats robotStats = RobotStats.nothing) {
 		this.name = name;
 		this.type = type;
 		this.price = price;
 		this.description = description;
 		this.OnAdd = OnAdd;
 		this.OnRemove = OnRemove;
+		this.robotStats = robotStats;
 	}
 }
 
@@ -31,17 +33,25 @@ public enum UpgradeElements {
 	Lightning,
 	Sonic
 }
+public enum RobotStats {
+	nothing,
+	health,
+	attack,
+	defense,
+	speed
+}
+
 public class Upgrades {
 	public static Upgrade[][] permanent = {
 		new Upgrade[] { }, // Upgrade levels start from 1.
 		new Upgrade[] {
 			new Upgrade("",UpgradeTypes.Core, 0, "", null, null), // Upgrade IDs start from 1.
-			new Upgrade("Hammer", UpgradeTypes.Hands, 0, "A light hammer that slightly increases the attack.", (Robot r) => { r.attackBonus += 3; }, (Robot r) => {r.attackBonus -= 3; }),
-			new Upgrade("Spike ball", UpgradeTypes.Feet, 0, "A spiked ball that slightly increases the attack.", (Robot r) => {r.attackBonus += 3; }, (Robot r) => {r.attackBonus -= 3; }),
-			new Upgrade("Advanced engine Mk I", UpgradeTypes.Core, 0, "A more powerful engine that slightly increases the attack.", (Robot r) => {r.attackBonus += 2; }, (Robot r) => {r.attackBonus -= 2; }),
-			new Upgrade("Advanced armor Mk I", UpgradeTypes.Armor, 0, "A more resistent material for the armor that slightly increases the defense.", (Robot r) => {r.defenseBonus += 2; }, (Robot r) => {r.defenseBonus -= 2; }),
-			new Upgrade("Advanced core Mk I", UpgradeTypes.Core, 0, "A more powerful core that slightly increases the maximum health.", (Robot r) => {r.healthBonus += 2; }, (Robot r) => {r.healthBonus -= 2; }),
-			new Upgrade("Advanced connectors Mk I", UpgradeTypes.Core, 0, "More efficient connectors that slightly increase the speed.", (Robot r) => {r.speedBonus += 2; }, (Robot r) => {r.speedBonus -= 2; }),
+			new Upgrade("Hammer", UpgradeTypes.Hands, 0, "A light hammer that slightly increases the attack.", (Robot r) => { r.attackBonus += 3; }, (Robot r) => {r.attackBonus -= 3; }, RobotStats.attack),
+			new Upgrade("Spike ball", UpgradeTypes.Feet, 0, "A spiked ball that slightly increases the attack.", (Robot r) => {r.attackBonus += 3; }, (Robot r) => {r.attackBonus -= 3; }, RobotStats.attack),
+			new Upgrade("Advanced engine Mk I", UpgradeTypes.Core, 0, "A more powerful engine that slightly increases the attack.", (Robot r) => {r.attackBonus += 2; }, (Robot r) => {r.attackBonus -= 2; }, RobotStats.attack),
+			new Upgrade("Advanced armor Mk I", UpgradeTypes.Armor, 0, "A more resistent material for the armor that slightly increases the defense.", (Robot r) => {r.defenseBonus += 2; }, (Robot r) => {r.defenseBonus -= 2; }, RobotStats.defense),
+			new Upgrade("Advanced core Mk I", UpgradeTypes.Core, 0, "A more powerful core that slightly increases the maximum health.", (Robot r) => {r.healthBonus += 2; }, (Robot r) => {r.healthBonus -= 2; }, RobotStats.health),
+			new Upgrade("Advanced connectors Mk I", UpgradeTypes.Core, 0, "More efficient connectors that slightly increase the speed.", (Robot r) => {r.speedBonus += 2; }, (Robot r) => {r.speedBonus -= 2; }, RobotStats.speed),
 		},
 		new Upgrade[] {
 			new Upgrade("", UpgradeTypes.Core, 0, "", null, null), // Upgrade IDs start from 1.

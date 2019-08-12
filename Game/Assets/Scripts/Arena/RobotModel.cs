@@ -1,7 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
 
+public enum RobotStyle {
+	Arms,
+	Legs,
+	Mixed
+}
 public class RobotModel : MonoBehaviour {
+	public RobotStyle robotStyle;
 	[Range(1, 9)]
 	public int health = 3;
 	[Range(1, 9)]

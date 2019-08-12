@@ -21,6 +21,8 @@ public class Player : NetworkBehaviour {
 	public bool isAgent;
 	[SyncVar]
 	public Color color;
+	[SyncVar]
+	public UpgradesBalance upgradesBalance;
 
 	public GameObject auctionPrefab;
 	public GameObject auctionPlayerScraps;
@@ -75,8 +77,12 @@ public class Player : NetworkBehaviour {
 			}
 		} else if (SceneManager.GetActiveScene().name == GameScenes.Auction) {
 			Debug.Log("Spawn in auction.");
+			GameObject newPlayer = Instantiate(arenaPrefab);
+			Robot robot = newPlayer.GetComponent<Robot>();
+			robot.playerGO = gameObject;
+
 			upgradeAssigned = false;
-			GameObject newPlayer = Instantiate(auctionPrefab);
+			newPlayer = Instantiate(auctionPrefab);
 			AuctionPlayer pb = newPlayer.GetComponent<AuctionPlayer>();
 			pb.playerGO = gameObject;
 			NetworkServer.Spawn(newPlayer);
@@ -125,6 +131,14 @@ public class Player : NetworkBehaviour {
 			Upgrades.permanent[upgrades[type].value1][upgrades[type].value2].OnRemove(robot);
 		}
 		upgrades[type] = null;
+	}
+
+	[Command]
+	public void CmdSetUpgradesBalance(UpgradesBalance upgradesBalance = UpgradesBalance.notSet) {
+		if (upgradesBalance == UpgradesBalance.notSet) {
+			upgradesBalance = (UpgradesBalance)Random.Range(1, System.Enum.GetValues(typeof(UpgradesBalance)).Length);
+		}
+		this.upgradesBalance = upgradesBalance;
 	}
 
 	private void OnDisconnectedFromServer(NetworkIdentity info) {
