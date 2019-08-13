@@ -45,7 +45,7 @@ public class Upgrades {
 	public static Upgrade[][] permanent = {
 		new Upgrade[] { }, // Upgrade levels start from 1.
 		new Upgrade[] {
-			new Upgrade("",UpgradeTypes.Core, 0, "", null, null), // Upgrade IDs start from 1.
+			new Upgrade("", UpgradeTypes.Core, 0, "", null, null), // Upgrade IDs start from 1.
 			new Upgrade("Hammer", UpgradeTypes.Hands, 0, "A light hammer that slightly increases the attack.", (Robot r) => { r.attackBonus += 3; }, (Robot r) => {r.attackBonus -= 3; }, RobotStats.attack),
 			new Upgrade("Spike ball", UpgradeTypes.Feet, 0, "A spiked ball that slightly increases the attack.", (Robot r) => {r.attackBonus += 3; }, (Robot r) => {r.attackBonus -= 3; }, RobotStats.attack),
 			new Upgrade("Advanced engine Mk I", UpgradeTypes.Core, 0, "A more powerful engine that slightly increases the attack.", (Robot r) => {r.attackBonus += 2; }, (Robot r) => {r.attackBonus -= 2; }, RobotStats.attack),

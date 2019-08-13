@@ -2039,6 +2039,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef38bd6f6c8a064a87db62b8804e0b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  robotStyle: 2
   health: 5
   attack: 5
   defense: 5

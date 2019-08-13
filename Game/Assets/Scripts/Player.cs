@@ -77,12 +77,12 @@ public class Player : NetworkBehaviour {
 			}
 		} else if (SceneManager.GetActiveScene().name == GameScenes.Auction) {
 			Debug.Log("Spawn in auction.");
-			GameObject newPlayer = Instantiate(arenaPrefab);
+			/*GameObject newPlayer = Instantiate(arenaPrefab);
 			Robot robot = newPlayer.GetComponent<Robot>();
-			robot.playerGO = gameObject;
+			robot.playerGO = gameObject;*/
 
 			upgradeAssigned = false;
-			newPlayer = Instantiate(auctionPrefab);
+			GameObject newPlayer = Instantiate(auctionPrefab);
 			AuctionPlayer pb = newPlayer.GetComponent<AuctionPlayer>();
 			pb.playerGO = gameObject;
 			NetworkServer.Spawn(newPlayer);

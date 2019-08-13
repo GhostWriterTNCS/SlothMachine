@@ -54,7 +54,7 @@ public class PlayerScraps : NetworkBehaviour {
 		currentUpgrade = auctionManager.currentUpgrade;
 		auctionAgent.variability = variability;
 		auctionAgent.moneyAvailable = auctionPlayer.player.scraps;
-		auctionPlayer.bid = (short)auctionAgent.GetBid(currentUpgrade, null, true);
+		auctionPlayer.bid = (short)auctionAgent.GetBid(currentUpgrade, auctionPlayer.player, true);
 
 		auctionPlayer.bidRegistered = true;
 	}

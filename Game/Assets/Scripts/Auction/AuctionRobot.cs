@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 public enum UpgradesBalance {
 	notSet,
@@ -13,14 +14,18 @@ public class AuctionRobot : AuctionAgent {
 	public override float GetInterest(object obj, object agent, bool isSelf) {
 		UpgradeBox upgradeBox = (UpgradeBox)obj;
 		Upgrade upgrade = Upgrades.permanent[upgradeBox.level][upgradeBox.ID];
+
 		Player player = (Player)agent;
+		GameObject model = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Robots/" + player.robotName + "/" + player.robotName));
+		model.SetActive(false);
+		RobotModel robotModel = model.GetComponent<RobotModel>();
 
 		// Evaluate the upgrade level.
 		float level = upgradeBox.level * 0.25f;
 
 		// Evaluate the upgrade compatibility.
 		float compatibility = 0.5f;
-		switch (player.robot.robotModel.robotStyle) {
+		switch (robotModel.robotStyle) {
 			case RobotStyle.Arms:
 				switch (upgrade.type) {
 					case UpgradeTypes.Hands:
@@ -45,11 +50,8 @@ public class AuctionRobot : AuctionAgent {
 
 		// Check if the body part is already used.
 		float partUsed = 0.7f;
-		foreach (Pair u in player.upgrades) {
-			if (Upgrades.permanent[u.value1][u.value2].type == upgrade.type) {
-				partUsed = 0.1f;
-				break;
-			}
+		if (player.upgrades[(int)upgrade.type]) {
+			partUsed = 0.1f;
 		}
 
 		// Check if the upgrade is useful for a balanced or specialized robot.
@@ -57,7 +59,7 @@ public class AuctionRobot : AuctionAgent {
 			player.CmdSetUpgradesBalance(UpgradesBalance.notSet);
 		}
 		float balance = 0.5f;
-		RobotStats[] strenghts = GetRobotStrenghts(player.robot.robotModel);
+		RobotStats[] strenghts = GetRobotStrenghts(robotModel);
 		UpgradesBalance upgradesBalance = player.upgradesBalance;
 		if (!isSelf) {
 			upgradesBalance = DetectBalance(player);
@@ -83,6 +85,7 @@ public class AuctionRobot : AuctionAgent {
 				throw new ArgumentException(player.upgradeAssigned.ToString() + " is not a valid value.");
 		}
 
+		Debug.LogError("Bid: " + level + ", " + compatibility + ", " + partUsed + ", " + balance);
 		return (level + compatibility + partUsed + balance) / 4;
 	}
 
@@ -110,7 +113,10 @@ public class AuctionRobot : AuctionAgent {
 	}
 
 	UpgradesBalance DetectBalance(Player player) {
-		RobotStats[] strenghts = GetRobotStrenghts(player.robot.robotModel);
+		GameObject model = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Robots/" + player.robotName + "/" + player.robotName));
+		model.SetActive(false);
+		RobotModel robotModel = model.GetComponent<RobotModel>();
+		RobotStats[] strenghts = GetRobotStrenghts(robotModel);
 		int balanced = 0;
 		int specialized = 0;
 		foreach (Pair u in player.upgrades) {
