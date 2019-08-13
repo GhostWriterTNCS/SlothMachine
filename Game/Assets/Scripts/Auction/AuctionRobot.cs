@@ -28,6 +28,18 @@ public class AuctionRobot : AuctionAgent {
 		model.SetActive(false);
 		RobotModel robotModel = model.GetComponent<RobotModel>();
 
+		// Check if the body part is already used.
+		float partIsUsed = partNotUsed;
+		Pair p = player.upgrades[(int)upgrade.type];
+		if (p) {
+			if (p.value1 < upgradeBox.level) {
+				partIsUsed = partUsed;
+			} else {
+				// The robot already has a better upgrade for the same part.
+				return 0;
+			}
+		}
+
 		// Evaluate the upgrade level.
 		float level = upgradeBox.level * interestPerLevel;
 
@@ -54,12 +66,6 @@ public class AuctionRobot : AuctionAgent {
 						break;
 				}
 				break;
-		}
-
-		// Check if the body part is already used.
-		float partIsUsed = partNotUsed;
-		if (player.upgrades[(int)upgrade.type]) {
-			partIsUsed = partUsed;
 		}
 
 		// Check if the upgrade is useful for a balanced or specialized robot.
@@ -93,7 +99,9 @@ public class AuctionRobot : AuctionAgent {
 				throw new ArgumentException(player.upgradeAssigned.ToString() + " is not a valid value.");
 		}
 
-		Debug.LogError(player.robotName + "'s bid: " + level + ", " + compatibility + ", " + partIsUsed + ", " + balance);
+		if (isSelf) {
+			Debug.LogError(player.robotName + "'s bid: " + level + ", " + compatibility + ", " + partIsUsed + ", " + balance);
+		}
 		return (level + compatibility + partIsUsed + balance) / 4;
 	}
 
@@ -128,10 +136,12 @@ public class AuctionRobot : AuctionAgent {
 		int balanced = 0;
 		int specialized = 0;
 		foreach (Pair u in player.upgrades) {
-			if (strenghts.Contains(Upgrades.permanent[u.value1][u.value2].robotStats)) {
-				specialized++;
-			} else {
-				balanced++;
+			if (u) {
+				if (strenghts.Contains(Upgrades.permanent[u.value1][u.value2].robotStats)) {
+					specialized++;
+				} else {
+					balanced++;
+				}
 			}
 		}
 		if (balanced == 0) {

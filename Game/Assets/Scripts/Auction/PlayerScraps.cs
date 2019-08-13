@@ -54,10 +54,9 @@ public class PlayerScraps : NetworkBehaviour {
 		auctionAgent.variability = variability;
 		auctionAgent.moneyAvailable = auctionPlayer.player.scraps;
 		List<Player> players = new List<Player>();
-		players.AddRange(FindObjectsOfType<Player>());
-		foreach (Player p in players) {
-			if (p.upgradeAssigned) {
-				players.Remove(p);
+		foreach (Player p in FindObjectsOfType<Player>()) {
+			if (!p.upgradeAssigned && p != auctionPlayer.player) {
+				players.Add(p);
 			}
 		}
 		auctionPlayer.bid = (short)auctionAgent.GetRefinedBid(currentUpgrade, auctionPlayer.player, players.ToArray());
