@@ -54,7 +54,7 @@ public class AuctionRobot : AuctionAgent {
 
 		// Check if the upgrade is useful for a balanced or specialized robot.
 		if (player.upgradesBalance == UpgradesBalance.notSet) {
-			player.CmdSetUpgradesBalance();
+			player.CmdSetUpgradesBalance(UpgradesBalance.notSet);
 		}
 		float balance = 0.5f;
 		RobotStats[] strenghts = GetRobotStrenghts(player.robot.robotModel);

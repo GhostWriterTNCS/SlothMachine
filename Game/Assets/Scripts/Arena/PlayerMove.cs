@@ -28,6 +28,9 @@ public class PlayerMove : NetworkBehaviour {
 	}
 
 	void Update() {
+		if (!robot.animator) {
+			return;
+		}
 		float adjustSpeed = 1, h = 0, v = 0;
 		foreach (Robot r in FindObjectsOfType<Robot>()) {
 			if (r == robot || MatchManager.singleton.bossRound && robot.player.roundWinner < 2 && r.player.roundWinner < 2) {

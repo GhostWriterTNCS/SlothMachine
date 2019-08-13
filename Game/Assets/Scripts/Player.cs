@@ -134,7 +134,7 @@ public class Player : NetworkBehaviour {
 	}
 
 	[Command]
-	public void CmdSetUpgradesBalance(UpgradesBalance upgradesBalance = UpgradesBalance.notSet) {
+	public void CmdSetUpgradesBalance(UpgradesBalance upgradesBalance) {
 		if (upgradesBalance == UpgradesBalance.notSet) {
 			upgradesBalance = (UpgradesBalance)Random.Range(1, System.Enum.GetValues(typeof(UpgradesBalance)).Length);
 		}

@@ -13,9 +13,18 @@ public class PlayerScraps : NetworkBehaviour {
 	public GameObject playerBoxGO;
 	public AuctionPlayer auctionPlayer;
 
+	[Header("Agent")]
+	[Range(0, 1)]
+	public float variability = 0.1f;
+
+	AuctionAgent auctionAgent = new AuctionRobot();
+	AuctionManager auctionManager;
+	UpgradeBox currentUpgrade;
+
 	void Start() {
 		backgroundImage.gameObject.SetActive(false);
-		FindObjectOfType<AuctionManager>().StartCoroutine(LoadPlayer());
+		auctionManager = FindObjectOfType<AuctionManager>();
+		auctionManager.StartCoroutine(LoadPlayer());
 	}
 
 	public IEnumerator LoadPlayer() {
@@ -40,7 +49,13 @@ public class PlayerScraps : NetworkBehaviour {
 
 	[Command]
 	public void CmdCalculateAgentsBids() {
-		auctionPlayer.bid = (short)Random.Range(0, auctionPlayer.player.scraps + 1);
+		//auctionPlayer.bid = (short)Random.Range(0, auctionPlayer.player.scraps + 1);
+
+		currentUpgrade = auctionManager.currentUpgrade;
+		auctionAgent.variability = variability;
+		auctionAgent.moneyAvailable = auctionPlayer.player.scraps;
+		auctionPlayer.bid = (short)auctionAgent.GetBid(currentUpgrade, null, true);
+
 		auctionPlayer.bidRegistered = true;
 	}
 
