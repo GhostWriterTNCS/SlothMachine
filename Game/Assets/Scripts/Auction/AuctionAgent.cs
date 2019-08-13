@@ -28,14 +28,22 @@ public abstract class AuctionAgent {
 	/// <param name="obj">The auction object.</param>
 	/// <param name="agent">The agent.</param>
 	/// <param name="isSelf">When false, the agent tries to guess the opponent's values.</param>
-	/// <param name="moneyAvailable">The money available. If value is less then 0, it uses the moneyAvailable param.</param>
 	/// <returns>The bid for the object</returns>
 	public float GetBid(object obj, object agent, bool isSelf) {
 		float moneyAvailable = this.moneyAvailable;
 		if (!isSelf) {
 			moneyAvailable = GetExpectedMoney(agent);
 		}
-		float bid = moneyAvailable * GetInterest(obj, agent, isSelf);
+		return GetBid(GetInterest(obj, agent, isSelf), moneyAvailable);
+	}
+	/// <summary>
+	/// Returns the bid for the object.
+	/// </summary>
+	/// <param name="interest">A value between 0 (not interested) and 1 (super interested).</param>
+	/// <param name="moneyAvailable">The money available.</param>
+	/// <returns>The bid for the object</returns>
+	public float GetBid(float interest, float moneyAvailable) {
+		float bid = moneyAvailable * interest;
 		bid += bid * ((float)rand.NextDouble() * variability * 2 - variability);
 		if (bid > moneyAvailable) {
 			bid = moneyAvailable;
@@ -60,9 +68,20 @@ public abstract class AuctionAgent {
 	/// <param name="others">The other contenders.</param>
 	/// <returns>The bid for the object</returns>
 	public float GetRefinedBid(object obj, object agent, object[] others) {
-		float bid = GetBid(obj, agent, true);
+		float interest = GetInterest(obj, agent, true);
+		float bid = GetBid(interest, moneyAvailable);
 		foreach (object other in others) {
-			GetBid(obj, other, false);
+			float otherBid = GetBid(obj, other, false);
+			if (interest > 0.75f && otherBid > bid) {
+				bid *= 1.2f;
+			} else if (interest < 0.25f && otherBid < bid) {
+				bid *= 0.8f;
+			}
+		}
+		if (bid > moneyAvailable) {
+			bid = moneyAvailable;
+		} else if (bid < 0) {
+			bid = 0;
 		}
 		return bid;
 	}

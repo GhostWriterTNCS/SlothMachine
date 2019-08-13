@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
@@ -49,13 +50,17 @@ public class PlayerScraps : NetworkBehaviour {
 
 	[Command]
 	public void CmdCalculateAgentsBids() {
-		//auctionPlayer.bid = (short)Random.Range(0, auctionPlayer.player.scraps + 1);
-
 		currentUpgrade = auctionManager.currentUpgrade;
 		auctionAgent.variability = variability;
 		auctionAgent.moneyAvailable = auctionPlayer.player.scraps;
-		auctionPlayer.bid = (short)auctionAgent.GetBid(currentUpgrade, auctionPlayer.player, true);
-
+		List<Player> players = new List<Player>();
+		players.AddRange(FindObjectsOfType<Player>());
+		foreach (Player p in players) {
+			if (p.upgradeAssigned) {
+				players.Remove(p);
+			}
+		}
+		auctionPlayer.bid = (short)auctionAgent.GetRefinedBid(currentUpgrade, auctionPlayer.player, players.ToArray());
 		auctionPlayer.bidRegistered = true;
 	}
 
