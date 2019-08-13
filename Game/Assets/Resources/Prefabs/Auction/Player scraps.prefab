@@ -647,6 +647,7 @@ MonoBehaviour:
   backgroundImage: {fileID: 7905411119106478859}
   playerBoxGO: {fileID: 0}
   auctionPlayer: {fileID: 0}
+  variability: 0.1
 --- !u!114 &8895915483734406514
 MonoBehaviour:
   m_ObjectHideFlags: 0

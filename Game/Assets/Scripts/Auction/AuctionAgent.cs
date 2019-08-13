@@ -10,13 +10,14 @@ public abstract class AuctionAgent {
 	/// </summary>
 	public float variability;
 
-	Random rand = new Random();
+	static Random rand = new Random();
 
 	/// <summary>
 	/// Calculate how much the agent is interested in the object.
 	/// </summary>
 	/// <param name="obj">The auction object.</param>
 	/// <param name="agent">The agent.</param>
+	/// <param name="isSelf">When false, the agent tries to guess the opponent's values.</param>
 	/// <returns>A value between 0 (not interested) and 1 (super interested).</returns>
 	public abstract float GetInterest(object obj, object agent, bool isSelf);
 
@@ -26,6 +27,7 @@ public abstract class AuctionAgent {
 	/// </summary>
 	/// <param name="obj">The auction object.</param>
 	/// <param name="agent">The agent.</param>
+	/// <param name="isSelf">When false, the agent tries to guess the opponent's values.</param>
 	/// <param name="moneyAvailable">The money available. If value is less then 0, it uses the moneyAvailable param.</param>
 	/// <returns>The bid for the object</returns>
 	public float GetBid(object obj, object agent, bool isSelf) {

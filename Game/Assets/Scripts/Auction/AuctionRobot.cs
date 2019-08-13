@@ -11,6 +11,14 @@ public enum UpgradesBalance {
 }
 
 public class AuctionRobot : AuctionAgent {
+	float interestPerLevel = 0.25f;
+	float compatibilityRight = 0.95f;
+	float compatibilityWrong = 0.15f;
+	float partUsed = 0.05f;
+	float partNotUsed = 0.8f;
+	float balanceRight = 0.8f;
+	float balanceWrong = 0.2f;
+
 	public override float GetInterest(object obj, object agent, bool isSelf) {
 		UpgradeBox upgradeBox = (UpgradeBox)obj;
 		Upgrade upgrade = Upgrades.permanent[upgradeBox.level][upgradeBox.ID];
@@ -21,7 +29,7 @@ public class AuctionRobot : AuctionAgent {
 		RobotModel robotModel = model.GetComponent<RobotModel>();
 
 		// Evaluate the upgrade level.
-		float level = upgradeBox.level * 0.25f;
+		float level = upgradeBox.level * interestPerLevel;
 
 		// Evaluate the upgrade compatibility.
 		float compatibility = 0.5f;
@@ -29,29 +37,29 @@ public class AuctionRobot : AuctionAgent {
 			case RobotStyle.Arms:
 				switch (upgrade.type) {
 					case UpgradeTypes.Hands:
-						compatibility = 0.85f;
+						compatibility = compatibilityRight;
 						break;
 					case UpgradeTypes.Feet:
-						compatibility = 0.15f;
+						compatibility = compatibilityWrong;
 						break;
 				}
 				break;
 			case RobotStyle.Legs:
 				switch (upgrade.type) {
 					case UpgradeTypes.Hands:
-						compatibility = 0.15f;
+						compatibility = compatibilityWrong;
 						break;
 					case UpgradeTypes.Feet:
-						compatibility = 0.85f;
+						compatibility = compatibilityRight;
 						break;
 				}
 				break;
 		}
 
 		// Check if the body part is already used.
-		float partUsed = 0.7f;
+		float partIsUsed = partNotUsed;
 		if (player.upgrades[(int)upgrade.type]) {
-			partUsed = 0.1f;
+			partIsUsed = partUsed;
 		}
 
 		// Check if the upgrade is useful for a balanced or specialized robot.
@@ -67,16 +75,16 @@ public class AuctionRobot : AuctionAgent {
 		switch (upgradesBalance) {
 			case UpgradesBalance.balanced:
 				if (strenghts.Contains(upgrade.robotStats)) {
-					balance = 0.3f;
+					balance = balanceWrong;
 				} else {
-					balance = 0.7f;
+					balance = balanceRight;
 				}
 				break;
 			case UpgradesBalance.specialized:
 				if (strenghts.Contains(upgrade.robotStats)) {
-					balance = 0.7f;
+					balance = balanceRight;
 				} else {
-					balance = 0.3f;
+					balance = balanceWrong;
 				}
 				break;
 			case UpgradesBalance.mixed:
@@ -85,8 +93,8 @@ public class AuctionRobot : AuctionAgent {
 				throw new ArgumentException(player.upgradeAssigned.ToString() + " is not a valid value.");
 		}
 
-		Debug.LogError("Bid: " + level + ", " + compatibility + ", " + partUsed + ", " + balance);
-		return (level + compatibility + partUsed + balance) / 4;
+		Debug.LogError(player.robotName + "'s bid: " + level + ", " + compatibility + ", " + partIsUsed + ", " + balance);
+		return (level + compatibility + partIsUsed + balance) / 4;
 	}
 
 	public override float GetExpectedMoney(object other) {
