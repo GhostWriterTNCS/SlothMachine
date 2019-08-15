@@ -73,9 +73,9 @@ public abstract class AuctionAgent {
 		foreach (object other in others) {
 			float otherBid = GetBid(obj, other, false);
 			if (interest > 0.75f && otherBid > bid) {
-				bid *= 1.2f;
+				bid = otherBid * (interest + 0.5f);
 			} else if (interest < 0.25f && otherBid < bid) {
-				bid *= 0.8f;
+				bid = otherBid * (interest + 0.5f);
 			}
 		}
 		if (bid > moneyAvailable) {
