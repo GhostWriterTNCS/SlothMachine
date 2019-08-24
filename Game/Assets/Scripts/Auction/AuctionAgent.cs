@@ -2,13 +2,21 @@
 
 public abstract class AuctionAgent {
 	/// <summary>
-	/// The money available for the acution.
+	/// The amount money available for the auction.
 	/// </summary>
 	public float moneyAvailable;
 	/// <summary>
 	/// The result variability (between 0 and 1).
 	/// </summary>
-	public float variability;
+	public float variability = 0.1f;
+	/// <summary>
+	/// When the agent is willing to increase its bid if someone else has a higher expected bid (between 0.5 and 1).
+	/// </summary>
+	public float veryInterestedThreshold = 0.75f;
+	/// <summary>
+	/// When the agent is willing to decrease its bid if someone else has a lower expected bid (between 0 and 0.5).
+	/// </summary>
+	public float notInterestedThreshold = 0.25f;
 
 	static Random rand = new Random();
 
@@ -72,9 +80,9 @@ public abstract class AuctionAgent {
 		float bid = GetBid(interest, moneyAvailable);
 		foreach (object other in others) {
 			float otherBid = GetBid(obj, other, false);
-			if (interest > 0.75f && otherBid > bid) {
+			if (interest > veryInterestedThreshold && otherBid > bid) {
 				bid = otherBid * (interest + 0.5f);
-			} else if (interest < 0.25f && otherBid < bid) {
+			} else if (interest < notInterestedThreshold && otherBid < bid) {
 				bid = otherBid * (interest + 0.5f);
 			}
 		}

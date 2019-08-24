@@ -10,14 +10,43 @@ public enum UpgradesBalance {
 	mixed
 }
 
-public class AuctionRobot : AuctionAgent {
-	float interestPerLevel = 0.25f;
-	float compatibilityRight = 0.95f;
-	float compatibilityWrong = 0.15f;
-	float partUsed = 0.05f;
-	float partNotUsed = 0.8f;
-	float balanceRight = 0.8f;
-	float balanceWrong = 0.2f;
+public enum UpgradesPrefer {
+	notSet,
+	permanent,
+	temporary,
+	mixed
+}
+
+public class AuctionAgentRobot : AuctionAgent {
+	public float interestPerLevel = 0.3f;
+	public float levelWeight = 1;
+
+	public float compatibilityRight = 0.95f;
+	public float compatibilityWrong = 0.15f;
+	public float compatibilityMixed = 0.5f;
+	public float compatibilityWeight = 1;
+
+	public float partUsed = 0.05f;
+	public float partNotUsed = 0.8f;
+	public float partUsedWeight = 1;
+
+	public float balanceRight = 0.8f;
+	public float balanceWrong = 0.2f;
+	public float balanceMixed = 0.5f;
+	public float balanceWeight = 1;
+
+	public float preferPermanent = 0.85f;
+	public float preferTemporary = 0.15f;
+	public float preferMixed = 0.5f;
+	public float preferWeight = 1;
+	public int preferPermanentThreshold = 3;
+	public int preferTemporaryThreshold = 6;
+
+	Player player;
+
+	public AuctionAgentRobot(Player player) : base() {
+		this.player = player;
+	}
 
 	public override float GetInterest(object obj, object agent, bool isSelf) {
 		UpgradeBox upgradeBox = (UpgradeBox)obj;
@@ -44,7 +73,7 @@ public class AuctionRobot : AuctionAgent {
 		float level = upgradeBox.level * interestPerLevel;
 
 		// Evaluate the upgrade compatibility.
-		float compatibility = 0.5f;
+		float compatibility = compatibilityMixed;
 		switch (robotModel.robotStyle) {
 			case RobotStyle.Arms:
 				switch (upgrade.type) {
@@ -72,7 +101,7 @@ public class AuctionRobot : AuctionAgent {
 		if (player.upgradesBalance == UpgradesBalance.notSet) {
 			player.CmdSetUpgradesBalance(UpgradesBalance.notSet);
 		}
-		float balance = 0.5f;
+		float balance = balanceMixed;
 		RobotStats[] strenghts = GetRobotStrenghts(robotModel);
 		UpgradesBalance upgradesBalance = player.upgradesBalance;
 		if (!isSelf) {
@@ -99,15 +128,37 @@ public class AuctionRobot : AuctionAgent {
 				throw new ArgumentException(player.upgradeAssigned.ToString() + " is not a valid value.");
 		}
 
-		if (isSelf) {
-			Debug.LogError(player.robotName + "'s bid: " + level + ", " + compatibility + ", " + partIsUsed + ", " + balance);
+		float prefer = preferMixed;
+		UpgradesPrefer upgradesPrefer = player.upgradesPrefer;
+		if (!isSelf) {
+			upgradesPrefer = DetectPrefer(player);
 		}
-		return (level + compatibility + partIsUsed + balance) / 4;
+		switch (upgradesPrefer) {
+			case UpgradesPrefer.permanent:
+				prefer = preferPermanent;
+				break;
+			case UpgradesPrefer.temporary:
+				prefer = preferTemporary;
+				break;
+			case UpgradesPrefer.mixed:
+				break;
+			default:
+				throw new ArgumentException(player.upgradeAssigned.ToString() + " is not a valid value.");
+		}
+
+		if (isSelf) {
+			Debug.LogError(player.robotName + "'s bid: " + level + ", " + compatibility + ", " + partIsUsed + ", " + balance + ", " + prefer);
+		}
+		return (level * levelWeight + compatibility * compatibilityWeight + partIsUsed * partUsedWeight + balance * balanceWeight + prefer * preferWeight) /
+			(levelWeight + compatibilityWeight + partUsedWeight + balanceWeight + preferWeight);
 	}
 
 	public override float GetExpectedMoney(object other) {
-		Player player = (Player)other;
-		return player.score / 30;
+		Player otherPlayer = (Player)other;
+		if (!player.expectedMoney.ContainsKey(otherPlayer)) {
+			player.expectedMoney.Add(otherPlayer, otherPlayer.score / 30);
+		}
+		return player.expectedMoney[otherPlayer];
 	}
 
 	RobotStats[] GetRobotStrenghts(RobotModel robotModel) {
@@ -151,5 +202,17 @@ public class AuctionRobot : AuctionAgent {
 		} else {
 			return UpgradesBalance.mixed;
 		}
+	}
+
+	UpgradesPrefer DetectPrefer(Player otherPlayer) {
+		if (!player.temporaryUpgradesCount.ContainsKey(otherPlayer)) {
+			return UpgradesPrefer.mixed;
+		}
+		if (player.temporaryUpgradesCount[otherPlayer] < preferPermanentThreshold / (float)MatchManager.singleton.roundCounter) {
+			return UpgradesPrefer.permanent;
+		} else if (player.temporaryUpgradesCount[otherPlayer] > preferTemporaryThreshold / (float)MatchManager.singleton.roundCounter) {
+			return UpgradesPrefer.temporary;
+		}
+		return UpgradesPrefer.mixed;
 	}
 }

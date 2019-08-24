@@ -23,6 +23,8 @@ public class Player : NetworkBehaviour {
 	public Color color;
 	[SyncVar]
 	public UpgradesBalance upgradesBalance;
+	[SyncVar]
+	public UpgradesPrefer upgradesPrefer;
 
 	public GameObject auctionPrefab;
 	public GameObject auctionPlayerScraps;
@@ -35,6 +37,9 @@ public class Player : NetworkBehaviour {
 	public Pair[] upgrades = new Pair[] { null, null, null, null };
 	[SyncVar]
 	public bool upgradeAssigned;
+
+	public Dictionary<Player, int> expectedMoney = new Dictionary<Player, int>();
+	public Dictionary<Player, int> temporaryUpgradesCount = new Dictionary<Player, int>();
 
 	private void Awake() {
 		DontDestroyOnLoad(gameObject);

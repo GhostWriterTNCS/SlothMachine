@@ -18,7 +18,7 @@ public class PlayerScraps : NetworkBehaviour {
 	[Range(0, 1)]
 	public float variability = 0.1f;
 
-	AuctionAgent auctionAgent = new AuctionRobot();
+	AuctionAgent auctionAgent;
 	AuctionManager auctionManager;
 	UpgradeBox currentUpgrade;
 
@@ -46,6 +46,7 @@ public class PlayerScraps : NetworkBehaviour {
 			backgroundImage.gameObject.SetActive(true);
 			backgroundImage.color = TextManager.backgroundHighlightedColor;
 		}
+		auctionAgent = new AuctionAgentRobot(auctionPlayer.player);
 	}
 
 	[Command]

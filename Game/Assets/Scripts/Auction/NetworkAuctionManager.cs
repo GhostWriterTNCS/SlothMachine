@@ -206,6 +206,14 @@ public class NetworkAuctionManager : NetworkBehaviour {
 			currentTitle = upgradeLost;
 		}
 
+		foreach (Player p in FindObjectsOfType<Player>()) {
+			Player other = auctionManager.GetComponent<AuctionPlayer>().player;
+			if (!p.expectedMoney.ContainsKey(other)) {
+				p.expectedMoney.Add(other, 0);
+			}
+			p.expectedMoney[other] -= maxBid;
+		}
+
 		currentUpgrade++;
 		while (currentPause > 0) {
 			currentPause -= Time.deltaTime;
