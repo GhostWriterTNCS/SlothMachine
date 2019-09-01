@@ -21,9 +21,8 @@ public class Player : NetworkBehaviour {
 	public bool isAgent;
 	[SyncVar]
 	public Color color;
-	[SyncVar]
+
 	public UpgradesBalance upgradesBalance;
-	[SyncVar]
 	public UpgradesPrefer upgradesPrefer;
 
 	public GameObject auctionPrefab;
@@ -41,6 +40,8 @@ public class Player : NetworkBehaviour {
 	public Dictionary<Player, int> expectedMoney = new Dictionary<Player, int>();
 	public Dictionary<Player, int> temporaryUpgradesCount = new Dictionary<Player, int>();
 
+	public readonly static short defaultScraps = 100;
+
 	private void Awake() {
 		DontDestroyOnLoad(gameObject);
 	}
@@ -51,7 +52,7 @@ public class Player : NetworkBehaviour {
 			name = "<b>" + name + "</b>";
 		}
 		score = 0;
-		scraps = 100;
+		scraps = defaultScraps;
 		roundWinner = 0;
 		deathCount = 0;
 		CmdRespawn(gameObject);
@@ -81,7 +82,7 @@ public class Player : NetworkBehaviour {
 				NetworkServer.Spawn(NAM);
 			}
 		} else if (SceneManager.GetActiveScene().name == GameScenes.Auction) {
-			Debug.Log("Spawn in auction.");
+			//Debug.Log("Spawn in auction.");
 			/*GameObject newPlayer = Instantiate(arenaPrefab);
 			Robot robot = newPlayer.GetComponent<Robot>();
 			robot.playerGO = gameObject;*/
@@ -139,11 +140,19 @@ public class Player : NetworkBehaviour {
 	}
 
 	[Command]
-	public void CmdSetUpgradesBalance(UpgradesBalance upgradesBalance) {
+	public void CmdSetupAuctionAgent() {
 		if (upgradesBalance == UpgradesBalance.notSet) {
 			upgradesBalance = (UpgradesBalance)Random.Range(1, System.Enum.GetValues(typeof(UpgradesBalance)).Length);
 		}
+		if (upgradesPrefer == UpgradesPrefer.notSet) {
+			upgradesPrefer = (UpgradesPrefer)Random.Range(1, System.Enum.GetValues(typeof(UpgradesPrefer)).Length);
+		}
+		RpcSetupAuctionAgent(upgradesBalance, upgradesPrefer);
+	}
+	[ClientRpc]
+	public void RpcSetupAuctionAgent(UpgradesBalance upgradesBalance, UpgradesPrefer upgradesPrefer) {
 		this.upgradesBalance = upgradesBalance;
+		this.upgradesPrefer = upgradesPrefer;
 	}
 
 	private void OnDisconnectedFromServer(NetworkIdentity info) {

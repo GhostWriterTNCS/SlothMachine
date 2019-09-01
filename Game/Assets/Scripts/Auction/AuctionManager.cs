@@ -18,7 +18,7 @@ public class AuctionManager : MonoBehaviour {
 		StartCoroutine(CreateUpgradeBoxesCoroutine());
 	}
 	IEnumerator CreateUpgradeBoxesCoroutine() {
-		Debug.Log("There are " + MatchManager.singleton.playerCount + " players.");
+		//Debug.Log("There are " + MatchManager.singleton.playerCount + " players.");
 		while (!networkAuctionManager) {
 			yield return 0;
 		}

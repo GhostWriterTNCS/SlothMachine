@@ -200,7 +200,7 @@ namespace Prototype.NetworkLobby {
 			if (p) {
 				p.isAgent = true;
 			}*/
-			Debug.Log("Added local player " + numPlayers);
+			//Debug.Log("Added local player " + numPlayers);
 		}
 
 		public void RemovePlayer(LobbyPlayer player) {
@@ -285,7 +285,7 @@ namespace Prototype.NetworkLobby {
 
 			// show button only on server
 			if (SceneManager.GetActiveScene().name == GameScenes.Lobby) {
-				Debug.Log("Player count: " + localPlayerCount + " " + _playerNumber);
+				//Debug.Log("Player count: " + localPlayerCount + " " + _playerNumber);
 				MatchManager.singleton.playerCount = _playerNumber;
 			}
 #if UNITY_EDITOR

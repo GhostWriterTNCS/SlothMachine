@@ -43,7 +43,7 @@ public class AuctionPlayer : NetworkBehaviour {
 			Instantiate(Resources.Load<GameObject>("Prefabs/Separator horizontal"), auctionManager.playersList.transform);
 		}
 		transform.SetParent(auctionManager.playersList.transform);
-		Debug.Log("Load player " + playerGO.name);
+		//Debug.Log("Load player " + playerGO.name);
 		player = playerGO.GetComponent<Player>();
 		if (player) {
 			robotFrame.color = player.color;

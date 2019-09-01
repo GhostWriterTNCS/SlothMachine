@@ -75,7 +75,7 @@ public class NetworkAuctionManager : NetworkBehaviour {
 
 	[Command]
 	void CmdLoad() {
-		Debug.Log("Player count: " + MatchManager.singleton.playerCount);
+		//Debug.Log("Player count: " + MatchManager.singleton.playerCount);
 		for (int i = 0; i < MatchManager.singleton.playerCount; i++) {
 			int upgrade, level;
 			if (i < MatchManager.singleton.playerCount / 2) {
@@ -206,13 +206,13 @@ public class NetworkAuctionManager : NetworkBehaviour {
 			currentTitle = upgradeLost;
 		}
 
-		foreach (Player p in FindObjectsOfType<Player>()) {
+		/*foreach (Player p in FindObjectsOfType<Player>()) {
 			Player other = auctionManager.GetComponent<AuctionPlayer>().player;
 			if (!p.expectedMoney.ContainsKey(other)) {
-				p.expectedMoney.Add(other, 0);
+				p.expectedMoney.Add(other, Player.defaultScraps);
 			}
 			p.expectedMoney[other] -= maxBid;
-		}
+		}*/
 
 		currentUpgrade++;
 		while (currentPause > 0) {

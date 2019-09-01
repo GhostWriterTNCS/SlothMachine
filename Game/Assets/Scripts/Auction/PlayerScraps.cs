@@ -18,7 +18,7 @@ public class PlayerScraps : NetworkBehaviour {
 	[Range(0, 1)]
 	public float variability = 0.1f;
 
-	AuctionAgent auctionAgent;
+	AuctionAgentRobot auctionAgent;
 	AuctionManager auctionManager;
 	UpgradeBox currentUpgrade;
 
@@ -54,6 +54,9 @@ public class PlayerScraps : NetworkBehaviour {
 		currentUpgrade = auctionManager.currentUpgrade;
 		auctionAgent.variability = variability;
 		auctionAgent.moneyAvailable = auctionPlayer.player.scraps;
+		auctionAgent.balanceWeight = 2;
+		auctionAgent.preferWeight = 2;
+
 		List<Player> players = new List<Player>();
 		foreach (Player p in FindObjectsOfType<Player>()) {
 			if (!p.upgradeAssigned && p != auctionPlayer.player) {

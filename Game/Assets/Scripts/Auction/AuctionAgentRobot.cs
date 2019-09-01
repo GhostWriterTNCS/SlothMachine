@@ -56,6 +56,9 @@ public class AuctionAgentRobot : AuctionAgent {
 		GameObject model = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Robots/" + player.robotName + "/" + player.robotName));
 		model.SetActive(false);
 		RobotModel robotModel = model.GetComponent<RobotModel>();
+		if (player.upgradesBalance == UpgradesBalance.notSet) {
+			player.CmdSetupAuctionAgent();
+		}
 
 		// Check if the body part is already used.
 		float partIsUsed = partNotUsed;
@@ -98,9 +101,6 @@ public class AuctionAgentRobot : AuctionAgent {
 		}
 
 		// Check if the upgrade is useful for a balanced or specialized robot.
-		if (player.upgradesBalance == UpgradesBalance.notSet) {
-			player.CmdSetUpgradesBalance(UpgradesBalance.notSet);
-		}
 		float balance = balanceMixed;
 		RobotStats[] strenghts = GetRobotStrenghts(robotModel);
 		UpgradesBalance upgradesBalance = player.upgradesBalance;
@@ -143,22 +143,24 @@ public class AuctionAgentRobot : AuctionAgent {
 			case UpgradesPrefer.mixed:
 				break;
 			default:
-				throw new ArgumentException(player.upgradeAssigned.ToString() + " is not a valid value.");
+				throw new ArgumentException(upgradesPrefer.ToString() + " is not a valid value.");
 		}
 
-		if (isSelf) {
-			Debug.LogError(player.robotName + "'s bid: " + level + ", " + compatibility + ", " + partIsUsed + ", " + balance + ", " + prefer);
-		}
-		return (level * levelWeight + compatibility * compatibilityWeight + partIsUsed * partUsedWeight + balance * balanceWeight + prefer * preferWeight) /
+		float result = (level * levelWeight + compatibility * compatibilityWeight + partIsUsed * partUsedWeight + balance * balanceWeight + prefer * preferWeight) /
 			(levelWeight + compatibilityWeight + partUsedWeight + balanceWeight + preferWeight);
+		if (isSelf) {
+			Debug.Log(player.name + "'s bid: " + level + ", " + compatibility + ", " + partIsUsed + ", " + balance + ", " + prefer + " -> " + result);
+		}
+		return result;
 	}
 
 	public override float GetExpectedMoney(object other) {
 		Player otherPlayer = (Player)other;
 		if (!player.expectedMoney.ContainsKey(otherPlayer)) {
-			player.expectedMoney.Add(otherPlayer, otherPlayer.score / 30);
+			player.expectedMoney.Add(otherPlayer, Player.defaultScraps);
 		}
-		return player.expectedMoney[otherPlayer];
+		//Debug.Log(player.name + " expects " + (player.expectedMoney[otherPlayer] + otherPlayer.score / 30) + " for " + otherPlayer.name);
+		return player.expectedMoney[otherPlayer] + otherPlayer.score / 30;
 	}
 
 	RobotStats[] GetRobotStrenghts(RobotModel robotModel) {
