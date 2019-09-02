@@ -12,11 +12,13 @@ public abstract class AuctionAgent {
 	/// <summary>
 	/// When the agent is willing to increase its bid if someone else has a higher expected bid (between 0.5 and 1).
 	/// </summary>
-	public float veryInterestedThreshold = 0.75f;
+	public float veryInterestedThreshold = 0.7f;
 	/// <summary>
-	/// When the agent is willing to decrease its bid if someone else has a lower expected bid (between 0 and 0.5).
+	/// The minimum amount of interest between its interest and the highest expected interest for the opponents.
+	/// The value must be between 0 (no margin) and 1 (always bid all the money).
+	/// To be effective, it should be bigger than variability.
 	/// </summary>
-	public float notInterestedThreshold = 0.25f;
+	public float safeMargin = 0.2f;
 
 	static Random rand = new Random();
 
@@ -36,7 +38,7 @@ public abstract class AuctionAgent {
 	/// <param name="obj">The auction object.</param>
 	/// <param name="agent">The agent.</param>
 	/// <param name="isSelf">When false, the agent tries to guess the opponent's values.</param>
-	/// <returns>The bid for the object</returns>
+	/// <returns>The bid for the object.</returns>
 	public float GetBid(object obj, object agent, bool isSelf) {
 		float moneyAvailable = this.moneyAvailable;
 		if (!isSelf) {
@@ -49,7 +51,7 @@ public abstract class AuctionAgent {
 	/// </summary>
 	/// <param name="interest">A value between 0 (not interested) and 1 (super interested).</param>
 	/// <param name="moneyAvailable">The money available.</param>
-	/// <returns>The bid for the object</returns>
+	/// <returns>The bid for the object.</returns>
 	public float GetBid(float interest, float moneyAvailable) {
 		float bid = moneyAvailable * interest;
 		bid += bid * ((float)rand.NextDouble() * variability * 2 - variability);
@@ -74,23 +76,21 @@ public abstract class AuctionAgent {
 	/// <param name="obj">The auction object.</param>
 	/// <param name="agent">The agent.</param>
 	/// <param name="others">The other contenders.</param>
-	/// <returns>The bid for the object</returns>
+	/// <returns>The bid for the object.</returns>
 	public float GetRefinedBid(object obj, object agent, object[] others) {
 		float interest = GetInterest(obj, agent, true);
-		float bid = GetBid(interest, moneyAvailable);
+		List<int> othersBids = new List<int>();
 		foreach (object other in others) {
 			float otherBid = GetBid(obj, other, false);
-			if (interest > veryInterestedThreshold && otherBid > bid) {
-				bid = otherBid * (interest + 0.5f);
-			} else if (interest < notInterestedThreshold && otherBid < bid) {
-				bid = otherBid * (interest + 0.5f);
-			}
+			othersBids.Add(otherBid);
 		}
-		if (bid > moneyAvailable) {
-			bid = moneyAvailable;
-		} else if (bid < 0) {
-			bid = 0;
+		othersBids = othersBids.OrderByDescending(i => i).ToList();
+		float maxInterest = othersBids[0] / moneyAvailable;
+		if(maxInterest < interest - safeMargin) {
+			interest = maxInterest;
+		} else if(interest > veryInterestedThreshold && maxInterest > interest) {
+			interest = maxInterest + safeMargin;
 		}
-		return bid;
+		return GetBid(interest, moneyAvailable);
 	}
 }
