@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 public abstract class AuctionAgent {
 	/// <summary>
@@ -79,16 +81,16 @@ public abstract class AuctionAgent {
 	/// <returns>The bid for the object.</returns>
 	public float GetRefinedBid(object obj, object agent, object[] others) {
 		float interest = GetInterest(obj, agent, true);
-		List<int> othersBids = new List<int>();
+		List<float> othersBids = new List<float>();
 		foreach (object other in others) {
 			float otherBid = GetBid(obj, other, false);
 			othersBids.Add(otherBid);
 		}
-		othersBids = othersBids.OrderByDescending(i => i).ToList();
+		othersBids = othersBids.OrderByDescending(f => f).ToList();
 		float maxInterest = othersBids[0] / moneyAvailable;
-		if(maxInterest < interest - safeMargin) {
+		if (maxInterest < interest - safeMargin) {
 			interest = maxInterest;
-		} else if(interest > veryInterestedThreshold && maxInterest > interest) {
+		} else if (interest > veryInterestedThreshold && maxInterest > interest) {
 			interest = maxInterest + safeMargin;
 		}
 		return GetBid(interest, moneyAvailable);
