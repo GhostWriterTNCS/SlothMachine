@@ -23,7 +23,6 @@ public class AuctionAgentRobot : AuctionAgent {
 
 	public float compatibilityRight = 0.95f;
 	public float compatibilityWrong = 0.15f;
-	public float compatibilityMixed = 0.5f;
 	public float compatibilityWeight = 1;
 
 	public float partUsed = 0.05f;
@@ -32,12 +31,10 @@ public class AuctionAgentRobot : AuctionAgent {
 
 	public float balanceRight = 0.8f;
 	public float balanceWrong = 0.2f;
-	public float balanceMixed = 0.5f;
 	public float balanceWeight = 1;
 
 	public float preferPermanent = 0.85f;
 	public float preferTemporary = 0.15f;
-	public float preferMixed = 0.5f;
 	public float preferWeight = 1;
 	public int preferPermanentThreshold = 3;
 	public int preferTemporaryThreshold = 6;
@@ -76,7 +73,7 @@ public class AuctionAgentRobot : AuctionAgent {
 		float level = upgradeBox.level * interestPerLevel;
 
 		// Evaluate the upgrade compatibility.
-		float compatibility = compatibilityMixed;
+		float compatibility = 0;
 		switch (robotModel.robotStyle) {
 			case RobotStyle.Arms:
 				switch (upgrade.type) {
@@ -85,6 +82,9 @@ public class AuctionAgentRobot : AuctionAgent {
 						break;
 					case UpgradeTypes.Feet:
 						compatibility = compatibilityWrong;
+						break;
+					default:
+						compatibilityWeight = 0;
 						break;
 				}
 				break;
@@ -96,12 +96,15 @@ public class AuctionAgentRobot : AuctionAgent {
 					case UpgradeTypes.Feet:
 						compatibility = compatibilityRight;
 						break;
+					default:
+						compatibilityWeight = 0;
+						break;
 				}
 				break;
 		}
 
 		// Check if the upgrade is useful for a balanced or specialized robot.
-		float balance = balanceMixed;
+		float balance = 0;
 		RobotStats[] strenghts = GetRobotStrenghts(robotModel);
 		UpgradesBalance upgradesBalance = player.upgradesBalance;
 		if (!isSelf) {
@@ -123,12 +126,13 @@ public class AuctionAgentRobot : AuctionAgent {
 				}
 				break;
 			case UpgradesBalance.mixed:
+				balanceWeight = 0;
 				break;
 			default:
 				throw new ArgumentException(player.upgradeAssigned.ToString() + " is not a valid value.");
 		}
 
-		float prefer = preferMixed;
+		float prefer = 0;
 		UpgradesPrefer upgradesPrefer = player.upgradesPrefer;
 		if (!isSelf) {
 			upgradesPrefer = DetectPrefer(player);
@@ -141,6 +145,7 @@ public class AuctionAgentRobot : AuctionAgent {
 				prefer = preferTemporary;
 				break;
 			case UpgradesPrefer.mixed:
+				preferWeight = 0;
 				break;
 			default:
 				throw new ArgumentException(upgradesPrefer.ToString() + " is not a valid value.");
