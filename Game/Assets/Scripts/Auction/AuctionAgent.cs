@@ -9,6 +9,7 @@ public abstract class AuctionAgent {
 	public float moneyAvailable;
 	/// <summary>
 	/// The result variability (between 0 and 1).
+	/// The variability will be multiplied by the money available, so 0 means no variability, 1 means an almost random bid.
 	/// </summary>
 	public float variability = 0.1f;
 	/// <summary>
@@ -54,9 +55,9 @@ public abstract class AuctionAgent {
 	/// <param name="interest">A value between 0 (not interested) and 1 (super interested).</param>
 	/// <param name="moneyAvailable">The money available.</param>
 	/// <returns>The bid for the object.</returns>
-	public float GetBid(float interest, float moneyAvailable) {
+	float GetBid(float interest, float moneyAvailable) {
 		float bid = moneyAvailable * interest;
-		bid += bid * ((float)rand.NextDouble() * variability * 2 - variability);
+		bid += moneyAvailable * ((float)rand.NextDouble() * variability * 2 - variability);
 		if (bid > moneyAvailable) {
 			bid = moneyAvailable;
 		} else if (bid < 0) {

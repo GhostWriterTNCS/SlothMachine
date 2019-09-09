@@ -21,17 +21,16 @@ public class AuctionAgentRobot : AuctionAgent {
 	public float interestPerLevel = 0.3f;
 	public float levelWeight = 1;
 
+	public float partUsed = 0.05f;
+	public float partUsedWeight = 1;
+
 	public float compatibilityRight = 0.95f;
 	public float compatibilityWrong = 0.15f;
 	public float compatibilityWeight = 1;
 
-	public float partUsed = 0.05f;
-	public float partNotUsed = 0.8f;
-	public float partUsedWeight = 1;
-
 	public float balanceRight = 0.8f;
 	public float balanceWrong = 0.2f;
-	public float balanceWeight = 1;
+	public float balanceWeight = 3;
 
 	public float preferPermanent = 0.85f;
 	public float preferTemporary = 0.15f;
@@ -58,15 +57,14 @@ public class AuctionAgentRobot : AuctionAgent {
 		}
 
 		// Check if the body part is already used.
-		float partIsUsed = partNotUsed;
 		Pair p = player.upgrades[(int)upgrade.type];
 		if (p) {
-			if (p.value1 < upgradeBox.level) {
-				partIsUsed = partUsed;
-			} else {
+			if (p.value1 > upgradeBox.level) {
 				// The robot already has a better upgrade for the same part.
 				return 0;
 			}
+		} else {
+			partUsedWeight = 0;
 		}
 
 		// Evaluate the upgrade level.
@@ -100,6 +98,9 @@ public class AuctionAgentRobot : AuctionAgent {
 						compatibilityWeight = 0;
 						break;
 				}
+				break;
+			default:
+				compatibilityWeight = 0;
 				break;
 		}
 
@@ -151,10 +152,10 @@ public class AuctionAgentRobot : AuctionAgent {
 				throw new ArgumentException(upgradesPrefer.ToString() + " is not a valid value.");
 		}
 
-		float result = (level * levelWeight + compatibility * compatibilityWeight + partIsUsed * partUsedWeight + balance * balanceWeight + prefer * preferWeight) /
+		float result = (level * levelWeight + compatibility * compatibilityWeight + partUsed * partUsedWeight + balance * balanceWeight + prefer * preferWeight) /
 			(levelWeight + compatibilityWeight + partUsedWeight + balanceWeight + preferWeight);
 		if (isSelf) {
-			Debug.Log(player.name + "'s bid: " + level + ", " + compatibility + ", " + partIsUsed + ", " + balance + ", " + prefer + " -> " + result);
+			Debug.Log(player.name + "'s bid: " + level * levelWeight + ", " + compatibility * compatibilityWeight + ", " + partUsed * partUsedWeight + ", " + balance * balanceWeight + ", " + prefer * preferWeight + " -> " + result);
 		}
 		return result;
 	}
@@ -164,7 +165,7 @@ public class AuctionAgentRobot : AuctionAgent {
 		if (!player.expectedMoney.ContainsKey(otherPlayer)) {
 			player.expectedMoney.Add(otherPlayer, Player.defaultScraps);
 		}
-		//Debug.Log(player.name + " expects " + (player.expectedMoney[otherPlayer] + otherPlayer.score / 30) + " for " + otherPlayer.name);
+		Debug.Log(player.name + " expects " + (player.expectedMoney[otherPlayer] + otherPlayer.score / 30) + " for " + otherPlayer.name);
 		return player.expectedMoney[otherPlayer] + otherPlayer.score / 30;
 	}
 
