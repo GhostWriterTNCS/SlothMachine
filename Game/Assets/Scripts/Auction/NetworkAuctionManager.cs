@@ -97,6 +97,11 @@ public class NetworkAuctionManager : NetworkBehaviour {
 		currentIntro = introDuration;
 		currentCountdown = countdownDuration;
 		currentPause = pauseDuration;
+		/*foreach (AuctionPlayer pb in FindObjectsOfType<AuctionPlayer>()) {
+			if (pb.player.isAgent) {
+				pb.CmdEvaluateUpgrades();
+			}
+		}*/
 		StartCoroutine(AuctionCoroutine());
 	}
 

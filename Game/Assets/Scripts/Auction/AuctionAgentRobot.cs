@@ -21,7 +21,7 @@ public class AuctionAgentRobot : AuctionAgent {
 	public float interestPerLevel = 0.3f;
 	public float levelWeight = 1;
 
-	public float partUsed = 0.05f;
+	public float partUsed = 0.1f;
 	public float partUsedWeight = 1;
 
 	public float compatibilityRight = 0.95f;
@@ -34,11 +34,12 @@ public class AuctionAgentRobot : AuctionAgent {
 
 	public float preferPermanent = 0.85f;
 	public float preferTemporary = 0.15f;
-	public float preferWeight = 1;
 	public int preferPermanentThreshold = 3;
 	public int preferTemporaryThreshold = 6;
+	public float preferWeight = 1;
 
 	Player player;
+	RobotModel robotModel;
 
 	public AuctionAgentRobot(Player player) : base() {
 		this.player = player;
@@ -49,22 +50,26 @@ public class AuctionAgentRobot : AuctionAgent {
 		Upgrade upgrade = Upgrades.permanent[upgradeBox.level][upgradeBox.ID];
 
 		Player player = (Player)agent;
-		GameObject model = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Robots/" + player.robotName + "/" + player.robotName));
-		model.SetActive(false);
-		RobotModel robotModel = model.GetComponent<RobotModel>();
-		if (player.upgradesBalance == UpgradesBalance.notSet) {
+		if (!robotModel) {
+			GameObject model = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Robots/" + player.robotName + "/" + player.robotName));
+			model.SetActive(false);
+			robotModel = model.GetComponent<RobotModel>();
+		}
+		if (player.upgradesBalance == UpgradesBalance.notSet || player.upgradesPrefer == UpgradesPrefer.notSet) {
 			player.CmdSetupAuctionAgent();
 		}
 
 		// Check if the body part is already used.
+		float partUsedWeight_ = partUsedWeight;
 		Pair p = player.upgrades[(int)upgrade.type];
 		if (p) {
-			if (p.value1 > upgradeBox.level) {
+			if (p.value1 >= upgradeBox.level) {
 				// The robot already has a better upgrade for the same part.
 				return 0;
 			}
 		} else {
-			partUsedWeight = 0;
+			// The body part is free.
+			partUsedWeight_ = 0;
 		}
 
 		// Evaluate the upgrade level.
@@ -72,6 +77,7 @@ public class AuctionAgentRobot : AuctionAgent {
 
 		// Evaluate the upgrade compatibility.
 		float compatibility = 0;
+		float compatibilityWeight_ = compatibilityWeight;
 		switch (robotModel.robotStyle) {
 			case RobotStyle.Arms:
 				switch (upgrade.type) {
@@ -82,7 +88,7 @@ public class AuctionAgentRobot : AuctionAgent {
 						compatibility = compatibilityWrong;
 						break;
 					default:
-						compatibilityWeight = 0;
+						compatibilityWeight_ = 0;
 						break;
 				}
 				break;
@@ -95,17 +101,18 @@ public class AuctionAgentRobot : AuctionAgent {
 						compatibility = compatibilityRight;
 						break;
 					default:
-						compatibilityWeight = 0;
+						compatibilityWeight_ = 0;
 						break;
 				}
 				break;
 			default:
-				compatibilityWeight = 0;
+				compatibilityWeight_ = 0;
 				break;
 		}
 
-		// Check if the upgrade is useful for a balanced or specialized robot.
+		// Evaluate the upgrade balance.
 		float balance = 0;
+		float balanceWeight_ = balanceWeight;
 		RobotStats[] strenghts = GetRobotStrenghts(robotModel);
 		UpgradesBalance upgradesBalance = player.upgradesBalance;
 		if (!isSelf) {
@@ -126,14 +133,14 @@ public class AuctionAgentRobot : AuctionAgent {
 					balance = balanceWrong;
 				}
 				break;
-			case UpgradesBalance.mixed:
-				balanceWeight = 0;
-				break;
 			default:
-				throw new ArgumentException(player.upgradeAssigned.ToString() + " is not a valid value.");
+				balanceWeight_ = 0;
+				break;
 		}
 
+		// Evaluate the upgrade preference.
 		float prefer = 0;
+		float preferWeight_ = preferWeight;
 		UpgradesPrefer upgradesPrefer = player.upgradesPrefer;
 		if (!isSelf) {
 			upgradesPrefer = DetectPrefer(player);
@@ -145,17 +152,15 @@ public class AuctionAgentRobot : AuctionAgent {
 			case UpgradesPrefer.temporary:
 				prefer = preferTemporary;
 				break;
-			case UpgradesPrefer.mixed:
-				preferWeight = 0;
-				break;
 			default:
-				throw new ArgumentException(upgradesPrefer.ToString() + " is not a valid value.");
+				preferWeight_ = 0;
+				break;
 		}
 
-		float result = (level * levelWeight + compatibility * compatibilityWeight + partUsed * partUsedWeight + balance * balanceWeight + prefer * preferWeight) /
-			(levelWeight + compatibilityWeight + partUsedWeight + balanceWeight + preferWeight);
+		float result = (level * levelWeight + compatibility * compatibilityWeight_ + partUsed * partUsedWeight_ + balance * balanceWeight_ + prefer * preferWeight_) /
+			(levelWeight + compatibilityWeight_ + partUsedWeight_ + balanceWeight_ + preferWeight_);
 		if (isSelf) {
-			Debug.Log(player.name + "'s bid: " + level * levelWeight + ", " + compatibility * compatibilityWeight + ", " + partUsed * partUsedWeight + ", " + balance * balanceWeight + ", " + prefer * preferWeight + " -> " + result);
+			Debug.Log(player.name + "'s bid: " + level * levelWeight + ", " + compatibility * compatibilityWeight_ + ", " + partUsed * partUsedWeight_ + ", " + balance * balanceWeight_ + ", " + prefer * preferWeight_ + " -> " + result);
 		}
 		return result;
 	}
@@ -165,8 +170,8 @@ public class AuctionAgentRobot : AuctionAgent {
 		if (!player.expectedMoney.ContainsKey(otherPlayer)) {
 			player.expectedMoney.Add(otherPlayer, Player.defaultScraps);
 		}
-		Debug.Log(player.name + " expects " + (player.expectedMoney[otherPlayer] + otherPlayer.score / 30) + " for " + otherPlayer.name);
-		return player.expectedMoney[otherPlayer] + otherPlayer.score / 30;
+		//Debug.Log(player.name + " expects " + (player.expectedMoney[otherPlayer] + otherPlayer.score / 26) + " for " + otherPlayer.name);
+		return player.expectedMoney[otherPlayer] + otherPlayer.score / 26;
 	}
 
 	RobotStats[] GetRobotStrenghts(RobotModel robotModel) {

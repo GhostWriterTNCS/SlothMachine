@@ -18,7 +18,6 @@ public class PlayerScraps : NetworkBehaviour {
 	[Range(0, 1)]
 	public float variability = 0.1f;
 
-	AuctionAgentRobot auctionAgent;
 	AuctionManager auctionManager;
 	UpgradeBox currentUpgrade;
 
@@ -46,16 +45,15 @@ public class PlayerScraps : NetworkBehaviour {
 			backgroundImage.gameObject.SetActive(true);
 			backgroundImage.color = TextManager.backgroundHighlightedColor;
 		}
-		auctionAgent = new AuctionAgentRobot(auctionPlayer.player);
 	}
 
 	[Command]
 	public void CmdCalculateAgentsBids() {
 		currentUpgrade = auctionManager.currentUpgrade;
-		auctionAgent.variability = variability;
-		auctionAgent.moneyAvailable = auctionPlayer.player.scraps;
-		auctionAgent.balanceWeight = 2;
-		auctionAgent.preferWeight = 2;
+		auctionPlayer.auctionAgent.variability = variability;
+		auctionPlayer.auctionAgent.moneyAvailable = auctionPlayer.player.scraps;
+		auctionPlayer.auctionAgent.balanceWeight = 2;
+		auctionPlayer.auctionAgent.preferWeight = 2;
 
 		List<Player> players = new List<Player>();
 		foreach (Player p in FindObjectsOfType<Player>()) {
@@ -63,7 +61,28 @@ public class PlayerScraps : NetworkBehaviour {
 				players.Add(p);
 			}
 		}
-		auctionPlayer.bid = (short)auctionAgent.GetRefinedBid(currentUpgrade, auctionPlayer.player, players.ToArray());
+
+		float bid = auctionPlayer.auctionAgent.GetRefinedBid(currentUpgrade, auctionPlayer.player, players.ToArray());
+		if (auctionPlayer.upgradeInterests.Count == 0) {
+			auctionPlayer.CmdEvaluateUpgrades();
+		}
+		if (auctionPlayer.upgradeInterests[0].upgradeBox == currentUpgrade) {
+			if (auctionPlayer.upgradeInterests.Count > 3) {
+				bid *= 1.3f;
+			} else if (auctionPlayer.upgradeInterests.Count > 2) {
+				bid *= 1.2f;
+			} else {
+				bid *= 1.1f;
+			}
+		} else if (auctionPlayer.upgradeInterests.Count > 3 && auctionPlayer.upgradeInterests[3].upgradeBox == currentUpgrade) {
+			bid *= 0.5f;
+		} else if (auctionPlayer.upgradeInterests.Count > 2 && auctionPlayer.upgradeInterests[2].upgradeBox == currentUpgrade) {
+			bid *= 0.8f;
+		}
+		if (bid > auctionPlayer.player.scraps) {
+			bid = auctionPlayer.player.scraps;
+		}
+		auctionPlayer.bid = (short)bid;
 		auctionPlayer.bidRegistered = true;
 	}
 

@@ -13,15 +13,20 @@ public abstract class AuctionAgent {
 	/// </summary>
 	public float variability = 0.1f;
 	/// <summary>
-	/// When the agent is willing to increase its bid if someone else has a higher expected bid (between 0.5 and 1).
+	/// This threshold is used to determine when the agent is willing to increase its bid if someone else has a higher expected bid.
 	/// </summary>
 	public float veryInterestedThreshold = 0.7f;
 	/// <summary>
-	/// The minimum amount of interest between its interest and the highest expected interest for the opponents.
+	/// The minimum amount of interest between the agent interest and the highest expected interest for the opponents.
 	/// The value must be between 0 (no margin) and 1 (always bid all the money).
 	/// To be effective, it should be bigger than variability.
 	/// </summary>
 	public float safeMargin = 0.2f;
+	/// <summary>
+	/// How confident is the agent about the expected bids of the opponents.
+	/// The value must be between 0 (not confident) and 1 (very confident).
+	/// </summary>
+	public float confidence = 0.5f;
 
 	static Random rand = new Random();
 
@@ -31,12 +36,12 @@ public abstract class AuctionAgent {
 	/// <param name="obj">The auction object.</param>
 	/// <param name="agent">The agent.</param>
 	/// <param name="isSelf">When false, the agent tries to guess the opponent's values.</param>
-	/// <returns>A value between 0 (not interested) and 1 (super interested).</returns>
+	/// <returns>A value between 0 (not interested) and 1 (very interested).</returns>
 	public abstract float GetInterest(object obj, object agent, bool isSelf);
 
 	/// <summary>
 	/// Returns the bid for the object.
-	/// The method uses GetInterest(object) and the variability.
+	/// The method uses GetInterest(object, agent, isSelf) and the variability.
 	/// </summary>
 	/// <param name="obj">The auction object.</param>
 	/// <param name="agent">The agent.</param>
@@ -54,7 +59,7 @@ public abstract class AuctionAgent {
 	/// </summary>
 	/// <param name="interest">A value between 0 (not interested) and 1 (super interested).</param>
 	/// <param name="moneyAvailable">The money available.</param>
-	/// <returns>The bid for the object.</returns>
+	/// <returns>The bid proportional to the interest.</returns>
 	float GetBid(float interest, float moneyAvailable) {
 		float bid = moneyAvailable * interest;
 		bid += moneyAvailable * ((float)rand.NextDouble() * variability * 2 - variability);
@@ -87,11 +92,16 @@ public abstract class AuctionAgent {
 			float otherBid = GetBid(obj, other, false);
 			othersBids.Add(otherBid);
 		}
+		UnityEngine.Debug.Log(((Player)agent).name + " expects: " + string.Join(", ", othersBids));
 		othersBids = othersBids.OrderByDescending(f => f).ToList();
 		float maxInterest = othersBids[0] / moneyAvailable;
 		if (maxInterest < interest - safeMargin) {
-			interest = maxInterest;
+			// It is safe to reduce the bid.
+			if (rand.NextDouble() < confidence) {
+				interest = maxInterest;
+			}
 		} else if (interest > veryInterestedThreshold && maxInterest > interest) {
+			// The agent should increase the bid.
 			interest = maxInterest + safeMargin;
 		}
 		return GetBid(interest, moneyAvailable);

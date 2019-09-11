@@ -1,7 +1,21 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+
+public struct UpgradeInterest {
+	public UpgradeBox upgradeBox;
+	public float interest;
+
+	public UpgradeInterest(UpgradeBox upgradeBox, float interest) {
+		this.upgradeBox = upgradeBox;
+		this.interest = interest;
+	}
+
+
+}
 
 public class AuctionPlayer : NetworkBehaviour {
 	[SyncVar]
@@ -22,8 +36,13 @@ public class AuctionPlayer : NetworkBehaviour {
 	[SyncVar]
 	public short bid;
 
+	AuctionManager auctionManager;
+	public AuctionAgentRobot auctionAgent;
+	public List<UpgradeInterest> upgradeInterests = new List<UpgradeInterest>();
+
 	void Start() {
 		backgroundImage.gameObject.SetActive(false);
+		auctionManager = FindObjectOfType<AuctionManager>();
 		StartCoroutine(LoadPlayer());
 	}
 
@@ -71,6 +90,8 @@ public class AuctionPlayer : NetworkBehaviour {
 				backgroundImage.color = TextManager.backgroundHighlightedColor;
 			}
 		}
+		auctionAgent = new AuctionAgentRobot(player);
+		CmdEvaluateUpgrades();
 	}
 
 	[Command]
@@ -89,5 +110,14 @@ public class AuctionPlayer : NetworkBehaviour {
 		upgrades[index].sprite = Resources.Load<Sprite>("UI/Upgrades/Permanent/" + player.upgrades[index].value1 + "_" + player.upgrades[index].value2);
 		//upgrades[index].enabled = true;
 		upgrades[index].color = Color.white;
+	}
+
+	[Command]
+	public void CmdEvaluateUpgrades() {
+		upgradeInterests.Clear();
+		foreach (UpgradeBox u in FindObjectOfType<NetworkAuctionManager>().upgrades) {
+			upgradeInterests.Add(new UpgradeInterest(u, auctionAgent.GetInterest(u, player, true)));
+		}
+		upgradeInterests = upgradeInterests.OrderByDescending(f => f.interest).ToList();
 	}
 }
