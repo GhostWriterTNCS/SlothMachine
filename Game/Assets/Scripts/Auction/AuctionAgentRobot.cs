@@ -55,7 +55,7 @@ public class AuctionAgentRobot : AuctionAgent {
 			model.SetActive(false);
 			robotModel = model.GetComponent<RobotModel>();
 		}
-		if (player.upgradesBalance == UpgradesBalance.notSet || player.upgradesPrefer == UpgradesPrefer.notSet) {
+		if (isSelf && (player.upgradesBalance == UpgradesBalance.notSet || player.upgradesPrefer == UpgradesPrefer.notSet)) {
 			player.CmdSetupAuctionAgent();
 		}
 
@@ -160,7 +160,7 @@ public class AuctionAgentRobot : AuctionAgent {
 		float result = (level * levelWeight + compatibility * compatibilityWeight_ + partUsed * partUsedWeight_ + balance * balanceWeight_ + prefer * preferWeight_) /
 			(levelWeight + compatibilityWeight_ + partUsedWeight_ + balanceWeight_ + preferWeight_);
 		if (isSelf) {
-			Debug.Log(player.name + "'s bid: " + level * levelWeight + ", " + compatibility * compatibilityWeight_ + ", " + partUsed * partUsedWeight_ + ", " + balance * balanceWeight_ + ", " + prefer * preferWeight_ + " -> " + result);
+			Debug.Log(player.name + "'s bid for " + upgrade.name + ": " + level * levelWeight + ", " + compatibility * compatibilityWeight_ + ", " + partUsed * partUsedWeight_ + ", " + balance * balanceWeight_ + ", " + prefer * preferWeight_ + " -> " + result);
 		}
 		return result;
 	}
@@ -208,9 +208,9 @@ public class AuctionAgentRobot : AuctionAgent {
 				}
 			}
 		}
-		if (balanced == 0) {
+		if (balanced == 0 && specialized > 1) {
 			return UpgradesBalance.specialized;
-		} else if (specialized == 0) {
+		} else if (specialized == 0 && balanced > 1) {
 			return UpgradesBalance.balanced;
 		} else {
 			return UpgradesBalance.mixed;
