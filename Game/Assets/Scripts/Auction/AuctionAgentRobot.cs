@@ -28,9 +28,9 @@ public class AuctionAgentRobot : AuctionAgent {
 	public float compatibilityWrong = 0.15f;
 	public float compatibilityWeight = 1;
 
-	public float balanceRight = 0.8f;
+	/*public float balanceRight = 0.8f;
 	public float balanceWrong = 0.2f;
-	public float balanceWeight = 3;
+	public float balanceWeight = 3;*/
 
 	public float preferPermanent = 0.85f;
 	public float preferTemporary = 0.15f;
@@ -38,8 +38,14 @@ public class AuctionAgentRobot : AuctionAgent {
 	public int preferTemporaryThreshold = 6;
 	public float preferWeight = 1;
 
+	public float favoriteThreshold = 0.6f;
+	public float notFavoriteThreshold = 0.4f;
+	public float favoriteIncrease = 1.33f;
+	public float favoriteDecrease = 0.75f;
+	public float favoriteUpgradeBought = 0.25f;
+	public float favoriteWeight = 1;
+
 	Player player;
-	RobotModel robotModel;
 
 	public AuctionAgentRobot(Player player) : base() {
 		this.player = player;
@@ -50,12 +56,11 @@ public class AuctionAgentRobot : AuctionAgent {
 		Upgrade upgrade = Upgrades.permanent[upgradeBox.level][upgradeBox.ID];
 
 		Player player = (Player)agent;
-		if (!robotModel) {
-			GameObject model = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Robots/" + player.robotName + "/" + player.robotName));
-			model.SetActive(false);
-			robotModel = model.GetComponent<RobotModel>();
-		}
-		if (isSelf && (player.upgradesBalance == UpgradesBalance.notSet || player.upgradesPrefer == UpgradesPrefer.notSet)) {
+		GameObject model = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Robots/" + player.robotName + "/" + player.robotName));
+		model.SetActive(false);
+		RobotModel robotModel = model.GetComponent<RobotModel>();
+
+		if (isSelf && (/*player.upgradesBalance == UpgradesBalance.notSet ||*/ player.upgradesPrefer == UpgradesPrefer.notSet)) {
 			player.CmdSetupAuctionAgent();
 		}
 
@@ -111,7 +116,7 @@ public class AuctionAgentRobot : AuctionAgent {
 		}
 
 		// Evaluate the upgrade balance.
-		float balance = 0;
+		/*float balance = 0;
 		float balanceWeight_ = balanceWeight;
 		RobotStats[] strenghts = GetRobotStrenghts(robotModel);
 		UpgradesBalance upgradesBalance = player.upgradesBalance;
@@ -136,7 +141,7 @@ public class AuctionAgentRobot : AuctionAgent {
 			default:
 				balanceWeight_ = 0;
 				break;
-		}
+		}*/
 
 		// Evaluate the upgrade preference.
 		float prefer = 0;
@@ -157,10 +162,22 @@ public class AuctionAgentRobot : AuctionAgent {
 				break;
 		}
 
-		float result = (level * levelWeight + compatibility * compatibilityWeight_ + partUsed * partUsedWeight_ + balance * balanceWeight_ + prefer * preferWeight_) /
-			(levelWeight + compatibilityWeight_ + partUsedWeight_ + balanceWeight_ + preferWeight_);
+		// Evaluate the favorite stats.
+		float favorite = 0;
 		if (isSelf) {
-			Debug.Log(player.name + "'s bid for " + upgrade.name + ": " + level * levelWeight + ", " + compatibility * compatibilityWeight_ + ", " + partUsed * partUsedWeight_ + ", " + balance * balanceWeight_ + ", " + prefer * preferWeight_ + " -> " + result);
+			Debug.Log(string.Join(",", player.favorites));
+			favorite = player.favorites[(int)upgrade.robotStats - 1];
+		} else {
+			if (!this.player.expectedFavorites.ContainsKey(player)) {
+				this.player.expectedFavorites.Add(player, new float[] { 0.5f, 0.5f, 0.5f, 0.5f });
+			}
+			favorite = this.player.expectedFavorites[player][(int)upgrade.robotStats - 1];
+		}
+
+		float result = (level * levelWeight + compatibility * compatibilityWeight_ + partUsed * partUsedWeight_ + prefer * preferWeight_ + favorite * favoriteWeight) /
+			(levelWeight + compatibilityWeight_ + partUsedWeight_ + preferWeight_ + favoriteWeight);
+		if (isSelf) {
+			Debug.Log(player.name + "'s bid for " + upgrade.name + ": " + level * levelWeight + ", " + compatibility * compatibilityWeight_ + ", " + partUsed * partUsedWeight_ + ", " + prefer * preferWeight_ + ", " + favorite * favoriteWeight + " -> " + result);
 		}
 		return result;
 	}
@@ -227,5 +244,71 @@ public class AuctionAgentRobot : AuctionAgent {
 			return UpgradesPrefer.temporary;
 		}
 		return UpgradesPrefer.mixed;
+	}
+
+	public void EvaluateBid(Player otherPlayer, UpgradeBox upgradeBox, int bid) {
+		float interest = bid / GetExpectedMoney(otherPlayer);
+		Upgrade upgrade = Upgrades.permanent[upgradeBox.level][upgradeBox.ID];
+		GameObject model = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Robots/" + otherPlayer.robotName + "/" + otherPlayer.robotName));
+		model.SetActive(false);
+		RobotModel robotModel = model.GetComponent<RobotModel>();
+
+		if (!player.expectedFavorites.ContainsKey(otherPlayer)) {
+			player.expectedFavorites.Add(otherPlayer, new float[] { 0.5f, 0.5f, 0.5f, 0.5f });
+		}
+
+		float favorite = interest;
+
+		Pair p = otherPlayer.upgrades[(int)upgrade.type];
+		if (p) {
+			if (p.value1 < upgradeBox.level) {
+				// The robot already has an upgrade for the same part.
+				favorite /= partUsed;
+			}
+		}
+
+		favorite /= interestPerLevel;
+
+		switch (robotModel.robotStyle) {
+			case RobotStyle.Arms:
+				switch (upgrade.type) {
+					case UpgradeTypes.Hands:
+						favorite /= compatibilityRight;
+						break;
+					case UpgradeTypes.Feet:
+						favorite /= compatibilityWrong;
+						break;
+				}
+				break;
+			case RobotStyle.Legs:
+				switch (upgrade.type) {
+					case UpgradeTypes.Hands:
+						favorite /= compatibilityWrong;
+						break;
+					case UpgradeTypes.Feet:
+						favorite /= compatibilityRight;
+						break;
+				}
+				break;
+		}
+
+		UpgradesPrefer upgradesPrefer = DetectPrefer(otherPlayer);
+		switch (upgradesPrefer) {
+			case UpgradesPrefer.permanent:
+				favorite /= preferPermanent;
+				break;
+			case UpgradesPrefer.temporary:
+				favorite /= preferTemporary;
+				break;
+		}
+
+		if (favorite > favoriteThreshold) {
+			favorite = favoriteIncrease;
+		} else if (favorite < notFavoriteThreshold) {
+			favorite = favoriteDecrease;
+		} else {
+			return;
+		}
+		player.expectedFavorites[otherPlayer][(int)upgrade.robotStats - 1] *= favorite;
 	}
 }

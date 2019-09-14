@@ -24,6 +24,7 @@ public class Player : NetworkBehaviour {
 
 	public UpgradesBalance upgradesBalance;
 	public UpgradesPrefer upgradesPrefer;
+	public float[] favorites;
 
 	public GameObject auctionPrefab;
 	public GameObject auctionPlayerScraps;
@@ -39,6 +40,8 @@ public class Player : NetworkBehaviour {
 
 	public Dictionary<Player, int> expectedMoney = new Dictionary<Player, int>();
 	public Dictionary<Player, int> temporaryUpgradesCount = new Dictionary<Player, int>();
+	public Dictionary<Player, float[]> expectedFavorites = new Dictionary<Player, float[]>();
+	//public Dictionary<UpgradeBox, float> previousInterests = new Dictionary<UpgradeBox, float>();
 
 	public readonly static short defaultScraps = 100;
 
@@ -55,6 +58,7 @@ public class Player : NetworkBehaviour {
 		scraps = defaultScraps;
 		roundWinner = 0;
 		deathCount = 0;
+		favorites = new float[] { 0.5f, 0.5f, 0.5f, 0.5f };
 		CmdRespawn(gameObject);
 	}
 
@@ -141,9 +145,9 @@ public class Player : NetworkBehaviour {
 
 	[Command]
 	public void CmdSetupAuctionAgent() {
-		if (upgradesBalance == UpgradesBalance.notSet) {
+		/*if (upgradesBalance == UpgradesBalance.notSet) {
 			upgradesBalance = (UpgradesBalance)Random.Range(1, System.Enum.GetValues(typeof(UpgradesBalance)).Length);
-		}
+		}*/
 		if (upgradesPrefer == UpgradesPrefer.notSet) {
 			upgradesPrefer = (UpgradesPrefer)Random.Range(1, System.Enum.GetValues(typeof(UpgradesPrefer)).Length);
 		}

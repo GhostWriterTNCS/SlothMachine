@@ -52,8 +52,8 @@ public class PlayerScraps : NetworkBehaviour {
 		currentUpgrade = auctionManager.currentUpgrade;
 		auctionPlayer.auctionAgent.variability = variability;
 		auctionPlayer.auctionAgent.moneyAvailable = auctionPlayer.player.scraps;
-		auctionPlayer.auctionAgent.balanceWeight = 2;
-		auctionPlayer.auctionAgent.preferWeight = 2;
+		//auctionPlayer.auctionAgent.favoriteWeight = 2;
+		//auctionPlayer.auctionAgent.preferWeight = 2;
 
 		List<Player> players = new List<Player>();
 		foreach (Player p in FindObjectsOfType<Player>()) {
