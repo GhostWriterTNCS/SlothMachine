@@ -80,9 +80,9 @@ MonoBehaviour:
   upgradeBoxPrefab: {fileID: 4656, guid: b07bafa09e6c78c4b94026a8ddbf078f, type: 3}
   upgradeBoxWithDescPrefab: {fileID: 6897922031240775810, guid: 89ac1ff807569514896c01843adc6a84,
     type: 3}
-  introDuration: 1
+  introDuration: 6
   introText: Get ready for the auction!
-  countdownDuration: 1
+  countdownDuration: 9
   countdownText: 'Make your bid! Time ends in #...'
   pauseDuration: 5
   pauseText: 'The winner is #!'

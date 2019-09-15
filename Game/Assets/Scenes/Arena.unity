@@ -3092,7 +3092,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   countdown: {fileID: 215163410}
-  roundDuration: 1
+  roundDuration: 180
   leaderboard: {fileID: 614141200}
   upgradeWheel: {fileID: 2016328454}
   arenaBoxPrefab: {fileID: 8461475249229986270, guid: cb8aaea42a98ce245acf6a94fefbba5b,

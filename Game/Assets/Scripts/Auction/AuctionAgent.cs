@@ -98,9 +98,9 @@ public abstract class AuctionAgent {
 		if (maxInterest < interest - safeMargin) {
 			// It is safe to reduce the bid.
 			if (rand.NextDouble() < confidence) {
-				interest = maxInterest;
+				interest = maxInterest + safeMargin;
 			}
-		} else if (interest > veryInterestedThreshold && maxInterest > interest) {
+		} else if (interest > veryInterestedThreshold && maxInterest > interest - safeMargin) {
 			// The agent should increase the bid.
 			interest = maxInterest + safeMargin;
 		}
